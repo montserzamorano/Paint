@@ -18,8 +18,8 @@ import java.awt.geom.Point2D;
 public class Linea extends FiguraLineal{
     private Line2D linea;
     
-    public Linea(Point2D puntoOrigen, Point2D puntoFinal, Color trazo, Stroke stroke, boolean alisado){
-        super(puntoOrigen, puntoFinal, trazo,stroke, alisado);
+    public Linea(Point2D puntoOrigen, Point2D puntoFinal, Color trazo, Stroke stroke, float transparencia, boolean alisado){
+        super(puntoOrigen, puntoFinal, trazo,stroke, transparencia, alisado);
         linea = new Line2D.Float(puntoOrigen, puntoFinal);
     }
     

@@ -12,6 +12,7 @@ import graficos.Figura;
 import graficos.Forma;
 import graficos.Linea;
 import graficos.Rectangulo;
+import graficos.TipoRelleno;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -25,25 +26,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ *
  * @author Montserrat Rodríguez Zamorano
- * @version 1.0 14/06/2019
+ * @version 14.06.2019
  */
 public class Lienzo extends javax.swing.JPanel {
  
     private List <Figura> vFiguras = new ArrayList();
     //atributos del lienzo
+    //trazo
     private Color colorTrazo = Color.BLACK;
     private Stroke stroke = new BasicStroke(1);
+    //transparencia
     private boolean transparenciaActivated = false;
     private float transparencia = 1.0f;
+    //relleno
     private boolean rellenoActivated = false;
     private Color colorRelleno = null;
+    private TipoRelleno tipoRelleno= null;
+    //forma
     private Forma formaActiva;
+    //alisado
     private boolean alisadoActivated = false;
-    private Figura f;
     
     private Point2D pF = new Point(-1000, -1000);
     private Point2D pI = new Point(-1000, -1000);
+    
+    Figura fActiva;
     
     /**
      * Creates new form Lienzo
@@ -108,6 +117,10 @@ public class Lienzo extends javax.swing.JPanel {
         this.rellenoActivated = rellenoActivated;
     }
     
+    public void setRelleno(Color color){
+        colorRelleno = color;
+    }
+    
     public Stroke getStroke(){
         return stroke;
     }
@@ -124,29 +137,35 @@ public class Lienzo extends javax.swing.JPanel {
         this.alisadoActivated = alisadoActivated;
     }
     
+    public void setTipoRelleno(TipoRelleno tp){
+        tipoRelleno = tp;
+    }
+    
+    public TipoRelleno getTipoRelleno(){return tipoRelleno;}
+    
     private Figura createFigura(Point2D p1, Point2D p2){
         switch(formaActiva){
             case LINEA:
-                f = new Linea(p1,p2,colorTrazo, stroke, alisadoActivated);
+                fActiva = new Linea(p1,p2,colorTrazo, stroke, transparencia, alisadoActivated);
                 break;
             case RECTANGULO:
-                f = new Rectangulo(p1, p2, colorTrazo, stroke, colorRelleno, transparencia, alisadoActivated);
+                fActiva = new Rectangulo(p1, p2, colorTrazo, stroke, colorRelleno, tipoRelleno, transparencia, alisadoActivated);
                 break;
             case OVALO:
-                f = new Elipse(p1, p2, colorTrazo, stroke, colorRelleno, transparencia, alisadoActivated);
+                fActiva = new Elipse(p1, p2, colorTrazo, stroke, colorRelleno, tipoRelleno, transparencia, alisadoActivated);
                 break;
             default:
                 break;
         }
-        return f;
+        return fActiva;
     }
     
-    private void updateShape(){
-        f.updateShape(pI, pF);
-    }
     
     public List <Figura> getListaFiguras(){return vFiguras;}
     
+    private void updateShape(){
+        fActiva.updateShape(pI, pF);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

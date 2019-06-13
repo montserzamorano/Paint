@@ -30,35 +30,35 @@ public class VentanaInterna extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lienzoImagen1 = new iu.LienzoImagen();
+        lienzo = new iu.LienzoImagen();
 
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
 
-        javax.swing.GroupLayout lienzoImagen1Layout = new javax.swing.GroupLayout(lienzoImagen1);
-        lienzoImagen1.setLayout(lienzoImagen1Layout);
-        lienzoImagen1Layout.setHorizontalGroup(
-            lienzoImagen1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout lienzoLayout = new javax.swing.GroupLayout(lienzo);
+        lienzo.setLayout(lienzoLayout);
+        lienzoLayout.setHorizontalGroup(
+            lienzoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 588, Short.MAX_VALUE)
         );
-        lienzoImagen1Layout.setVerticalGroup(
-            lienzoImagen1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        lienzoLayout.setVerticalGroup(
+            lienzoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 493, Short.MAX_VALUE)
         );
 
-        getContentPane().add(lienzoImagen1, java.awt.BorderLayout.CENTER);
+        getContentPane().add(lienzo, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private iu.LienzoImagen lienzoImagen1;
+    private iu.LienzoImagen lienzo;
     // End of variables declaration//GEN-END:variables
 
     public LienzoImagen getLienzo() {
-        return lienzoImagen1;
+        return lienzo;
     }
 }

@@ -16,7 +16,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="nuevoMenuItem">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="/Users/PC/Documents/GitHub/Sistemas-Multimedia/Paint/iconos/nuevo.png"/>
+                  <Image iconType="2" name="/Users/montse/Documents/GitHub/Paint/Paint/iconos/nuevo.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Nuevo"/>
               </Properties>
@@ -27,7 +27,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="abrirMenuItem">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="/Users/PC/Documents/GitHub/Sistemas-Multimedia/Paint/iconos/abrir.png"/>
+                  <Image iconType="2" name="/Users/montse/Documents/GitHub/Paint/Paint/iconos/abrir.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Abrir"/>
               </Properties>
@@ -38,7 +38,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="guardarMenuItem">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="/Users/PC/Documents/GitHub/Sistemas-Multimedia/Paint/iconos/guardar.png"/>
+                  <Image iconType="2" name="/Users/montse/Documents/GitHub/Paint/Paint/iconos/guardar.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Guardar"/>
               </Properties>
@@ -121,7 +121,7 @@
               <ComponentRef name="formasBG"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="/Users/PC/Documents/GitHub/Sistemas-Multimedia/Paint/iconos/linea.png"/>
+              <Image iconType="2" name="/Users/montse/Documents/GitHub/Paint/Paint/iconos/linea.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="L&#xed;nea"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -138,7 +138,7 @@
               <ComponentRef name="formasBG"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="/Users/PC/Documents/GitHub/Sistemas-Multimedia/Paint/iconos/rectangulo.png"/>
+              <Image iconType="2" name="/Users/montse/Documents/GitHub/Paint/Paint/iconos/rectangulo.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Rect&#xe1;ngulo"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -155,7 +155,7 @@
               <ComponentRef name="formasBG"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="/Users/PC/Documents/GitHub/Sistemas-Multimedia/Paint/iconos/elipse.png"/>
+              <Image iconType="2" name="/Users/montse/Documents/GitHub/Paint/Paint/iconos/elipse.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Elipse"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -195,7 +195,7 @@
         <Component class="javax.swing.JToggleButton" name="rellenarBoton">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="/Users/PC/Documents/GitHub/Sistemas-Multimedia/Paint/iconos/rellenar.png"/>
+              <Image iconType="2" name="/Users/montse/Documents/GitHub/Paint/Paint/iconos/rellenar.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Relleno"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -205,6 +205,28 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rellenarBotonActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="tipoDegradadoCB">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="0"/>
+            </Property>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[100, 32767]"/>
+            </Property>
+            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[100, 27]"/>
+            </Property>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[100, 27]"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tipoDegradadoCBActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;TipoRelleno&gt;"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JComboBox" name="colorRellenoCB">
           <Properties>
@@ -233,7 +255,7 @@
         <Component class="javax.swing.JToggleButton" name="transparenciaBoton">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="/Users/PC/Documents/GitHub/Sistemas-Multimedia/Paint/iconos/transparencia.png"/>
+              <Image iconType="2" name="/Users/montse/Documents/GitHub/Paint/Paint/iconos/transparencia.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Transparencia"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -267,7 +289,7 @@
         <Component class="javax.swing.JToggleButton" name="alisarBoton">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="/Users/PC/Documents/GitHub/Sistemas-Multimedia/Paint/iconos/alisar.png"/>
+              <Image iconType="2" name="/Users/montse/Documents/GitHub/Paint/Paint/iconos/alisar.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Alisado"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -300,6 +322,25 @@
             <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="grosorSpinnerStateChanged"/>
           </Events>
         </Component>
+        <Component class="javax.swing.JComboBox" name="tipoLineaCB">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="0"/>
+            </Property>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[100, 32767]"/>
+            </Property>
+            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[100, 27]"/>
+            </Property>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[100, 27]"/>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;TipoLinea&gt;"/>
+          </AuxValues>
+        </Component>
         <Component class="javax.swing.JToolBar$Separator" name="jSeparator3">
         </Component>
         <Component class="javax.swing.JToggleButton" name="recordSonidoBoton">
@@ -308,7 +349,7 @@
               <ComponentRef name="sonidoBG"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="/Users/PC/Documents/GitHub/Sistemas-Multimedia/Paint/iconos/record24x24.png"/>
+              <Image iconType="2" name="/Users/montse/Documents/GitHub/Paint/Paint/iconos/record24x24.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Iniciar grabaci&#xf3;n"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -325,7 +366,7 @@
               <ComponentRef name="sonidoBG"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="/Users/PC/Documents/GitHub/Sistemas-Multimedia/Paint/iconos/pausa24x24.png"/>
+              <Image iconType="2" name="/Users/montse/Documents/GitHub/Paint/Paint/iconos/pausa24x24.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Pausar grabaci&#xf3;n"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -342,7 +383,7 @@
               <ComponentRef name="sonidoBG"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="/Users/PC/Documents/GitHub/Sistemas-Multimedia/Paint/iconos/stopRecord24x24.png"/>
+              <Image iconType="2" name="/Users/montse/Documents/GitHub/Paint/Paint/iconos/stopRecord24x24.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Finalizar grabaci&#xf3;n"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -378,7 +419,7 @@
               <ComponentRef name="sonidoBG"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="/Users/PC/Documents/GitHub/Sistemas-Multimedia/Paint/iconos/play24x24.png"/>
+              <Image iconType="2" name="/Users/montse/Documents/GitHub/Paint/Paint/iconos/play24x24.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Play"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -395,7 +436,7 @@
               <ComponentRef name="sonidoBG"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="/Users/PC/Documents/GitHub/Sistemas-Multimedia/Paint/iconos/pausa24x24.png"/>
+              <Image iconType="2" name="/Users/montse/Documents/GitHub/Paint/Paint/iconos/pausa24x24.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Pausa"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -412,7 +453,7 @@
               <ComponentRef name="sonidoBG"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="/Users/PC/Documents/GitHub/Sistemas-Multimedia/Paint/iconos/stop24x24.png"/>
+              <Image iconType="2" name="/Users/montse/Documents/GitHub/Paint/Paint/iconos/stop24x24.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Stop"/>
             <Property name="focusable" type="boolean" value="false"/>

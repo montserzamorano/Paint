@@ -11,8 +11,8 @@ import java.awt.Stroke;
 import java.awt.geom.Point2D;
 
 public abstract class FiguraLineal extends Figura{
-    public FiguraLineal(Point2D puntoOrigen, Point2D puntoFinal, Color trazo, Stroke stroke, boolean alisado){
-        super(puntoOrigen, puntoFinal, trazo,stroke, alisado);
+    public FiguraLineal(Point2D puntoOrigen, Point2D puntoFinal, Color trazo, Stroke stroke, float transparencia, boolean alisado){
+        super(puntoOrigen, puntoFinal, trazo,stroke, transparencia, alisado);
     }
     
     

@@ -12,20 +12,27 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.RenderingHints;
+import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.geom.Point2D;
 
 public abstract class FiguraRellenable extends Figura{
     private Color colorRelleno = null;
-    private float transparencia = 1.0f;
+    private TipoRelleno tipoRelleno = null;
     
     public FiguraRellenable(Point2D puntoOrigen, Point2D puntoFinal,
                             Color trazo, Stroke stroke, 
-                            Color colorRelleno, float transparencia, boolean alisado){
-        super(puntoOrigen, puntoFinal, trazo,stroke,alisado);
-        this.transparencia = transparencia;
+                            Color colorRelleno, TipoRelleno tr, float transparencia, boolean alisado){
+        super(puntoOrigen, puntoFinal, trazo,stroke,transparencia,alisado);
         this.colorRelleno = colorRelleno;
+        tipoRelleno = tr;
     }
+    
+    public void setTipoRelleno(TipoRelleno tipoRelleno){
+        this.tipoRelleno = tipoRelleno;
+    }
+    
+    public TipoRelleno getTipoRelleno(){return tipoRelleno;}
     
     /**
     * Setter.
@@ -37,17 +44,13 @@ public abstract class FiguraRellenable extends Figura{
     * @return color color de relleno de la figura
     */
     public Color getColorRelleno(){return colorRelleno;}
-    /**
-    * Setter.
-    * @param transparencia color de relleno de la figura
-    */
-    public void setTransparencia(float transparencia){
-        this.transparencia=transparencia;
+    @Override
+    public void paint(Graphics2D g){
+        super.paint(g);
+        Graphics2D g2d = (Graphics2D) g;
+        //transparencia
+        Composite comp;
+        comp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, getTransparencia());
+        g2d.setComposite(comp);
     }
-    /**
-    * Getter.
-    * @return transparencia grado de transparencia del relleno
-    */
-    public float getTransparencia(){return transparencia;}
-    
 }

@@ -8,8 +8,11 @@ package graficos;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Composite;
+import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Paint;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Stroke;
@@ -26,8 +29,8 @@ public class Rectangulo extends FiguraRellenable{
     * @param relleno
     */
     public Rectangulo(Point2D pO, Point2D pF, Color trazo, Stroke stroke, 
-            Color relleno, float transparencia, boolean alisado){
-        super(pO, pF,trazo,stroke, relleno, transparencia, alisado);
+            Color relleno, TipoRelleno tr, float transparencia, boolean alisado){
+        super(pO, pF,trazo,stroke, relleno, tr, transparencia, alisado);
         rectangulo = new Rectangle2D.Double(pO.getX(), pO.getY(), pF.getX()-pO.getX(), pF.getY()-pO.getY());
     }
     
@@ -43,28 +46,49 @@ public class Rectangulo extends FiguraRellenable{
     
     @Override
     public void paint(Graphics2D g){
+        super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
-        
-        //transparencia
-        Composite comp;
-        comp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, getTransparencia());
-        g2d.setComposite(comp);
         //relleno
-        if(getColorRelleno()!=null){
+        if(getTipoRelleno()==TipoRelleno.LISO){
             g2d.setColor(getColorRelleno());
             g2d.fill(rectangulo);
         }
-        //alisado
-        if(getAlisado()){
-            RenderingHints render;
-            render = new RenderingHints(RenderingHints.KEY_ANTIALIASING, 
-                    RenderingHints.VALUE_ANTIALIAS_ON);
-            g2d.setRenderingHints(render);
+        if(getTipoRelleno()==TipoRelleno.DEGRADADO_DIAGONAL){
+            Paint relleno;
+            Point2D pc1 = getPO();
+            Point2D pc2 = getPF();
+            relleno = new GradientPaint(pc1, Color.RED, pc2, Color.BLUE);
+            g2d.setPaint(relleno);
+            g2d.fill(rectangulo);
         }
-        //color trazo
+        if(getTipoRelleno()==TipoRelleno.DEGRADADO_DIAGONAL){
+            Paint relleno;
+            Point2D pc1 = getPO();
+            Point2D pc2 = getPF();
+            relleno = new GradientPaint(pc1, Color.RED, pc2, Color.BLUE);
+            g2d.setPaint(relleno);
+            g2d.fill(rectangulo);
+        }
+        if(getTipoRelleno()==TipoRelleno.DEGRADADO_VERTICAL){
+            Paint relleno;
+            double a = getPF().getX()-getPO().getX();
+            Point2D pc1 = getPO();
+            Point2D pc2 = new Point((int) (getPF().getX()-a), (int) getPF().getY());
+            relleno = new GradientPaint(pc1, Color.RED, pc2, Color.BLUE);
+            g2d.setPaint(relleno);
+            g2d.fill(rectangulo);
+        }
+        if(getTipoRelleno()==TipoRelleno.DEGRADADO_HORIZONTAL){
+            Paint relleno;
+            double a = getPF().getY()-getPO().getY();
+            Point2D pc1 = getPO();
+            Point2D pc2 = new Point((int) (getPF().getX()), (int) (getPF().getY()-a));
+            relleno = new GradientPaint(pc1, Color.RED, pc2, Color.BLUE);
+            g2d.setPaint(relleno);
+            g2d.fill(rectangulo);
+        }
+        //si no se pone aquí, el trazo sale del mismo color que el relleno
         g2d.setColor(getColor());
-        //stroke
-        g2d.setStroke(getStroke());
         g2d.draw(rectangulo);
     }
 }

@@ -1,6 +1,7 @@
 /**
  *
  * @author Montserrat Rodríguez Zamorano
+ * @version 14.06.2019
  */
 package iu;
 
@@ -12,8 +13,8 @@ import javax.swing.ListCellRenderer;
 
 //incluir referencia al enlace en la documentacion
 
-public class ColorComboBox extends JLabel implements ListCellRenderer<Color>{
-    public ColorComboBox(){
+public class ColorRenderer extends JLabel implements ListCellRenderer<Color>{
+    public ColorRenderer(){
         setOpaque(true);
     }
     

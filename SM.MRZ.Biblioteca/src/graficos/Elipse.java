@@ -18,8 +18,8 @@ public class Elipse extends FiguraRellenable{
     private Ellipse2D elipse;
     
     public Elipse(Point2D pO, Point2D pF, Color trazo, Stroke stroke, 
-            Color relleno, float transparencia, boolean alisado){
-        super(pO, pF,trazo,stroke, relleno, transparencia,alisado);
+            Color relleno, TipoRelleno tr, float transparencia, boolean alisado){
+        super(pO, pF,trazo,stroke, relleno, tr, transparencia,alisado);
         elipse = new Ellipse2D.Double(pO.getX(), pO.getY(), pF.getX()-pO.getX(), pF.getY()-pO.getY());
     }
     
@@ -35,28 +35,14 @@ public class Elipse extends FiguraRellenable{
     
     @Override
     public void paint(Graphics2D g){
+        super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
-        
-        //transparencia
-        Composite comp;
-        comp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, getTransparencia());
-        g2d.setComposite(comp);
         //relleno
         if(getColorRelleno()!=null){
             g2d.setColor(getColorRelleno());
             g2d.fill(elipse);
         }
-        //alisado
-        if(getAlisado()){
-            RenderingHints render;
-            render = new RenderingHints(RenderingHints.KEY_ANTIALIASING, 
-                    RenderingHints.VALUE_ANTIALIAS_ON);
-            g2d.setRenderingHints(render);
-        }
-        //color
         g2d.setColor(getColor());
-        //stroke
-        g2d.setStroke(getStroke());
         g2d.draw(elipse);
     }
 }
