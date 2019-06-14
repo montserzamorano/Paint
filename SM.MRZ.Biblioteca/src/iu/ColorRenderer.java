@@ -21,7 +21,12 @@ public class ColorRenderer extends JLabel implements ListCellRenderer<Color>{
     @Override
     public Component getListCellRendererComponent(JList<? extends Color> list, Color value, int index, boolean isSelected, boolean cellHasFocus) {
         //texto de la celda
-        setText(" ");
+        if(value == Color.RED){setText("Rojo");}
+        if(value == Color.BLUE){setText("Azul");}
+        if(value == Color.GREEN){setText("Verde");}
+        if(value == Color.BLACK){setText("Negro");}
+        if(value == Color.WHITE){setText("Blanco");}
+        if(value == Color.YELLOW){setText("Amarillo");}
         Color background;
         Color foreground;
         
@@ -31,7 +36,7 @@ public class ColorRenderer extends JLabel implements ListCellRenderer<Color>{
                 && !dropLocation.isInsert()
                 && dropLocation.getIndex()==index){
             background = Color.BLUE;
-            foreground = Color.WHITE;
+            foreground = value;
         //check if this cell is selected
         }else if (isSelected){
             background = value;

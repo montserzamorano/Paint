@@ -44,6 +44,8 @@ public class Lienzo extends javax.swing.JPanel {
     private boolean rellenoActivated = false;
     private Color colorRelleno = null;
     private TipoRelleno tipoRelleno= null;
+    private Color colorDeg1 = null;
+    private Color colorDeg2 = null;
     //forma
     private Forma formaActiva;
     //alisado
@@ -141,6 +143,21 @@ public class Lienzo extends javax.swing.JPanel {
         tipoRelleno = tp;
     }
     
+    public void setColorDeg1(Color deg){
+        colorDeg1 = deg;
+    }
+    
+    public Color getColorDeg1(){
+        return colorDeg1;
+    }
+    
+    public void setColorDeg2(Color deg){
+        colorDeg2 = deg;
+    }
+    public Color getColorDeg2(){
+        return colorDeg2;
+    }
+    
     public TipoRelleno getTipoRelleno(){return tipoRelleno;}
     
     private Figura createFigura(Point2D p1, Point2D p2){
@@ -149,10 +166,10 @@ public class Lienzo extends javax.swing.JPanel {
                 fActiva = new Linea(p1,p2,colorTrazo, stroke, transparencia, alisadoActivated);
                 break;
             case RECTANGULO:
-                fActiva = new Rectangulo(p1, p2, colorTrazo, stroke, colorRelleno, tipoRelleno, transparencia, alisadoActivated);
+                fActiva = new Rectangulo(p1, p2, colorTrazo, stroke, colorRelleno, tipoRelleno, colorDeg1, colorDeg2, transparencia, alisadoActivated);
                 break;
             case OVALO:
-                fActiva = new Elipse(p1, p2, colorTrazo, stroke, colorRelleno, tipoRelleno, transparencia, alisadoActivated);
+                fActiva = new Elipse(p1, p2, colorTrazo, stroke, colorRelleno, tipoRelleno, colorDeg1, colorDeg2, transparencia, alisadoActivated);
                 break;
             default:
                 break;

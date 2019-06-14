@@ -5,7 +5,6 @@
  */
 package paint;
 
-import iu.Lienzo;
 import iu.LienzoImagen;
 
 /**

@@ -6,6 +6,7 @@
 package iu;
 
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 public class LienzoImagen extends Lienzo {
@@ -34,7 +35,14 @@ public class LienzoImagen extends Lienzo {
         }
         return img;
     }
-
+    
+    public void paintComponent(Graphics g){
+        super.paintComponent(g);
+        if(img!=null){
+            g.drawImage(img,0,0,this);
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

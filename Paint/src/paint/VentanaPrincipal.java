@@ -5,6 +5,7 @@
 
 package paint;
 
+import graficos.Figura;
 import graficos.Forma;
 import iu.ColorRenderer;
 import iu.Lienzo;
@@ -13,16 +14,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.Stroke;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import sm.sound.SMClipPlayer;
-import sm.sound.SMSoundPlayer;
 import sm.sound.SMSoundRecorder;
 import graficos.TipoRelleno;
 import iu.RellenoRenderer;
@@ -41,6 +39,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         
         inicializarColores(colorTrazoCB);
         inicializarColores(colorRellenoCB);
+        inicializarColores(degradado1CB);
+        inicializarColores(degradado2CB);
         inicializarRelleno(tipoDegradadoCB);
         
         tipoLineaCB.addItem(TipoLinea.CONTINUA);
@@ -72,12 +72,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         lineaBoton = new javax.swing.JToggleButton();
         rectanguloBoton = new javax.swing.JToggleButton();
         elipseBoton = new javax.swing.JToggleButton();
+        FigurasCB = new javax.swing.JComboBox<>();
         jSeparator1 = new javax.swing.JToolBar.Separator();
         colorTrazoCB = new javax.swing.JComboBox<>();
         jSeparator7 = new javax.swing.JToolBar.Separator();
         rellenarBoton = new javax.swing.JToggleButton();
-        tipoDegradadoCB = new javax.swing.JComboBox<>();
         colorRellenoCB = new javax.swing.JComboBox<>();
+        tipoDegradadoCB = new javax.swing.JComboBox<>();
+        degradado1CB = new javax.swing.JComboBox<>();
+        degradado2CB = new javax.swing.JComboBox<>();
         jSeparator6 = new javax.swing.JToolBar.Separator();
         transparenciaBoton = new javax.swing.JToggleButton();
         transparenciaSlider = new javax.swing.JSlider();
@@ -87,17 +90,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         grosorSpinner = new javax.swing.JSpinner();
         tipoLineaCB = new javax.swing.JComboBox<>();
         jSeparator3 = new javax.swing.JToolBar.Separator();
+        jPanel1 = new javax.swing.JPanel();
+        panelAccion = new javax.swing.JPanel();
+        jToolBar1 = new javax.swing.JToolBar();
         recordSonidoBoton = new javax.swing.JToggleButton();
         pausaGrabacionBoton = new javax.swing.JToggleButton();
         stopRecordBoton = new javax.swing.JToggleButton();
-        jSeparator5 = new javax.swing.JToolBar.Separator();
         listaAudiosCB = new javax.swing.JComboBox<>();
         reproducirSonidoBoton = new javax.swing.JToggleButton();
         pausaSonidoBoton = new javax.swing.JToggleButton();
         stopSonidoBoton = new javax.swing.JToggleButton();
         jSeparator4 = new javax.swing.JToolBar.Separator();
-        jPanel1 = new javax.swing.JPanel();
-        panelAccion = new javax.swing.JPanel();
         escritorio = new javax.swing.JDesktopPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
@@ -120,7 +123,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         upperToolBar.setPreferredSize(new java.awt.Dimension(50, 30));
 
         formasBG.add(lineaBoton);
-        lineaBoton.setIcon(new javax.swing.ImageIcon("/Users/montse/Documents/GitHub/Paint/Paint/iconos/linea.png")); // NOI18N
+        lineaBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/linea.png"))); // NOI18N
         lineaBoton.setToolTipText("Línea");
         lineaBoton.setFocusable(false);
         lineaBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -129,7 +132,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         upperToolBar.add(lineaBoton);
 
         formasBG.add(rectanguloBoton);
-        rectanguloBoton.setIcon(new javax.swing.ImageIcon("/Users/montse/Documents/GitHub/Paint/Paint/iconos/rectangulo.png")); // NOI18N
+        rectanguloBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/rectangulo.png"))); // NOI18N
         rectanguloBoton.setToolTipText("Rectángulo");
         rectanguloBoton.setFocusable(false);
         rectanguloBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -138,13 +141,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         upperToolBar.add(rectanguloBoton);
 
         formasBG.add(elipseBoton);
-        elipseBoton.setIcon(new javax.swing.ImageIcon("/Users/montse/Documents/GitHub/Paint/Paint/iconos/elipse.png")); // NOI18N
+        elipseBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/elipse.png"))); // NOI18N
         elipseBoton.setToolTipText("Elipse");
         elipseBoton.setFocusable(false);
         elipseBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         elipseBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         elipseBoton.addActionListener(formListener);
         upperToolBar.add(elipseBoton);
+
+        FigurasCB.setToolTipText("Figuras dibujadas");
+        FigurasCB.setMaximumSize(new java.awt.Dimension(100, 32767));
+        FigurasCB.setMinimumSize(new java.awt.Dimension(100, 27));
+        FigurasCB.setPreferredSize(new java.awt.Dimension(100, 27));
+        upperToolBar.add(FigurasCB);
         upperToolBar.add(jSeparator1);
 
         colorTrazoCB.setMaximumSize(new java.awt.Dimension(60, 32767));
@@ -154,7 +163,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         upperToolBar.add(colorTrazoCB);
         upperToolBar.add(jSeparator7);
 
-        rellenarBoton.setIcon(new javax.swing.ImageIcon("/Users/montse/Documents/GitHub/Paint/Paint/iconos/rellenar.png")); // NOI18N
+        rellenarBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/rellenar.png"))); // NOI18N
         rellenarBoton.setToolTipText("Relleno");
         rellenarBoton.setFocusable(false);
         rellenarBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -162,20 +171,36 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         rellenarBoton.addActionListener(formListener);
         upperToolBar.add(rellenarBoton);
 
-        tipoDegradadoCB.setMaximumSize(new java.awt.Dimension(100, 32767));
-        tipoDegradadoCB.setMinimumSize(new java.awt.Dimension(100, 27));
-        tipoDegradadoCB.setPreferredSize(new java.awt.Dimension(100, 27));
-        tipoDegradadoCB.addActionListener(formListener);
-        upperToolBar.add(tipoDegradadoCB);
-
+        colorRellenoCB.setToolTipText("Color relleno");
         colorRellenoCB.setMaximumSize(new java.awt.Dimension(60, 32767));
         colorRellenoCB.setMinimumSize(new java.awt.Dimension(60, 27));
         colorRellenoCB.setPreferredSize(new java.awt.Dimension(60, 27));
         colorRellenoCB.addActionListener(formListener);
         upperToolBar.add(colorRellenoCB);
+
+        tipoDegradadoCB.setToolTipText("Tipo relleno");
+        tipoDegradadoCB.setMaximumSize(new java.awt.Dimension(150, 32767));
+        tipoDegradadoCB.setMinimumSize(new java.awt.Dimension(150, 27));
+        tipoDegradadoCB.setPreferredSize(new java.awt.Dimension(200, 27));
+        tipoDegradadoCB.addActionListener(formListener);
+        upperToolBar.add(tipoDegradadoCB);
+
+        degradado1CB.setToolTipText("Primer color degradado");
+        degradado1CB.setMaximumSize(new java.awt.Dimension(60, 32767));
+        degradado1CB.setMinimumSize(new java.awt.Dimension(60, 27));
+        degradado1CB.setPreferredSize(new java.awt.Dimension(60, 27));
+        degradado1CB.addActionListener(formListener);
+        upperToolBar.add(degradado1CB);
+
+        degradado2CB.setToolTipText("Segundo color degradado");
+        degradado2CB.setMaximumSize(new java.awt.Dimension(60, 32767));
+        degradado2CB.setMinimumSize(new java.awt.Dimension(60, 27));
+        degradado2CB.setPreferredSize(new java.awt.Dimension(60, 27));
+        degradado2CB.addActionListener(formListener);
+        upperToolBar.add(degradado2CB);
         upperToolBar.add(jSeparator6);
 
-        transparenciaBoton.setIcon(new javax.swing.ImageIcon("/Users/montse/Documents/GitHub/Paint/Paint/iconos/transparencia.png")); // NOI18N
+        transparenciaBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/transparencia.png"))); // NOI18N
         transparenciaBoton.setToolTipText("Transparencia");
         transparenciaBoton.setFocusable(false);
         transparenciaBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -192,7 +217,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         upperToolBar.add(transparenciaSlider);
         upperToolBar.add(jSeparator8);
 
-        alisarBoton.setIcon(new javax.swing.ImageIcon("/Users/montse/Documents/GitHub/Paint/Paint/iconos/alisar.png")); // NOI18N
+        alisarBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/alisar.png"))); // NOI18N
         alisarBoton.setToolTipText("Alisado");
         alisarBoton.setFocusable(false);
         alisarBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -215,72 +240,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         upperToolBar.add(tipoLineaCB);
         upperToolBar.add(jSeparator3);
 
-        sonidoBG.add(recordSonidoBoton);
-        recordSonidoBoton.setIcon(new javax.swing.ImageIcon("/Users/montse/Documents/GitHub/Paint/Paint/iconos/record24x24.png")); // NOI18N
-        recordSonidoBoton.setToolTipText("Iniciar grabación");
-        recordSonidoBoton.setFocusable(false);
-        recordSonidoBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        recordSonidoBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        recordSonidoBoton.addActionListener(formListener);
-        upperToolBar.add(recordSonidoBoton);
-
-        sonidoBG.add(pausaGrabacionBoton);
-        pausaGrabacionBoton.setIcon(new javax.swing.ImageIcon("/Users/montse/Documents/GitHub/Paint/Paint/iconos/pausa24x24.png")); // NOI18N
-        pausaGrabacionBoton.setToolTipText("Pausar grabación");
-        pausaGrabacionBoton.setFocusable(false);
-        pausaGrabacionBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        pausaGrabacionBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        pausaGrabacionBoton.addActionListener(formListener);
-        upperToolBar.add(pausaGrabacionBoton);
-
-        sonidoBG.add(stopRecordBoton);
-        stopRecordBoton.setIcon(new javax.swing.ImageIcon("/Users/montse/Documents/GitHub/Paint/Paint/iconos/stopRecord24x24.png")); // NOI18N
-        stopRecordBoton.setToolTipText("Finalizar grabación");
-        stopRecordBoton.setFocusable(false);
-        stopRecordBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        stopRecordBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        stopRecordBoton.addActionListener(formListener);
-        upperToolBar.add(stopRecordBoton);
-        upperToolBar.add(jSeparator5);
-
-        listaAudiosCB.setToolTipText("Lista de sonidos");
-        listaAudiosCB.setMaximumSize(new java.awt.Dimension(100, 32767));
-        listaAudiosCB.setMinimumSize(new java.awt.Dimension(100, 27));
-        upperToolBar.add(listaAudiosCB);
-
-        sonidoBG.add(reproducirSonidoBoton);
-        reproducirSonidoBoton.setIcon(new javax.swing.ImageIcon("/Users/montse/Documents/GitHub/Paint/Paint/iconos/play24x24.png")); // NOI18N
-        reproducirSonidoBoton.setToolTipText("Play");
-        reproducirSonidoBoton.setFocusable(false);
-        reproducirSonidoBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        reproducirSonidoBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        reproducirSonidoBoton.addActionListener(formListener);
-        upperToolBar.add(reproducirSonidoBoton);
-
-        sonidoBG.add(pausaSonidoBoton);
-        pausaSonidoBoton.setIcon(new javax.swing.ImageIcon("/Users/montse/Documents/GitHub/Paint/Paint/iconos/pausa24x24.png")); // NOI18N
-        pausaSonidoBoton.setToolTipText("Pausa");
-        pausaSonidoBoton.setFocusable(false);
-        pausaSonidoBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        pausaSonidoBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        pausaSonidoBoton.addActionListener(formListener);
-        upperToolBar.add(pausaSonidoBoton);
-
-        sonidoBG.add(stopSonidoBoton);
-        stopSonidoBoton.setIcon(new javax.swing.ImageIcon("/Users/montse/Documents/GitHub/Paint/Paint/iconos/stop24x24.png")); // NOI18N
-        stopSonidoBoton.setToolTipText("Stop");
-        stopSonidoBoton.setFocusable(false);
-        stopSonidoBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        stopSonidoBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        stopSonidoBoton.addActionListener(formListener);
-        upperToolBar.add(stopSonidoBoton);
-        upperToolBar.add(jSeparator4);
-
         getContentPane().add(upperToolBar, java.awt.BorderLayout.PAGE_START);
 
-        jPanel1.setMaximumSize(new java.awt.Dimension(400, 150));
-        jPanel1.setMinimumSize(new java.awt.Dimension(400, 150));
-        jPanel1.setPreferredSize(new java.awt.Dimension(400, 150));
+        jPanel1.setMaximumSize(new java.awt.Dimension(200, 100));
+        jPanel1.setMinimumSize(new java.awt.Dimension(200, 100));
+        jPanel1.setPreferredSize(new java.awt.Dimension(200, 100));
         jPanel1.setLayout(new java.awt.BorderLayout());
 
         panelAccion.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -292,7 +256,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         panelAccion.setLayout(panelAccionLayout);
         panelAccionLayout.setHorizontalGroup(
             panelAccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1258, Short.MAX_VALUE)
+            .addGap(0, 1407, Short.MAX_VALUE)
         );
         panelAccionLayout.setVerticalGroup(
             panelAccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -300,6 +264,70 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         );
 
         jPanel1.add(panelAccion, java.awt.BorderLayout.PAGE_END);
+
+        jToolBar1.setRollover(true);
+
+        sonidoBG.add(recordSonidoBoton);
+        recordSonidoBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/record24x24.png"))); // NOI18N
+        recordSonidoBoton.setToolTipText("Iniciar grabación");
+        recordSonidoBoton.setFocusable(false);
+        recordSonidoBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        recordSonidoBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        recordSonidoBoton.addActionListener(formListener);
+        jToolBar1.add(recordSonidoBoton);
+
+        sonidoBG.add(pausaGrabacionBoton);
+        pausaGrabacionBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/pausa24x24.png"))); // NOI18N
+        pausaGrabacionBoton.setToolTipText("Pausar grabación");
+        pausaGrabacionBoton.setFocusable(false);
+        pausaGrabacionBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        pausaGrabacionBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        pausaGrabacionBoton.addActionListener(formListener);
+        jToolBar1.add(pausaGrabacionBoton);
+
+        sonidoBG.add(stopRecordBoton);
+        stopRecordBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/stopRecord24x24.png"))); // NOI18N
+        stopRecordBoton.setToolTipText("Finalizar grabación");
+        stopRecordBoton.setFocusable(false);
+        stopRecordBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        stopRecordBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        stopRecordBoton.addActionListener(formListener);
+        jToolBar1.add(stopRecordBoton);
+
+        listaAudiosCB.setToolTipText("Lista de sonidos");
+        listaAudiosCB.setMaximumSize(new java.awt.Dimension(100, 32767));
+        listaAudiosCB.setMinimumSize(new java.awt.Dimension(100, 27));
+        jToolBar1.add(listaAudiosCB);
+
+        sonidoBG.add(reproducirSonidoBoton);
+        reproducirSonidoBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Play.png"))); // NOI18N
+        reproducirSonidoBoton.setToolTipText("Play");
+        reproducirSonidoBoton.setFocusable(false);
+        reproducirSonidoBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        reproducirSonidoBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        reproducirSonidoBoton.addActionListener(formListener);
+        jToolBar1.add(reproducirSonidoBoton);
+
+        sonidoBG.add(pausaSonidoBoton);
+        pausaSonidoBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Pausa.png"))); // NOI18N
+        pausaSonidoBoton.setToolTipText("Pausa");
+        pausaSonidoBoton.setFocusable(false);
+        pausaSonidoBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        pausaSonidoBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        pausaSonidoBoton.addActionListener(formListener);
+        jToolBar1.add(pausaSonidoBoton);
+
+        sonidoBG.add(stopSonidoBoton);
+        stopSonidoBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/stop24x24.png"))); // NOI18N
+        stopSonidoBoton.setToolTipText("Stop");
+        stopSonidoBoton.setFocusable(false);
+        stopSonidoBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        stopSonidoBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        stopSonidoBoton.addActionListener(formListener);
+        jToolBar1.add(stopSonidoBoton);
+        jToolBar1.add(jSeparator4);
+
+        jPanel1.add(jToolBar1, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_END);
 
@@ -311,17 +339,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         archivoMenuBar.setText("Archivo");
 
-        nuevoMenuItem.setIcon(new javax.swing.ImageIcon("/Users/montse/Documents/GitHub/Paint/Paint/iconos/nuevo.png")); // NOI18N
+        nuevoMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevo.png"))); // NOI18N
         nuevoMenuItem.setText("Nuevo");
         nuevoMenuItem.addActionListener(formListener);
         archivoMenuBar.add(nuevoMenuItem);
 
-        abrirMenuItem.setIcon(new javax.swing.ImageIcon("/Users/montse/Documents/GitHub/Paint/Paint/iconos/abrir.png")); // NOI18N
+        abrirMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/abrir.png"))); // NOI18N
         abrirMenuItem.setText("Abrir");
         abrirMenuItem.addActionListener(formListener);
         archivoMenuBar.add(abrirMenuItem);
 
-        guardarMenuItem.setIcon(new javax.swing.ImageIcon("/Users/montse/Documents/GitHub/Paint/Paint/iconos/guardar.png")); // NOI18N
+        guardarMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/guardar.png"))); // NOI18N
         guardarMenuItem.setText("Guardar");
         guardarMenuItem.addActionListener(formListener);
         archivoMenuBar.add(guardarMenuItem);
@@ -364,6 +392,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             else if (evt.getSource() == rellenarBoton) {
                 VentanaPrincipal.this.rellenarBotonActionPerformed(evt);
             }
+            else if (evt.getSource() == tipoDegradadoCB) {
+                VentanaPrincipal.this.tipoDegradadoCBActionPerformed(evt);
+            }
             else if (evt.getSource() == colorRellenoCB) {
                 VentanaPrincipal.this.colorRellenoCBActionPerformed(evt);
             }
@@ -403,8 +434,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             else if (evt.getSource() == acercaMenuItem) {
                 VentanaPrincipal.this.acercaMenuItemActionPerformed(evt);
             }
-            else if (evt.getSource() == tipoDegradadoCB) {
-                VentanaPrincipal.this.tipoDegradadoCBActionPerformed(evt);
+            else if (evt.getSource() == degradado1CB) {
+                VentanaPrincipal.this.degradado1CBActionPerformed(evt);
+            }
+            else if (evt.getSource() == degradado2CB) {
+                VentanaPrincipal.this.degradado2CBActionPerformed(evt);
             }
         }
 
@@ -419,16 +453,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void inicializarColores(javax.swing.JComboBox<Color> cb){
+        cb.addItem(Color.BLACK);
         cb.addItem(Color.RED);
         cb.addItem(Color.BLUE);
         cb.addItem(Color.GREEN);
-        cb.addItem(Color.BLACK);
         cb.addItem(Color.WHITE);
         cb.addItem(Color.YELLOW);
         cb.setRenderer(new ColorRenderer());
     }
     
     private void inicializarRelleno(javax.swing.JComboBox<TipoRelleno> cb){
+        cb.addItem(TipoRelleno.NINGUNO);
         cb.addItem(TipoRelleno.LISO);
         cb.addItem(TipoRelleno.DEGRADADO_HORIZONTAL);
         cb.addItem(TipoRelleno.DEGRADADO_VERTICAL);
@@ -439,18 +474,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void nuevoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoMenuItemActionPerformed
         VentanaInterna vi = new VentanaInterna();
         escritorio.add(vi);
+        
         BufferedImage img;
         String hS = JOptionPane.showInputDialog(null, "Introduzca altura de la imagen", "300");
         int h = new Integer(hS);
         String wS = JOptionPane.showInputDialog(null, "Introduzca ancho de la imagen", "300");
         int w = new Integer(wS);
 
-        img = new BufferedImage(300,300, BufferedImage.TYPE_INT_RGB);
+        img = new BufferedImage(w,h, BufferedImage.TYPE_INT_RGB);
         //rellenar la imagen de blanco
         Graphics2D g2d;
         g2d = img.createGraphics();
         g2d.setColor(Color.WHITE);
-        g2d.fill(new Rectangle(new Dimension(300,300)));
+        Rectangle r = new Rectangle(new Dimension(w,h));
+        g2d.fill(r);
+        g2d.clip(r);
         vi.getLienzo().setImage(img);
         vi.setTitle("Nueva");
         vi.setVisible(true);
@@ -697,6 +735,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tipoDegradadoCBActionPerformed
 
+    private void degradado1CBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_degradado1CBActionPerformed
+        VentanaInterna vi;
+        vi = (VentanaInterna) escritorio.getSelectedFrame();
+        if(vi != null){
+            Color selectedColor = (Color) degradado1CB.getSelectedItem();
+            vi.getLienzo().setColorDeg1(selectedColor);
+        }
+    }//GEN-LAST:event_degradado1CBActionPerformed
+
+    private void degradado2CBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_degradado2CBActionPerformed
+        VentanaInterna vi;
+        vi = (VentanaInterna) escritorio.getSelectedFrame();
+        if(vi != null){
+            Color selectedColor = (Color) degradado2CB.getSelectedItem();
+            vi.getLienzo().setColorDeg2(selectedColor);
+        }
+    }//GEN-LAST:event_degradado2CBActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -733,6 +789,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<Figura> FigurasCB;
     private javax.swing.JMenuItem abrirMenuItem;
     private javax.swing.JMenuItem acercaMenuItem;
     private javax.swing.JToggleButton alisarBoton;
@@ -740,6 +797,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu ayudaMenuBar;
     private javax.swing.JComboBox<Color> colorRellenoCB;
     private javax.swing.JComboBox<Color> colorTrazoCB;
+    private javax.swing.JComboBox<Color> degradado1CB;
+    private javax.swing.JComboBox<Color> degradado2CB;
     private javax.swing.JToggleButton elipseBoton;
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.ButtonGroup formasBG;
@@ -751,11 +810,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
-    private javax.swing.JToolBar.Separator jSeparator5;
     private javax.swing.JToolBar.Separator jSeparator6;
     private javax.swing.JToolBar.Separator jSeparator7;
     private javax.swing.JToolBar.Separator jSeparator8;
     private javax.swing.JTextPane jTextPane1;
+    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JToggleButton lineaBoton;
     private javax.swing.JComboBox<File> listaAudiosCB;
     private javax.swing.JMenuBar menuBar;
