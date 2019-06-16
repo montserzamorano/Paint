@@ -4,23 +4,8 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/Users/PC/Documents/GitHub/Paint/SM.MRZ.Biblioteca/src/iu/Lienzo.java</file>
-            <file>file:/Users/PC/Documents/GitHub/Paint/SM.MRZ.Biblioteca/src/graficos/TipoLinea.java</file>
-            <file>file:/Users/PC/Documents/GitHub/Paint/SM.MRZ.Biblioteca/src/graficos/Forma.java</file>
-            <file>file:/Users/PC/Documents/GitHub/Paint/SM.MRZ.Biblioteca/src/graficos/Figura.java</file>
-            <file>file:/Users/PC/Documents/GitHub/Paint/SM.MRZ.Biblioteca/src/graficos/TipoRelleno.java</file>
-            <file>file:/Users/PC/Documents/GitHub/Paint/SM.MRZ.Biblioteca/src/eventos/LienzoEvent.java</file>
-            <file>file:/Users/PC/Documents/GitHub/Paint/SM.MRZ.Biblioteca/src/graficos/Linea.java</file>
-            <file>file:/Users/PC/Documents/GitHub/Paint/SM.MRZ.Biblioteca/src/iu/FiguraRenderer.java</file>
-            <file>file:/Users/PC/Documents/GitHub/Paint/SM.MRZ.Biblioteca/src/graficos/FiguraLineal.java</file>
-            <file>file:/Users/PC/Documents/GitHub/Paint/SM.MRZ.Biblioteca/src/iu/TipoLineaRenderer.java</file>
-            <file>file:/Users/PC/Documents/GitHub/Paint/SM.MRZ.Biblioteca/src/graficos/Rectangulo.java</file>
-            <file>file:/Users/PC/Documents/GitHub/Paint/SM.MRZ.Biblioteca/src/iu/RellenoRenderer.java</file>
-            <file>file:/Users/PC/Documents/GitHub/Paint/SM.MRZ.Biblioteca/src/image/UmbralizacionOp.java</file>
-            <file>file:/Users/PC/Documents/GitHub/Paint/SM.MRZ.Biblioteca/src/graficos/FiguraRellenable.java</file>
-            <file>file:/Users/PC/Documents/GitHub/Paint/SM.MRZ.Biblioteca/src/iu/ColorRenderer.java</file>
-            <file>file:/Users/PC/Documents/GitHub/Paint/SM.MRZ.Biblioteca/src/iu/LienzoImagen.java</file>
-            <file>file:/Users/PC/Documents/GitHub/Paint/SM.MRZ.Biblioteca/src/image/SepiaOp.java</file>
-            <file>file:/Users/PC/Documents/GitHub/Paint/SM.MRZ.Biblioteca/src/graficos/Elipse.java</file>
+            <file>file:/Users/PC/Documents/GitHub/Paint/SM.MRZ.Biblioteca/src/image/disenioPropio2Op.java</file>
+            <file>file:/Users/PC/Documents/GitHub/Paint/SM.MRZ.Biblioteca/src/image/disenioPropioOp.java</file>
         </group>
     </open-files>
 </project-private>
