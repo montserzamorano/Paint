@@ -1,7 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ *
+ * @author Montserrat Rodríguez Zamorano
+ * @version 1.1
  */
 package iu;
 
@@ -12,10 +12,6 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
-/**
- *
- * @author PC
- */
 public class FiguraRenderer extends JLabel implements ListCellRenderer<Figura>{
     public FiguraRenderer(){
         setOpaque(true);

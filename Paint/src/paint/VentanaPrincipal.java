@@ -1,6 +1,7 @@
 /**
  *
  * @author Montserrat Rodríguez Zamorano
+ * @version 1.1
  */
 
 package paint;
@@ -31,10 +32,16 @@ import iu.LienzoImagen;
 import iu.TipoLineaRenderer;
 import java.awt.Point;
 import java.awt.Stroke;
+import java.awt.Transparency;
+import java.awt.color.ColorSpace;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
+import java.awt.image.ColorConvertOp;
 import java.awt.image.ColorModel;
+import java.awt.image.ComponentColorModel;
 import java.awt.image.ConvolveOp;
+import java.awt.image.DataBuffer;
+import java.awt.image.Kernel;
 import java.awt.image.LookupOp;
 import java.awt.image.LookupTable;
 import java.awt.image.RescaleOp;
@@ -42,6 +49,7 @@ import java.awt.image.WritableRaster;
 import javax.imageio.ImageIO;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import sm.image.EqualizationOp;
+import sm.image.KernelProducer;
 import sm.image.LookupTableProducer;
 import sm.image.TintOp;
 
@@ -88,10 +96,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         formasBG = new javax.swing.ButtonGroup();
         sonidoBG = new javax.swing.ButtonGroup();
-        contrasteBG = new javax.swing.ButtonGroup();
-        filtrosBG = new javax.swing.ButtonGroup();
-        escalarBG = new javax.swing.ButtonGroup();
         rotacionBG = new javax.swing.ButtonGroup();
+        jButton4 = new javax.swing.JButton();
         barraFormasTB = new javax.swing.JToolBar();
         lineaBoton = new javax.swing.JToggleButton();
         rectanguloBoton = new javax.swing.JToggleButton();
@@ -123,29 +129,35 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         barraImagenesTB = new javax.swing.JToolBar();
         brilloSlider = new javax.swing.JSlider();
         jSeparator4 = new javax.swing.JToolBar.Separator();
-        contrasteBoton = new javax.swing.JToggleButton();
-        iluminarBoton = new javax.swing.JToggleButton();
-        oscurecerBoton = new javax.swing.JToggleButton();
+        contrasteBoton = new javax.swing.JButton();
+        iluminarBoton = new javax.swing.JButton();
+        oscurecerBoton = new javax.swing.JButton();
         jSeparator5 = new javax.swing.JToolBar.Separator();
-        sinosuidalBoton = new javax.swing.JToggleButton();
-        sepiaBoton = new javax.swing.JToggleButton();
+        sepiaBoton = new javax.swing.JButton();
         tintarBoton = new javax.swing.JToggleButton();
         colorTintadoCB = new javax.swing.JComboBox<>();
         tintadoSlider = new javax.swing.JSlider();
-        ecualizarBoton = new javax.swing.JToggleButton();
+        ecualizacionBoton = new javax.swing.JButton();
         umbralizacionSlider = new javax.swing.JSlider();
-        negativoBoton = new javax.swing.JToggleButton();
         jSeparator8 = new javax.swing.JToolBar.Separator();
-        zoomInBoton = new javax.swing.JToggleButton();
-        zoomOutBoton = new javax.swing.JToggleButton();
+        jButton1 = new javax.swing.JButton();
+        disminuirBoton = new javax.swing.JButton();
         jSeparator9 = new javax.swing.JToolBar.Separator();
-        rot90Boton = new javax.swing.JToggleButton();
-        rot180Boton = new javax.swing.JToggleButton();
-        rot270Boton = new javax.swing.JToggleButton();
+        rot90Boton = new javax.swing.JButton();
+        rot180Boton = new javax.swing.JButton();
+        rot270Boton = new javax.swing.JButton();
         giroLibreSlider = new javax.swing.JSlider();
         jSeparator10 = new javax.swing.JToolBar.Separator();
-        duplicarBoton = new javax.swing.JToggleButton();
+        duplicarBoton = new javax.swing.JButton();
+        negativoBoton = new javax.swing.JButton();
+        relieveBoton = new javax.swing.JButton();
+        emborronamientoBoton2 = new javax.swing.JButton();
+        enfoqueBoton = new javax.swing.JButton();
+        bandasBoton = new javax.swing.JButton();
+        espacioColorCB = new javax.swing.JComboBox<>();
         barraEstado = new javax.swing.JPanel();
+        pixelLabel = new javax.swing.JLabel();
+        jToolBar1 = new javax.swing.JToolBar();
         escritorio = new javax.swing.JDesktopPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
@@ -162,6 +174,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         acercaMenuItem = new javax.swing.JMenuItem();
 
         FormListener formListener = new FormListener();
+
+        jButton4.setText("jButton4");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1000, 1000));
@@ -365,13 +379,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         brilloSlider.setToolTipText("Brillo");
         brilloSlider.setValue(0);
         brilloSlider.setMaximumSize(new java.awt.Dimension(29, 100));
-        brilloSlider.setPreferredSize(new java.awt.Dimension(29, 100));
+        brilloSlider.setPreferredSize(new java.awt.Dimension(29, 80));
         brilloSlider.addChangeListener(formListener);
         brilloSlider.addFocusListener(formListener);
         barraImagenesTB.add(brilloSlider);
         barraImagenesTB.add(jSeparator4);
 
-        contrasteBG.add(contrasteBoton);
         contrasteBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/contraste.png"))); // NOI18N
         contrasteBoton.setToolTipText("Contraste");
         contrasteBoton.setFocusable(false);
@@ -380,7 +393,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         contrasteBoton.addActionListener(formListener);
         barraImagenesTB.add(contrasteBoton);
 
-        contrasteBG.add(iluminarBoton);
         iluminarBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/iluminar.png"))); // NOI18N
         iluminarBoton.setToolTipText("Iluminar");
         iluminarBoton.setFocusable(false);
@@ -389,7 +401,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         iluminarBoton.addActionListener(formListener);
         barraImagenesTB.add(iluminarBoton);
 
-        contrasteBG.add(oscurecerBoton);
         oscurecerBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/oscurecer.png"))); // NOI18N
         oscurecerBoton.setToolTipText("Oscurecer");
         oscurecerBoton.setFocusable(false);
@@ -399,16 +410,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         barraImagenesTB.add(oscurecerBoton);
         barraImagenesTB.add(jSeparator5);
 
-        filtrosBG.add(sinosuidalBoton);
-        sinosuidalBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/sinusoidal.png"))); // NOI18N
-        sinosuidalBoton.setToolTipText("Sinusoidal");
-        sinosuidalBoton.setFocusable(false);
-        sinosuidalBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        sinosuidalBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        sinosuidalBoton.addActionListener(formListener);
-        barraImagenesTB.add(sinosuidalBoton);
-
-        filtrosBG.add(sepiaBoton);
         sepiaBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/sepia.png"))); // NOI18N
         sepiaBoton.setToolTipText("Filtro sepia");
         sepiaBoton.setFocusable(false);
@@ -417,7 +418,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         sepiaBoton.addActionListener(formListener);
         barraImagenesTB.add(sepiaBoton);
 
-        filtrosBG.add(tintarBoton);
         tintarBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/tintar.png"))); // NOI18N
         tintarBoton.setToolTipText("Tintado");
         tintarBoton.setFocusable(false);
@@ -437,55 +437,44 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         tintadoSlider.setOrientation(javax.swing.JSlider.VERTICAL);
         tintadoSlider.setToolTipText("Nivel de tintado");
         tintadoSlider.setMaximumSize(new java.awt.Dimension(29, 100));
-        tintadoSlider.setPreferredSize(new java.awt.Dimension(29, 100));
+        tintadoSlider.setPreferredSize(new java.awt.Dimension(29, 80));
         tintadoSlider.addChangeListener(formListener);
         tintadoSlider.addFocusListener(formListener);
         barraImagenesTB.add(tintadoSlider);
 
-        filtrosBG.add(ecualizarBoton);
-        ecualizarBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/ecualizar.png"))); // NOI18N
-        ecualizarBoton.setToolTipText("Ecualizar");
-        ecualizarBoton.setFocusable(false);
-        ecualizarBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        ecualizarBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ecualizarBoton.addActionListener(formListener);
-        barraImagenesTB.add(ecualizarBoton);
+        ecualizacionBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/ecualizar.png"))); // NOI18N
+        ecualizacionBoton.setToolTipText("Ecualización");
+        ecualizacionBoton.setFocusable(false);
+        ecualizacionBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ecualizacionBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        ecualizacionBoton.addActionListener(formListener);
+        barraImagenesTB.add(ecualizacionBoton);
 
         umbralizacionSlider.setBackground(new java.awt.Color(204, 204, 204));
         umbralizacionSlider.setOrientation(javax.swing.JSlider.VERTICAL);
         umbralizacionSlider.setToolTipText("Nivel de umbralización");
         umbralizacionSlider.setMaximumSize(new java.awt.Dimension(29, 100));
-        umbralizacionSlider.setPreferredSize(new java.awt.Dimension(29, 100));
+        umbralizacionSlider.setPreferredSize(new java.awt.Dimension(29, 80));
         umbralizacionSlider.addChangeListener(formListener);
         umbralizacionSlider.addFocusListener(formListener);
         barraImagenesTB.add(umbralizacionSlider);
-
-        negativoBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/negativo.png"))); // NOI18N
-        negativoBoton.setToolTipText("Negativo");
-        negativoBoton.setFocusable(false);
-        negativoBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        negativoBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        negativoBoton.addActionListener(formListener);
-        barraImagenesTB.add(negativoBoton);
         barraImagenesTB.add(jSeparator8);
 
-        escalarBG.add(zoomInBoton);
-        zoomInBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/aumentar.png"))); // NOI18N
-        zoomInBoton.setToolTipText("Zoom in");
-        zoomInBoton.setFocusable(false);
-        zoomInBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        zoomInBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        zoomInBoton.addActionListener(formListener);
-        barraImagenesTB.add(zoomInBoton);
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/zoomin.png"))); // NOI18N
+        jButton1.setToolTipText("Zoom in");
+        jButton1.setFocusable(false);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton1.addActionListener(formListener);
+        barraImagenesTB.add(jButton1);
 
-        escalarBG.add(zoomOutBoton);
-        zoomOutBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/disminuir.png"))); // NOI18N
-        zoomOutBoton.setToolTipText("Zoom out");
-        zoomOutBoton.setFocusable(false);
-        zoomOutBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        zoomOutBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        zoomOutBoton.addActionListener(formListener);
-        barraImagenesTB.add(zoomOutBoton);
+        disminuirBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/zoomout.png"))); // NOI18N
+        disminuirBoton.setToolTipText("Zoom out");
+        disminuirBoton.setFocusable(false);
+        disminuirBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        disminuirBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        disminuirBoton.addActionListener(formListener);
+        barraImagenesTB.add(disminuirBoton);
         barraImagenesTB.add(jSeparator9);
 
         rot90Boton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/rotacion90.png"))); // NOI18N
@@ -497,7 +486,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         barraImagenesTB.add(rot90Boton);
 
         rot180Boton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/rotacion180.png"))); // NOI18N
-        rot180Boton.setToolTipText("Rotación 180º");
+        rot180Boton.setToolTipText("Rotacion 180º");
         rot180Boton.setFocusable(false);
         rot180Boton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         rot180Boton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -509,24 +498,68 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         rot270Boton.setFocusable(false);
         rot270Boton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         rot270Boton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        rot270Boton.addActionListener(formListener);
         barraImagenesTB.add(rot270Boton);
 
         giroLibreSlider.setBackground(new java.awt.Color(204, 204, 204));
         giroLibreSlider.setOrientation(javax.swing.JSlider.VERTICAL);
         giroLibreSlider.setToolTipText("Giro libre");
         giroLibreSlider.setMaximumSize(new java.awt.Dimension(29, 100));
-        giroLibreSlider.setPreferredSize(new java.awt.Dimension(29, 100));
+        giroLibreSlider.setPreferredSize(new java.awt.Dimension(29, 80));
         barraImagenesTB.add(giroLibreSlider);
         barraImagenesTB.add(jSeparator10);
 
         duplicarBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/duplicar.png"))); // NOI18N
-        duplicarBoton.setToolTipText("Duplicar imagen");
+        duplicarBoton.setToolTipText("Duplicar");
         duplicarBoton.setFocusable(false);
         duplicarBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         duplicarBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         duplicarBoton.addActionListener(formListener);
         barraImagenesTB.add(duplicarBoton);
+
+        negativoBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/negativo.png"))); // NOI18N
+        negativoBoton.setToolTipText("Negativo");
+        negativoBoton.setFocusable(false);
+        negativoBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        negativoBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        negativoBoton.addActionListener(formListener);
+        barraImagenesTB.add(negativoBoton);
+
+        relieveBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/relieve.png"))); // NOI18N
+        relieveBoton.setToolTipText("Filtro de relieve");
+        relieveBoton.setFocusable(false);
+        relieveBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        relieveBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        relieveBoton.addActionListener(formListener);
+        barraImagenesTB.add(relieveBoton);
+
+        emborronamientoBoton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/emborronamiento.png"))); // NOI18N
+        emborronamientoBoton2.setToolTipText("Filtro emborronamiento");
+        emborronamientoBoton2.setFocusable(false);
+        emborronamientoBoton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        emborronamientoBoton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        emborronamientoBoton2.addActionListener(formListener);
+        barraImagenesTB.add(emborronamientoBoton2);
+
+        enfoqueBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/enfoque.png"))); // NOI18N
+        enfoqueBoton.setToolTipText("Filtro de enfoque");
+        enfoqueBoton.setFocusable(false);
+        enfoqueBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        enfoqueBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        enfoqueBoton.addActionListener(formListener);
+        barraImagenesTB.add(enfoqueBoton);
+
+        bandasBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/bandas.png"))); // NOI18N
+        bandasBoton.setToolTipText("Extracción de Bandas");
+        bandasBoton.setFocusable(false);
+        bandasBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        bandasBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        bandasBoton.addActionListener(formListener);
+        barraImagenesTB.add(bandasBoton);
+
+        espacioColorCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "RGB", "YCC", "GREY" }));
+        espacioColorCB.setToolTipText("Espacio de color");
+        espacioColorCB.addActionListener(formListener);
+        barraImagenesTB.add(espacioColorCB);
 
         getContentPane().add(barraImagenesTB, java.awt.BorderLayout.LINE_START);
 
@@ -539,14 +572,28 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         barraEstado.setLayout(barraEstadoLayout);
         barraEstadoLayout.setHorizontalGroup(
             barraEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1990, Short.MAX_VALUE)
+            .addGroup(barraEstadoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pixelLabel)
+                .addContainerGap(1458, Short.MAX_VALUE))
         );
         barraEstadoLayout.setVerticalGroup(
             barraEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 26, Short.MAX_VALUE)
+            .addGroup(barraEstadoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pixelLabel)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(barraEstado, java.awt.BorderLayout.PAGE_END);
+
+        jToolBar1.setBorder(null);
+        jToolBar1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jToolBar1.setRollover(true);
+        jToolBar1.setMaximumSize(new java.awt.Dimension(100, 30));
+        jToolBar1.setMinimumSize(new java.awt.Dimension(100, 30));
+        jToolBar1.setPreferredSize(new java.awt.Dimension(30, 30));
+        getContentPane().add(jToolBar1, java.awt.BorderLayout.LINE_END);
 
         jScrollPane1.setViewportView(jTextPane1);
 
@@ -664,47 +711,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             else if (evt.getSource() == stopSonidoBoton) {
                 VentanaPrincipal.this.stopSonidoBotonActionPerformed(evt);
             }
-            else if (evt.getSource() == contrasteBoton) {
-                VentanaPrincipal.this.contrasteBotonActionPerformed(evt);
-            }
-            else if (evt.getSource() == iluminarBoton) {
-                VentanaPrincipal.this.iluminarBotonActionPerformed(evt);
-            }
-            else if (evt.getSource() == oscurecerBoton) {
-                VentanaPrincipal.this.oscurecerBotonActionPerformed(evt);
-            }
-            else if (evt.getSource() == sinosuidalBoton) {
-                VentanaPrincipal.this.sinosuidalBotonActionPerformed(evt);
-            }
-            else if (evt.getSource() == sepiaBoton) {
-                VentanaPrincipal.this.sepiaBotonActionPerformed(evt);
-            }
             else if (evt.getSource() == tintarBoton) {
                 VentanaPrincipal.this.tintarBotonActionPerformed(evt);
             }
             else if (evt.getSource() == colorTintadoCB) {
                 VentanaPrincipal.this.colorTintadoCBActionPerformed(evt);
-            }
-            else if (evt.getSource() == ecualizarBoton) {
-                VentanaPrincipal.this.ecualizarBotonActionPerformed(evt);
-            }
-            else if (evt.getSource() == zoomInBoton) {
-                VentanaPrincipal.this.zoomInBotonActionPerformed(evt);
-            }
-            else if (evt.getSource() == zoomOutBoton) {
-                VentanaPrincipal.this.zoomOutBotonActionPerformed(evt);
-            }
-            else if (evt.getSource() == rot90Boton) {
-                VentanaPrincipal.this.rot90BotonActionPerformed(evt);
-            }
-            else if (evt.getSource() == rot180Boton) {
-                VentanaPrincipal.this.rot180BotonActionPerformed(evt);
-            }
-            else if (evt.getSource() == rot270Boton) {
-                VentanaPrincipal.this.rot270BotonActionPerformed(evt);
-            }
-            else if (evt.getSource() == duplicarBoton) {
-                VentanaPrincipal.this.duplicarBotonActionPerformed(evt);
             }
             else if (evt.getSource() == nuevoMenuItem) {
                 VentanaPrincipal.this.nuevoMenuItemActionPerformed(evt);
@@ -729,6 +740,51 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
             else if (evt.getSource() == negativoBoton) {
                 VentanaPrincipal.this.negativoBotonActionPerformed(evt);
+            }
+            else if (evt.getSource() == relieveBoton) {
+                VentanaPrincipal.this.relieveBotonActionPerformed(evt);
+            }
+            else if (evt.getSource() == emborronamientoBoton2) {
+                VentanaPrincipal.this.emborronamientoBoton2ActionPerformed(evt);
+            }
+            else if (evt.getSource() == enfoqueBoton) {
+                VentanaPrincipal.this.enfoqueBotonActionPerformed(evt);
+            }
+            else if (evt.getSource() == contrasteBoton) {
+                VentanaPrincipal.this.contrasteBotonActionPerformed(evt);
+            }
+            else if (evt.getSource() == iluminarBoton) {
+                VentanaPrincipal.this.iluminarBotonActionPerformed(evt);
+            }
+            else if (evt.getSource() == oscurecerBoton) {
+                VentanaPrincipal.this.oscurecerBotonActionPerformed(evt);
+            }
+            else if (evt.getSource() == sepiaBoton) {
+                VentanaPrincipal.this.sepiaBotonActionPerformed(evt);
+            }
+            else if (evt.getSource() == duplicarBoton) {
+                VentanaPrincipal.this.duplicarBotonActionPerformed(evt);
+            }
+            else if (evt.getSource() == rot90Boton) {
+                VentanaPrincipal.this.rot90BotonActionPerformed(evt);
+            }
+            else if (evt.getSource() == rot180Boton) {
+                VentanaPrincipal.this.rot180BotonActionPerformed(evt);
+            }
+            else if (evt.getSource() == jButton1) {
+                VentanaPrincipal.this.jButton1ActionPerformed(evt);
+            }
+            else if (evt.getSource() == disminuirBoton) {
+                VentanaPrincipal.this.disminuirBotonActionPerformed(evt);
+            }
+            else if (evt.getSource() == ecualizacionBoton) {
+                VentanaPrincipal.this.ecualizacionBotonActionPerformed(evt);
+            }
+            else if (evt.getSource() == bandasBoton) {
+                VentanaPrincipal.this.bandasBotonActionPerformed(evt);
+            }
+            else if (evt.getSource() == espacioColorCB) {
+                VentanaPrincipal.this.espacioColorCBActionPerformed(evt);
             }
         }
 
@@ -873,7 +929,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_abrirMenuItemActionPerformed
 
     private void acercaMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acercaMenuItemActionPerformed
-        String mensaje = "Paint\n14/06/2019 1.0\nMontserrat Rodríguez Zamorano";
+        String mensaje = "Paint\n05/07/2019 1.1\nMontserrat Rodríguez Zamorano";
         JOptionPane.showMessageDialog(null, mensaje, "Acerca de", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_acercaMenuItemActionPerformed
 
@@ -1111,25 +1167,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         barraImagenesTB.setVisible(!barraImagenesTB.isVisible());
     }//GEN-LAST:event_verBarraImagenCBActionPerformed
 
-    private void contrasteBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contrasteBotonActionPerformed
-        VentanaInterna vi = (VentanaInterna) escritorio.getSelectedFrame();
-        if(vi!=null){
-            imgSource = vi.getLienzo().getImage(true);
-            if(imgSource != null){
-                try{
-                    int type = LookupTableProducer.TYPE_SFUNCION;
-                    LookupTable lt = LookupTableProducer.createLookupTable(type);
-                    LookupOp lop = new LookupOp(lt, null);
-                    //imagen origen y destino iguales
-                    lop.filter(imgSource, imgSource);
-                    vi.repaint();
-                }catch(Exception e){
-                    System.err.println(e.getLocalizedMessage());
-                }
-            }
-        }
-    }//GEN-LAST:event_contrasteBotonActionPerformed
-
     private void brilloSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_brilloSliderStateChanged
         VentanaInterna vi = (VentanaInterna) escritorio.getSelectedFrame();
         float nivelBrillo = (float) this.brilloSlider.getValue();
@@ -1161,18 +1198,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         imgSource = null;
     }//GEN-LAST:event_brilloSliderFocusLost
 
-    private void sepiaBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sepiaBotonActionPerformed
-        VentanaInterna vi = (VentanaInterna) escritorio.getSelectedFrame();
-        if(vi != null){
-            imgSource = vi.getLienzo().getImage(true);
-            if(imgSource != null){
-                SepiaOp sepia = new SepiaOp();
-                sepia.filter(imgSource, imgSource);
-                vi.getLienzo().repaint();
-            }
-        }
-    }//GEN-LAST:event_sepiaBotonActionPerformed
-
     private void tintarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tintarBotonActionPerformed
         VentanaInterna vi;
         vi = (VentanaInterna) escritorio.getSelectedFrame();
@@ -1198,158 +1223,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             vi.getLienzo().setColorTintado(selectedColor);
         }
     }//GEN-LAST:event_colorTintadoCBActionPerformed
-
-    private void iluminarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iluminarBotonActionPerformed
-        VentanaInterna vi = (VentanaInterna) escritorio.getSelectedFrame();
-        if(vi!=null){
-            imgSource = vi.getLienzo().getImage(true);
-            if(imgSource!=null){
-                try{
-                    int type = LookupTableProducer.TYPE_LOGARITHM;
-                    LookupTable lt = LookupTableProducer.createLookupTable(type);
-                    LookupOp lop = new LookupOp(lt, null);
-                    //Imagen origen y destino iguales
-                    lop.filter(imgSource, imgSource);
-                    vi.repaint();
-                }catch(Exception e){
-                    System.err.println(e.getLocalizedMessage());
-                }
-            }
-        }
-    }//GEN-LAST:event_iluminarBotonActionPerformed
-
-    private void oscurecerBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oscurecerBotonActionPerformed
-        VentanaInterna vi = (VentanaInterna) escritorio.getSelectedFrame();
-        if(vi!=null){
-            imgSource = vi.getLienzo().getImage(true);
-            if(imgSource!=null){
-                try{
-                    int type = LookupTableProducer.TYPE_POWER;
-                    LookupTable lt = LookupTableProducer.createLookupTable(type);
-                    LookupOp lop = new LookupOp(lt, null);
-                    //Imagen origen y destino iguales
-                    lop.filter(imgSource, imgSource);
-                    vi.repaint();
-                }catch(Exception e){
-                    System.err.println(e.getLocalizedMessage());
-                }
-            }
-        }
-    }//GEN-LAST:event_oscurecerBotonActionPerformed
-
-    private void sinosuidalBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sinosuidalBotonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_sinosuidalBotonActionPerformed
-
-    private void ecualizarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ecualizarBotonActionPerformed
-        VentanaInterna vi = (VentanaInterna) escritorio.getSelectedFrame();
-        if(vi != null){
-           imgSource = vi.getLienzo().getImage(true);
-           if(imgSource != null){
-               try{
-                   EqualizationOp ecualizacion = new EqualizationOp();
-                   ecualizacion.filter(imgSource, imgSource);
-                   vi.getLienzo().setImage(imgSource);
-                   vi.getLienzo().repaint();
-               }catch(Exception e){
-                   System.err.println(e.getLocalizedMessage());
-               }
-           }
-        }
-    }//GEN-LAST:event_ecualizarBotonActionPerformed
-
-    private void zoomInBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zoomInBotonActionPerformed
-        VentanaInterna vi = (VentanaInterna) escritorio.getSelectedFrame();
-        if(vi != null){
-            imgSource = vi.getLienzo().getImage(true);
-            if(imgSource != null){
-                try{
-                    AffineTransform at = AffineTransform.getScaleInstance(1.25, 1.25);
-                    AffineTransformOp atop;
-                    atop = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
-                    BufferedImage imgdest = atop.filter(imgSource, null);
-                    
-                    vi.getLienzo().setImage(imgdest);
-                    vi.getLienzo().repaint();
-                }catch(Exception e){
-                    System.err.println(e.getLocalizedMessage());
-                }
-            }
-        }
-    }//GEN-LAST:event_zoomInBotonActionPerformed
-
-    private void zoomOutBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zoomOutBotonActionPerformed
-        VentanaInterna vi = (VentanaInterna) escritorio.getSelectedFrame();
-        if(vi != null){
-            imgSource = vi.getLienzo().getImage(true);
-            if(imgSource != null){
-                try{
-                    AffineTransform at = AffineTransform.getScaleInstance(0.75, 0.75);
-                    AffineTransformOp atop;
-                    atop = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
-                    BufferedImage imgdest = atop.filter(imgSource, null);
-                    
-                    vi.getLienzo().setImage(imgdest);
-                    vi.getLienzo().repaint();
-                }catch(Exception e){
-                    System.err.println(e.getLocalizedMessage());
-                }
-            }
-        }
-    }//GEN-LAST:event_zoomOutBotonActionPerformed
-
-    private void rot90BotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rot90BotonActionPerformed
-        VentanaInterna vi = (VentanaInterna) escritorio.getSelectedFrame();
-        if(vi != null){
-            imgSource = vi.getLienzo().getImage(true);
-            if(imgSource != null){
-                try{
-                    double r = Math.toRadians(90);
-                    //se rota en el punto medio de la imagen
-                    int temp0 = imgSource.getWidth()/2;
-                    int temp1 = imgSource.getHeight()/2;
-                    Point p = new Point(temp0, temp1);
-                    AffineTransform ar = AffineTransform.getRotateInstance(r, p.x,p.y);
-                    
-                    AffineTransformOp atop;
-                    atop = new AffineTransformOp(ar, AffineTransformOp.TYPE_BILINEAR);
-                    BufferedImage imgdest = atop.filter(imgSource, null);
-                    
-                    vi.getLienzo().setImage(imgdest);
-                    vi.getLienzo().repaint();
-                }catch(Exception e){
-                    System.err.println(e.getLocalizedMessage());
-                }
-            }
-        }
-    }//GEN-LAST:event_rot90BotonActionPerformed
-
-    private void rot180BotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rot180BotonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rot180BotonActionPerformed
-
-    private void rot270BotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rot270BotonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rot270BotonActionPerformed
-
-    private void duplicarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_duplicarBotonActionPerformed
-        VentanaInterna vi = (VentanaInterna) escritorio.getSelectedFrame();
-        if(vi!=null){
-            imgSource = vi.getLienzo().getImage(true);
-            if(imgSource != null){
-                //añadir nueva ventana interna
-                int w = imgSource.getWidth();
-                int h = imgSource.getHeight();
-                
-                VentanaInterna newVi = new VentanaInterna();
-                newVi.getLienzo().setDimension(new Dimension(w,h));
-                newVi.getLienzo().setImage(imgSource);
-                newVi.setTitle(vi.getTitle()+" copia");
-                escritorio.add(newVi);
-                newVi.setVisible(true);
-            }
-        }
-    }//GEN-LAST:event_duplicarBotonActionPerformed
 
     private void tintadoSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tintadoSliderStateChanged
         VentanaInterna vi = (VentanaInterna) escritorio.getSelectedFrame();
@@ -1432,6 +1305,306 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_negativoBotonActionPerformed
 
+    private void relieveBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relieveBotonActionPerformed
+        VentanaInterna vi = (VentanaInterna) escritorio.getSelectedFrame();
+        if(vi!=null){
+            imgSource = vi.getLienzo().getImage(true);
+            if(imgSource!=null){
+                try{
+                    Kernel k = KernelProducer.createKernel(KernelProducer.TYPE_RELIEVE_3x3);
+                    ConvolveOp cop = new ConvolveOp(k, ConvolveOp.EDGE_NO_OP, null);
+                    imgSource = cop.filter(imgSource, null);
+                    vi.getLienzo().setImage(imgSource);
+                    vi.repaint();
+                }catch(Exception e){
+                    System.out.println(e.getLocalizedMessage());
+                }
+            }
+        }
+    }//GEN-LAST:event_relieveBotonActionPerformed
+
+    private void emborronamientoBoton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emborronamientoBoton2ActionPerformed
+        VentanaInterna vi = (VentanaInterna) escritorio.getSelectedFrame();
+        if(vi!=null){
+            imgSource = vi.getLienzo().getImage(true);
+            if(imgSource!=null){
+                try{
+                    Kernel k = KernelProducer.createKernel(KernelProducer.TYPE_BINOMIAL_3x3);
+                    ConvolveOp cop = new ConvolveOp(k, ConvolveOp.EDGE_NO_OP, null);
+                    imgSource = cop.filter(imgSource, null);
+                    vi.getLienzo().setImage(imgSource);
+                    vi.repaint();
+                }catch(Exception e){
+                    System.out.println(e.getLocalizedMessage());
+                }
+            }
+        }
+    }//GEN-LAST:event_emborronamientoBoton2ActionPerformed
+
+    private void enfoqueBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enfoqueBotonActionPerformed
+        VentanaInterna vi = (VentanaInterna) escritorio.getSelectedFrame();
+        if(vi!=null){
+            imgSource = vi.getLienzo().getImage(true);
+            if(imgSource!=null){
+                try{
+                    Kernel k = KernelProducer.createKernel(KernelProducer.TYPE_ENFOQUE_3x3);
+                    ConvolveOp cop = new ConvolveOp(k, ConvolveOp.EDGE_NO_OP, null);
+                    imgSource = cop.filter(imgSource, null);
+                    vi.getLienzo().setImage(imgSource);
+                    vi.repaint();
+                }catch(Exception e){
+                    System.out.println(e.getLocalizedMessage());
+                }
+            }
+        }
+    }//GEN-LAST:event_enfoqueBotonActionPerformed
+
+    private void contrasteBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contrasteBotonActionPerformed
+        VentanaInterna vi = (VentanaInterna) escritorio.getSelectedFrame();
+        if(vi!=null){
+            imgSource = vi.getLienzo().getImage(true);
+            if(imgSource != null){
+                try{
+                    int type = LookupTableProducer.TYPE_SFUNCION;
+                    LookupTable lt = LookupTableProducer.createLookupTable(type);
+                    LookupOp lop = new LookupOp(lt, null);
+                    //imagen origen y destino iguales
+                    lop.filter(imgSource, imgSource);
+                    vi.repaint();
+                }catch(Exception e){
+                    System.err.println(e.getLocalizedMessage());
+                }
+            }
+        }
+    }//GEN-LAST:event_contrasteBotonActionPerformed
+
+    private void iluminarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iluminarBotonActionPerformed
+        VentanaInterna vi = (VentanaInterna) escritorio.getSelectedFrame();
+        if(vi!=null){
+            imgSource = vi.getLienzo().getImage(true);
+            if(imgSource!=null){
+                try{
+                    int type = LookupTableProducer.TYPE_LOGARITHM;
+                    LookupTable lt = LookupTableProducer.createLookupTable(type);
+                    LookupOp lop = new LookupOp(lt, null);
+                    //Imagen origen y destino iguales
+                    lop.filter(imgSource, imgSource);
+                    vi.repaint();
+                }catch(Exception e){
+                    System.err.println(e.getLocalizedMessage());
+                }
+            }
+        }
+    }//GEN-LAST:event_iluminarBotonActionPerformed
+
+    private void oscurecerBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oscurecerBotonActionPerformed
+        VentanaInterna vi = (VentanaInterna) escritorio.getSelectedFrame();
+        if(vi!=null){
+            imgSource = vi.getLienzo().getImage(true);
+            if(imgSource!=null){
+                try{
+                    int type = LookupTableProducer.TYPE_POWER;
+                    LookupTable lt = LookupTableProducer.createLookupTable(type);
+                    LookupOp lop = new LookupOp(lt, null);
+                    //Imagen origen y destino iguales
+                    lop.filter(imgSource, imgSource);
+                    vi.repaint();
+                }catch(Exception e){
+                    System.err.println(e.getLocalizedMessage());
+                }
+            }
+        }
+    }//GEN-LAST:event_oscurecerBotonActionPerformed
+
+    private void sepiaBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sepiaBotonActionPerformed
+        VentanaInterna vi = (VentanaInterna) escritorio.getSelectedFrame();
+        if(vi != null){
+            imgSource = vi.getLienzo().getImage(true);
+            if(imgSource != null){
+                SepiaOp sepia = new SepiaOp();
+                sepia.filter(imgSource, imgSource);
+                vi.getLienzo().repaint();
+            }
+        }
+    }//GEN-LAST:event_sepiaBotonActionPerformed
+
+    private void duplicarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_duplicarBotonActionPerformed
+        VentanaInterna vi = (VentanaInterna) escritorio.getSelectedFrame();
+        if(vi!=null){
+            imgSource = vi.getLienzo().getImage(true);
+            if(imgSource != null){
+                //añadir nueva ventana interna
+                int w = imgSource.getWidth();
+                int h = imgSource.getHeight();
+                
+                VentanaInterna newVi = new VentanaInterna();
+                newVi.getLienzo().setDimension(new Dimension(w,h));
+                newVi.getLienzo().setImage(imgSource);
+                newVi.setTitle(vi.getTitle()+" copia");
+                escritorio.add(newVi);
+                newVi.setVisible(true);
+            }
+        }
+    }//GEN-LAST:event_duplicarBotonActionPerformed
+
+    private void rot90BotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rot90BotonActionPerformed
+        VentanaInterna vi = (VentanaInterna) escritorio.getSelectedFrame();
+        if(vi != null){
+            imgSource = vi.getLienzo().getImage(true);
+            if(imgSource != null){
+                try{
+                    double r = Math.toRadians(90);
+                    //se rota en el punto medio de la imagen
+                    int temp0 = imgSource.getWidth()/2;
+                    int temp1 = imgSource.getHeight()/2;
+                    Point p = new Point(temp0, temp1);
+                    AffineTransform ar = AffineTransform.getRotateInstance(r, p.x,p.y);
+                    
+                    AffineTransformOp atop;
+                    atop = new AffineTransformOp(ar, AffineTransformOp.TYPE_BILINEAR);
+                    BufferedImage imgdest = atop.filter(imgSource, null);
+                    
+                    vi.getLienzo().setImage(imgdest);
+                    vi.getLienzo().repaint();
+                }catch(Exception e){
+                    System.err.println(e.getLocalizedMessage());
+                }
+            }
+        }
+    }//GEN-LAST:event_rot90BotonActionPerformed
+
+    private void rot180BotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rot180BotonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rot180BotonActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        VentanaInterna vi = (VentanaInterna) escritorio.getSelectedFrame();
+        if(vi != null){
+            imgSource = vi.getLienzo().getImage(true);
+            if(imgSource != null){
+                try{
+                    AffineTransform at = AffineTransform.getScaleInstance(1.25, 1.25);
+                    AffineTransformOp atop;
+                    atop = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+                    BufferedImage imgdest = atop.filter(imgSource, null);
+                    
+                    vi.getLienzo().setImage(imgdest);
+                    vi.getLienzo().repaint();
+                }catch(Exception e){
+                    System.err.println(e.getLocalizedMessage());
+                }
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void disminuirBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disminuirBotonActionPerformed
+        VentanaInterna vi = (VentanaInterna) escritorio.getSelectedFrame();
+        if(vi != null){
+            imgSource = vi.getLienzo().getImage(true);
+            if(imgSource != null){
+                try{
+                    AffineTransform at = AffineTransform.getScaleInstance(0.75, 0.75);
+                    AffineTransformOp atop;
+                    atop = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+                    BufferedImage imgdest = atop.filter(imgSource, null);
+                    
+                    vi.getLienzo().setImage(imgdest);
+                    vi.getLienzo().repaint();
+                }catch(Exception e){
+                    System.err.println(e.getLocalizedMessage());
+                }
+            }
+        }
+    }//GEN-LAST:event_disminuirBotonActionPerformed
+
+    private void ecualizacionBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ecualizacionBotonActionPerformed
+        VentanaInterna vi = (VentanaInterna) escritorio.getSelectedFrame();
+        if(vi != null){
+           imgSource = vi.getLienzo().getImage(true);
+           if(imgSource != null){
+               try{
+                   EqualizationOp ecualizacion = new EqualizationOp();
+                   ecualizacion.filter(imgSource, imgSource);
+                   vi.getLienzo().setImage(imgSource);
+                   vi.getLienzo().repaint();
+               }catch(Exception e){
+                   System.err.println(e.getLocalizedMessage());
+               }
+           }
+        }
+    }//GEN-LAST:event_ecualizacionBotonActionPerformed
+
+    private void bandasBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bandasBotonActionPerformed
+        VentanaInterna vi = (VentanaInterna) escritorio.getSelectedFrame();
+        if(vi != null){
+            imgSource = vi.getLienzo().getImage(true);
+            if(imgSource != null){
+                //Creamos el modelo de color de la nueva image basado
+                //en un espacio de color GRAY
+                ColorSpace cs = ColorSpace.getInstance(ColorSpace.CS_GRAY);
+                ComponentColorModel cm = new ComponentColorModel(cs, false, false, Transparency.OPAQUE, DataBuffer.TYPE_BYTE);
+                //Crear una imagen por cada banda
+                int numBandas = imgSource.getRaster().getNumBands();
+                for(int iBanda = 0; iBanda < numBandas; iBanda++){
+                    //Creamos el nuevo raster a partir del raster de la imagen original
+                    int bandList[] = {iBanda};
+                    WritableRaster bandRaster = (WritableRaster) imgSource.getRaster().createWritableChild(0,
+                    0, imgSource.getWidth(), imgSource.getHeight(), 0, 0, bandList);
+                    //Create una nueva imagen que contiene como raster el
+                    //correspondiente a la banda
+                    BufferedImage imgBanda = new BufferedImage(cm, bandRaster, false, null);
+                    
+                    //añadir nueva ventana interna
+                    VentanaInterna newVi = new VentanaInterna();
+                    escritorio.add(newVi);
+                    newVi.setVisible(true);
+                    newVi.getLienzo().setImage(imgBanda);
+                    newVi.setTitle("banda" + (iBanda+1));
+                    //guardar dimension
+                    int w = imgBanda.getWidth();
+                    int h = imgBanda.getHeight();
+                    newVi.getLienzo().setDimension(new Dimension(w,h));
+                }
+            }
+        }
+    }//GEN-LAST:event_bandasBotonActionPerformed
+
+    private void espacioColorCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_espacioColorCBActionPerformed
+        VentanaInterna vi = (VentanaInterna) escritorio.getSelectedFrame();
+        if(vi!=null){
+            imgSource = vi.getLienzo().getImage(true);
+            if(imgSource != null){
+                String itemSelec = (String) espacioColorCB.getSelectedItem();
+                ColorSpace cs = null;
+                if("RGB".equals(itemSelec)){
+                    cs = ColorSpace.getInstance(ColorSpace.CS_LINEAR_RGB);
+                }
+                else if("YCC".equals(itemSelec)){
+                    cs = ColorSpace.getInstance(ColorSpace.CS_PYCC);
+                }
+                else if("GREY".equals(itemSelec)){
+                    cs = ColorSpace.getInstance(ColorSpace.CS_GRAY);
+                }
+                //comprobamos si el espacio de partida es RGB
+                if(imgSource.getColorModel().getColorSpace().isCS_sRGB()){
+                    ColorConvertOp cop = new ColorConvertOp(cs, null);
+                    BufferedImage imgOut = cop.filter(imgSource, null);
+                    
+                    //añadir nueva ventana interna
+                    VentanaInterna newVi = new VentanaInterna();
+                    escritorio.add(newVi);
+                    newVi.setVisible(true);
+                    newVi.getLienzo().setImage(imgOut);
+                    newVi.setTitle("["+itemSelec.toString()+"]");
+                    //guardar dimension
+                    int w = imgOut.getWidth();
+                    int h = imgOut.getHeight();
+                    newVi.getLienzo().setDimension(new Dimension(w,h));
+                }
+            }
+        }
+    }//GEN-LAST:event_espacioColorCBActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1474,6 +1647,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JToggleButton alisarBoton;
     private javax.swing.JMenu archivoMenuBar;
     private javax.swing.JMenu ayudaMenuBar;
+    private javax.swing.JButton bandasBoton;
     private javax.swing.JPanel barraEstado;
     private javax.swing.JToolBar barraFormasTB;
     private javax.swing.JToolBar barraImagenesTB;
@@ -1481,21 +1655,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JComboBox<Color> colorRellenoCB;
     private javax.swing.JComboBox<Color> colorTintadoCB;
     private javax.swing.JComboBox<Color> colorTrazoCB;
-    private javax.swing.ButtonGroup contrasteBG;
-    private javax.swing.JToggleButton contrasteBoton;
+    private javax.swing.JButton contrasteBoton;
     private javax.swing.JComboBox<Color> degradado1CB;
     private javax.swing.JComboBox<Color> degradado2CB;
-    private javax.swing.JToggleButton duplicarBoton;
-    private javax.swing.JToggleButton ecualizarBoton;
+    private javax.swing.JButton disminuirBoton;
+    private javax.swing.JButton duplicarBoton;
+    private javax.swing.JButton ecualizacionBoton;
     private javax.swing.JToggleButton elipseBoton;
-    private javax.swing.ButtonGroup escalarBG;
+    private javax.swing.JButton emborronamientoBoton2;
+    private javax.swing.JButton enfoqueBoton;
     private javax.swing.JDesktopPane escritorio;
-    private javax.swing.ButtonGroup filtrosBG;
+    private javax.swing.JComboBox<String> espacioColorCB;
     private javax.swing.ButtonGroup formasBG;
     private javax.swing.JSlider giroLibreSlider;
     private javax.swing.JSpinner grosorSpinner;
     private javax.swing.JMenuItem guardarMenuItem;
-    private javax.swing.JToggleButton iluminarBoton;
+    private javax.swing.JButton iluminarBoton;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator10;
@@ -1508,24 +1685,26 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator8;
     private javax.swing.JToolBar.Separator jSeparator9;
     private javax.swing.JTextPane jTextPane1;
+    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JToggleButton lineaBoton;
     private javax.swing.JComboBox<File> listaAudiosCB;
     private javax.swing.JMenuBar menuBar;
-    private javax.swing.JToggleButton negativoBoton;
+    private javax.swing.JButton negativoBoton;
     private javax.swing.JMenuItem nuevoMenuItem;
-    private javax.swing.JToggleButton oscurecerBoton;
+    private javax.swing.JButton oscurecerBoton;
     private javax.swing.JToggleButton pausaGrabacionBoton;
     private javax.swing.JToggleButton pausaSonidoBoton;
+    private javax.swing.JLabel pixelLabel;
     private javax.swing.JToggleButton recordSonidoBoton;
     private javax.swing.JToggleButton rectanguloBoton;
+    private javax.swing.JButton relieveBoton;
     private javax.swing.JToggleButton rellenarBoton;
     private javax.swing.JToggleButton reproducirSonidoBoton;
-    private javax.swing.JToggleButton rot180Boton;
-    private javax.swing.JToggleButton rot270Boton;
-    private javax.swing.JToggleButton rot90Boton;
+    private javax.swing.JButton rot180Boton;
+    private javax.swing.JButton rot270Boton;
+    private javax.swing.JButton rot90Boton;
     private javax.swing.ButtonGroup rotacionBG;
-    private javax.swing.JToggleButton sepiaBoton;
-    private javax.swing.JToggleButton sinosuidalBoton;
+    private javax.swing.JButton sepiaBoton;
     private javax.swing.ButtonGroup sonidoBG;
     private javax.swing.JToggleButton stopRecordBoton;
     private javax.swing.JToggleButton stopSonidoBoton;
@@ -1540,7 +1719,5 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem verBarraFormasCB;
     private javax.swing.JCheckBoxMenuItem verBarraImagenCB;
     private javax.swing.JMenu verMenuBar;
-    private javax.swing.JToggleButton zoomInBoton;
-    private javax.swing.JToggleButton zoomOutBoton;
     // End of variables declaration//GEN-END:variables
 }

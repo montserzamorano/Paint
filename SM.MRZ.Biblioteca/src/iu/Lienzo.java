@@ -1,11 +1,10 @@
 package iu;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ *
+ * @author Montserrat Rodríguez Zamorano
+ * @version 1.1
  */
-
 
 import graficos.Elipse;
 import graficos.Figura;
@@ -57,8 +56,11 @@ public class Lienzo extends javax.swing.JPanel {
     private Point2D pF = new Point(-1000, -1000);
     private Point2D pI = new Point(-1000, -1000);
     
+    //pixel actual
+    private Point2D pA = new Point(-1000, -1000);
+    
     //dimension
-    private Dimension dimension;
+    private Dimension dimension = new Dimension(300,300);
     
     Figura fActiva;
     
@@ -213,6 +215,9 @@ public class Lienzo extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(204, 204, 204));
         addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                formMouseMoved(evt);
+            }
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 formMouseDragged(evt);
             }
@@ -252,6 +257,10 @@ public class Lienzo extends javax.swing.JPanel {
         updateShape();
         this.repaint();
     }//GEN-LAST:event_formMouseDragged
+
+    private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
+        pA = evt.getPoint();
+    }//GEN-LAST:event_formMouseMoved
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
