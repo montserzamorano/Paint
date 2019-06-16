@@ -5,6 +5,7 @@
  */
 package graficos;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -15,22 +16,27 @@ import java.awt.geom.Point2D;
 
 public abstract class Figura {
     private Color trazo = Color.BLACK;
-    private Stroke stroke;
+    private TipoLinea stroke;
     private boolean alisado;
     private Point2D puntoOrigen, puntoFinal = new Point(-1000, -1000);
     private float transparencia = 1.0f;
+    private int grosor = 1;
     
-    public Figura(Point2D pO, Point2D pF, Color trazo, Stroke stroke, float transparencia, boolean alisado){
+    public Figura(Point2D pO, Point2D pF, Color trazo, TipoLinea stroke, int grosor, float transparencia, boolean alisado){
         this.trazo = trazo;
         this.stroke = stroke;
         this.alisado = alisado;
         this.transparencia = transparencia;
         puntoOrigen = pO;
         puntoFinal = pF;
+        this.grosor = grosor;
     }
     
     public Point2D getPO(){return puntoOrigen;}
     public Point2D getPF(){return puntoFinal;}
+    
+    public int getGrosor(){return grosor;}
+    public void setGrosor(int grosor){this.grosor = grosor;}
     
     /**
     * Setter.
@@ -43,7 +49,7 @@ public abstract class Figura {
     * Setter.
     * @param stroke trazo de la línea
     */
-    public void setStroke(Stroke stroke){
+    public void setStroke(TipoLinea stroke){
         this.stroke = stroke;
     }
     /**
@@ -57,7 +63,7 @@ public abstract class Figura {
     * Getter.
     * @return trazo de la línea
      */
-    public Stroke getStroke(){
+    public TipoLinea getStroke(){
         return stroke;
     }
     
@@ -115,8 +121,29 @@ public abstract class Figura {
             render = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             g2d.setRenderingHints(render);
         }
+        else{ //esto está bien???
+            RenderingHints render;
+            render = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
+            g2d.setRenderingHints(render);
+        }
         //linea
-        g2d.setStroke(stroke);
+        Stroke trazo = null;
+        switch(stroke){
+            case CONTINUA:
+                trazo = new BasicStroke(grosor);
+                break;
+            case DISCONTINUA: 
+                float patronDiscontinuidad[] = {15.0f};
+                trazo = new BasicStroke((float) grosor, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1.0f, patronDiscontinuidad, 0.0f);
+                break;
+            case PUNTEADA:
+                float patronDiscontinuidadP[] = {(float) grosor, 1.0f};
+                trazo = new BasicStroke((float) grosor, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1.0f, patronDiscontinuidadP, 0.0f);
+                break;
+            default:
+                break;
+        }
+        g2d.setStroke(trazo);
     }
     
 }

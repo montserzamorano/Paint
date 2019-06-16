@@ -12,6 +12,7 @@ import graficos.Figura;
 import graficos.Forma;
 import graficos.Linea;
 import graficos.Rectangulo;
+import graficos.TipoLinea;
 import graficos.TipoRelleno;
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -19,6 +20,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.Stroke;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
@@ -36,7 +38,8 @@ public class Lienzo extends javax.swing.JPanel {
     //atributos del lienzo
     //trazo
     private Color colorTrazo = Color.BLACK;
-    private Stroke stroke = new BasicStroke(1);
+    private TipoLinea stroke = TipoLinea.CONTINUA;
+    private int grosor = 1;
     //transparencia
     private boolean transparenciaActivated = false;
     private float transparencia = 1.0f;
@@ -53,6 +56,9 @@ public class Lienzo extends javax.swing.JPanel {
     
     private Point2D pF = new Point(-1000, -1000);
     private Point2D pI = new Point(-1000, -1000);
+    
+    //dimension
+    private Dimension dimension;
     
     Figura fActiva;
     
@@ -72,11 +78,15 @@ public class Lienzo extends javax.swing.JPanel {
     public void paint(Graphics g){
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
+       g2d.clip(new Rectangle(dimension));
         
         for(Figura f: vFiguras){
           f.paint(g2d);
         }
     }
+    
+    public void setDimension(Dimension dimension){this.dimension = dimension;}
+    public Dimension getDimension(){return dimension;}
     
     public void setColorTrazo(Color color){
         colorTrazo = color;
@@ -123,11 +133,11 @@ public class Lienzo extends javax.swing.JPanel {
         colorRelleno = color;
     }
     
-    public Stroke getStroke(){
+    public TipoLinea getStroke(){
         return stroke;
     }
     
-    public void setStroke(Stroke stroke){
+    public void setStroke(TipoLinea stroke){
         this.stroke = stroke;
     }
     
@@ -135,8 +145,8 @@ public class Lienzo extends javax.swing.JPanel {
         return alisadoActivated;
     }
     
-    public void setAlisadoActivated(boolean alisadoActivated){
-        this.alisadoActivated = alisadoActivated;
+    public void changeAlisadoActivated(){
+        alisadoActivated = !alisadoActivated;
     }
     
     public void setTipoRelleno(TipoRelleno tp){
@@ -158,18 +168,26 @@ public class Lienzo extends javax.swing.JPanel {
         return colorDeg2;
     }
     
+    public void setGrosor(int grosor){
+        this.grosor = grosor;
+    }
+    
+    public int getGrosor(){
+        return grosor;
+    }
+    
     public TipoRelleno getTipoRelleno(){return tipoRelleno;}
     
     private Figura createFigura(Point2D p1, Point2D p2){
         switch(formaActiva){
             case LINEA:
-                fActiva = new Linea(p1,p2,colorTrazo, stroke, transparencia, alisadoActivated);
+                fActiva = new Linea(p1,p2,colorTrazo, stroke, grosor, transparencia, alisadoActivated);
                 break;
             case RECTANGULO:
-                fActiva = new Rectangulo(p1, p2, colorTrazo, stroke, colorRelleno, tipoRelleno, colorDeg1, colorDeg2, transparencia, alisadoActivated);
+                fActiva = new Rectangulo(p1, p2, colorTrazo, stroke, grosor, colorRelleno, tipoRelleno, colorDeg1, colorDeg2, transparencia, alisadoActivated);
                 break;
             case OVALO:
-                fActiva = new Elipse(p1, p2, colorTrazo, stroke, colorRelleno, tipoRelleno, colorDeg1, colorDeg2, transparencia, alisadoActivated);
+                fActiva = new Elipse(p1, p2, colorTrazo, stroke, grosor, colorRelleno, tipoRelleno, colorDeg1, colorDeg2, transparencia, alisadoActivated);
                 break;
             default:
                 break;

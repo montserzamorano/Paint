@@ -26,9 +26,9 @@ public abstract class FiguraRellenable extends Figura{
     private Color degradado2 = null;
     
     public FiguraRellenable(Point2D puntoOrigen, Point2D puntoFinal,
-            Color trazo, Stroke stroke, Color colorRelleno, TipoRelleno tr, 
+            Color trazo, TipoLinea stroke, int grosor, Color colorRelleno, TipoRelleno tr, 
             Color deg1, Color deg2, float transparencia, boolean alisado){
-        super(puntoOrigen, puntoFinal, trazo,stroke,transparencia,alisado);
+        super(puntoOrigen, puntoFinal, trazo,stroke, grosor,transparencia,alisado);
         this.colorRelleno = colorRelleno;
         tipoRelleno = tr;
         degradado1 = deg1;

@@ -13,10 +13,10 @@ import java.awt.geom.Point2D;
 public class Elipse extends FiguraRellenable{
     private Ellipse2D elipse;
     
-    public Elipse(Point2D pO, Point2D pF, Color trazo, Stroke stroke, 
+    public Elipse(Point2D pO, Point2D pF, Color trazo, TipoLinea stroke, int grosor,
             Color relleno, TipoRelleno tr, Color deg1, Color deg2, 
             float transparencia, boolean alisado){
-        super(pO, pF,trazo,stroke, relleno, tr, deg1, deg2, transparencia,alisado);
+        super(pO, pF,trazo,stroke, grosor, relleno, tr, deg1, deg2, transparencia,alisado);
         elipse = new Ellipse2D.Double(pO.getX(), pO.getY(), pF.getX()-pO.getX(), pF.getY()-pO.getY());
         setShape(elipse);
     }

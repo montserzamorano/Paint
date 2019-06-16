@@ -6,7 +6,6 @@
 package iu;
 
 import graficos.TipoLinea;
-import graficos.TipoRelleno;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JLabel;
@@ -16,7 +15,7 @@ import javax.swing.ListCellRenderer;
 //incluir referencia al enlace en la documentacion
 
 public class TipoLineaRenderer extends JLabel implements ListCellRenderer<TipoLinea>{
-    public TipoLineaRenderer(){
+    public TipoLineaRenderer() {
         setOpaque(true);
     }
     

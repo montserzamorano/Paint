@@ -6,5 +6,8 @@
 package graficos;
 
 public enum Forma {
-    PUNTO, LINEA, RECTANGULO, OVALO;
+    PUNTO, 
+    LINEA, 
+    RECTANGULO, 
+    OVALO;
 }
