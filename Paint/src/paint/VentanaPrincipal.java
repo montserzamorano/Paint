@@ -6,6 +6,7 @@
 
 package paint;
 
+import eventos.MiManejadorLienzo;
 import graficos.Figura;
 import graficos.Forma;
 import iu.ColorRenderer;
@@ -28,8 +29,8 @@ import iu.RellenoRenderer;
 import graficos.TipoLinea;
 import image.SepiaOp;
 import image.UmbralizacionOp;
-import image.disenioPropio2Op;
-import image.disenioPropioOp;
+import image.AverageOp;
+import image.PurpleOp;
 import iu.LienzoImagen;
 import iu.TipoLineaRenderer;
 import java.awt.Point;
@@ -61,6 +62,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     SMClipPlayer player = null;
     private boolean grabando = false;
     BufferedImage imgSource;
+    BufferedImage imgdest;
     /**
      * Creates new form VentanaPrincipal
      */
@@ -100,7 +102,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         sonidoBG = new javax.swing.ButtonGroup();
         rotacionBG = new javax.swing.ButtonGroup();
         jButton4 = new javax.swing.JButton();
-        barraFormasTB = new javax.swing.JToolBar();
+        barraSuperiorTB = new javax.swing.JToolBar();
         lineaBoton = new javax.swing.JToggleButton();
         rectanguloBoton = new javax.swing.JToggleButton();
         elipseBoton = new javax.swing.JToggleButton();
@@ -128,7 +130,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         reproducirSonidoBoton = new javax.swing.JToggleButton();
         pausaSonidoBoton = new javax.swing.JToggleButton();
         stopSonidoBoton = new javax.swing.JToggleButton();
-        barraImagenesTB = new javax.swing.JToolBar();
+        webCamBoton = new javax.swing.JToggleButton();
+        barraizquierdaTB = new javax.swing.JToolBar();
         brilloSlider = new javax.swing.JSlider();
         jSeparator4 = new javax.swing.JToolBar.Separator();
         contrasteBoton = new javax.swing.JButton();
@@ -142,26 +145,28 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         ecualizacionBoton = new javax.swing.JButton();
         umbralizacionSlider = new javax.swing.JSlider();
         jSeparator8 = new javax.swing.JToolBar.Separator();
-        jButton1 = new javax.swing.JButton();
+        zoomInBoton = new javax.swing.JButton();
         disminuirBoton = new javax.swing.JButton();
         jSeparator9 = new javax.swing.JToolBar.Separator();
         rot90Boton = new javax.swing.JButton();
         rot180Boton = new javax.swing.JButton();
         rot270Boton = new javax.swing.JButton();
         giroLibreSlider = new javax.swing.JSlider();
-        jSeparator10 = new javax.swing.JToolBar.Separator();
+        barraEstado = new javax.swing.JPanel();
+        pixelLabel = new javax.swing.JLabel();
+        eventoLabel = new javax.swing.JLabel();
+        barraDerechaTB = new javax.swing.JToolBar();
+        disenioPropioBoton = new javax.swing.JButton();
+        disenioPropio2Boton = new javax.swing.JButton();
+        disenioPropio3Boton = new javax.swing.JButton();
         duplicarBoton = new javax.swing.JButton();
         negativoBoton = new javax.swing.JButton();
         relieveBoton = new javax.swing.JButton();
         emborronamientoBoton2 = new javax.swing.JButton();
         enfoqueBoton = new javax.swing.JButton();
+        jSeparator10 = new javax.swing.JToolBar.Separator();
         bandasBoton = new javax.swing.JButton();
         espacioColorCB = new javax.swing.JComboBox<>();
-        disenioPropioBoton = new javax.swing.JButton();
-        disenioPropio2Boton = new javax.swing.JButton();
-        barraEstado = new javax.swing.JPanel();
-        pixelLabel = new javax.swing.JLabel();
-        jToolBar1 = new javax.swing.JToolBar();
         escritorio = new javax.swing.JDesktopPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
@@ -172,8 +177,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         guardarMenuItem = new javax.swing.JMenuItem();
         verMenuBar = new javax.swing.JMenu();
         verBarraEstadoCB = new javax.swing.JCheckBoxMenuItem();
-        verBarraFormasCB = new javax.swing.JCheckBoxMenuItem();
-        verBarraImagenCB = new javax.swing.JCheckBoxMenuItem();
+        verBarraIzqCB = new javax.swing.JCheckBoxMenuItem();
+        verBarraSupCB = new javax.swing.JCheckBoxMenuItem();
+        verBarraDerechaCH = new javax.swing.JCheckBoxMenuItem();
         ayudaMenuBar = new javax.swing.JMenu();
         acercaMenuItem = new javax.swing.JMenuItem();
 
@@ -182,14 +188,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jButton4.setText("jButton4");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(1000, 1000));
-        setPreferredSize(new java.awt.Dimension(1000, 1000));
+        setMinimumSize(new java.awt.Dimension(500, 500));
 
-        barraFormasTB.setBorder(null);
-        barraFormasTB.setRollover(true);
-        barraFormasTB.setMaximumSize(new java.awt.Dimension(50, 30));
-        barraFormasTB.setMinimumSize(new java.awt.Dimension(50, 30));
-        barraFormasTB.setPreferredSize(new java.awt.Dimension(50, 30));
+        barraSuperiorTB.setBorder(null);
+        barraSuperiorTB.setRollover(true);
+        barraSuperiorTB.setMaximumSize(new java.awt.Dimension(50, 30));
+        barraSuperiorTB.setMinimumSize(new java.awt.Dimension(50, 30));
+        barraSuperiorTB.setPreferredSize(new java.awt.Dimension(50, 30));
 
         formasBG.add(lineaBoton);
         lineaBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/linea.png"))); // NOI18N
@@ -198,7 +203,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         lineaBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lineaBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         lineaBoton.addActionListener(formListener);
-        barraFormasTB.add(lineaBoton);
+        barraSuperiorTB.add(lineaBoton);
 
         formasBG.add(rectanguloBoton);
         rectanguloBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/rectangulo.png"))); // NOI18N
@@ -207,7 +212,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         rectanguloBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         rectanguloBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         rectanguloBoton.addActionListener(formListener);
-        barraFormasTB.add(rectanguloBoton);
+        barraSuperiorTB.add(rectanguloBoton);
 
         formasBG.add(elipseBoton);
         elipseBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/elipse.png"))); // NOI18N
@@ -216,21 +221,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         elipseBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         elipseBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         elipseBoton.addActionListener(formListener);
-        barraFormasTB.add(elipseBoton);
+        barraSuperiorTB.add(elipseBoton);
 
         FigurasCB.setToolTipText("Figuras dibujadas");
         FigurasCB.setMaximumSize(new java.awt.Dimension(100, 32767));
         FigurasCB.setMinimumSize(new java.awt.Dimension(100, 27));
         FigurasCB.setPreferredSize(new java.awt.Dimension(100, 27));
-        barraFormasTB.add(FigurasCB);
-        barraFormasTB.add(jSeparator1);
+        barraSuperiorTB.add(FigurasCB);
+        barraSuperiorTB.add(jSeparator1);
 
         colorTrazoCB.setMaximumSize(new java.awt.Dimension(60, 32767));
         colorTrazoCB.setMinimumSize(new java.awt.Dimension(60, 27));
         colorTrazoCB.setPreferredSize(new java.awt.Dimension(60, 27));
         colorTrazoCB.addActionListener(formListener);
-        barraFormasTB.add(colorTrazoCB);
-        barraFormasTB.add(jSeparator7);
+        barraSuperiorTB.add(colorTrazoCB);
+        barraSuperiorTB.add(jSeparator7);
 
         rellenarBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/rellenar.png"))); // NOI18N
         rellenarBoton.setToolTipText("Relleno");
@@ -238,36 +243,36 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         rellenarBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         rellenarBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         rellenarBoton.addActionListener(formListener);
-        barraFormasTB.add(rellenarBoton);
+        barraSuperiorTB.add(rellenarBoton);
 
         colorRellenoCB.setToolTipText("Color relleno");
         colorRellenoCB.setMaximumSize(new java.awt.Dimension(60, 32767));
         colorRellenoCB.setMinimumSize(new java.awt.Dimension(60, 27));
         colorRellenoCB.setPreferredSize(new java.awt.Dimension(60, 27));
         colorRellenoCB.addActionListener(formListener);
-        barraFormasTB.add(colorRellenoCB);
+        barraSuperiorTB.add(colorRellenoCB);
 
         tipoDegradadoCB.setToolTipText("Tipo relleno");
         tipoDegradadoCB.setMaximumSize(new java.awt.Dimension(150, 32767));
         tipoDegradadoCB.setMinimumSize(new java.awt.Dimension(150, 27));
         tipoDegradadoCB.setPreferredSize(new java.awt.Dimension(200, 27));
         tipoDegradadoCB.addActionListener(formListener);
-        barraFormasTB.add(tipoDegradadoCB);
+        barraSuperiorTB.add(tipoDegradadoCB);
 
         degradado1CB.setToolTipText("Primer color degradado");
         degradado1CB.setMaximumSize(new java.awt.Dimension(60, 32767));
         degradado1CB.setMinimumSize(new java.awt.Dimension(60, 27));
         degradado1CB.setPreferredSize(new java.awt.Dimension(60, 27));
         degradado1CB.addActionListener(formListener);
-        barraFormasTB.add(degradado1CB);
+        barraSuperiorTB.add(degradado1CB);
 
         degradado2CB.setToolTipText("Segundo color degradado");
         degradado2CB.setMaximumSize(new java.awt.Dimension(60, 32767));
         degradado2CB.setMinimumSize(new java.awt.Dimension(60, 27));
         degradado2CB.setPreferredSize(new java.awt.Dimension(60, 27));
         degradado2CB.addActionListener(formListener);
-        barraFormasTB.add(degradado2CB);
-        barraFormasTB.add(jSeparator6);
+        barraSuperiorTB.add(degradado2CB);
+        barraSuperiorTB.add(jSeparator6);
 
         transparenciaBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/transparencia.png"))); // NOI18N
         transparenciaBoton.setToolTipText("Transparencia");
@@ -275,7 +280,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         transparenciaBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         transparenciaBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         transparenciaBoton.addActionListener(formListener);
-        barraFormasTB.add(transparenciaBoton);
+        barraSuperiorTB.add(transparenciaBoton);
 
         transparenciaSlider.setToolTipText("Nivel transparencia");
         transparenciaSlider.setValue(100);
@@ -283,8 +288,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         transparenciaSlider.setMinimumSize(new java.awt.Dimension(100, 29));
         transparenciaSlider.setPreferredSize(new java.awt.Dimension(100, 29));
         transparenciaSlider.addChangeListener(formListener);
-        barraFormasTB.add(transparenciaSlider);
-        barraFormasTB.add(jSeparator2);
+        barraSuperiorTB.add(transparenciaSlider);
+        barraSuperiorTB.add(jSeparator2);
 
         grosorSpinner.setToolTipText("Grosor línea");
         grosorSpinner.setMaximumSize(new java.awt.Dimension(40, 32767));
@@ -292,13 +297,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         grosorSpinner.setPreferredSize(new java.awt.Dimension(40, 26));
         grosorSpinner.setValue(1);
         grosorSpinner.addChangeListener(formListener);
-        barraFormasTB.add(grosorSpinner);
+        barraSuperiorTB.add(grosorSpinner);
 
         tipoLineaCB.setMaximumSize(new java.awt.Dimension(100, 32767));
         tipoLineaCB.setMinimumSize(new java.awt.Dimension(100, 27));
         tipoLineaCB.setPreferredSize(new java.awt.Dimension(100, 27));
         tipoLineaCB.addActionListener(formListener);
-        barraFormasTB.add(tipoLineaCB);
+        barraSuperiorTB.add(tipoLineaCB);
 
         alisarBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/alisar.png"))); // NOI18N
         alisarBoton.setToolTipText("Alisado");
@@ -306,8 +311,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         alisarBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         alisarBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         alisarBoton.addActionListener(formListener);
-        barraFormasTB.add(alisarBoton);
-        barraFormasTB.add(jSeparator3);
+        barraSuperiorTB.add(alisarBoton);
+        barraSuperiorTB.add(jSeparator3);
 
         sonidoBG.add(recordSonidoBoton);
         recordSonidoBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/record24x24.png"))); // NOI18N
@@ -316,7 +321,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         recordSonidoBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         recordSonidoBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         recordSonidoBoton.addActionListener(formListener);
-        barraFormasTB.add(recordSonidoBoton);
+        barraSuperiorTB.add(recordSonidoBoton);
 
         sonidoBG.add(pausaGrabacionBoton);
         pausaGrabacionBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/pausa24x24.png"))); // NOI18N
@@ -325,7 +330,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         pausaGrabacionBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         pausaGrabacionBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         pausaGrabacionBoton.addActionListener(formListener);
-        barraFormasTB.add(pausaGrabacionBoton);
+        barraSuperiorTB.add(pausaGrabacionBoton);
 
         sonidoBG.add(stopRecordBoton);
         stopRecordBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/stopRecord24x24.png"))); // NOI18N
@@ -334,12 +339,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         stopRecordBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         stopRecordBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         stopRecordBoton.addActionListener(formListener);
-        barraFormasTB.add(stopRecordBoton);
+        barraSuperiorTB.add(stopRecordBoton);
 
         listaAudiosCB.setToolTipText("Lista de sonidos");
         listaAudiosCB.setMaximumSize(new java.awt.Dimension(100, 32767));
         listaAudiosCB.setMinimumSize(new java.awt.Dimension(100, 27));
-        barraFormasTB.add(listaAudiosCB);
+        barraSuperiorTB.add(listaAudiosCB);
 
         sonidoBG.add(reproducirSonidoBoton);
         reproducirSonidoBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Play.png"))); // NOI18N
@@ -348,7 +353,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         reproducirSonidoBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         reproducirSonidoBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         reproducirSonidoBoton.addActionListener(formListener);
-        barraFormasTB.add(reproducirSonidoBoton);
+        barraSuperiorTB.add(reproducirSonidoBoton);
 
         sonidoBG.add(pausaSonidoBoton);
         pausaSonidoBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Pausa.png"))); // NOI18N
@@ -357,7 +362,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         pausaSonidoBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         pausaSonidoBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         pausaSonidoBoton.addActionListener(formListener);
-        barraFormasTB.add(pausaSonidoBoton);
+        barraSuperiorTB.add(pausaSonidoBoton);
 
         sonidoBG.add(stopSonidoBoton);
         stopSonidoBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/stop24x24.png"))); // NOI18N
@@ -366,16 +371,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         stopSonidoBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         stopSonidoBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         stopSonidoBoton.addActionListener(formListener);
-        barraFormasTB.add(stopSonidoBoton);
+        barraSuperiorTB.add(stopSonidoBoton);
 
-        getContentPane().add(barraFormasTB, java.awt.BorderLayout.PAGE_START);
+        webCamBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Camara.png"))); // NOI18N
+        webCamBoton.setToolTipText("Cerrar WebCam");
+        webCamBoton.setFocusable(false);
+        webCamBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        webCamBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        webCamBoton.addActionListener(formListener);
+        barraSuperiorTB.add(webCamBoton);
 
-        barraImagenesTB.setBorder(null);
-        barraImagenesTB.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        barraImagenesTB.setRollover(true);
-        barraImagenesTB.setMaximumSize(new java.awt.Dimension(40, 30));
-        barraImagenesTB.setMinimumSize(new java.awt.Dimension(40, 30));
-        barraImagenesTB.setPreferredSize(new java.awt.Dimension(45, 35));
+        getContentPane().add(barraSuperiorTB, java.awt.BorderLayout.PAGE_START);
+
+        barraizquierdaTB.setBorder(null);
+        barraizquierdaTB.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        barraizquierdaTB.setRollover(true);
+        barraizquierdaTB.setMaximumSize(new java.awt.Dimension(40, 30));
+        barraizquierdaTB.setMinimumSize(new java.awt.Dimension(40, 30));
+        barraizquierdaTB.setPreferredSize(new java.awt.Dimension(45, 35));
 
         brilloSlider.setBackground(new java.awt.Color(204, 204, 204));
         brilloSlider.setMinimum(-100);
@@ -386,8 +399,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         brilloSlider.setPreferredSize(new java.awt.Dimension(29, 80));
         brilloSlider.addChangeListener(formListener);
         brilloSlider.addFocusListener(formListener);
-        barraImagenesTB.add(brilloSlider);
-        barraImagenesTB.add(jSeparator4);
+        barraizquierdaTB.add(brilloSlider);
+        barraizquierdaTB.add(jSeparator4);
 
         contrasteBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/contraste.png"))); // NOI18N
         contrasteBoton.setToolTipText("Contraste");
@@ -395,7 +408,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         contrasteBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         contrasteBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         contrasteBoton.addActionListener(formListener);
-        barraImagenesTB.add(contrasteBoton);
+        barraizquierdaTB.add(contrasteBoton);
 
         iluminarBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/iluminar.png"))); // NOI18N
         iluminarBoton.setToolTipText("Iluminar");
@@ -403,7 +416,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         iluminarBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         iluminarBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         iluminarBoton.addActionListener(formListener);
-        barraImagenesTB.add(iluminarBoton);
+        barraizquierdaTB.add(iluminarBoton);
 
         oscurecerBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/oscurecer.png"))); // NOI18N
         oscurecerBoton.setToolTipText("Oscurecer");
@@ -411,8 +424,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         oscurecerBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         oscurecerBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         oscurecerBoton.addActionListener(formListener);
-        barraImagenesTB.add(oscurecerBoton);
-        barraImagenesTB.add(jSeparator5);
+        barraizquierdaTB.add(oscurecerBoton);
+        barraizquierdaTB.add(jSeparator5);
 
         sepiaBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/sepia.png"))); // NOI18N
         sepiaBoton.setToolTipText("Filtro sepia");
@@ -420,7 +433,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         sepiaBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         sepiaBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         sepiaBoton.addActionListener(formListener);
-        barraImagenesTB.add(sepiaBoton);
+        barraizquierdaTB.add(sepiaBoton);
 
         tintarBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/tintar.png"))); // NOI18N
         tintarBoton.setToolTipText("Tintado");
@@ -428,23 +441,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         tintarBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         tintarBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         tintarBoton.addActionListener(formListener);
-        barraImagenesTB.add(tintarBoton);
+        barraizquierdaTB.add(tintarBoton);
 
         colorTintadoCB.setToolTipText("Color tintado");
         colorTintadoCB.setMaximumSize(new java.awt.Dimension(60, 27));
         colorTintadoCB.setMinimumSize(new java.awt.Dimension(60, 27));
         colorTintadoCB.setPreferredSize(new java.awt.Dimension(60, 27));
         colorTintadoCB.addActionListener(formListener);
-        barraImagenesTB.add(colorTintadoCB);
+        barraizquierdaTB.add(colorTintadoCB);
 
         tintadoSlider.setBackground(new java.awt.Color(204, 204, 204));
         tintadoSlider.setOrientation(javax.swing.JSlider.VERTICAL);
         tintadoSlider.setToolTipText("Nivel de tintado");
+        tintadoSlider.setValue(0);
         tintadoSlider.setMaximumSize(new java.awt.Dimension(29, 100));
         tintadoSlider.setPreferredSize(new java.awt.Dimension(29, 80));
         tintadoSlider.addChangeListener(formListener);
         tintadoSlider.addFocusListener(formListener);
-        barraImagenesTB.add(tintadoSlider);
+        barraizquierdaTB.add(tintadoSlider);
 
         ecualizacionBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/ecualizar.png"))); // NOI18N
         ecualizacionBoton.setToolTipText("Ecualización");
@@ -452,7 +466,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         ecualizacionBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         ecualizacionBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ecualizacionBoton.addActionListener(formListener);
-        barraImagenesTB.add(ecualizacionBoton);
+        barraizquierdaTB.add(ecualizacionBoton);
 
         umbralizacionSlider.setBackground(new java.awt.Color(204, 204, 204));
         umbralizacionSlider.setOrientation(javax.swing.JSlider.VERTICAL);
@@ -461,16 +475,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         umbralizacionSlider.setPreferredSize(new java.awt.Dimension(29, 80));
         umbralizacionSlider.addChangeListener(formListener);
         umbralizacionSlider.addFocusListener(formListener);
-        barraImagenesTB.add(umbralizacionSlider);
-        barraImagenesTB.add(jSeparator8);
+        barraizquierdaTB.add(umbralizacionSlider);
+        barraizquierdaTB.add(jSeparator8);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/zoomin.png"))); // NOI18N
-        jButton1.setToolTipText("Zoom in");
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton1.addActionListener(formListener);
-        barraImagenesTB.add(jButton1);
+        zoomInBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/zoomin.png"))); // NOI18N
+        zoomInBoton.setToolTipText("Zoom in");
+        zoomInBoton.setFocusable(false);
+        zoomInBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        zoomInBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        zoomInBoton.addActionListener(formListener);
+        barraizquierdaTB.add(zoomInBoton);
 
         disminuirBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/zoomout.png"))); // NOI18N
         disminuirBoton.setToolTipText("Zoom out");
@@ -478,8 +492,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         disminuirBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         disminuirBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         disminuirBoton.addActionListener(formListener);
-        barraImagenesTB.add(disminuirBoton);
-        barraImagenesTB.add(jSeparator9);
+        barraizquierdaTB.add(disminuirBoton);
+        barraizquierdaTB.add(jSeparator9);
 
         rot90Boton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/rotacion90.png"))); // NOI18N
         rot90Boton.setToolTipText("Rotación 90º");
@@ -487,7 +501,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         rot90Boton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         rot90Boton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         rot90Boton.addActionListener(formListener);
-        barraImagenesTB.add(rot90Boton);
+        barraizquierdaTB.add(rot90Boton);
 
         rot180Boton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/rotacion180.png"))); // NOI18N
         rot180Boton.setToolTipText("Rotacion 180º");
@@ -495,93 +509,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         rot180Boton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         rot180Boton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         rot180Boton.addActionListener(formListener);
-        barraImagenesTB.add(rot180Boton);
+        barraizquierdaTB.add(rot180Boton);
 
         rot270Boton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/rotacion270.png"))); // NOI18N
         rot270Boton.setToolTipText("Rotación 270º");
         rot270Boton.setFocusable(false);
         rot270Boton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         rot270Boton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        barraImagenesTB.add(rot270Boton);
+        rot270Boton.addActionListener(formListener);
+        barraizquierdaTB.add(rot270Boton);
 
         giroLibreSlider.setBackground(new java.awt.Color(204, 204, 204));
         giroLibreSlider.setOrientation(javax.swing.JSlider.VERTICAL);
         giroLibreSlider.setToolTipText("Giro libre");
         giroLibreSlider.setMaximumSize(new java.awt.Dimension(29, 100));
         giroLibreSlider.setPreferredSize(new java.awt.Dimension(29, 80));
-        barraImagenesTB.add(giroLibreSlider);
-        barraImagenesTB.add(jSeparator10);
+        barraizquierdaTB.add(giroLibreSlider);
 
-        duplicarBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/duplicar.png"))); // NOI18N
-        duplicarBoton.setToolTipText("Duplicar");
-        duplicarBoton.setFocusable(false);
-        duplicarBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        duplicarBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        duplicarBoton.addActionListener(formListener);
-        barraImagenesTB.add(duplicarBoton);
-
-        negativoBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/negativo.png"))); // NOI18N
-        negativoBoton.setToolTipText("Negativo");
-        negativoBoton.setFocusable(false);
-        negativoBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        negativoBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        negativoBoton.addActionListener(formListener);
-        barraImagenesTB.add(negativoBoton);
-
-        relieveBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/relieve.png"))); // NOI18N
-        relieveBoton.setToolTipText("Filtro de relieve");
-        relieveBoton.setFocusable(false);
-        relieveBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        relieveBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        relieveBoton.addActionListener(formListener);
-        barraImagenesTB.add(relieveBoton);
-
-        emborronamientoBoton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/emborronamiento.png"))); // NOI18N
-        emborronamientoBoton2.setToolTipText("Filtro emborronamiento");
-        emborronamientoBoton2.setFocusable(false);
-        emborronamientoBoton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        emborronamientoBoton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        emborronamientoBoton2.addActionListener(formListener);
-        barraImagenesTB.add(emborronamientoBoton2);
-
-        enfoqueBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/enfoque.png"))); // NOI18N
-        enfoqueBoton.setToolTipText("Filtro de enfoque");
-        enfoqueBoton.setFocusable(false);
-        enfoqueBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        enfoqueBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        enfoqueBoton.addActionListener(formListener);
-        barraImagenesTB.add(enfoqueBoton);
-
-        bandasBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/bandas.png"))); // NOI18N
-        bandasBoton.setToolTipText("Extracción de Bandas");
-        bandasBoton.setFocusable(false);
-        bandasBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        bandasBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        bandasBoton.addActionListener(formListener);
-        barraImagenesTB.add(bandasBoton);
-
-        espacioColorCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "RGB", "YCC", "GREY" }));
-        espacioColorCB.setToolTipText("Espacio de color");
-        espacioColorCB.addActionListener(formListener);
-        barraImagenesTB.add(espacioColorCB);
-
-        disenioPropioBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/sepia.png"))); // NOI18N
-        disenioPropioBoton.setToolTipText("Operacion diseño propio 1");
-        disenioPropioBoton.setFocusable(false);
-        disenioPropioBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        disenioPropioBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        disenioPropioBoton.addActionListener(formListener);
-        barraImagenesTB.add(disenioPropioBoton);
-
-        disenioPropio2Boton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/sepia.png"))); // NOI18N
-        disenioPropio2Boton.setToolTipText("Operación diseño propio 2");
-        disenioPropio2Boton.setFocusable(false);
-        disenioPropio2Boton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        disenioPropio2Boton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        disenioPropio2Boton.addActionListener(formListener);
-        barraImagenesTB.add(disenioPropio2Boton);
-
-        getContentPane().add(barraImagenesTB, java.awt.BorderLayout.LINE_START);
+        getContentPane().add(barraizquierdaTB, java.awt.BorderLayout.LINE_START);
 
         barraEstado.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         barraEstado.setMaximumSize(new java.awt.Dimension(20, 30));
@@ -595,25 +540,111 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addGroup(barraEstadoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pixelLabel)
-                .addContainerGap(1458, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1376, Short.MAX_VALUE)
+                .addComponent(eventoLabel)
+                .addContainerGap())
         );
         barraEstadoLayout.setVerticalGroup(
             barraEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(barraEstadoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pixelLabel)
+                .addGroup(barraEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(eventoLabel)
+                    .addComponent(pixelLabel))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(barraEstado, java.awt.BorderLayout.PAGE_END);
 
-        jToolBar1.setBorder(null);
-        jToolBar1.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jToolBar1.setRollover(true);
-        jToolBar1.setMaximumSize(new java.awt.Dimension(100, 30));
-        jToolBar1.setMinimumSize(new java.awt.Dimension(100, 30));
-        jToolBar1.setPreferredSize(new java.awt.Dimension(30, 30));
-        getContentPane().add(jToolBar1, java.awt.BorderLayout.LINE_END);
+        barraDerechaTB.setBorder(null);
+        barraDerechaTB.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        barraDerechaTB.setRollover(true);
+        barraDerechaTB.setMaximumSize(new java.awt.Dimension(100, 30));
+        barraDerechaTB.setMinimumSize(new java.awt.Dimension(100, 30));
+        barraDerechaTB.setPreferredSize(new java.awt.Dimension(30, 30));
+
+        disenioPropioBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/sepia.png"))); // NOI18N
+        disenioPropioBoton.setToolTipText("Filtro violeta");
+        disenioPropioBoton.setFocusable(false);
+        disenioPropioBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        disenioPropioBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        disenioPropioBoton.addActionListener(formListener);
+        barraDerechaTB.add(disenioPropioBoton);
+
+        disenioPropio2Boton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/sepia.png"))); // NOI18N
+        disenioPropio2Boton.setToolTipText("Filtro media");
+        disenioPropio2Boton.setFocusable(false);
+        disenioPropio2Boton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        disenioPropio2Boton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        disenioPropio2Boton.addActionListener(formListener);
+        barraDerechaTB.add(disenioPropio2Boton);
+
+        disenioPropio3Boton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/sepia.png"))); // NOI18N
+        disenioPropio3Boton.setToolTipText("Operacion diseño propio 3");
+        disenioPropio3Boton.setFocusable(false);
+        disenioPropio3Boton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        disenioPropio3Boton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        disenioPropio3Boton.addActionListener(formListener);
+        barraDerechaTB.add(disenioPropio3Boton);
+
+        duplicarBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/duplicar.png"))); // NOI18N
+        duplicarBoton.setToolTipText("Duplicar");
+        duplicarBoton.setFocusable(false);
+        duplicarBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        duplicarBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        duplicarBoton.addActionListener(formListener);
+        barraDerechaTB.add(duplicarBoton);
+
+        negativoBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/negativo.png"))); // NOI18N
+        negativoBoton.setToolTipText("Negativo");
+        negativoBoton.setFocusable(false);
+        negativoBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        negativoBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        negativoBoton.addActionListener(formListener);
+        barraDerechaTB.add(negativoBoton);
+
+        relieveBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/relieve.png"))); // NOI18N
+        relieveBoton.setToolTipText("Filtro de relieve");
+        relieveBoton.setFocusable(false);
+        relieveBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        relieveBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        relieveBoton.addActionListener(formListener);
+        barraDerechaTB.add(relieveBoton);
+
+        emborronamientoBoton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/emborronamiento.png"))); // NOI18N
+        emborronamientoBoton2.setToolTipText("Filtro emborronamiento");
+        emborronamientoBoton2.setFocusable(false);
+        emborronamientoBoton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        emborronamientoBoton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        emborronamientoBoton2.addActionListener(formListener);
+        barraDerechaTB.add(emborronamientoBoton2);
+
+        enfoqueBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/enfoque.png"))); // NOI18N
+        enfoqueBoton.setToolTipText("Filtro de enfoque");
+        enfoqueBoton.setFocusable(false);
+        enfoqueBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        enfoqueBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        enfoqueBoton.addActionListener(formListener);
+        barraDerechaTB.add(enfoqueBoton);
+        barraDerechaTB.add(jSeparator10);
+
+        bandasBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/bandas.png"))); // NOI18N
+        bandasBoton.setToolTipText("Extracción de Bandas");
+        bandasBoton.setFocusable(false);
+        bandasBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        bandasBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        bandasBoton.addActionListener(formListener);
+        barraDerechaTB.add(bandasBoton);
+
+        espacioColorCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "RGB", "YCC", "GREY" }));
+        espacioColorCB.setToolTipText("Espacio de color");
+        espacioColorCB.setMaximumSize(new java.awt.Dimension(50, 50));
+        espacioColorCB.setMinimumSize(new java.awt.Dimension(50, 50));
+        espacioColorCB.setPreferredSize(new java.awt.Dimension(30, 27));
+        espacioColorCB.addActionListener(formListener);
+        barraDerechaTB.add(espacioColorCB);
+
+        getContentPane().add(barraDerechaTB, java.awt.BorderLayout.LINE_END);
 
         jScrollPane1.setViewportView(jTextPane1);
 
@@ -647,15 +678,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         verBarraEstadoCB.addActionListener(formListener);
         verMenuBar.add(verBarraEstadoCB);
 
-        verBarraFormasCB.setSelected(true);
-        verBarraFormasCB.setText("Ver barra de formas");
-        verBarraFormasCB.addActionListener(formListener);
-        verMenuBar.add(verBarraFormasCB);
+        verBarraIzqCB.setSelected(true);
+        verBarraIzqCB.setText("Ver barra izquierda");
+        verBarraIzqCB.addActionListener(formListener);
+        verMenuBar.add(verBarraIzqCB);
 
-        verBarraImagenCB.setSelected(true);
-        verBarraImagenCB.setText("Ver barra de imagen");
-        verBarraImagenCB.addActionListener(formListener);
-        verMenuBar.add(verBarraImagenCB);
+        verBarraSupCB.setSelected(true);
+        verBarraSupCB.setText("Ver barra superior");
+        verBarraSupCB.addActionListener(formListener);
+        verMenuBar.add(verBarraSupCB);
+
+        verBarraDerechaCH.setSelected(true);
+        verBarraDerechaCH.setText("Ver barra derecha");
+        verBarraDerechaCH.addActionListener(formListener);
+        verMenuBar.add(verBarraDerechaCH);
 
         menuBar.add(verMenuBar);
 
@@ -752,8 +788,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             else if (evt.getSource() == ecualizacionBoton) {
                 VentanaPrincipal.this.ecualizacionBotonActionPerformed(evt);
             }
-            else if (evt.getSource() == jButton1) {
-                VentanaPrincipal.this.jButton1ActionPerformed(evt);
+            else if (evt.getSource() == zoomInBoton) {
+                VentanaPrincipal.this.zoomInBotonActionPerformed(evt);
             }
             else if (evt.getSource() == disminuirBoton) {
                 VentanaPrincipal.this.disminuirBotonActionPerformed(evt);
@@ -763,6 +799,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
             else if (evt.getSource() == rot180Boton) {
                 VentanaPrincipal.this.rot180BotonActionPerformed(evt);
+            }
+            else if (evt.getSource() == disenioPropioBoton) {
+                VentanaPrincipal.this.disenioPropioBotonActionPerformed(evt);
+            }
+            else if (evt.getSource() == disenioPropio2Boton) {
+                VentanaPrincipal.this.disenioPropio2BotonActionPerformed(evt);
             }
             else if (evt.getSource() == duplicarBoton) {
                 VentanaPrincipal.this.duplicarBotonActionPerformed(evt);
@@ -797,20 +839,26 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             else if (evt.getSource() == verBarraEstadoCB) {
                 VentanaPrincipal.this.verBarraEstadoCBActionPerformed(evt);
             }
-            else if (evt.getSource() == verBarraFormasCB) {
-                VentanaPrincipal.this.verBarraFormasCBActionPerformed(evt);
+            else if (evt.getSource() == verBarraSupCB) {
+                VentanaPrincipal.this.verBarraSupCBActionPerformed(evt);
             }
-            else if (evt.getSource() == verBarraImagenCB) {
-                VentanaPrincipal.this.verBarraImagenCBActionPerformed(evt);
+            else if (evt.getSource() == verBarraIzqCB) {
+                VentanaPrincipal.this.verBarraIzqCBActionPerformed(evt);
             }
             else if (evt.getSource() == acercaMenuItem) {
                 VentanaPrincipal.this.acercaMenuItemActionPerformed(evt);
             }
-            else if (evt.getSource() == disenioPropioBoton) {
-                VentanaPrincipal.this.disenioPropioBotonActionPerformed(evt);
+            else if (evt.getSource() == verBarraDerechaCH) {
+                VentanaPrincipal.this.verBarraDerechaCHActionPerformed(evt);
             }
-            else if (evt.getSource() == disenioPropio2Boton) {
-                VentanaPrincipal.this.disenioPropio2BotonActionPerformed(evt);
+            else if (evt.getSource() == webCamBoton) {
+                VentanaPrincipal.this.webCamBotonActionPerformed(evt);
+            }
+            else if (evt.getSource() == disenioPropio3Boton) {
+                VentanaPrincipal.this.disenioPropio3BotonActionPerformed(evt);
+            }
+            else if (evt.getSource() == rot270Boton) {
+                VentanaPrincipal.this.rot270BotonActionPerformed(evt);
             }
         }
 
@@ -1065,7 +1113,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         VentanaInterna vi;
         vi = (VentanaInterna) escritorio.getSelectedFrame();
         if(vi != null){
-            vi.getLienzo().setColorTrazo(selectedColor);
+           vi.getLienzo().setColorTrazo(selectedColor);
         }
     }//GEN-LAST:event_colorTrazoCBActionPerformed
 
@@ -1185,13 +1233,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
          barraEstado.setVisible(!barraEstado.isVisible());
     }//GEN-LAST:event_verBarraEstadoCBActionPerformed
 
-    private void verBarraFormasCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verBarraFormasCBActionPerformed
-        barraFormasTB.setVisible(!barraFormasTB.isVisible());
-    }//GEN-LAST:event_verBarraFormasCBActionPerformed
+    private void verBarraSupCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verBarraSupCBActionPerformed
+        barraSuperiorTB.setVisible(!barraSuperiorTB.isVisible());
+    }//GEN-LAST:event_verBarraSupCBActionPerformed
 
-    private void verBarraImagenCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verBarraImagenCBActionPerformed
-        barraImagenesTB.setVisible(!barraImagenesTB.isVisible());
-    }//GEN-LAST:event_verBarraImagenCBActionPerformed
+    private void verBarraIzqCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verBarraIzqCBActionPerformed
+        barraizquierdaTB.setVisible(!barraizquierdaTB.isVisible());
+    }//GEN-LAST:event_verBarraIzqCBActionPerformed
 
     private void brilloSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_brilloSliderStateChanged
         VentanaInterna vi = (VentanaInterna) escritorio.getSelectedFrame();
@@ -1257,7 +1305,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             if(imgSource != null){
                 try{
                     TintOp tintado = new TintOp(vi.getLienzo().getColorTintado(), nivelTintado/100);
-                    BufferedImage imgdest = tintado.filter(imgSource, null);
+                    imgdest = tintado.filter(imgSource, null);
                     vi.getLienzo().setImage(imgdest);
                     vi.getLienzo().repaint();
                 }catch(Exception e){
@@ -1278,7 +1326,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_tintadoSliderFocusGained
 
     private void tintadoSliderFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tintadoSliderFocusLost
-        imgSource = null;
+        imgSource = imgdest;
+        tintadoSlider.setValue(0);
     }//GEN-LAST:event_tintadoSliderFocusLost
 
     private void umbralizacionSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_umbralizacionSliderStateChanged
@@ -1288,7 +1337,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             if(imgSource != null){
                 try{
                     UmbralizacionOp umbr = new UmbralizacionOp(umbral);
-                    BufferedImage imgdest = umbr.filter(imgSource, null);
+                    imgdest = umbr.filter(imgSource, null);
                     vi.getLienzo().setImage(imgdest);
                     vi.getLienzo().repaint();
                 }catch(Exception e){
@@ -1309,7 +1358,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_umbralizacionSliderFocusGained
 
     private void umbralizacionSliderFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_umbralizacionSliderFocusLost
-        imgSource = null;
+        imgSource = imgdest;
+        umbralizacionSlider.setValue(50);
     }//GEN-LAST:event_umbralizacionSliderFocusLost
 
     private void negativoBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_negativoBotonActionPerformed
@@ -1488,7 +1538,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     
                     AffineTransformOp atop;
                     atop = new AffineTransformOp(ar, AffineTransformOp.TYPE_BILINEAR);
-                    BufferedImage imgdest = atop.filter(imgSource, null);
+                    imgdest = atop.filter(imgSource, null);
                     
                     vi.getLienzo().setImage(imgdest);
                     vi.getLienzo().repaint();
@@ -1503,7 +1553,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_rot180BotonActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void zoomInBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zoomInBotonActionPerformed
         VentanaInterna vi = (VentanaInterna) escritorio.getSelectedFrame();
         if(vi != null){
             imgSource = vi.getLienzo().getImage(true);
@@ -1512,7 +1562,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     AffineTransform at = AffineTransform.getScaleInstance(1.25, 1.25);
                     AffineTransformOp atop;
                     atop = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
-                    BufferedImage imgdest = atop.filter(imgSource, null);
+                    imgdest = atop.filter(imgSource, null);
                     
                     vi.getLienzo().setImage(imgdest);
                     vi.getLienzo().repaint();
@@ -1521,7 +1571,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 }
             }
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_zoomInBotonActionPerformed
 
     private void disminuirBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disminuirBotonActionPerformed
         VentanaInterna vi = (VentanaInterna) escritorio.getSelectedFrame();
@@ -1532,7 +1582,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     AffineTransform at = AffineTransform.getScaleInstance(0.75, 0.75);
                     AffineTransformOp atop;
                     atop = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
-                    BufferedImage imgdest = atop.filter(imgSource, null);
+                    imgdest = atop.filter(imgSource, null);
                     
                     vi.getLienzo().setImage(imgdest);
                     vi.getLienzo().repaint();
@@ -1621,7 +1671,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     escritorio.add(newVi);
                     newVi.setVisible(true);
                     newVi.getLienzo().setImage(imgOut);
-                    newVi.setTitle("["+itemSelec.toString()+"]");
+                    newVi.setTitle("["+itemSelec+"]");
                     //guardar dimension
                     int w = imgOut.getWidth();
                     int h = imgOut.getHeight();
@@ -1636,7 +1686,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         if(vi != null){
             imgSource = vi.getLienzo().getImage(true);
             if(imgSource != null){
-                disenioPropioOp dp = new disenioPropioOp();
+                PurpleOp dp = new PurpleOp();
                 dp.filter(imgSource, imgSource);
                 vi.getLienzo().repaint();
             }
@@ -1648,12 +1698,32 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         if(vi != null){
             imgSource = vi.getLienzo().getImage(true);
             if(imgSource != null){
-                disenioPropio2Op dp = new disenioPropio2Op();
+                AverageOp dp = new AverageOp();
                 dp.filter(imgSource, imgSource);
                 vi.getLienzo().repaint();
             }
         }
     }//GEN-LAST:event_disenioPropio2BotonActionPerformed
+
+    private void verBarraDerechaCHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verBarraDerechaCHActionPerformed
+        barraDerechaTB.setVisible(!barraDerechaTB.isVisible());
+    }//GEN-LAST:event_verBarraDerechaCHActionPerformed
+
+    private void webCamBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_webCamBotonActionPerformed
+        VentanaInternaCamara ventanaCamara = VentanaInternaCamara.getInstance();
+        if(ventanaCamara!=null){
+          escritorio.add(ventanaCamara);
+          ventanaCamara.setVisible(true);
+        }
+    }//GEN-LAST:event_webCamBotonActionPerformed
+
+    private void disenioPropio3BotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disenioPropio3BotonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_disenioPropio3BotonActionPerformed
+
+    private void rot270BotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rot270BotonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rot270BotonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1698,9 +1768,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu archivoMenuBar;
     private javax.swing.JMenu ayudaMenuBar;
     private javax.swing.JButton bandasBoton;
+    private javax.swing.JToolBar barraDerechaTB;
     private javax.swing.JPanel barraEstado;
-    private javax.swing.JToolBar barraFormasTB;
-    private javax.swing.JToolBar barraImagenesTB;
+    private javax.swing.JToolBar barraSuperiorTB;
+    private javax.swing.JToolBar barraizquierdaTB;
     private javax.swing.JSlider brilloSlider;
     private javax.swing.JComboBox<Color> colorRellenoCB;
     private javax.swing.JComboBox<Color> colorTintadoCB;
@@ -1709,6 +1780,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JComboBox<Color> degradado1CB;
     private javax.swing.JComboBox<Color> degradado2CB;
     private javax.swing.JButton disenioPropio2Boton;
+    private javax.swing.JButton disenioPropio3Boton;
     private javax.swing.JButton disenioPropioBoton;
     private javax.swing.JButton disminuirBoton;
     private javax.swing.JButton duplicarBoton;
@@ -1718,12 +1790,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton enfoqueBoton;
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JComboBox<String> espacioColorCB;
+    private javax.swing.JLabel eventoLabel;
     private javax.swing.ButtonGroup formasBG;
     private javax.swing.JSlider giroLibreSlider;
     private javax.swing.JSpinner grosorSpinner;
     private javax.swing.JMenuItem guardarMenuItem;
     private javax.swing.JButton iluminarBoton;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar.Separator jSeparator1;
@@ -1737,7 +1809,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator8;
     private javax.swing.JToolBar.Separator jSeparator9;
     private javax.swing.JTextPane jTextPane1;
-    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JToggleButton lineaBoton;
     private javax.swing.JComboBox<File> listaAudiosCB;
     private javax.swing.JMenuBar menuBar;
@@ -1767,9 +1838,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JToggleButton transparenciaBoton;
     private javax.swing.JSlider transparenciaSlider;
     private javax.swing.JSlider umbralizacionSlider;
+    private javax.swing.JCheckBoxMenuItem verBarraDerechaCH;
     private javax.swing.JCheckBoxMenuItem verBarraEstadoCB;
-    private javax.swing.JCheckBoxMenuItem verBarraFormasCB;
-    private javax.swing.JCheckBoxMenuItem verBarraImagenCB;
+    private javax.swing.JCheckBoxMenuItem verBarraIzqCB;
+    private javax.swing.JCheckBoxMenuItem verBarraSupCB;
     private javax.swing.JMenu verMenuBar;
+    private javax.swing.JToggleButton webCamBoton;
+    private javax.swing.JButton zoomInBoton;
     // End of variables declaration//GEN-END:variables
 }

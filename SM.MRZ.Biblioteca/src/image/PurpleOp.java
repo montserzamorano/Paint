@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import sm.image.BufferedImageOpAdapter;
 
 
-public class disenioPropioOp extends BufferedImageOpAdapter{
+public class PurpleOp extends BufferedImageOpAdapter{
 
     @Override
     public BufferedImage filter(BufferedImage src, BufferedImage dest) {

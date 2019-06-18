@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import sm.image.BufferedImageOpAdapter;
 
 
-public class disenioPropio2Op extends BufferedImageOpAdapter{
+public class AverageOp extends BufferedImageOpAdapter{
 
     @Override
     public BufferedImage filter(BufferedImage src, BufferedImage dest) {

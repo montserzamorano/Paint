@@ -6,6 +6,8 @@ package iu;
  * @version 1.1
  */
 
+import eventos.LienzoEvent;
+import eventos.LienzoListener;
 import graficos.Elipse;
 import graficos.Figura;
 import graficos.Forma;
@@ -13,18 +15,16 @@ import graficos.Linea;
 import graficos.Rectangulo;
 import graficos.TipoLinea;
 import graficos.TipoRelleno;
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.Stroke;
 import java.awt.geom.Point2D;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  *
@@ -32,12 +32,14 @@ import java.util.List;
  * @version 14.06.2019
  */
 public class Lienzo extends javax.swing.JPanel {
+    //Eventos
+    ArrayList <LienzoListener> lienzoEventListeners = new ArrayList();
  
     private List <Figura> vFiguras = new ArrayList();
     //atributos del lienzo
     //trazo
-    private Color colorTrazo = Color.BLACK;
-    private TipoLinea stroke = TipoLinea.CONTINUA;
+    private Color colorTrazo = null;
+    private TipoLinea stroke = null;
     private int grosor = 1;
     //transparencia
     private boolean transparenciaActivated = false;
@@ -49,7 +51,7 @@ public class Lienzo extends javax.swing.JPanel {
     private Color colorDeg1 = null;
     private Color colorDeg2 = null;
     //forma
-    private Forma formaActiva;
+    private Forma formaActiva = null;
     //alisado
     private boolean alisadoActivated = false;
     
@@ -97,7 +99,6 @@ public class Lienzo extends javax.swing.JPanel {
         return colorTrazo;
     }
 
-    
     public void setForma(Forma forma){formaActiva = forma;}
     
     public Color getColorRelleno(){
@@ -203,6 +204,30 @@ public class Lienzo extends javax.swing.JPanel {
     private void updateShape(){
         fActiva.updateShape(pI, pF);
     }
+    
+    //EVENTOS
+    
+    public void addLienzoListener(LienzoListener listener){
+        if(listener != null){
+            lienzoEventListeners.add(listener);
+        }
+    }
+    
+    private void notifyShapeAddedEvent(LienzoEvent evt){
+        if(!lienzoEventListeners.isEmpty()){
+            for(LienzoListener listener : lienzoEventListeners){
+                listener.shapeAdded(evt);
+            }
+        }
+    }
+    
+    private void notifyPropertyChangeEvent(LienzoEvent evt){
+        if(!lienzoEventListeners.isEmpty()){
+            for(LienzoListener listener : lienzoEventListeners){
+                listener.propertyChange(evt);
+            }
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -246,6 +271,7 @@ public class Lienzo extends javax.swing.JPanel {
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
         pI = evt.getPoint();
         vFiguras.add(createFigura(pI, pF));
+        notifyShapeAddedEvent( new LienzoEvent(this, fActiva, colorTrazo));
     }//GEN-LAST:event_formMousePressed
 
     private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
