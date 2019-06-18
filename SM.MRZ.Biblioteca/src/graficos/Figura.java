@@ -15,7 +15,7 @@ import java.awt.Stroke;
 import java.awt.geom.Point2D;
 
 public abstract class Figura {
-    private Color trazo = Color.BLACK;
+    private Color trazo = null;
     private TipoLinea stroke;
     private boolean alisado;
     private Point2D puntoOrigen, puntoFinal = new Point(-1000, -1000);

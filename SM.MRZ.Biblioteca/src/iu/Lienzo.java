@@ -1,11 +1,5 @@
 package iu;
 
-/**
- *
- * @author Montserrat Rodríguez Zamorano
- * @version 1.1
- */
-
 import eventos.LienzoEvent;
 import eventos.LienzoListener;
 import graficos.Elipse;
@@ -24,12 +18,12 @@ import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
-
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Montserrat Rodríguez Zamorano
- * @version 14.06.2019
+ * @version 1.1
  */
 public class Lienzo extends javax.swing.JPanel {
     //Eventos
@@ -88,131 +82,216 @@ public class Lienzo extends javax.swing.JPanel {
           f.paint(g2d);
         }
     }
-    
+    /**
+     * 
+     * @param dimension 
+     */
     public void setDimension(Dimension dimension){this.dimension = dimension;}
+    /**
+     * 
+     * @return 
+     */
     public Dimension getDimension(){return dimension;}
-    
-    public void setColorTrazo(Color color){
-        colorTrazo = color;
-    }
-    public Color getColorTrazo(){
-        return colorTrazo;
-    }
-
+    /**
+     * 
+     * @param color 
+     */
+    public void setColorTrazo(Color color){colorTrazo = color;}
+    /**
+     * 
+     * @return 
+     */
+    public Color getColorTrazo(){return colorTrazo;}
+    /**
+     * 
+     * @param forma 
+     */
     public void setForma(Forma forma){formaActiva = forma;}
-    
-    public Color getColorRelleno(){
-        return colorRelleno;
-    }
-    public void setColorRelleno(Color color){
-        colorRelleno = color;
-    }
-    
-    public float getTransparencia(){
-        return transparencia;
-    }
-    
-    public void setTransparencia(float transparencia){
-        this.transparencia = transparencia;
-    }
-    
-    public boolean getTransparenciaActivated(){
-        return transparenciaActivated;
-    }
-    
+    /**
+     * 
+     * @return 
+     */
+    public Color getColorRelleno(){return colorRelleno;}
+    /**
+     * 
+     * @param color 
+     */
+    public void setColorRelleno(Color color){colorRelleno = color;}
+    /**
+     * 
+     * @return 
+     */
+    public float getTransparencia(){return transparencia;}
+    /**
+     * 
+     * @param transparencia 
+     */
+    public void setTransparencia(float transparencia){this.transparencia = transparencia;}
+    /**
+     * 
+     * @return 
+     */
+    public boolean getTransparenciaActivated(){return transparenciaActivated;}
+    /**
+     * 
+     * @param transparenciaActivated 
+     */
     public void setTransparenciaActivated(boolean transparenciaActivated){
         this.transparenciaActivated = transparenciaActivated;
     }
-    
-    public boolean getRellenoActivated(){
-        return rellenoActivated;
-    }
-    
+    /**
+     * 
+     * @return 
+     */
+    public boolean getRellenoActivated(){return rellenoActivated;}
+    /**
+     * 
+     * @param rellenoActivated 
+     */
     public void setRellenoActivated(boolean rellenoActivated){
         this.rellenoActivated = rellenoActivated;
     }
-    
-    public void setRelleno(Color color){
-        colorRelleno = color;
-    }
-    
-    public TipoLinea getStroke(){
-        return stroke;
-    }
-    
-    public void setStroke(TipoLinea stroke){
-        this.stroke = stroke;
-    }
-    
-    public boolean getAlisadoActivated(){
-        return alisadoActivated;
-    }
-    
-    public void changeAlisadoActivated(){
-        alisadoActivated = !alisadoActivated;
-    }
-    
-    public void setTipoRelleno(TipoRelleno tp){
-        tipoRelleno = tp;
-    }
-    
-    public void setColorDeg1(Color deg){
-        colorDeg1 = deg;
-    }
-    
-    public Color getColorDeg1(){
-        return colorDeg1;
-    }
-    
-    public void setColorDeg2(Color deg){
-        colorDeg2 = deg;
-    }
-    public Color getColorDeg2(){
-        return colorDeg2;
-    }
-    
-    public void setGrosor(int grosor){
-        this.grosor = grosor;
-    }
-    
-    public int getGrosor(){
-        return grosor;
-    }
-    
+    /**
+     * 
+     * @param color 
+     */
+    public void setRelleno(Color color){colorRelleno = color;}
+    /**
+     * 
+     * @return 
+     */
+    public TipoLinea getStroke(){return stroke;}
+    /**
+     * 
+     * @param stroke 
+     */
+    public void setStroke(TipoLinea stroke){this.stroke = stroke;}
+    /**
+     * 
+     * @return 
+     */
+    public boolean getAlisadoActivated(){return alisadoActivated;}
+    /**
+     * 
+     */
+    public void changeAlisadoActivated(){ alisadoActivated = !alisadoActivated;}
+    /**
+     * 
+     * @param tp 
+     */
+    public void setTipoRelleno(TipoRelleno tp){tipoRelleno = tp;} 
+    /**
+     * 
+     * @param deg 
+     */
+    public void setColorDeg1(Color deg){colorDeg1 = deg;} 
+    /**
+     * 
+     * @return 
+     */
+    public Color getColorDeg1(){return colorDeg1;}
+    /**
+     * 
+     * @param deg 
+     */
+    public void setColorDeg2(Color deg){colorDeg2 = deg;}
+    /**
+     * 
+     * @return 
+     */
+    public Color getColorDeg2(){return colorDeg2;}
+    /**
+     * 
+     * @param grosor 
+     */
+    public void setGrosor(int grosor){this.grosor = grosor;}
+    /**
+     * 
+     * @return 
+     */
+    public int getGrosor(){return grosor;}
+    /**
+     * 
+     * @return 
+     */
     public TipoRelleno getTipoRelleno(){return tipoRelleno;}
-    
+    /**
+     * 
+     * @param p1
+     * @param p2
+     * @return 
+     */
     private Figura createFigura(Point2D p1, Point2D p2){
-        switch(formaActiva){
-            case LINEA:
-                fActiva = new Linea(p1,p2,colorTrazo, stroke, grosor, transparencia, alisadoActivated);
-                break;
-            case RECTANGULO:
-                fActiva = new Rectangulo(p1, p2, colorTrazo, stroke, grosor, colorRelleno, tipoRelleno, colorDeg1, colorDeg2, transparencia, alisadoActivated);
-                break;
-            case OVALO:
-                fActiva = new Elipse(p1, p2, colorTrazo, stroke, grosor, colorRelleno, tipoRelleno, colorDeg1, colorDeg2, transparencia, alisadoActivated);
-                break;
-            default:
-                break;
+        String mensaje;
+        if(formaActiva == null){
+            mensaje = "Debe seleccionar una forma de dibujo.";
+            JOptionPane.showMessageDialog(null, mensaje, "¡Atención!", JOptionPane.ERROR_MESSAGE);
         }
-        return fActiva;
+        else if(colorTrazo == null){
+            mensaje = "Debe seleccionar un color de trazo.";
+            JOptionPane.showMessageDialog(null, mensaje, "¡Atención!", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(stroke == null){
+            mensaje = "Debe seleccionar un tipo de línea.";
+            JOptionPane.showMessageDialog(null, mensaje, "¡Atención!", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(rellenoActivated==true && tipoRelleno==null){
+            mensaje = "Debe seleccionar un tipo de relleno.";
+            JOptionPane.showMessageDialog(null, mensaje, "¡Atención!", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(rellenoActivated==true && tipoRelleno==TipoRelleno.LISO && colorRelleno==null){
+            mensaje = "Debe seleccionar un color de relleno.";
+            JOptionPane.showMessageDialog(null, mensaje, "¡Atención!", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(rellenoActivated==true && 
+                (tipoRelleno==TipoRelleno.DEGRADADO_DIAGONAL || 
+                tipoRelleno==TipoRelleno.DEGRADADO_HORIZONTAL ||
+                tipoRelleno == TipoRelleno.DEGRADADO_DIAGONAL) && 
+                (colorDeg1==null ||colorDeg2 == null) ){
+            mensaje = "Debe seleccionar dos colores de degradado.";
+            JOptionPane.showMessageDialog(null, mensaje, "¡Atención!", JOptionPane.ERROR_MESSAGE);
+        }
+        else{
+            switch(formaActiva){
+                case LINEA:
+                    fActiva = new Linea(p1,p2,colorTrazo, stroke, grosor, transparencia, alisadoActivated);
+                    break;
+                case RECTANGULO:
+                    fActiva = new Rectangulo(p1, p2, colorTrazo, stroke, grosor, colorRelleno, tipoRelleno, colorDeg1, colorDeg2, transparencia, alisadoActivated);
+                    break;
+                case OVALO:
+                    fActiva = new Elipse(p1, p2, colorTrazo, stroke, grosor, colorRelleno, tipoRelleno, colorDeg1, colorDeg2, transparencia, alisadoActivated);
+                    break;
+                default:
+                    break;
+            }
+            return fActiva;
+        }
+        return null;
     }
-    
-    
+    /**
+     * 
+     * @return 
+     */
     public List <Figura> getListaFiguras(){return vFiguras;}
+    /**
+     * 
+     */
+    private void updateShape(){fActiva.updateShape(pI, pF);}
     
-    private void updateShape(){
-        fActiva.updateShape(pI, pF);
-    }
-    
-    //EVENTOS
-    
+    /**
+     * 
+     * @param listener 
+     */
     public void addLienzoListener(LienzoListener listener){
         if(listener != null){
             lienzoEventListeners.add(listener);
         }
     }
-    
+    /**
+     * 
+     * @param evt 
+     */
     private void notifyShapeAddedEvent(LienzoEvent evt){
         if(!lienzoEventListeners.isEmpty()){
             for(LienzoListener listener : lienzoEventListeners){
@@ -220,7 +299,10 @@ public class Lienzo extends javax.swing.JPanel {
             }
         }
     }
-    
+    /**
+     * 
+     * @param evt 
+     */
     private void notifyPropertyChangeEvent(LienzoEvent evt){
         if(!lienzoEventListeners.isEmpty()){
             for(LienzoListener listener : lienzoEventListeners){
@@ -270,8 +352,11 @@ public class Lienzo extends javax.swing.JPanel {
 
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
         pI = evt.getPoint();
-        vFiguras.add(createFigura(pI, pF));
-        notifyShapeAddedEvent( new LienzoEvent(this, fActiva, colorTrazo));
+        Figura f = createFigura(pI, pF);
+        if(f!=null){
+            vFiguras.add(createFigura(pI, pF));
+            notifyShapeAddedEvent(new LienzoEvent(this, fActiva, colorTrazo));
+        }
     }//GEN-LAST:event_formMousePressed
 
     private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased

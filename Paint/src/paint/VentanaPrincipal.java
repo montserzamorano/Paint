@@ -1181,8 +1181,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         if(vi != null){
             if(vi.getLienzo().getRellenoActivated()){
                 if(tipoDegradadoCB.getSelectedItem()==TipoRelleno.LISO){
-                    Color selectedColor = (Color) colorRellenoCB.getSelectedItem();
-                    vi.getLienzo().setColorRelleno(selectedColor);
                     vi.getLienzo().setTipoRelleno(TipoRelleno.LISO);
                 }
                 else if(tipoDegradadoCB.getSelectedItem()==TipoRelleno.DEGRADADO_HORIZONTAL){

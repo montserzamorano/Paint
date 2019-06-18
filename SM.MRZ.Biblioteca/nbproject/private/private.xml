@@ -2,6 +2,16 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/Users/montse/Documents/GitHub/Paint/SM.MRZ.Biblioteca/src/graficos/Figura.java</file>
+            <file>file:/Users/montse/Documents/GitHub/Paint/SM.MRZ.Biblioteca/src/graficos/FiguraRellenable.java</file>
+            <file>file:/Users/montse/Documents/GitHub/Paint/SM.MRZ.Biblioteca/src/graficos/Rectangulo.java</file>
+            <file>file:/Users/montse/Documents/GitHub/Paint/SM.MRZ.Biblioteca/src/eventos/LienzoAdapter.java</file>
+            <file>file:/Users/montse/Documents/GitHub/Paint/SM.MRZ.Biblioteca/src/iu/Lienzo.java</file>
+            <file>file:/Users/montse/Documents/GitHub/Paint/SM.MRZ.Biblioteca/src/image/PurpleOp.java</file>
+            <file>file:/Users/montse/Documents/GitHub/Paint/SM.MRZ.Biblioteca/src/eventos/LienzoEvent.java</file>
+            <file>file:/Users/montse/Documents/GitHub/Paint/SM.MRZ.Biblioteca/src/eventos/LienzoListener.java</file>
+            <file>file:/Users/montse/Documents/GitHub/Paint/SM.MRZ.Biblioteca/src/graficos/Elipse.java</file>
+        </group>
     </open-files>
 </project-private>
