@@ -1,12 +1,13 @@
+package image;
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+import sm.image.BufferedImageOpAdapter;
+
 /**
  *
  * @author Montserrat Rodríguez Zamorano
  * @version 1.1
  */
-package image;
-import java.awt.Color;
-import java.awt.image.BufferedImage;
-import sm.image.BufferedImageOpAdapter;
 
 public class UmbralizacionOp extends BufferedImageOpAdapter{
     private int umbral;

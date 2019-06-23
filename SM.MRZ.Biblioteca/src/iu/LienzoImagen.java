@@ -1,8 +1,3 @@
-/**
- *
- * @author Montserrat Rodríguez Zamorano
- * @version 1.1
- */
 package iu;
 
 import java.awt.BasicStroke;
@@ -13,6 +8,12 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.Stroke;
 import java.awt.image.BufferedImage;
+
+/**
+ *
+ * @author Montserrat Rodríguez Zamorano
+ * @version 1.1
+ */
 
 public class LienzoImagen extends Lienzo {
     private BufferedImage img;

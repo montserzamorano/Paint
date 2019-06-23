@@ -1,16 +1,18 @@
-/**
- *
- * @author Montserrat Rodríguez Zamorano
- * @version 1.1
- */
 package iu;
 
 import graficos.Figura;
+import graficos.Rectangulo;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
+
+/**
+ *
+ * @author Montserrat Rodríguez Zamorano
+ * @version 1.1
+ */
 
 public class FiguraRenderer extends JLabel implements ListCellRenderer<Figura>{
     public FiguraRenderer(){

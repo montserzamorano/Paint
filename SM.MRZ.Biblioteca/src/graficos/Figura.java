@@ -1,8 +1,3 @@
-/**
- *
- * @author Montserrat Rodríguez Zamorano
- * @version 1.1
- */
 package graficos;
 
 import java.awt.BasicStroke;
@@ -13,6 +8,12 @@ import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.geom.Point2D;
+
+/**
+ *
+ * @author Montserrat Rodríguez Zamorano
+ * @version 1.1
+ */
 
 public abstract class Figura {
     private Color trazo = null;

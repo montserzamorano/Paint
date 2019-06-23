@@ -1,15 +1,11 @@
-/**
- *
- * @author Montserrat Rodríguez Zamorano
- * @version 1.1
- */
 package paint;
 
 import iu.LienzoImagen;
 
 /**
  *
- * @author PC
+ * @author Montserrat Rodríguez Zamorano
+ * @version 1.1
  */
 public class VentanaInterna extends javax.swing.JInternalFrame {
 

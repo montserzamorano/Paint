@@ -1,19 +1,15 @@
+package graficos;
+
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
+
 /**
  *
  * @author Montserrat Rodríguez Zamorano
  * @version 1.1
  */
-package graficos;
-
-import java.awt.AlphaComposite;
-import java.awt.Color;
-import java.awt.Composite;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.Stroke;
-import java.awt.geom.Line2D;
-import java.awt.geom.Point2D;
 
 public class Linea extends FiguraLineal{
     private Line2D linea;

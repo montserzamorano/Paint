@@ -1,14 +1,14 @@
+package graficos;
+
+import java.awt.Color;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+
 /**
  *
  * @author Montserrat Rodríguez Zamorano
  * @version 1.1
  */
-package graficos;
-
-import java.awt.Color;
-import java.awt.Stroke;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 
 public class Rectangulo extends FiguraRellenable{
     private Rectangle2D rectangulo;

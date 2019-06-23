@@ -1,23 +1,53 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package eventos;
 
 /**
  *
- * @author Minim
+ * @author Montserrat Rodríguez Zamorano
+ * @version 1.1
  */
 public class LienzoAdapter implements LienzoListener{
     @Override
-    public void shapeAdded(LienzoEvent evt){}
+    public void shapeAdded(LienzoEvent evt){
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
     @Override
-    public void propertyChange(LienzoEvent evt) {} 
+    public void propertyChange(LienzoEvent evt) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    } 
 
     @Override
-    public void mouseMoved(LienzoEvent evt) {
+    public void mouseMoved(LienzoEvent evt){
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void faltaForma(LienzoEvent evt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void faltaColorTrazo(LienzoEvent evt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void faltaTipoLinea(LienzoEvent evt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void faltaTipoRelleno(LienzoEvent evt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void faltaColorRelleno(LienzoEvent evt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void faltaColorDegradado(LienzoEvent evt) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -76,11 +76,14 @@ public class Lienzo extends javax.swing.JPanel {
     public void paint(Graphics g){
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
-       g2d.clip(new Rectangle(dimension));
+        g2d.clip(new Rectangle(dimension));
         
         for(Figura f: vFiguras){
           f.paint(g2d);
         }
+    }
+    public void paintBoundingBox(int index){
+ 
     }
     /**
      * 
@@ -222,34 +225,27 @@ public class Lienzo extends javax.swing.JPanel {
      * @return 
      */
     private Figura createFigura(Point2D p1, Point2D p2){
-        String mensaje;
         if(formaActiva == null){
-            mensaje = "Debe seleccionar una forma de dibujo.";
-            JOptionPane.showMessageDialog(null, mensaje, "¡Atención!", JOptionPane.ERROR_MESSAGE);
+            notifyFaltaForma(new LienzoEvent(this, null, null, null));
         }
         else if(colorTrazo == null){
-            mensaje = "Debe seleccionar un color de trazo.";
-            JOptionPane.showMessageDialog(null, mensaje, "¡Atención!", JOptionPane.ERROR_MESSAGE);
+            notifyFaltaColorTrazo(new LienzoEvent(this, null, null, null));
         }
         else if(stroke == null){
-            mensaje = "Debe seleccionar un tipo de línea.";
-            JOptionPane.showMessageDialog(null, mensaje, "¡Atención!", JOptionPane.ERROR_MESSAGE);
+            notifyFaltaTipoLinea(new LienzoEvent(this, null, null, null));
         }
         else if(rellenoActivated==true && tipoRelleno==null){
-            mensaje = "Debe seleccionar un tipo de relleno.";
-            JOptionPane.showMessageDialog(null, mensaje, "¡Atención!", JOptionPane.ERROR_MESSAGE);
+            notifyFaltaTipoRelleno(new LienzoEvent(this, null, null, null));
         }
         else if(rellenoActivated==true && tipoRelleno==TipoRelleno.LISO && colorRelleno==null){
-            mensaje = "Debe seleccionar un color de relleno.";
-            JOptionPane.showMessageDialog(null, mensaje, "¡Atención!", JOptionPane.ERROR_MESSAGE);
+            notifyFaltaColorRelleno(new LienzoEvent(this, null, null, null));
         }
         else if(rellenoActivated==true && 
                 (tipoRelleno==TipoRelleno.DEGRADADO_DIAGONAL || 
                 tipoRelleno==TipoRelleno.DEGRADADO_HORIZONTAL ||
                 tipoRelleno == TipoRelleno.DEGRADADO_DIAGONAL) && 
                 (colorDeg1==null ||colorDeg2 == null) ){
-            mensaje = "Debe seleccionar dos colores de degradado.";
-            JOptionPane.showMessageDialog(null, mensaje, "¡Atención!", JOptionPane.ERROR_MESSAGE);
+            notifyFaltaColorDegradado(new LienzoEvent(this, null, null, null));
         }
         else{
             switch(formaActiva){
@@ -310,6 +306,83 @@ public class Lienzo extends javax.swing.JPanel {
             }
         }
     }
+    /**
+     * 
+     * @param evt 
+     */
+    private void notifyMouseMoved(LienzoEvent evt){
+        if(!lienzoEventListeners.isEmpty()){
+            for(LienzoListener listener : lienzoEventListeners){
+                listener.mouseMoved(evt);
+            }
+        }
+    }
+    /**
+     * 
+     * @param evt 
+     */
+    private void notifyFaltaForma(LienzoEvent evt){
+        if(!lienzoEventListeners.isEmpty()){
+            for(LienzoListener listener : lienzoEventListeners){
+                listener.faltaForma(evt);
+            }
+        }
+    }
+    /**
+     * 
+     * @param evt 
+     */
+    private void notifyFaltaColorTrazo(LienzoEvent evt){
+        if(!lienzoEventListeners.isEmpty()){
+            for(LienzoListener listener : lienzoEventListeners){
+                listener.faltaColorTrazo(evt);
+            }
+        }
+    }
+    /**
+     * 
+     * @param evt 
+     */
+    private void notifyFaltaTipoLinea(LienzoEvent evt){
+        if(!lienzoEventListeners.isEmpty()){
+            for(LienzoListener listener : lienzoEventListeners){
+                listener.faltaTipoLinea(evt);
+            }
+        }
+    }
+    /**
+     * 
+     * @param evt 
+     */
+    private void notifyFaltaTipoRelleno(LienzoEvent evt){
+        if(!lienzoEventListeners.isEmpty()){
+            for(LienzoListener listener : lienzoEventListeners){
+                listener.faltaTipoRelleno(evt);
+            }
+        }
+    }
+    /**
+     * 
+     * @param evt 
+     */
+    private void notifyFaltaColorRelleno(LienzoEvent evt){
+        if(!lienzoEventListeners.isEmpty()){
+            for(LienzoListener listener : lienzoEventListeners){
+                listener.faltaColorRelleno(evt);
+            }
+        }
+    }
+    /**
+     * 
+     * @param evt 
+     */
+    private void notifyFaltaColorDegradado(LienzoEvent evt){
+        if(!lienzoEventListeners.isEmpty()){
+            for(LienzoListener listener : lienzoEventListeners){
+                listener.faltaColorDegradado(evt);
+            }
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -355,7 +428,7 @@ public class Lienzo extends javax.swing.JPanel {
         Figura f = createFigura(pI, pF);
         if(f!=null){
             vFiguras.add(createFigura(pI, pF));
-            notifyShapeAddedEvent(new LienzoEvent(this, fActiva, colorTrazo));
+            notifyShapeAddedEvent(new LienzoEvent(this, fActiva, colorTrazo, null));
         }
     }//GEN-LAST:event_formMousePressed
 
@@ -371,6 +444,7 @@ public class Lienzo extends javax.swing.JPanel {
 
     private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
         pA = evt.getPoint();
+        notifyMouseMoved(new LienzoEvent(this, null, null, pA));
     }//GEN-LAST:event_formMouseMoved
 
 

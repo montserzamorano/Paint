@@ -1,8 +1,3 @@
-/**
- *
- * @author Montserrat Rodríguez Zamorano
- * @version 1.1
- */
 package iu;
 
 import java.awt.Color;
@@ -11,7 +6,11 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
-//incluir referencia al enlace en la documentacion
+/**
+ *
+ * @author Montserrat Rodríguez Zamorano
+ * @version 1.1
+ */
 
 public class ColorRenderer extends JLabel implements ListCellRenderer<Color>{
     public ColorRenderer(){

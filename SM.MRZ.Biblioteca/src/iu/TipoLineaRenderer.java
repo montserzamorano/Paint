@@ -1,8 +1,3 @@
-/**
- *
- * @author Montserrat Rodríguez Zamorano
- * @version 1.1
- */
 package iu;
 
 import graficos.TipoLinea;
@@ -12,7 +7,11 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
-//incluir referencia al enlace en la documentacion
+/**
+ *
+ * @author Montserrat Rodríguez Zamorano
+ * @version 1.1
+ */
 
 public class TipoLineaRenderer extends JLabel implements ListCellRenderer<TipoLinea>{
     public TipoLineaRenderer() {
