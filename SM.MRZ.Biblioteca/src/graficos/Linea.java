@@ -22,6 +22,8 @@ public class Linea extends FiguraLineal{
     @Override
     public void updateShape(Point2D puntoOrigen, Point2D puntoFinal){
         linea.setLine(puntoOrigen, puntoFinal);
+        setPO(puntoOrigen);
+        setPF(puntoFinal);
     }
     
     @Override 

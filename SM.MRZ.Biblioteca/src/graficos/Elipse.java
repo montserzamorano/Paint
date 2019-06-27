@@ -19,12 +19,14 @@ public class Elipse extends FiguraRellenable{
             float transparencia, boolean alisado){
         super(pO, pF,trazo,stroke, grosor, relleno, tr, deg1, deg2, transparencia,alisado);
         elipse = new Ellipse2D.Double(pO.getX(), pO.getY(), pF.getX()-pO.getX(), pF.getY()-pO.getY());
-        setShape(elipse);
+        super.setShape(elipse);
     }
     
     @Override
     public void updateShape(Point2D puntoOrigen, Point2D puntoFinal){
         elipse.setFrameFromDiagonal(puntoOrigen, puntoFinal);
+        setPO(puntoOrigen);
+        setPF(puntoFinal);
     }
     
     @Override

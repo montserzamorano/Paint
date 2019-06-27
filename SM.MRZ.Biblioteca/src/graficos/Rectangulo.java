@@ -1,6 +1,8 @@
 package graficos;
 
 import java.awt.Color;
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
@@ -31,18 +33,20 @@ public class Rectangulo extends FiguraRellenable{
             Color relleno, TipoRelleno tr, Color deg1, Color deg2, 
             float transparencia, boolean alisado){
         super(pO, pF,trazo,stroke,grosor,relleno, tr, deg1, deg2, transparencia, alisado);
-        rectangulo = new Rectangle2D.Double(pO.getX(), pO.getY(), pF.getX()-pO.getX(), pF.getY()-pO.getY());
-        setShape(rectangulo);
+        rectangulo = new Rectangle2D.Double(pO.getX(),pO.getY(),pF.getX()-pO.getX(),pF.getY()-pO.getY());
+        super.setShape(rectangulo);
     }
     
     @Override
     public void updateShape(Point2D puntoOrigen, Point2D puntoFinal){
         rectangulo.setFrameFromDiagonal(puntoOrigen, puntoFinal);
+        setPO(puntoOrigen);
+        setPF(puntoFinal);
     }
     
     @Override
     public void setLocation(Point2D p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ((Rectangle)rectangulo).setLocation((Point)p);
     }
     
 }

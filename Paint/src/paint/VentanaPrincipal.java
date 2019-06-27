@@ -2,15 +2,16 @@ package paint;
 
 import eventos.LienzoAdapter;
 import eventos.LienzoEvent;
+import graficos.Elipse;
 import graficos.Figura;
+import graficos.FiguraRellenable;
 import graficos.Forma;
+import graficos.Rectangulo;
+import graficos.RectanguloRedondeado;
 import iu.ColorRenderer;
 import iu.Lienzo;
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -29,11 +30,9 @@ import image.PurpleOp;
 import iu.LienzoImagen;
 import iu.TipoLineaRenderer;
 import java.awt.Point;
-import java.awt.Stroke;
 import java.awt.Transparency;
 import java.awt.color.ColorSpace;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Point2D;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.ByteLookupTable;
 import java.awt.image.ColorConvertOp;
@@ -46,13 +45,15 @@ import java.awt.image.LookupOp;
 import java.awt.image.LookupTable;
 import java.awt.image.RescaleOp;
 import java.awt.image.WritableRaster;
-import javafx.geometry.BoundingBox;
+import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import sm.image.EqualizationOp;
 import sm.image.KernelProducer;
 import sm.image.LookupTableProducer;
 import sm.image.TintOp;
+import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
+import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 
 /**
  *
@@ -67,6 +68,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private boolean grabando = false;
     BufferedImage imgSource;
     BufferedImage imgdest;
+    Point pointTemp = new Point(0,0);
+    Figura fSeleccionada = null;
+    
+    FileNameExtensionFilter imageFilter, soundFilter, videoFilter;
     /**
      * Creates new form VentanaPrincipal
      */
@@ -78,16 +83,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         inicializarColores(degradado1CB);
         inicializarColores(degradado2CB);
         inicializarColores(colorTintadoCB);
-        inicializarRelleno(tipoDegradadoCB);
+        inicializarRelleno(tipoRellenoCB);
         inicializarTipoLinea(tipoLineaCB);
  
         //sliders desactivados
-        transparenciaSlider.setEnabled(false);
         tintadoSlider.setEnabled(false);
         
         //botones de sonido
         stopRecordBoton.setEnabled(false);
         pausaGrabacionBoton.setEnabled(false);
+        
+        //filtros
+        imageFilter = new FileNameExtensionFilter("Archivos de imagen", ImageIO.getReaderFormatNames());
+        soundFilter = new FileNameExtensionFilter("Archivos de sonido", "wav", "au", "aiff", "mp3", "midi", "rmf");
+        videoFilter = new FileNameExtensionFilter("Archivos de video", "avi", "mov", "mpeg", "mp4");
         
     }
     
@@ -151,31 +160,36 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         barraSuperiorTB = new javax.swing.JToolBar();
         lineaBoton = new javax.swing.JToggleButton();
         rectanguloBoton = new javax.swing.JToggleButton();
+        rectanguloRedBoton = new javax.swing.JToggleButton();
         elipseBoton = new javax.swing.JToggleButton();
         FigurasCB = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        xPosition = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        yPosition = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JToolBar.Separator();
         colorTrazoCB = new javax.swing.JComboBox<>();
         jSeparator7 = new javax.swing.JToolBar.Separator();
-        rellenarBoton = new javax.swing.JToggleButton();
         colorRellenoCB = new javax.swing.JComboBox<>();
-        tipoDegradadoCB = new javax.swing.JComboBox<>();
+        tipoRellenoCB = new javax.swing.JComboBox<>();
         degradado1CB = new javax.swing.JComboBox<>();
         degradado2CB = new javax.swing.JComboBox<>();
         jSeparator6 = new javax.swing.JToolBar.Separator();
-        transparenciaBoton = new javax.swing.JToggleButton();
         transparenciaSlider = new javax.swing.JSlider();
         jSeparator2 = new javax.swing.JToolBar.Separator();
+        alisarBoton = new javax.swing.JToggleButton();
         grosorSpinner = new javax.swing.JSpinner();
         tipoLineaCB = new javax.swing.JComboBox<>();
-        alisarBoton = new javax.swing.JToggleButton();
         jSeparator3 = new javax.swing.JToolBar.Separator();
         recordSonidoBoton = new javax.swing.JToggleButton();
         pausaGrabacionBoton = new javax.swing.JToggleButton();
         stopRecordBoton = new javax.swing.JToggleButton();
-        listaAudiosCB = new javax.swing.JComboBox<>();
+        listaMediaCB = new javax.swing.JComboBox<>();
         reproducirSonidoBoton = new javax.swing.JToggleButton();
         pausaSonidoBoton = new javax.swing.JToggleButton();
         stopSonidoBoton = new javax.swing.JToggleButton();
+        jSeparator11 = new javax.swing.JToolBar.Separator();
         webCamBoton = new javax.swing.JToggleButton();
         capturaBoton = new javax.swing.JToggleButton();
         barraizquierdaTB = new javax.swing.JToolBar();
@@ -244,7 +258,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         barraSuperiorTB.setPreferredSize(new java.awt.Dimension(50, 30));
 
         formasBG.add(lineaBoton);
-        lineaBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/linea.png"))); // NOI18N
+        lineaBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Linea.gif"))); // NOI18N
         lineaBoton.setToolTipText("Línea");
         lineaBoton.setFocusable(false);
         lineaBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -253,7 +267,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         barraSuperiorTB.add(lineaBoton);
 
         formasBG.add(rectanguloBoton);
-        rectanguloBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/rectangulo.png"))); // NOI18N
+        rectanguloBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Rectangulo.gif"))); // NOI18N
         rectanguloBoton.setToolTipText("Rectángulo");
         rectanguloBoton.setFocusable(false);
         rectanguloBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -261,8 +275,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         rectanguloBoton.addActionListener(formListener);
         barraSuperiorTB.add(rectanguloBoton);
 
+        formasBG.add(rectanguloRedBoton);
+        rectanguloRedBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/rectanguloR.png"))); // NOI18N
+        rectanguloRedBoton.setToolTipText("Rectangulo redondeado");
+        rectanguloRedBoton.setFocusable(false);
+        rectanguloRedBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        rectanguloRedBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        rectanguloRedBoton.addActionListener(formListener);
+        barraSuperiorTB.add(rectanguloRedBoton);
+
         formasBG.add(elipseBoton);
-        elipseBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/elipse.png"))); // NOI18N
+        elipseBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Ovalo.gif"))); // NOI18N
         elipseBoton.setToolTipText("Elipse");
         elipseBoton.setFocusable(false);
         elipseBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -276,6 +299,33 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         FigurasCB.setPreferredSize(new java.awt.Dimension(200, 27));
         FigurasCB.addActionListener(formListener);
         barraSuperiorTB.add(FigurasCB);
+
+        jLabel1.setText("(");
+        barraSuperiorTB.add(jLabel1);
+
+        xPosition.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        xPosition.setText("0");
+        xPosition.setToolTipText("Cambiar posición ");
+        xPosition.setMaximumSize(new java.awt.Dimension(30, 30));
+        xPosition.setMinimumSize(new java.awt.Dimension(30, 30));
+        xPosition.setPreferredSize(new java.awt.Dimension(30, 30));
+        xPosition.addActionListener(formListener);
+        barraSuperiorTB.add(xPosition);
+
+        jLabel2.setText(",");
+        barraSuperiorTB.add(jLabel2);
+
+        yPosition.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        yPosition.setText("0");
+        yPosition.setToolTipText("Cambiar posición");
+        yPosition.setMaximumSize(new java.awt.Dimension(30, 30));
+        yPosition.setMinimumSize(new java.awt.Dimension(30, 30));
+        yPosition.setPreferredSize(new java.awt.Dimension(30, 30));
+        yPosition.addActionListener(formListener);
+        barraSuperiorTB.add(yPosition);
+
+        jLabel3.setText(")");
+        barraSuperiorTB.add(jLabel3);
         barraSuperiorTB.add(jSeparator1);
 
         colorTrazoCB.setToolTipText("Color trazo");
@@ -286,14 +336,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         barraSuperiorTB.add(colorTrazoCB);
         barraSuperiorTB.add(jSeparator7);
 
-        rellenarBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/rellenar.png"))); // NOI18N
-        rellenarBoton.setToolTipText("Relleno");
-        rellenarBoton.setFocusable(false);
-        rellenarBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        rellenarBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        rellenarBoton.addActionListener(formListener);
-        barraSuperiorTB.add(rellenarBoton);
-
         colorRellenoCB.setToolTipText("Color relleno");
         colorRellenoCB.setMaximumSize(new java.awt.Dimension(60, 32767));
         colorRellenoCB.setMinimumSize(new java.awt.Dimension(60, 27));
@@ -301,12 +343,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         colorRellenoCB.addActionListener(formListener);
         barraSuperiorTB.add(colorRellenoCB);
 
-        tipoDegradadoCB.setToolTipText("Tipo relleno");
-        tipoDegradadoCB.setMaximumSize(new java.awt.Dimension(150, 32767));
-        tipoDegradadoCB.setMinimumSize(new java.awt.Dimension(150, 27));
-        tipoDegradadoCB.setPreferredSize(new java.awt.Dimension(200, 27));
-        tipoDegradadoCB.addActionListener(formListener);
-        barraSuperiorTB.add(tipoDegradadoCB);
+        tipoRellenoCB.setToolTipText("Tipo relleno");
+        tipoRellenoCB.setMaximumSize(new java.awt.Dimension(150, 32767));
+        tipoRellenoCB.setMinimumSize(new java.awt.Dimension(150, 27));
+        tipoRellenoCB.setPreferredSize(new java.awt.Dimension(200, 27));
+        tipoRellenoCB.addActionListener(formListener);
+        barraSuperiorTB.add(tipoRellenoCB);
 
         degradado1CB.setToolTipText("Primer color degradado");
         degradado1CB.setMaximumSize(new java.awt.Dimension(60, 32767));
@@ -323,14 +365,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         barraSuperiorTB.add(degradado2CB);
         barraSuperiorTB.add(jSeparator6);
 
-        transparenciaBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/transparencia.png"))); // NOI18N
-        transparenciaBoton.setToolTipText("Transparencia");
-        transparenciaBoton.setFocusable(false);
-        transparenciaBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        transparenciaBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        transparenciaBoton.addActionListener(formListener);
-        barraSuperiorTB.add(transparenciaBoton);
-
         transparenciaSlider.setToolTipText("Nivel transparencia");
         transparenciaSlider.setValue(100);
         transparenciaSlider.setMaximumSize(new java.awt.Dimension(100, 29));
@@ -339,6 +373,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         transparenciaSlider.addChangeListener(formListener);
         barraSuperiorTB.add(transparenciaSlider);
         barraSuperiorTB.add(jSeparator2);
+
+        alisarBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/alisar.png"))); // NOI18N
+        alisarBoton.setToolTipText("Alisado");
+        alisarBoton.setFocusable(false);
+        alisarBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        alisarBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        alisarBoton.addActionListener(formListener);
+        barraSuperiorTB.add(alisarBoton);
 
         grosorSpinner.setToolTipText("Grosor línea");
         grosorSpinner.setMaximumSize(new java.awt.Dimension(40, 32767));
@@ -353,18 +395,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         tipoLineaCB.setPreferredSize(new java.awt.Dimension(100, 27));
         tipoLineaCB.addActionListener(formListener);
         barraSuperiorTB.add(tipoLineaCB);
-
-        alisarBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/alisar.png"))); // NOI18N
-        alisarBoton.setToolTipText("Alisado");
-        alisarBoton.setFocusable(false);
-        alisarBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        alisarBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        alisarBoton.addActionListener(formListener);
-        barraSuperiorTB.add(alisarBoton);
         barraSuperiorTB.add(jSeparator3);
 
         sonidoBG.add(recordSonidoBoton);
-        recordSonidoBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/record24x24.png"))); // NOI18N
+        recordSonidoBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/mic.png"))); // NOI18N
         recordSonidoBoton.setToolTipText("Iniciar grabación");
         recordSonidoBoton.setFocusable(false);
         recordSonidoBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -373,7 +407,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         barraSuperiorTB.add(recordSonidoBoton);
 
         sonidoBG.add(pausaGrabacionBoton);
-        pausaGrabacionBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/pausa24x24.png"))); // NOI18N
+        pausaGrabacionBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/pausemic.png"))); // NOI18N
         pausaGrabacionBoton.setToolTipText("Pausar grabación");
         pausaGrabacionBoton.setFocusable(false);
         pausaGrabacionBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -382,7 +416,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         barraSuperiorTB.add(pausaGrabacionBoton);
 
         sonidoBG.add(stopRecordBoton);
-        stopRecordBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/stopRecord24x24.png"))); // NOI18N
+        stopRecordBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/stopmic.png"))); // NOI18N
         stopRecordBoton.setToolTipText("Finalizar grabación");
         stopRecordBoton.setFocusable(false);
         stopRecordBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -390,13 +424,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         stopRecordBoton.addActionListener(formListener);
         barraSuperiorTB.add(stopRecordBoton);
 
-        listaAudiosCB.setToolTipText("Lista de sonidos");
-        listaAudiosCB.setMaximumSize(new java.awt.Dimension(100, 32767));
-        listaAudiosCB.setMinimumSize(new java.awt.Dimension(100, 27));
-        barraSuperiorTB.add(listaAudiosCB);
+        listaMediaCB.setToolTipText("Lista de sonidos");
+        listaMediaCB.setMaximumSize(new java.awt.Dimension(100, 32767));
+        listaMediaCB.setMinimumSize(new java.awt.Dimension(100, 27));
+        listaMediaCB.addActionListener(formListener);
+        barraSuperiorTB.add(listaMediaCB);
 
         sonidoBG.add(reproducirSonidoBoton);
-        reproducirSonidoBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Play.png"))); // NOI18N
+        reproducirSonidoBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/play.png"))); // NOI18N
         reproducirSonidoBoton.setToolTipText("Play");
         reproducirSonidoBoton.setFocusable(false);
         reproducirSonidoBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -405,7 +440,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         barraSuperiorTB.add(reproducirSonidoBoton);
 
         sonidoBG.add(pausaSonidoBoton);
-        pausaSonidoBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Pausa.png"))); // NOI18N
+        pausaSonidoBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/pause.png"))); // NOI18N
         pausaSonidoBoton.setToolTipText("Pausa");
         pausaSonidoBoton.setFocusable(false);
         pausaSonidoBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -414,15 +449,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         barraSuperiorTB.add(pausaSonidoBoton);
 
         sonidoBG.add(stopSonidoBoton);
-        stopSonidoBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/stop24x24.png"))); // NOI18N
+        stopSonidoBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/stop.png"))); // NOI18N
         stopSonidoBoton.setToolTipText("Stop");
         stopSonidoBoton.setFocusable(false);
         stopSonidoBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         stopSonidoBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         stopSonidoBoton.addActionListener(formListener);
         barraSuperiorTB.add(stopSonidoBoton);
+        barraSuperiorTB.add(jSeparator11);
 
-        webCamBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Camara.png"))); // NOI18N
+        webCamBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/webcam.png"))); // NOI18N
         webCamBoton.setToolTipText("Cerrar WebCam");
         webCamBoton.setFocusable(false);
         webCamBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -430,8 +466,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         webCamBoton.addActionListener(formListener);
         barraSuperiorTB.add(webCamBoton);
 
-        capturaBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Capturar.png"))); // NOI18N
-        capturaBoton.setToolTipText("Cerrar WebCam");
+        capturaBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/captura.png"))); // NOI18N
+        capturaBoton.setToolTipText("Hacer captura pantalla");
         capturaBoton.setFocusable(false);
         capturaBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         capturaBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -459,7 +495,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         barraizquierdaTB.add(brilloSlider);
         barraizquierdaTB.add(jSeparator4);
 
-        contrasteBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/contraste.png"))); // NOI18N
+        contrasteBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/contraste.png"))); // NOI18N
         contrasteBoton.setToolTipText("Contraste");
         contrasteBoton.setFocusable(false);
         contrasteBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -467,7 +503,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         contrasteBoton.addActionListener(formListener);
         barraizquierdaTB.add(contrasteBoton);
 
-        iluminarBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/iluminar.png"))); // NOI18N
+        iluminarBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/iluminar.png"))); // NOI18N
         iluminarBoton.setToolTipText("Iluminar");
         iluminarBoton.setFocusable(false);
         iluminarBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -475,7 +511,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         iluminarBoton.addActionListener(formListener);
         barraizquierdaTB.add(iluminarBoton);
 
-        oscurecerBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/oscurecer.png"))); // NOI18N
+        oscurecerBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/oscurecer.png"))); // NOI18N
         oscurecerBoton.setToolTipText("Oscurecer");
         oscurecerBoton.setFocusable(false);
         oscurecerBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -484,7 +520,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         barraizquierdaTB.add(oscurecerBoton);
         barraizquierdaTB.add(jSeparator5);
 
-        sepiaBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/sepia.png"))); // NOI18N
+        sepiaBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/sepia.png"))); // NOI18N
         sepiaBoton.setToolTipText("Filtro sepia");
         sepiaBoton.setFocusable(false);
         sepiaBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -492,7 +528,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         sepiaBoton.addActionListener(formListener);
         barraizquierdaTB.add(sepiaBoton);
 
-        tintarBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/tintar.png"))); // NOI18N
+        tintarBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/tintado.png"))); // NOI18N
         tintarBoton.setToolTipText("Tintado");
         tintarBoton.setFocusable(false);
         tintarBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -517,7 +553,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         tintadoSlider.addFocusListener(formListener);
         barraizquierdaTB.add(tintadoSlider);
 
-        ecualizacionBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/ecualizar.png"))); // NOI18N
+        ecualizacionBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/ecualizar.png"))); // NOI18N
         ecualizacionBoton.setToolTipText("Ecualización");
         ecualizacionBoton.setFocusable(false);
         ecualizacionBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -601,7 +637,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addGroup(barraEstadoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pixelLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1501, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1556, Short.MAX_VALUE)
                 .addComponent(eventoLabel)
                 .addContainerGap())
         );
@@ -624,7 +660,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         barraDerechaTB.setMinimumSize(new java.awt.Dimension(100, 30));
         barraDerechaTB.setPreferredSize(new java.awt.Dimension(30, 30));
 
-        disenioPropioBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/tintar.png"))); // NOI18N
+        disenioPropioBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/filtrovioleta.png"))); // NOI18N
         disenioPropioBoton.setToolTipText("Filtro violeta");
         disenioPropioBoton.setFocusable(false);
         disenioPropioBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -632,7 +668,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         disenioPropioBoton.addActionListener(formListener);
         barraDerechaTB.add(disenioPropioBoton);
 
-        disenioPropio2Boton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/sepia.png"))); // NOI18N
+        disenioPropio2Boton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/mediabandas.png"))); // NOI18N
         disenioPropio2Boton.setToolTipText("Filtro media");
         disenioPropio2Boton.setFocusable(false);
         disenioPropio2Boton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -640,7 +676,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         disenioPropio2Boton.addActionListener(formListener);
         barraDerechaTB.add(disenioPropio2Boton);
 
-        cosinusoideBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/sinusoidal.png"))); // NOI18N
+        cosinusoideBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/coseno.png"))); // NOI18N
         cosinusoideBoton.setToolTipText("Cosinusoide");
         cosinusoideBoton.setFocusable(false);
         cosinusoideBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -715,17 +751,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         archivoMenuBar.setText("Archivo");
 
-        nuevoMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevo.png"))); // NOI18N
+        nuevoMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/nuevo.png"))); // NOI18N
         nuevoMenuItem.setText("Nuevo");
         nuevoMenuItem.addActionListener(formListener);
         archivoMenuBar.add(nuevoMenuItem);
 
-        abrirMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/abrir.png"))); // NOI18N
+        abrirMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/abrir.png"))); // NOI18N
         abrirMenuItem.setText("Abrir");
         abrirMenuItem.addActionListener(formListener);
         archivoMenuBar.add(abrirMenuItem);
 
-        guardarMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/guardar.png"))); // NOI18N
+        guardarMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/save.png"))); // NOI18N
         guardarMenuItem.setText("Guardar");
         guardarMenuItem.addActionListener(formListener);
         archivoMenuBar.add(guardarMenuItem);
@@ -758,6 +794,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         ayudaMenuBar.setText("Ayuda");
 
+        acercaMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/acercade.png"))); // NOI18N
         acercaMenuItem.setText("Acerca de");
         acercaMenuItem.addActionListener(formListener);
         ayudaMenuBar.add(acercaMenuItem);
@@ -780,23 +817,29 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             else if (evt.getSource() == rectanguloBoton) {
                 VentanaPrincipal.this.rectanguloBotonActionPerformed(evt);
             }
+            else if (evt.getSource() == rectanguloRedBoton) {
+                VentanaPrincipal.this.rectanguloRedBotonActionPerformed(evt);
+            }
             else if (evt.getSource() == elipseBoton) {
                 VentanaPrincipal.this.elipseBotonActionPerformed(evt);
             }
             else if (evt.getSource() == FigurasCB) {
                 VentanaPrincipal.this.FigurasCBActionPerformed(evt);
             }
+            else if (evt.getSource() == xPosition) {
+                VentanaPrincipal.this.xPositionActionPerformed(evt);
+            }
+            else if (evt.getSource() == yPosition) {
+                VentanaPrincipal.this.yPositionActionPerformed(evt);
+            }
             else if (evt.getSource() == colorTrazoCB) {
                 VentanaPrincipal.this.colorTrazoCBActionPerformed(evt);
-            }
-            else if (evt.getSource() == rellenarBoton) {
-                VentanaPrincipal.this.rellenarBotonActionPerformed(evt);
             }
             else if (evt.getSource() == colorRellenoCB) {
                 VentanaPrincipal.this.colorRellenoCBActionPerformed(evt);
             }
-            else if (evt.getSource() == tipoDegradadoCB) {
-                VentanaPrincipal.this.tipoDegradadoCBActionPerformed(evt);
+            else if (evt.getSource() == tipoRellenoCB) {
+                VentanaPrincipal.this.tipoRellenoCBActionPerformed(evt);
             }
             else if (evt.getSource() == degradado1CB) {
                 VentanaPrincipal.this.degradado1CBActionPerformed(evt);
@@ -804,14 +847,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             else if (evt.getSource() == degradado2CB) {
                 VentanaPrincipal.this.degradado2CBActionPerformed(evt);
             }
-            else if (evt.getSource() == transparenciaBoton) {
-                VentanaPrincipal.this.transparenciaBotonActionPerformed(evt);
+            else if (evt.getSource() == alisarBoton) {
+                VentanaPrincipal.this.alisarBotonActionPerformed(evt);
             }
             else if (evt.getSource() == tipoLineaCB) {
                 VentanaPrincipal.this.tipoLineaCBActionPerformed(evt);
-            }
-            else if (evt.getSource() == alisarBoton) {
-                VentanaPrincipal.this.alisarBotonActionPerformed(evt);
             }
             else if (evt.getSource() == recordSonidoBoton) {
                 VentanaPrincipal.this.recordSonidoBotonActionPerformed(evt);
@@ -821,6 +861,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
             else if (evt.getSource() == stopRecordBoton) {
                 VentanaPrincipal.this.stopRecordBotonActionPerformed(evt);
+            }
+            else if (evt.getSource() == listaMediaCB) {
+                VentanaPrincipal.this.listaMediaCBActionPerformed(evt);
             }
             else if (evt.getSource() == reproducirSonidoBoton) {
                 VentanaPrincipal.this.reproducirSonidoBotonActionPerformed(evt);
@@ -989,6 +1032,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         cb.addItem(Color.WHITE);
         cb.addItem(Color.YELLOW);
         cb.setRenderer(new ColorRenderer());
+        cb.setSelectedItem(null);
     }
     
     private void inicializarRelleno(javax.swing.JComboBox<TipoRelleno> cb){
@@ -996,7 +1040,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         cb.addItem(TipoRelleno.DEGRADADO_HORIZONTAL);
         cb.addItem(TipoRelleno.DEGRADADO_VERTICAL);
         cb.addItem(TipoRelleno.DEGRADADO_DIAGONAL);
+        cb.addItem(TipoRelleno.DEGRADADO_RADIAL);
+        cb.addItem(TipoRelleno.NINGUNO);
         cb.setRenderer(new RellenoRenderer());
+        cb.setSelectedItem(TipoRelleno.NINGUNO);
     }
     
     private void inicializarTipoLinea(javax.swing.JComboBox<TipoLinea> cb){
@@ -1004,7 +1051,33 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         tipoLineaCB.addItem(TipoLinea.DISCONTINUA);
         tipoLineaCB.addItem(TipoLinea.PUNTEADA);
         cb.setRenderer(new TipoLineaRenderer());
+        cb.setSelectedItem(TipoLinea.CONTINUA);
     }
+    
+    private void actualizarAtributosBarraFigura(Figura figuraSeleccionada){
+        //comunes a figuras
+        colorTrazoCB.setSelectedItem(figuraSeleccionada.getColor());
+        tipoLineaCB.setSelectedItem(figuraSeleccionada.getStroke());
+        grosorSpinner.setValue(figuraSeleccionada.getGrosor());
+        alisarBoton.setSelected(figuraSeleccionada.getAlisado());
+        transparenciaSlider.setValue((int) figuraSeleccionada.getTransparencia()*100);
+        if(figuraSeleccionada.getClass() == Rectangulo.class ||
+           figuraSeleccionada.getClass() == RectanguloRedondeado.class ||
+           figuraSeleccionada.getClass() == Elipse.class){
+            colorRellenoCB.setSelectedItem(((FiguraRellenable)figuraSeleccionada).getColorRelleno());
+            degradado1CB.setSelectedItem(((FiguraRellenable)figuraSeleccionada).getDegradado1());
+            degradado2CB.setSelectedItem(((FiguraRellenable)figuraSeleccionada).getDegradado2());
+            tipoRellenoCB.setSelectedItem(((FiguraRellenable)figuraSeleccionada).getTipoRelleno());
+        }
+        else{
+            colorRellenoCB.setSelectedItem(null);
+            degradado1CB.setSelectedItem(null);
+            degradado2CB.setSelectedItem(null);
+            tipoRellenoCB.setSelectedItem(TipoRelleno.NINGUNO);
+        }
+        this.repaint();
+    }
+    
     
     private void nuevoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoMenuItemActionPerformed
         VentanaInterna vi = new VentanaInterna();
@@ -1048,9 +1121,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void abrirMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirMenuItemActionPerformed
         JFileChooser dlg = new JFileChooser();
-        FileNameExtensionFilter imageFilter = new FileNameExtensionFilter("Archivos de imagen", ImageIO.getReaderFormatNames());
-        FileNameExtensionFilter soundFilter = new FileNameExtensionFilter("Archivos de sonido", "wav", "au");
-        FileNameExtensionFilter videoFilter = new FileNameExtensionFilter("Archivos de video", "wav", "au");
+        
         dlg.setFileFilter(imageFilter);
         dlg.setFileFilter(soundFilter);
         dlg.setFileFilter(videoFilter);
@@ -1071,10 +1142,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     vi.getLienzo().setDimension(new Dimension(w,h));
                 }
                 if(soundFilter.accept(f)){
-                    
+                    listaMediaCB.addItem(f);
                 }
                 if(videoFilter.accept(f)){
-                    
+                    listaMediaCB.addItem(f);
                 }
             }catch(Exception ex){
                 System.err.println("Error al leer el archivo.");
@@ -1111,42 +1182,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_elipseBotonActionPerformed
 
-    private void rellenarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rellenarBotonActionPerformed
-        VentanaInterna vi;
-        vi = (VentanaInterna) escritorio.getSelectedFrame();
-        if(vi!=null){
-            Lienzo l = vi.getLienzo();
-            l.setRellenoActivated(!vi.getLienzo().getRellenoActivated());
-            if(!vi.getLienzo().getRellenoActivated()){
-                vi.getLienzo().setRelleno(null);
-            }
-        }
-    }//GEN-LAST:event_rellenarBotonActionPerformed
-
-    private void transparenciaBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transparenciaBotonActionPerformed
-        VentanaInterna vi;
-        vi = (VentanaInterna) escritorio.getSelectedFrame();
-        if(vi!=null){
-            Lienzo l = vi.getLienzo();
-            //si la transparencia está activada
-            if(l.getTransparenciaActivated()){
-                l.setTransparenciaActivated(false);
-                transparenciaSlider.setEnabled(false);
-            }
-            else{//si no está activada
-                l.setTransparenciaActivated(true);
-                transparenciaSlider.setEnabled(true);
-            }
-        }
-    }//GEN-LAST:event_transparenciaBotonActionPerformed
-
     private void alisarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alisarBotonActionPerformed
         VentanaInterna vi;
         vi = (VentanaInterna) escritorio.getSelectedFrame();
         if(vi != null){
             Lienzo l = vi.getLienzo();
-            //si el alisado está activado
-            l.changeAlisadoActivated();
+            if(l.getFiguraSeleccionada()==null){
+                l.changeAlisadoActivated();
+            }
+            else{
+                boolean alisado = l.getFiguraSeleccionada().getAlisado();
+                l.getFiguraSeleccionada().setAlisado(!alisado);
+                this.repaint();
+            }
         }
     }//GEN-LAST:event_alisarBotonActionPerformed
 
@@ -1159,14 +1207,25 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         grabando = true;
         recorder = new SMSoundRecorder(temp);
         recorder.record();
+        stopRecordBoton.setEnabled(true);
+        pausaGrabacionBoton.setEnabled(true);
+        
     }//GEN-LAST:event_recordSonidoBotonActionPerformed
 
     private void reproducirSonidoBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reproducirSonidoBotonActionPerformed
-        File f = (File) listaAudiosCB.getSelectedItem();
+        File f = (File) listaMediaCB.getSelectedItem();
         if(f!=null){
-            player = new SMClipPlayer(f);
-            if(player!=null){
-                player.play();
+            if(soundFilter.accept(f)){
+                player = new SMClipPlayer(f);
+                if(player!=null){
+                    player.play();
+                }
+            }
+            else if (videoFilter.accept(f)){
+                VentanaInternaVLCPlayer viVLC = new VentanaInternaVLCPlayer(f);
+                this.escritorio.add(viVLC);
+                viVLC.setTitle(f.getName());
+                viVLC.setVisible(true);
             }
         }
     }//GEN-LAST:event_reproducirSonidoBotonActionPerformed
@@ -1180,7 +1239,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             try{
                 File f = dlg.getSelectedFile();
                 Files.copy(temp.toPath(), f.toPath());
-                listaAudiosCB.addItem(f);
+                listaMediaCB.addItem(f);
                 temp = null;
             }catch(Exception e){
                 System.err.println("Error al guardar la grabación");
@@ -1193,7 +1252,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         VentanaInterna vi;
         vi = (VentanaInterna) escritorio.getSelectedFrame();
         if(vi != null){
-           vi.getLienzo().setColorTrazo(selectedColor);
+           if(vi.getLienzo().getFiguraSeleccionada()==null){
+               vi.getLienzo().setColorTrazo(selectedColor);
+           }
+           else{
+               vi.getLienzo().getFiguraSeleccionada().setColor(selectedColor);
+               this.repaint();
+           }
         }
     }//GEN-LAST:event_colorTrazoCBActionPerformed
 
@@ -1201,10 +1266,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         VentanaInterna vi;
         vi = (VentanaInterna) escritorio.getSelectedFrame();
         if(vi != null){
-            if(vi.getLienzo().getRellenoActivated()){
+            if(vi.getLienzo().getFiguraSeleccionada()==null){
+            //if(vi.getLienzo().getRellenoActivated()){
                 Color selectedColor = (Color) colorRellenoCB.getSelectedItem();
                 vi.getLienzo().setColorRelleno(selectedColor);
             }
+            else{
+               
+            }
+            //}
         }
     }//GEN-LAST:event_colorRellenoCBActionPerformed
 
@@ -1220,8 +1290,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void grosorSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_grosorSpinnerStateChanged
         VentanaInterna vi;
         vi = (VentanaInterna) escritorio.getSelectedFrame();
+        int grosor = (int) this.grosorSpinner.getValue();
         if(vi!=null){
-            vi.getLienzo().setGrosor((int) this.grosorSpinner.getValue());
+            Lienzo lienzo = vi.getLienzo();
+            if(lienzo.getFiguraSeleccionada()==null){
+                vi.getLienzo().setGrosor(grosor);
+            }
+            else{
+                lienzo.getFiguraSeleccionada().setGrosor(grosor);
+                this.repaint();
+            }
         }
     }//GEN-LAST:event_grosorSpinnerStateChanged
 
@@ -1238,36 +1316,46 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_pausaGrabacionBotonActionPerformed
 
     private void stopSonidoBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopSonidoBotonActionPerformed
-        File f = (File) listaAudiosCB.getSelectedItem();
+        File f = (File) listaMediaCB.getSelectedItem();
         if(f!=null){
-            if(player!=null){
-                player.stop();
+            if(soundFilter.accept(f)){//si es sonido
+                if(player!=null){
+                    player.stop();
+                }
+            }
+            else if (videoFilter.accept(f)){
+                System.out.println("ES VIDEO");
             }
         }
     }//GEN-LAST:event_stopSonidoBotonActionPerformed
 
     private void pausaSonidoBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pausaSonidoBotonActionPerformed
-        File f = (File) listaAudiosCB.getSelectedItem();
+        File f = (File) listaMediaCB.getSelectedItem();
         if(f!=null){
-            if(player!=null){
-                player.pause();
+            if(soundFilter.accept(f)){//si es  sonido
+                if(player!=null){
+                    player.pause();
+                }
+            }
+            else if (videoFilter.accept(f)){
+                System.out.println("ES VIDEO");
             }
         }
     }//GEN-LAST:event_pausaSonidoBotonActionPerformed
 
-    private void tipoDegradadoCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoDegradadoCBActionPerformed
+    private void tipoRellenoCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoRellenoCBActionPerformed
         VentanaInterna vi;
         vi = (VentanaInterna) escritorio.getSelectedFrame();
         if(vi != null){
-            if(vi.getLienzo().getRellenoActivated()){
-                vi.getLienzo().setTipoRelleno((TipoRelleno) tipoDegradadoCB.getSelectedItem());
-   
+            if(vi.getLienzo().getFiguraSeleccionada()!=null){
+                vi.getLienzo().setTipoRelleno((TipoRelleno) tipoRellenoCB.getSelectedItem());
             }
-            else{
-                vi.getLienzo().setTipoRelleno(TipoRelleno.NINGUNO);
+            else{//si hay figura seleccionada
+                vi.getLienzo().setTipoRelleno((TipoRelleno) tipoRellenoCB.getSelectedItem());
+                this.repaint();
             }
         }
-    }//GEN-LAST:event_tipoDegradadoCBActionPerformed
+    }//GEN-LAST:event_tipoRellenoCBActionPerformed
 
     private void degradado1CBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_degradado1CBActionPerformed
         VentanaInterna vi;
@@ -1291,8 +1379,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         VentanaInterna vi;
         vi = (VentanaInterna) escritorio.getSelectedFrame();
         if(vi!=null){
+            Lienzo lienzo = vi.getLienzo();
             TipoLinea selectedTP = (TipoLinea) tipoLineaCB.getSelectedItem();
-            vi.getLienzo().setStroke(selectedTP);
+            if(lienzo.getFiguraSeleccionada()==null){
+                lienzo.setStroke(selectedTP);
+            }
+            else{
+                lienzo.getFiguraSeleccionada().setStroke(selectedTP);
+                this.repaint();
+            }
         }
     }//GEN-LAST:event_tipoLineaCBActionPerformed
 
@@ -1863,8 +1958,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_rot270BotonActionPerformed
 
     private void FigurasCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FigurasCBActionPerformed
-        int figuraSeleccionada = (int) FigurasCB.getSelectedIndex();
- 
+        fSeleccionada = (Figura) FigurasCB.getSelectedItem();
+        VentanaInterna vi = (VentanaInterna) escritorio.getSelectedFrame();
+        vi.getLienzo().setFiguraSeleccionada(fSeleccionada);
+        actualizarAtributosBarraFigura(fSeleccionada);
     }//GEN-LAST:event_FigurasCBActionPerformed
 
     private void giroLibreSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_giroLibreSliderStateChanged
@@ -1926,6 +2023,33 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         vi.setTitle("Captura");
         vi.setVisible(true);
     }//GEN-LAST:event_capturaBotonActionPerformed
+
+    private void xPositionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xPositionActionPerformed
+        pointTemp.x = new Integer(xPosition.getText());
+        VentanaInterna vi = (VentanaInterna) escritorio.getSelectedFrame();
+        vi.getLienzo().getFiguraSeleccionada().setLocation(pointTemp);
+        this.repaint();
+    }//GEN-LAST:event_xPositionActionPerformed
+
+    private void yPositionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yPositionActionPerformed
+        pointTemp.y = new Integer(yPosition.getText());
+        VentanaInterna vi = (VentanaInterna) escritorio.getSelectedFrame();
+        
+        vi.getLienzo().getFiguraSeleccionada().setLocation(pointTemp);
+        this.repaint();
+    }//GEN-LAST:event_yPositionActionPerformed
+
+    private void rectanguloRedBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rectanguloRedBotonActionPerformed
+        VentanaInterna vi;
+        vi = (VentanaInterna) escritorio.getSelectedFrame();
+        if(vi!=null){
+            vi.getLienzo().setForma(Forma.RECTANGULOREDONDEADO);
+        }
+    }//GEN-LAST:event_rectanguloRedBotonActionPerformed
+
+    private void listaMediaCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaMediaCBActionPerformed
+        File selectedFile = (File)listaMediaCB.getSelectedItem();
+    }//GEN-LAST:event_listaMediaCBActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2000,9 +2124,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem guardarMenuItem;
     private javax.swing.JButton iluminarBoton;
     private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator10;
+    private javax.swing.JToolBar.Separator jSeparator11;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
@@ -2013,7 +2141,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator9;
     private javax.swing.JTextPane jTextPane1;
     private javax.swing.JToggleButton lineaBoton;
-    private javax.swing.JComboBox<File> listaAudiosCB;
+    private javax.swing.JComboBox<File> listaMediaCB;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JButton negativoBoton;
     private javax.swing.JMenuItem nuevoMenuItem;
@@ -2023,8 +2151,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel pixelLabel;
     private javax.swing.JToggleButton recordSonidoBoton;
     private javax.swing.JToggleButton rectanguloBoton;
+    private javax.swing.JToggleButton rectanguloRedBoton;
     private javax.swing.JButton relieveBoton;
-    private javax.swing.JToggleButton rellenarBoton;
     private javax.swing.JToggleButton reproducirSonidoBoton;
     private javax.swing.JButton rot180Boton;
     private javax.swing.JButton rot270Boton;
@@ -2036,9 +2164,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JToggleButton stopSonidoBoton;
     private javax.swing.JSlider tintadoSlider;
     private javax.swing.JToggleButton tintarBoton;
-    private javax.swing.JComboBox<TipoRelleno> tipoDegradadoCB;
     private javax.swing.JComboBox<TipoLinea> tipoLineaCB;
-    private javax.swing.JToggleButton transparenciaBoton;
+    private javax.swing.JComboBox<TipoRelleno> tipoRellenoCB;
     private javax.swing.JSlider transparenciaSlider;
     private javax.swing.JSlider umbralizacionSlider;
     private javax.swing.JCheckBoxMenuItem verBarraDerechaCH;
@@ -2047,6 +2174,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem verBarraSupCB;
     private javax.swing.JMenu verMenuBar;
     private javax.swing.JToggleButton webCamBoton;
+    private javax.swing.JTextField xPosition;
+    private javax.swing.JTextField yPosition;
     private javax.swing.JButton zoomInBoton;
     // End of variables declaration//GEN-END:variables
 }

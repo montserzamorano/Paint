@@ -4,13 +4,11 @@ import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Composite;
 import java.awt.GradientPaint;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Paint;
 import java.awt.Point;
-import java.awt.RenderingHints;
+import java.awt.RadialGradientPaint;
 import java.awt.Shape;
-import java.awt.Stroke;
 import java.awt.geom.Point2D;
 
 /**
@@ -119,6 +117,21 @@ public abstract class FiguraRellenable extends Figura{
                 Point2D pc1 = getPO();
                 Point2D pc2 = new Point((int) (getPF().getX()), (int) (getPF().getY()-a));
                 relleno = new GradientPaint(pc1, deg1, pc2, deg2);
+                g2d.setPaint(relleno);
+                g2d.fill(s);
+            }
+        }
+        if(getTipoRelleno()==TipoRelleno.DEGRADADO_RADIAL){
+            Color deg1 = getDegradado1();
+            Color deg2 = getDegradado2();
+            if(deg1!=null && deg2 != null){
+                Paint relleno;
+                float r = 500;
+                float[] dist = {0.0f, 0.25f, 0.5f, 0.75f};
+                Color[] colors = {deg1, deg2, deg1, deg2};
+                Point2D center = new Point((int) (Math.abs(getPF().getX()-getPO().getX())/2), 
+                        (int) Math.abs((getPF().getY()-getPO().getY())/2));
+                relleno = new RadialGradientPaint(center, r, dist, colors);
                 g2d.setPaint(relleno);
                 g2d.fill(s);
             }

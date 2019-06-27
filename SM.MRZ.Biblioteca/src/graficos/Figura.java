@@ -35,7 +35,8 @@ public abstract class Figura {
     
     public Point2D getPO(){return puntoOrigen;}
     public Point2D getPF(){return puntoFinal;}
-    
+    public void setPO(Point2D p){puntoOrigen = p;}
+    public void setPF(Point2D p){puntoFinal=p;}
     public int getGrosor(){return grosor;}
     public void setGrosor(int grosor){this.grosor = grosor;}
     
@@ -134,7 +135,7 @@ public abstract class Figura {
                 trazo = new BasicStroke(grosor);
                 break;
             case DISCONTINUA: 
-                float patronDiscontinuidad[] = {15.0f};
+                float patronDiscontinuidad[] = {5.0f};
                 trazo = new BasicStroke((float) grosor, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1.0f, patronDiscontinuidad, 0.0f);
                 break;
             case PUNTEADA:
