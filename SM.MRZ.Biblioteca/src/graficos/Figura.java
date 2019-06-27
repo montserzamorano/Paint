@@ -109,6 +109,7 @@ public abstract class Figura {
      * @param puntoFinal 
      */
     abstract public void updateShape(Point2D puntoOrigen, Point2D puntoFinal);
+    abstract public boolean isFiguraRellenable();
     /**
      * Dibuja una figura.
      * @param g 

@@ -56,6 +56,8 @@ public abstract class FiguraRellenable extends Figura{
     * @param color color de relleno de la figura
     */
     public void setColorRelleno(Color color){colorRelleno = color;}
+    @Override
+    public boolean isFiguraRellenable(){return true;}
     /**
     * Getter.
     * @return color color de relleno de la figura

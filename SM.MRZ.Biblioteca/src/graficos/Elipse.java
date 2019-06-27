@@ -1,7 +1,7 @@
 package graficos;
 
 import java.awt.Color;
-import java.awt.Stroke;
+import java.awt.Point;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 
@@ -31,7 +31,11 @@ public class Elipse extends FiguraRellenable{
     
     @Override
     public void setLocation(Point2D p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        double w = Math.abs(getPO().getX()-getPF().getX());
+        double h = Math.abs(getPO().getY()-getPF().getY());
+        elipse.setFrame(p.getX(), p.getY(), w, h);
+        setPO(new Point.Double(elipse.getMinX(), elipse.getMinY()));
+        setPF(new Point.Double(elipse.getMaxX(), elipse.getMaxY()));
     }
     
 }

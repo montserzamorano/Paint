@@ -1,6 +1,7 @@
 package graficos;
 
 import java.awt.Color;
+import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.awt.geom.RoundRectangle2D;
 
@@ -44,7 +45,11 @@ public class RectanguloRedondeado extends FiguraRellenable{
     
     @Override
     public void setLocation(Point2D p) {
-        //rectangulo.setLocation((Point)p);
+        double w = Math.abs(getPO().getX()-getPF().getX());
+        double h = Math.abs(getPO().getY()-getPF().getY());
+        rectangulo.setFrame(p.getX(), p.getY(), w, h);
+        setPO(new Point.Double(rectangulo.getMinX(), rectangulo.getMinY()));
+        setPF(new Point.Double(rectangulo.getMaxX(), rectangulo.getMaxY()));
     }
     
 }

@@ -15,6 +15,7 @@ public abstract class FiguraLineal extends Figura{
     public FiguraLineal(Point2D puntoOrigen, Point2D puntoFinal, Color trazo, TipoLinea stroke, int grosor, float transparencia, boolean alisado){
         super(puntoOrigen, puntoFinal, trazo,stroke, grosor, transparencia, alisado);
     }
-    
+    @Override  
+    public boolean isFiguraRellenable(){return false;}
     
 }

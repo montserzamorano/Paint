@@ -50,4 +50,9 @@ public class LienzoAdapter implements LienzoListener{
     public void faltaColorDegradado(LienzoEvent evt) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void lienzoSeleccionado(LienzoEvent evt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

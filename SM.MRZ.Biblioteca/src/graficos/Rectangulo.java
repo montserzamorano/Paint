@@ -46,7 +46,11 @@ public class Rectangulo extends FiguraRellenable{
     
     @Override
     public void setLocation(Point2D p) {
-        ((Rectangle)rectangulo).setLocation((Point)p);
+        double w = Math.abs(getPO().getX()-getPF().getX());
+        double h = Math.abs(getPO().getY()-getPF().getY());
+        rectangulo.setRect(p.getX(), p.getY(), w, h);
+        setPO(new Point.Double(rectangulo.getMinX(), rectangulo.getMinY()));
+        setPF(new Point.Double(rectangulo.getMaxX(), rectangulo.getMaxY()));
     }
     
 }

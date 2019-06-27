@@ -2,6 +2,8 @@ package graficos;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 
@@ -37,6 +39,11 @@ public class Linea extends FiguraLineal{
 
     @Override
     public void setLocation(Point2D p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        double dx=p.getX()-linea.getX1();
+        double dy=p.getY()-linea.getY1();
+        Point2D newp2 = new Point2D.Double(linea.getX2()+dx, linea.getY2()+dy);
+        linea.setLine(p,newp2);
+        setPO(p);
+        setPF(newp2);
     }
 }

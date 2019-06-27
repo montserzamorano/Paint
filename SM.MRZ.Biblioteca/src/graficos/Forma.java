@@ -6,8 +6,7 @@ package graficos;
  * @version 1.1
  */
 
-public enum Forma {
-    PUNTO, 
+public enum Forma { 
     LINEA, 
     RECTANGULO,
     RECTANGULOREDONDEADO,
