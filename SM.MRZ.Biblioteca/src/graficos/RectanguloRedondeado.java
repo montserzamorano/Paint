@@ -35,14 +35,18 @@ public class RectanguloRedondeado extends FiguraRellenable{
         rectangulo = new RoundRectangle2D.Double(pO.getX(),pO.getY(),pF.getX()-pO.getX(),pF.getY()-pO.getY(),50,50);
         super.setShape(rectangulo);
     }
-    
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void updateShape(Point2D puntoOrigen, Point2D puntoFinal){
         rectangulo.setFrameFromDiagonal(puntoOrigen, puntoFinal);
         setPO(puntoOrigen);
         setPF(puntoFinal);
     }
-    
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void setLocation(Point2D p) {
         double w = Math.abs(getPO().getX()-getPF().getX());

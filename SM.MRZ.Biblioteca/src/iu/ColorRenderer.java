@@ -13,10 +13,15 @@ import javax.swing.ListCellRenderer;
  */
 
 public class ColorRenderer extends JLabel implements ListCellRenderer<Color>{
+    /**
+     * 
+     */
     public ColorRenderer(){
         setOpaque(true);
     }
-    
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public Component getListCellRendererComponent(JList<? extends Color> list, Color value, int index, boolean isSelected, boolean cellHasFocus) {
         //texto de la celda

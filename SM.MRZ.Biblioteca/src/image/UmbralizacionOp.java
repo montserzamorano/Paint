@@ -11,9 +11,16 @@ import sm.image.BufferedImageOpAdapter;
 
 public class UmbralizacionOp extends BufferedImageOpAdapter{
     private int umbral;
+    /**
+     * 
+     * @param umbral 
+     */
     public UmbralizacionOp(int umbral){
         this.umbral = umbral;
     }
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public BufferedImage filter(BufferedImage src, BufferedImage dest) {
         if(src == null){

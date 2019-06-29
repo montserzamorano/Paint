@@ -7,12 +7,12 @@ import iu.LienzoImagen;
  * @author Montserrat Rodríguez Zamorano
  * @version 1.1
  */
-public class VentanaInterna extends javax.swing.JInternalFrame {
+public class VentanaMultimediaImagen extends VentanaMultimedia {
 
     /**
-     * Creates new form VentanaMultimedia
+     * Creates new form VentanaMultimediaImagen
      */
-    public VentanaInterna() {
+    public VentanaMultimediaImagen() {
         initComponents();
     }
 

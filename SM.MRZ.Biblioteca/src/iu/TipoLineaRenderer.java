@@ -14,10 +14,15 @@ import javax.swing.ListCellRenderer;
  */
 
 public class TipoLineaRenderer extends JLabel implements ListCellRenderer<TipoLinea>{
+    /**
+     * Constructor de clase.
+     */
     public TipoLineaRenderer() {
         setOpaque(true);
     }
-    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Component getListCellRendererComponent(JList<? extends TipoLinea> list, TipoLinea value, int index, boolean isSelected, boolean cellHasFocus) {
         setText(value.toString());

@@ -12,10 +12,18 @@ import java.awt.geom.Point2D;
  */
 
 public abstract class FiguraLineal extends Figura{
+    /**
+     * 
+     * @param puntoOrigen
+     * @param puntoFinal
+     * @param trazo
+     * @param stroke
+     * @param grosor
+     * @param transparencia
+     * @param alisado 
+     */
     public FiguraLineal(Point2D puntoOrigen, Point2D puntoFinal, Color trazo, TipoLinea stroke, int grosor, float transparencia, boolean alisado){
         super(puntoOrigen, puntoFinal, trazo,stroke, grosor, transparencia, alisado);
     }
-    @Override  
-    public boolean isFiguraRellenable(){return false;}
     
 }

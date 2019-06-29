@@ -8,7 +8,9 @@ import sm.image.BufferedImageOpAdapter;
  * @version 1.1
  */
 public class AverageOp extends BufferedImageOpAdapter{
-
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public BufferedImage filter(BufferedImage src, BufferedImage dest) {
         if(src == null){

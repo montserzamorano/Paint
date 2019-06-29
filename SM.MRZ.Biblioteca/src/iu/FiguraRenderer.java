@@ -15,14 +15,19 @@ import javax.swing.ListCellRenderer;
  */
 
 public class FiguraRenderer extends JLabel implements ListCellRenderer<Figura>{
+    /**
+     * 
+     */
     public FiguraRenderer(){
         setOpaque(true);
     }
-    
+    /**
+     * {@inheritDoc }
+     */    
     @Override
     public Component getListCellRendererComponent(JList<? extends Figura> list, Figura value, int index, boolean isSelected, boolean cellHasFocus) {
         //texto de la celda
-        setText(value.toString());
+        setText(value.getNombre());
         Color background;
         Color foreground;
         

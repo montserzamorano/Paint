@@ -10,19 +10,29 @@ import java.awt.Stroke;
 import java.awt.geom.Point2D;
 
 /**
- *
+ * Clase Figura. Representa una figura.
  * @author Montserrat Rodríguez Zamorano
  * @version 1.1
  */
 
 public abstract class Figura {
+    private String nombre = "";
     private Color trazo = null;
     private TipoLinea stroke;
     private boolean alisado;
     private Point2D puntoOrigen, puntoFinal = new Point(-1000, -1000);
     private float transparencia = 1.0f;
     private int grosor = 1;
-    
+    /**
+     * 
+     * @param pO
+     * @param pF
+     * @param trazo
+     * @param stroke
+     * @param grosor
+     * @param transparencia
+     * @param alisado 
+     */
     public Figura(Point2D pO, Point2D pF, Color trazo, TipoLinea stroke, int grosor, float transparencia, boolean alisado){
         this.trazo = trazo;
         this.stroke = stroke;
@@ -31,13 +41,44 @@ public abstract class Figura {
         puntoOrigen = pO;
         puntoFinal = pF;
         this.grosor = grosor;
+        nombre = "Figura";
     }
-    
+    /**
+     * 
+     * @return 
+     */
+    public String getNombre(){
+        return nombre;
+    }
+    /**
+     * 
+     * @return 
+     */
     public Point2D getPO(){return puntoOrigen;}
+    /**
+     * 
+     * @return 
+     */
     public Point2D getPF(){return puntoFinal;}
+    /**
+     * 
+     * @param p 
+     */
     public void setPO(Point2D p){puntoOrigen = p;}
+    /**
+     * 
+     * @param p 
+     */
     public void setPF(Point2D p){puntoFinal=p;}
+    /**
+     * 
+     * @return 
+     */
     public int getGrosor(){return grosor;}
+    /**
+     * 
+     * @param grosor 
+     */
     public void setGrosor(int grosor){this.grosor = grosor;}
     
     /**
@@ -105,11 +146,10 @@ public abstract class Figura {
     abstract public void setLocation(Point2D p);
     /**
      * Actualiza una figura. Método abstracto.
-     * @param puntoOrigen
-     * @param puntoFinal 
+     * @param puntoOrigen punto de origen en la figura
+     * @param puntoFinal punto final de la figura
      */
     abstract public void updateShape(Point2D puntoOrigen, Point2D puntoFinal);
-    abstract public boolean isFiguraRellenable();
     /**
      * Dibuja una figura.
      * @param g 

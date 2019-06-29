@@ -7,7 +7,6 @@ import java.awt.GradientPaint;
 import java.awt.Graphics2D;
 import java.awt.Paint;
 import java.awt.Point;
-import java.awt.RadialGradientPaint;
 import java.awt.Shape;
 import java.awt.geom.Point2D;
 
@@ -56,8 +55,6 @@ public abstract class FiguraRellenable extends Figura{
     * @param color color de relleno de la figura
     */
     public void setColorRelleno(Color color){colorRelleno = color;}
-    @Override
-    public boolean isFiguraRellenable(){return true;}
     /**
     * Getter.
     * @return color color de relleno de la figura
@@ -73,17 +70,21 @@ public abstract class FiguraRellenable extends Figura{
         g2d.setComposite(comp);
 
         //relleno
-        if(getTipoRelleno()==TipoRelleno.LISO){
+        if(getTipoRelleno()==TipoRelleno.LISO && colorRelleno!=null){
             g2d.setColor(getColorRelleno());
             g2d.fill(s);
         }
         if(getTipoRelleno()==TipoRelleno.DEGRADADO_DIAGONAL){
-            Paint relleno;
-            Point2D pc1 = getPO();
-            Point2D pc2 = getPF();
-            relleno = new GradientPaint(pc1, Color.RED, pc2, Color.BLUE);
-            g2d.setPaint(relleno);
-            g2d.fill(s);
+            Color deg1 = getDegradado1();
+            Color deg2 = getDegradado2();
+            if(deg1!=null && deg2!=null){
+                Paint relleno;
+                Point2D pc1 = getPO();
+                Point2D pc2 = getPF();
+                relleno = new GradientPaint(pc1, deg1, pc2, deg2);
+                g2d.setPaint(relleno);
+                g2d.fill(s);
+            }
         }
         if(getTipoRelleno()==TipoRelleno.DEGRADADO_DIAGONAL){
             Color deg1 = getDegradado1();
@@ -119,21 +120,6 @@ public abstract class FiguraRellenable extends Figura{
                 Point2D pc1 = getPO();
                 Point2D pc2 = new Point((int) (getPF().getX()), (int) (getPF().getY()-a));
                 relleno = new GradientPaint(pc1, deg1, pc2, deg2);
-                g2d.setPaint(relleno);
-                g2d.fill(s);
-            }
-        }
-        if(getTipoRelleno()==TipoRelleno.DEGRADADO_RADIAL){
-            Color deg1 = getDegradado1();
-            Color deg2 = getDegradado2();
-            if(deg1!=null && deg2 != null){
-                Paint relleno;
-                float r = 500;
-                float[] dist = {0.0f, 0.25f, 0.5f, 0.75f};
-                Color[] colors = {deg1, deg2, deg1, deg2};
-                Point2D center = new Point((int) (Math.abs(getPF().getX()-getPO().getX())/2), 
-                        (int) Math.abs((getPF().getY()-getPO().getY())/2));
-                relleno = new RadialGradientPaint(center, r, dist, colors);
                 g2d.setPaint(relleno);
                 g2d.fill(s);
             }

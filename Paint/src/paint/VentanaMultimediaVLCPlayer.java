@@ -1,51 +1,59 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package paint;
 
-import com.github.sarxos.webcam.Webcam;
-import com.github.sarxos.webcam.WebcamPanel;
-import java.awt.BorderLayout;
-import java.awt.image.BufferedImage;
+import java.io.File;
+import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
+import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 
 /**
  *
- * @author Montserrat Rodríguez Zamorano
- * @version 1.1
+ * @author Minim
  */
-public class VentanaInternaCamara extends javax.swing.JInternalFrame {
-    private Webcam camara = null;
+public class VentanaMultimediaVLCPlayer extends VentanaMultimedia {
+    private EmbeddedMediaPlayer vlcplayer = null;
+    private File fMedia;
+    
     /**
-     * Creates new form VentanaInternaCamara
+     * Creates new form VentanaInternaVLCPlayer
      */
-    private VentanaInternaCamara() {
-        //initComponents();
-        camara = Webcam.getDefault();
-        if(camara  != null){
-            WebcamPanel areaVisual = new WebcamPanel(camara);
-            if(areaVisual!=null){
-                getContentPane().add(areaVisual, BorderLayout.CENTER);
-                pack();
+    public VentanaMultimediaVLCPlayer(File f) {
+        initComponents();
+        fMedia = f;
+        EmbeddedMediaPlayerComponent aVisual = new EmbeddedMediaPlayerComponent();
+        getContentPane().add(aVisual, java.awt.BorderLayout.CENTER);
+        vlcplayer = aVisual.getMediaPlayer();
+    }
+    
+    public static VentanaMultimediaVLCPlayer getInstance(File f){
+        VentanaMultimediaVLCPlayer v = new VentanaMultimediaVLCPlayer(f);
+        return(v.vlcplayer!=null?v:null);
+    }
+    public void play(){
+        if(vlcplayer!=null){
+            if(vlcplayer.isPlayable()){
+                //si se estaba reproduciendo
+                vlcplayer.play();
+            }
+            else{
+                vlcplayer.playMedia(fMedia.getAbsolutePath());
             }
         }
     }
-    
-    public static VentanaInternaCamara getInstance(){
-        VentanaInternaCamara v = new VentanaInternaCamara();
-        return (v.camara!=null?v:null);
-    }
-    
-    public void close(){
-        if(camara!=null){
-            camara.close();
+    public void stop(){
+        if(vlcplayer!=null){
+            if(vlcplayer.isPlaying()){
+                vlcplayer.pause();
+            }
+            else{
+                vlcplayer.stop();
+            }
         }
-        camara = null;
     }
-    
-    public BufferedImage getImage(){
-        BufferedImage img = null;
-        if(camara!=null){
-            img = camara.getImage();
-        }
-        return img;
-    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -59,11 +67,6 @@ public class VentanaInternaCamara extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Imagen de WebCam");
-        setMaximumSize(new java.awt.Dimension(500, 500));
-        setMinimumSize(new java.awt.Dimension(500, 500));
-        setPreferredSize(new java.awt.Dimension(500, 500));
-        setSize(new java.awt.Dimension(500, 500));
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -86,18 +89,18 @@ public class VentanaInternaCamara extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 633, Short.MAX_VALUE)
+            .addGap(0, 501, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 513, Short.MAX_VALUE)
+            .addGap(0, 383, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
-        close();
+        stop();
     }//GEN-LAST:event_formInternalFrameClosing
 
 

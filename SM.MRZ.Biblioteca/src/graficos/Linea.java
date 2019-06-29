@@ -15,19 +15,32 @@ import java.awt.geom.Point2D;
 
 public class Linea extends FiguraLineal{
     private Line2D linea;
-    
+    /**
+     * 
+     * @param puntoOrigen
+     * @param puntoFinal
+     * @param trazo
+     * @param stroke
+     * @param grosor
+     * @param transparencia
+     * @param alisado 
+     */
     public Linea(Point2D puntoOrigen, Point2D puntoFinal, Color trazo, TipoLinea stroke, int grosor, float transparencia, boolean alisado){
         super(puntoOrigen, puntoFinal, trazo,stroke, grosor, transparencia, alisado);
         linea = new Line2D.Float(puntoOrigen, puntoFinal);
     }
-    
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void updateShape(Point2D puntoOrigen, Point2D puntoFinal){
         linea.setLine(puntoOrigen, puntoFinal);
         setPO(puntoOrigen);
         setPF(puntoFinal);
     }
-    
+    /**
+     * {@inheritDoc }
+     */
     @Override 
     public void paint(Graphics2D g){
         Graphics2D g2d = (Graphics2D) g;
@@ -36,7 +49,9 @@ public class Linea extends FiguraLineal{
         //stroke
         g2d.draw(linea);
     }
-
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void setLocation(Point2D p) {
         double dx=p.getX()-linea.getX1();

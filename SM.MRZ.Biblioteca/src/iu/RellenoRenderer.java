@@ -14,10 +14,15 @@ import javax.swing.ListCellRenderer;
  */
 
 public class RellenoRenderer extends JLabel implements ListCellRenderer<TipoRelleno>{
+    /**
+     * Constructor de clase.
+     */
     public RellenoRenderer(){
         setOpaque(true);
     }
-    
+    /**
+     * {@inheritDoc} 
+     */
     @Override
     public Component getListCellRendererComponent(JList<? extends TipoRelleno> list, TipoRelleno value, int index, boolean isSelected, boolean cellHasFocus) {
         //texto de la celda

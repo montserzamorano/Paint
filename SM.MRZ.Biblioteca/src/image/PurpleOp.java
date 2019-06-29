@@ -10,7 +10,9 @@ import sm.image.BufferedImageOpAdapter;
  */
 
 public class PurpleOp extends BufferedImageOpAdapter{
-
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public BufferedImage filter(BufferedImage src, BufferedImage dest) {
         if(src == null){
