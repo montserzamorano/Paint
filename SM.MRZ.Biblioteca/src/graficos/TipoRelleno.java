@@ -1,7 +1,8 @@
 package graficos;
 
 /**
- *
+ * Enumerate TipoRelleno. Representa los tipos con los que se pueden
+ * rellenar las figuras rellenables.
  * @author Montserrat Rodríguez Zamorano
  * @version 1.1
  */

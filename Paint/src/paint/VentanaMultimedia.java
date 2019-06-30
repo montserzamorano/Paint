@@ -1,14 +1,14 @@
 package paint;
 
 /**
- *
+ * Ventana interna con contenido multimedia.
  * @author Montserrat Rodríguez Zamorano
  * @version 1.1
  */
 public class VentanaMultimedia extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form VentanaMultimedia
+     * Crea la nueva forma VentanaMultimedia
      */
     public VentanaMultimedia() {
         initComponents();

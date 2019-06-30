@@ -3,14 +3,14 @@ package paint;
 import iu.LienzoImagen;
 
 /**
- *
+ * Ventana multimedia que contiene una imagen.
  * @author Montserrat Rodríguez Zamorano
  * @version 1.1
  */
 public class VentanaMultimediaImagen extends VentanaMultimedia {
 
     /**
-     * Creates new form VentanaMultimediaImagen
+     * Crea la nuea forma VentanaMultimediaImagen
      */
     public VentanaMultimediaImagen() {
         initComponents();
@@ -28,10 +28,25 @@ public class VentanaMultimediaImagen extends VentanaMultimedia {
         jScrollPane1 = new javax.swing.JScrollPane();
         lienzo = new iu.LienzoImagen();
 
-        setClosable(true);
-        setIconifiable(true);
-        setMaximizable(true);
-        setResizable(true);
+        setToolTipText("Ventana imagen");
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameActivated(evt);
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameDeactivated(evt);
+            }
+        });
 
         javax.swing.GroupLayout lienzoLayout = new javax.swing.GroupLayout(lienzo);
         lienzo.setLayout(lienzoLayout);
@@ -51,12 +66,23 @@ public class VentanaMultimediaImagen extends VentanaMultimedia {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
+        lienzo.setLienzoActivado();
+    }//GEN-LAST:event_formInternalFrameActivated
+
+    private void formInternalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameDeactivated
+        lienzo.quitBoundingBox();
+    }//GEN-LAST:event_formInternalFrameDeactivated
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private iu.LienzoImagen lienzo;
     // End of variables declaration//GEN-END:variables
-
+    /**
+     * Devuelve la imagen contenida en la ventana.
+     * @return lienzo que contiene la imagen
+     */
     public LienzoImagen getLienzo() {
         return lienzo;
     }

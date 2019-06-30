@@ -312,6 +312,10 @@ public class Lienzo extends javax.swing.JPanel {
             this.repaint();
         }
     }
+    public void quitBoundingBox(){
+        figuraSeleccionada=null;
+        boundingBox=null;
+    }
     /**
      * 
      * @param listener 
@@ -432,6 +436,10 @@ public class Lienzo extends javax.swing.JPanel {
         }
     }
     
+    public void setLienzoActivado(){
+        this.notifyLienzoSeleccionado(new LienzoEvent(this,null,colorTrazo,null));
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -482,7 +490,7 @@ public class Lienzo extends javax.swing.JPanel {
         Figura f = createFigura(pI, pF);
         if(f!=null){
             vFiguras.add(f);
-            notifyShapeAddedEvent(new LienzoEvent(this, fActiva, colorTrazo, null));
+            notifyShapeAddedEvent(new LienzoEvent(this, f, colorTrazo, null));
         }
         //si hacemos otras cosas, se desactiva la bounding box
         boundingBox = null;

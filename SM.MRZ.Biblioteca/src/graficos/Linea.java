@@ -8,7 +8,6 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 
 /**
- *
  * @author Montserrat Rodríguez Zamorano
  * @version 1.1
  */

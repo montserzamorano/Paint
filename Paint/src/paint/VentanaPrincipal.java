@@ -1,6 +1,5 @@
 package paint;
 
-import com.github.sarxos.webcam.Webcam;
 import eventos.LienzoAdapter;
 import eventos.LienzoEvent;
 import graficos.Elipse;
@@ -80,6 +79,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public VentanaPrincipal() {
         initComponents();
         
+        colorTrazoCB.removeAllItems();
+        colorRellenoCB.removeAllItems();
+        degradado1CB.removeAllItems();
+        degradado2CB.removeAllItems();
+        colorTintadoCB.removeAllItems();
+        tipoRellenoCB.removeAllItems();
+        tipoLineaCB.removeAllItems();
         inicializarColores(colorTrazoCB);
         inicializarColores(colorRellenoCB);
         inicializarColores(degradado1CB);
@@ -90,7 +96,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
  
         //sliders desactivados
         tintadoSlider.setEnabled(false);
-        
         //botones de sonido
         stopRecordBoton.setEnabled(false);
         pausaGrabacionBoton.setEnabled(false);
@@ -101,7 +106,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         videoFilter = new FileNameExtensionFilter("Archivos de video", VideoFileFilter.INSTANCE.getExtensions());
         
     }
-    
+   
     /**
      * 
      */
@@ -207,6 +212,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         rotacionBG = new javax.swing.ButtonGroup();
         jButton4 = new javax.swing.JButton();
         barraSuperiorTB = new javax.swing.JToolBar();
+        nuevoMB = new javax.swing.JButton();
+        abrirMB = new javax.swing.JButton();
+        guardarMB = new javax.swing.JButton();
+        jSeparator12 = new javax.swing.JToolBar.Separator();
         lineaBoton = new javax.swing.JToggleButton();
         rectanguloBoton = new javax.swing.JToggleButton();
         rectanguloRedBoton = new javax.swing.JToggleButton();
@@ -239,8 +248,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         pausaSonidoBoton = new javax.swing.JToggleButton();
         stopSonidoBoton = new javax.swing.JToggleButton();
         jSeparator11 = new javax.swing.JToolBar.Separator();
-        webCamBoton = new javax.swing.JToggleButton();
-        capturaBoton = new javax.swing.JToggleButton();
+        webcamBoton = new javax.swing.JButton();
+        capturaBoton = new javax.swing.JButton();
         barraizquierdaTB = new javax.swing.JToolBar();
         brilloSlider = new javax.swing.JSlider();
         jSeparator4 = new javax.swing.JToolBar.Separator();
@@ -305,6 +314,31 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         barraSuperiorTB.setMaximumSize(new java.awt.Dimension(50, 30));
         barraSuperiorTB.setMinimumSize(new java.awt.Dimension(50, 30));
         barraSuperiorTB.setPreferredSize(new java.awt.Dimension(50, 30));
+
+        nuevoMB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/nuevo.png"))); // NOI18N
+        nuevoMB.setToolTipText("Nueva imagen");
+        nuevoMB.setFocusable(false);
+        nuevoMB.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        nuevoMB.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        nuevoMB.addActionListener(formListener);
+        barraSuperiorTB.add(nuevoMB);
+
+        abrirMB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/abrir.png"))); // NOI18N
+        abrirMB.setToolTipText("Abrir archivo");
+        abrirMB.setFocusable(false);
+        abrirMB.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        abrirMB.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        abrirMB.addActionListener(formListener);
+        barraSuperiorTB.add(abrirMB);
+
+        guardarMB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/save.png"))); // NOI18N
+        guardarMB.setToolTipText("Guardar archivo");
+        guardarMB.setFocusable(false);
+        guardarMB.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        guardarMB.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        guardarMB.addActionListener(formListener);
+        barraSuperiorTB.add(guardarMB);
+        barraSuperiorTB.add(jSeparator12);
 
         formasBG.add(lineaBoton);
         lineaBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Linea.gif"))); // NOI18N
@@ -507,16 +541,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         barraSuperiorTB.add(stopSonidoBoton);
         barraSuperiorTB.add(jSeparator11);
 
-        webCamBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/webcam.png"))); // NOI18N
-        webCamBoton.setToolTipText("Cerrar WebCam");
-        webCamBoton.setFocusable(false);
-        webCamBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        webCamBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        webCamBoton.addActionListener(formListener);
-        barraSuperiorTB.add(webCamBoton);
+        webcamBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/webcam.png"))); // NOI18N
+        webcamBoton.setToolTipText("Abrir Webcam");
+        webcamBoton.setFocusable(false);
+        webcamBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        webcamBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        webcamBoton.addActionListener(formListener);
+        barraSuperiorTB.add(webcamBoton);
 
         capturaBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/captura.png"))); // NOI18N
-        capturaBoton.setToolTipText("Hacer captura pantalla");
+        capturaBoton.setToolTipText("Hacer captura de pantalla");
         capturaBoton.setFocusable(false);
         capturaBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         capturaBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -686,7 +720,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addGroup(barraEstadoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pixelLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1556, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1607, Short.MAX_VALUE)
                 .addComponent(eventoLabel)
                 .addContainerGap())
         );
@@ -718,7 +752,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         barraDerechaTB.add(disenioPropioBoton);
 
         disenioPropio2Boton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/mediabandas.png"))); // NOI18N
-        disenioPropio2Boton.setToolTipText("Filtro media");
+        disenioPropio2Boton.setToolTipText("Filtro blanco y negro");
         disenioPropio2Boton.setFocusable(false);
         disenioPropio2Boton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         disenioPropio2Boton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -923,8 +957,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             else if (evt.getSource() == stopSonidoBoton) {
                 VentanaPrincipal.this.stopSonidoBotonActionPerformed(evt);
             }
-            else if (evt.getSource() == webCamBoton) {
-                VentanaPrincipal.this.webCamBotonActionPerformed(evt);
+            else if (evt.getSource() == webcamBoton) {
+                VentanaPrincipal.this.webcamBotonActionPerformed(evt);
             }
             else if (evt.getSource() == capturaBoton) {
                 VentanaPrincipal.this.capturaBotonActionPerformed(evt);
@@ -1018,6 +1052,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
             else if (evt.getSource() == acercaMenuItem) {
                 VentanaPrincipal.this.acercaMenuItemActionPerformed(evt);
+            }
+            else if (evt.getSource() == nuevoMB) {
+                VentanaPrincipal.this.nuevoMBActionPerformed(evt);
+            }
+            else if (evt.getSource() == abrirMB) {
+                VentanaPrincipal.this.abrirMBActionPerformed(evt);
+            }
+            else if (evt.getSource() == guardarMB) {
+                VentanaPrincipal.this.guardarMBActionPerformed(evt);
             }
         }
 
@@ -1170,44 +1213,69 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      * @param lienzo 
      */
     private void actualizarAtributosLienzo(Lienzo lienzo){
-        colorTrazoCB.setSelectedItem(lienzo.getColorTrazo());
-        colorRellenoCB.setSelectedItem(lienzo.getColorRelleno());
-        degradado1CB.setSelectedItem(lienzo.getColorDeg1());
-        degradado2CB.setSelectedItem(lienzo.getColorDeg2());
+        //color trazo
+        if(lienzo.getColorTrazo()==null){
+            colorTrazoCB.removeAllItems();
+            inicializarColores(colorTrazoCB);
+        }
+        else{colorTrazoCB.setSelectedItem(lienzo.getColorTrazo());}
+        //color relleno
+        if(lienzo.getColorRelleno()==null){
+            colorRellenoCB.removeAllItems();
+            inicializarColores(colorRellenoCB);}
+        else{colorRellenoCB.setSelectedItem(lienzo.getColorRelleno());}
+        //color degradado 1
+        if(lienzo.getColorDeg1()==null){
+            degradado1CB.removeAllItems();
+            inicializarColores(degradado1CB);}
+        else{degradado1CB.setSelectedItem(lienzo.getColorDeg1());}
+        //color degradado 2
+        if(lienzo.getColorDeg2()==null){
+            degradado2CB.removeAllItems();
+            inicializarColores(degradado2CB);}
+        else{degradado2CB.setSelectedItem(lienzo.getColorDeg2());}
+        //tipo linea
         if(lienzo.getStroke()!=null){
             tipoLineaCB.setSelectedItem(lienzo.getStroke());
         }
+        tipoRellenoCB.setSelectedItem(lienzo.getTipoRelleno());
+        //grosor
         grosorSpinner.setValue(lienzo.getGrosor());
+        //alisado
         alisarBoton.setSelected(lienzo.getAlisadoActivated());
+        //transparencia
         transparenciaSlider.setValue((int) (lienzo.getTransparencia()*100));
-        //seleccionar la forma
-        if(lienzo.getForma()!=null){
-            switch (lienzo.getForma()) {
-                case LINEA:
-                    lineaBoton.setSelected(true);
-                    disableRelleno();
-                    break;
-                case RECTANGULO:
-                    rectanguloBoton.setSelected(true);
-                    enableRelleno();
-                    break;
-                case RECTANGULOREDONDEADO:
-                    rectanguloRedBoton.setSelected(true);
-                    enableRelleno();
-                    break;
-                case OVALO:
-                    elipseBoton.setSelected(true);
-                    enableRelleno();
-                    break;
-                default:
-                    break;
-            }
-        }
-        else{//si no hay forma seleccionada
+        if(null==lienzo.getForma()) {//si no hay forma seleccionada
             lineaBoton.setSelected(false);
             rectanguloBoton.setSelected(false);
             rectanguloRedBoton.setSelected(false);
             elipseBoton.setSelected(false);
+        }
+        else //seleccionar la forma
+        switch (lienzo.getForma()) {
+            case LINEA:
+                lineaBoton.setSelected(true);
+                disableRelleno();
+                break;
+            case RECTANGULO:
+                rectanguloBoton.setSelected(true);
+                enableRelleno();
+                break;
+            case RECTANGULOREDONDEADO:
+                rectanguloRedBoton.setSelected(true);
+                enableRelleno();
+                break;
+            case OVALO:
+                elipseBoton.setSelected(true);
+                enableRelleno();
+                break;
+            default:
+                //si no hay forma seleccionada
+                lineaBoton.setSelected(false);
+                rectanguloBoton.setSelected(false);
+                rectanguloRedBoton.setSelected(false);
+                elipseBoton.setSelected(false);
+                break;
         }
  
         //figuras
@@ -1240,7 +1308,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             vi.getLienzo().setArea();
             vi.setTitle("Nueva");
             vi.setVisible(true);
-
+            
+            actualizarAtributosLienzo(vi.getLienzo());
+            
             //Añadimos el manejador
             MiManejadorLienzo manejador = new MiManejadorLienzo();
             vi.getLienzo().addLienzoListener(manejador);
@@ -1261,7 +1331,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     BufferedImage img = vi.getLienzo().getImage(true);
                     if(img!=null){
                         File f = dlg.getSelectedFile();
-                        ImageIO.write(img, "jpg", f);
+                        int posExtension = f.getName().indexOf(".")+1;
+                        String extension = "";
+                        if(posExtension==0){//si no se indica extensión
+                            extension = "jpg";
+                        }
+                        else{
+                            extension = f.getName().substring(posExtension);
+                        }
+                        ImageIO.write(img, extension, f);
                         vi.setTitle(f.getName());
                     }
                 }catch(Exception ex){
@@ -1295,16 +1373,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     int w = img.getWidth();
                     int h = img.getHeight();
                     vi.getLienzo().setDimension(new Dimension(w,h));
+                    
+                    //Añadimos el manejador
+                    MiManejadorLienzo manejador = new MiManejadorLienzo();
+                    vi.getLienzo().addLienzoListener(manejador);
                 }
                 if(soundFilter.accept(f)){
                     listaMediaCB.addItem(f);
                 }
                 if(videoFilter.accept(f)){
                     listaMediaCB.addItem(f);
-                    VentanaMultimediaVLCPlayer vi = new VentanaMultimediaVLCPlayer(f);
-                    this.escritorio.add(vi);
-                    vi.setTitle(f.getName());
-                    vi.setVisible(true);
                 }
             }catch(Exception ex){
                 System.err.println("Error al leer el archivo.");
@@ -1317,7 +1395,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      */
     private void acercaMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acercaMenuItemActionPerformed
         String mensaje = "Paint\n05/07/2019 1.1\nMontserrat Rodríguez Zamorano";
-        JOptionPane.showMessageDialog(null, mensaje, "Acerca de", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(null, mensaje, "Acerca de", JOptionPane.QUESTION_MESSAGE);
     }//GEN-LAST:event_acercaMenuItemActionPerformed
     /**
      * 
@@ -1396,20 +1474,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      * @param evt 
      */
     private void reproducirSonidoBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reproducirSonidoBotonActionPerformed
-        File f = (File) listaMediaCB.getSelectedItem();
-        if(f!=null){
-            if(soundFilter.accept(f)){
-                player = new SMClipPlayer(f);
-                if(player!=null){
-                    player.play();
-                }
-            }
-            else if (videoFilter.accept(f)){
-                VentanaMultimediaVLCPlayer viVLC = new VentanaMultimediaVLCPlayer(f);
-                this.escritorio.add(viVLC);
-                viVLC.setTitle(f.getName());
-                viVLC.setVisible(true);
-            }
+        VentanaMultimedia vi = (VentanaMultimedia) escritorio.getSelectedFrame();
+        if(vi!=null){
+            try{
+               ((VentanaMultimediaJMFPlayer)vi).play();
+            }catch(Exception e){}
         }
     }//GEN-LAST:event_reproducirSonidoBotonActionPerformed
     /**
@@ -1479,8 +1548,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         VentanaMultimediaImagen vi;
         vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
         if(vi != null){
+            Lienzo lienzo = vi.getLienzo();
+            Figura figuraSeleccionada = lienzo.getFiguraSeleccionada();
             float transp = (float) (this.transparenciaSlider.getValue()*0.01);
-            vi.getLienzo().setTransparencia(transp);
+            if(figuraSeleccionada==null){
+                lienzo.setTransparencia(transp);
+            }
+            else{
+                figuraSeleccionada.setTransparencia(transp);
+            }
         }
     }//GEN-LAST:event_transparenciaSliderStateChanged
     /**
@@ -2234,18 +2310,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void verBarraDerechaCHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verBarraDerechaCHActionPerformed
         barraDerechaTB.setVisible(!barraDerechaTB.isVisible());
     }//GEN-LAST:event_verBarraDerechaCHActionPerformed
-    /**
-     * 
-     * @param evt 
-     */
-    private void webCamBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_webCamBotonActionPerformed
-        VentanaMultimediaCamara ventanaCamara = VentanaMultimediaCamara.getInstance();
-        if(ventanaCamara!=null){
-          escritorio.add(ventanaCamara);
-          ventanaCamara.setVisible(true);
-        }
-    }//GEN-LAST:event_webCamBotonActionPerformed
-    /**
+
+   /**
      * 
      * @param w
      * @return 
@@ -2318,7 +2384,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         fSeleccionada = (Figura) FigurasCB.getSelectedItem();
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
         vi.getLienzo().setFiguraSeleccionada(fSeleccionada);
-        actualizarAtributosBarraFigura(fSeleccionada);
+        this.repaint();
     }//GEN-LAST:event_FigurasCBActionPerformed
     /**
      * 
@@ -2369,29 +2435,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         imgSource = imgdest;
         giroLibreSlider.setValue(0);
     }//GEN-LAST:event_giroLibreSliderFocusLost
-    /**
-     * 
-     * @param evt 
-     */
-    private void capturaBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_capturaBotonActionPerformed
-        VentanaMultimedia viCamara = (VentanaMultimedia)escritorio.getSelectedFrame();
-        try{
-            BufferedImage img = ((VentanaMultimediaCamara) viCamara).getImage();
 
-            //nueva ventana con la imagen
-            VentanaMultimediaImagen vi = new VentanaMultimediaImagen();
-            escritorio.add(vi);
-            int h = img.getHeight();
-            int w = img.getWidth();
-
-            vi.getLienzo().setDimension(new Dimension(w,h));
-            vi.getLienzo().setArea();
-            vi.getLienzo().setImage(img);
-            vi.setTitle("Captura");
-            vi.setVisible(true);
-        }catch(Exception e){}
-    }//GEN-LAST:event_capturaBotonActionPerformed
-    /**
+   /**
      * 
      * @param evt 
      */
@@ -2433,45 +2478,55 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      */
     private void listaMediaCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaMediaCBActionPerformed
         File selectedFile = (File)listaMediaCB.getSelectedItem();
+        VentanaMultimediaJMFPlayer vi = VentanaMultimediaJMFPlayer.getInstance(selectedFile);
+        this.escritorio.add(vi);
+        vi.setTitle(selectedFile.getName());
+        vi.setVisible(true);
     }//GEN-LAST:event_listaMediaCBActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void webcamBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_webcamBotonActionPerformed
+        VentanaMultimediaCamara ventanaCamara = VentanaMultimediaCamara.getInstance();
+        if(ventanaCamara!=null){
+          escritorio.add(ventanaCamara);
+          ventanaCamara.setVisible(true);
         }
-        //</editor-fold>
+    }//GEN-LAST:event_webcamBotonActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VentanaPrincipal().setVisible(true);
-            }
-        });
-    }
+    private void capturaBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_capturaBotonActionPerformed
+        VentanaMultimedia viCamara = (VentanaMultimedia)escritorio.getSelectedFrame();
+        try{
+            BufferedImage img = ((VentanaMultimediaCamara) viCamara).getImage();
+
+            //nueva ventana con la imagen
+            VentanaMultimediaImagen vi = new VentanaMultimediaImagen();
+            escritorio.add(vi);
+            int h = img.getHeight();
+            int w = img.getWidth();
+
+            vi.getLienzo().setDimension(new Dimension(w,h));
+            vi.getLienzo().setArea();
+            vi.getLienzo().setImage(img);
+            vi.setTitle("Captura");
+            vi.setVisible(true);
+        }catch(Exception e){}
+    }//GEN-LAST:event_capturaBotonActionPerformed
+
+    private void nuevoMBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoMBActionPerformed
+        nuevoMenuItemActionPerformed(evt);
+    }//GEN-LAST:event_nuevoMBActionPerformed
+
+    private void abrirMBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirMBActionPerformed
+        abrirMenuItemActionPerformed(evt);
+    }//GEN-LAST:event_abrirMBActionPerformed
+
+    private void guardarMBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarMBActionPerformed
+        guardarMenuItemActionPerformed(evt);
+    }//GEN-LAST:event_guardarMBActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<Figura> FigurasCB;
+    private javax.swing.JButton abrirMB;
     private javax.swing.JMenuItem abrirMenuItem;
     private javax.swing.JMenuItem acercaMenuItem;
     private javax.swing.JToggleButton alisarBoton;
@@ -2483,7 +2538,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JToolBar barraSuperiorTB;
     private javax.swing.JToolBar barraizquierdaTB;
     private javax.swing.JSlider brilloSlider;
-    private javax.swing.JToggleButton capturaBoton;
+    private javax.swing.JButton capturaBoton;
     private javax.swing.JComboBox<Color> colorRellenoCB;
     private javax.swing.JComboBox<Color> colorTintadoCB;
     private javax.swing.JComboBox<Color> colorTrazoCB;
@@ -2505,6 +2560,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.ButtonGroup formasBG;
     private javax.swing.JSlider giroLibreSlider;
     private javax.swing.JSpinner grosorSpinner;
+    private javax.swing.JButton guardarMB;
     private javax.swing.JMenuItem guardarMenuItem;
     private javax.swing.JButton iluminarBoton;
     private javax.swing.JButton jButton4;
@@ -2515,6 +2571,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator10;
     private javax.swing.JToolBar.Separator jSeparator11;
+    private javax.swing.JToolBar.Separator jSeparator12;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
@@ -2528,6 +2585,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JComboBox<File> listaMediaCB;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JButton negativoBoton;
+    private javax.swing.JButton nuevoMB;
     private javax.swing.JMenuItem nuevoMenuItem;
     private javax.swing.JButton oscurecerBoton;
     private javax.swing.JToggleButton pausaGrabacionBoton;
@@ -2557,7 +2615,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem verBarraIzqCB;
     private javax.swing.JCheckBoxMenuItem verBarraSupCB;
     private javax.swing.JMenu verMenuBar;
-    private javax.swing.JToggleButton webCamBoton;
+    private javax.swing.JButton webcamBoton;
     private javax.swing.JTextField xPosition;
     private javax.swing.JTextField yPosition;
     private javax.swing.JButton zoomInBoton;

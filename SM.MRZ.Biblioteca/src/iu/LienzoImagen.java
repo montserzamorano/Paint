@@ -77,6 +77,8 @@ public class LienzoImagen extends Lienzo {
      * @param img 
      */
     public void setImage(BufferedImage img){
+        //deseleccionamos para que no se guarde la bounding box
+        this.quitBoundingBox();
         this.img = img;
         if(img!=null){
             setPreferredSize(new Dimension(img.getWidth(), img.getHeight()));

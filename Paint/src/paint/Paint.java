@@ -1,7 +1,7 @@
 package paint;
 
 /**
- *
+ * Main.
  * @author Montserrat Rodríguez Zamorano
  * @version 1.1
  */
@@ -38,6 +38,8 @@ public class Paint {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                //boolean ok = new NativeDiscovery().discover();
+                //System.out.println("Acceso a las bibliotecas de VLC: " + ok);
                 new VentanaPrincipal().setVisible(true);
             }
         });

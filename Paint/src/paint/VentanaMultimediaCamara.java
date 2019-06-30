@@ -6,7 +6,7 @@ import java.awt.BorderLayout;
 import java.awt.image.BufferedImage;
 
 /**
- *
+ * Ventana multimedia que contiene las imágenes que pueden verse desde la WebCam.
  * @author Montserrat Rodríguez Zamorano
  * @version 1.1
  */
@@ -55,14 +55,10 @@ public class VentanaMultimediaCamara extends VentanaMultimedia {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setClosable(true);
-        setIconifiable(true);
-        setMaximizable(true);
-        setResizable(true);
         setTitle("Imagen de WebCam");
+        setToolTipText("Ventana Webcam");
         setMaximumSize(new java.awt.Dimension(500, 500));
         setMinimumSize(new java.awt.Dimension(500, 500));
-        setSize(new java.awt.Dimension(500, 500));
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
             }

@@ -3,7 +3,7 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import sm.image.BufferedImageOpAdapter;
 /**
- *
+ * 
  * @author Montserrat Rodríguez Zamorano
  * @version 1.1
  */
