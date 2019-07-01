@@ -305,9 +305,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         reproducirSonidoBoton = new javax.swing.JToggleButton();
         pausaSonidoBoton = new javax.swing.JToggleButton();
         stopSonidoBoton = new javax.swing.JToggleButton();
-        jSeparator11 = new javax.swing.JToolBar.Separator();
-        webcamBoton = new javax.swing.JButton();
-        capturaBoton = new javax.swing.JButton();
         barraizquierdaTB = new javax.swing.JToolBar();
         brilloSlider = new javax.swing.JSlider();
         jSeparator4 = new javax.swing.JToolBar.Separator();
@@ -344,6 +341,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jSeparator10 = new javax.swing.JToolBar.Separator();
         bandasBoton = new javax.swing.JButton();
         espacioColorCB = new javax.swing.JComboBox<>();
+        jSeparator13 = new javax.swing.JToolBar.Separator();
+        capturaBoton = new javax.swing.JButton();
+        webcamBoton = new javax.swing.JButton();
+        jSeparator14 = new javax.swing.JToolBar.Separator();
         escritorio = new javax.swing.JDesktopPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
@@ -435,9 +436,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         barraSuperiorTB.add(elipseBoton);
 
         FigurasCB.setToolTipText("Figuras dibujadas");
-        FigurasCB.setMaximumSize(new java.awt.Dimension(200, 32767));
-        FigurasCB.setMinimumSize(new java.awt.Dimension(200, 27));
-        FigurasCB.setPreferredSize(new java.awt.Dimension(200, 27));
+        FigurasCB.setMaximumSize(new java.awt.Dimension(150, 32767));
+        FigurasCB.setMinimumSize(new java.awt.Dimension(150, 27));
+        FigurasCB.setPreferredSize(new java.awt.Dimension(150, 27));
         FigurasCB.addActionListener(formListener);
         barraSuperiorTB.add(FigurasCB);
 
@@ -597,23 +598,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         stopSonidoBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         stopSonidoBoton.addActionListener(formListener);
         barraSuperiorTB.add(stopSonidoBoton);
-        barraSuperiorTB.add(jSeparator11);
-
-        webcamBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/webcam.png"))); // NOI18N
-        webcamBoton.setToolTipText("Abrir Webcam");
-        webcamBoton.setFocusable(false);
-        webcamBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        webcamBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        webcamBoton.addActionListener(formListener);
-        barraSuperiorTB.add(webcamBoton);
-
-        capturaBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/captura.png"))); // NOI18N
-        capturaBoton.setToolTipText("Captura de pantalla");
-        capturaBoton.setFocusable(false);
-        capturaBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        capturaBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        capturaBoton.addActionListener(formListener);
-        barraSuperiorTB.add(capturaBoton);
 
         getContentPane().add(barraSuperiorTB, java.awt.BorderLayout.PAGE_START);
 
@@ -778,7 +762,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addGroup(barraEstadoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pixelLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1607, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1525, Short.MAX_VALUE)
                 .addComponent(eventoLabel)
                 .addContainerGap())
         );
@@ -881,6 +865,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         espacioColorCB.setPreferredSize(new java.awt.Dimension(30, 27));
         espacioColorCB.addActionListener(formListener);
         barraDerechaTB.add(espacioColorCB);
+        barraDerechaTB.add(jSeparator13);
+
+        capturaBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/captura.png"))); // NOI18N
+        capturaBoton.setToolTipText("Captura de pantalla");
+        capturaBoton.setFocusable(false);
+        capturaBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        capturaBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        capturaBoton.addActionListener(formListener);
+        barraDerechaTB.add(capturaBoton);
+
+        webcamBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/webcam.png"))); // NOI18N
+        webcamBoton.setToolTipText("Abrir Webcam");
+        webcamBoton.setFocusable(false);
+        webcamBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        webcamBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        webcamBoton.addActionListener(formListener);
+        barraDerechaTB.add(webcamBoton);
+        barraDerechaTB.add(jSeparator14);
 
         getContentPane().add(barraDerechaTB, java.awt.BorderLayout.LINE_END);
 
@@ -1472,7 +1474,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         VentanaMultimedia vi = (VentanaMultimedia) escritorio.getSelectedFrame();
         if(vi!=null){
             try{
-               ((VentanaMultimediaJMFPlayer)vi).play();
+               ((VentanaMultimediaVLCPlayer)vi).play();
             }catch(Exception e){}
         }
     }//GEN-LAST:event_reproducirSonidoBotonActionPerformed
@@ -2476,7 +2478,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      */
     private void listaMediaCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaMediaCBActionPerformed
         File selectedFile = (File)listaMediaCB.getSelectedItem();
-        VentanaMultimediaJMFPlayer vi = VentanaMultimediaJMFPlayer.getInstance(selectedFile);
+        VentanaMultimediaVLCPlayer vi = VentanaMultimediaVLCPlayer.getInstance(selectedFile);
         this.escritorio.add(vi);
         vi.setTitle(selectedFile.getName());
         vi.setVisible(true);
@@ -2568,8 +2570,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator10;
-    private javax.swing.JToolBar.Separator jSeparator11;
     private javax.swing.JToolBar.Separator jSeparator12;
+    private javax.swing.JToolBar.Separator jSeparator13;
+    private javax.swing.JToolBar.Separator jSeparator14;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;

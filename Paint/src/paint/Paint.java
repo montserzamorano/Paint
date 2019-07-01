@@ -1,5 +1,7 @@
 package paint;
 
+import uk.co.caprica.vlcj.discovery.NativeDiscovery;
+
 /**
  * Main.
  * @author Montserrat Rodríguez Zamorano
@@ -35,6 +37,11 @@ public class Paint {
         }
         //</editor-fold>
 
+        
+        //boolean ok = new NativeDiscovery().discover();
+        //if(ok) System.out.println("VLC cargada");
+        //else System.out.println("Error en VLC");
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

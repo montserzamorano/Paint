@@ -72,11 +72,12 @@ public class Lienzo extends javax.swing.JPanel {
      * 
      * @param f 
      */ 
-    public void addFigura(Figura f){vFiguras.add(f);System.out.println(vFiguras.size());}
+    public void addFigura(Figura f){vFiguras.add(f);}
     /**
      * 
      * @param g 
      */
+    @Override
     public void paint(Graphics g){
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
