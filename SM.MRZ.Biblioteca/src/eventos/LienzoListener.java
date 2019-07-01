@@ -18,4 +18,5 @@ public interface LienzoListener extends EventListener{
     public void faltaColorRelleno(LienzoEvent evt);
     public void faltaColorDegradado(LienzoEvent evt);
     public void lienzoSeleccionado(LienzoEvent evt);
+    public void figuraSeleccionada(LienzoEvent evt);
 }

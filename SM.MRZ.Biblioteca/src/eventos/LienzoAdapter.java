@@ -55,4 +55,9 @@ public class LienzoAdapter implements LienzoListener{
     public void lienzoSeleccionado(LienzoEvent evt) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void figuraSeleccionada(LienzoEvent evt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

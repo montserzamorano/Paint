@@ -21,7 +21,6 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -73,7 +72,7 @@ public class Lienzo extends javax.swing.JPanel {
      * 
      * @param f 
      */ 
-    public void addFigura(Figura f){vFiguras.add(f);}
+    public void addFigura(Figura f){vFiguras.add(f);System.out.println(vFiguras.size());}
     /**
      * 
      * @param g 
@@ -224,26 +223,28 @@ public class Lienzo extends javax.swing.JPanel {
      */
     private Figura createFigura(Point2D p1, Point2D p2){
         if(formaActiva == null){
-            notifyFaltaForma(new LienzoEvent(this, null, null, null));
+            notifyFaltaForma(new LienzoEvent(this, null, null, null, null, null, 
+            0, 0f, null, null, null, null, null, false));
         }
         else if(colorTrazo == null){
-            notifyFaltaColorTrazo(new LienzoEvent(this, null, null, null));
+            notifyFaltaColorTrazo(new LienzoEvent(this, null, null, null, null, null, 
+            0, 0f, null, null, null, null, null, false));
         }
         else if(stroke == null){
-            notifyFaltaTipoLinea(new LienzoEvent(this, null, null, null));
+            notifyFaltaTipoLinea(new LienzoEvent(this, null, null, null, null, null, 
+            0, 0f, null, null, null, null, null, false));
         }
-        //else if(getRellenoActivated() && tipoRelleno==null){
-        //    notifyFaltaTipoRelleno(new LienzoEvent(this, null, null, null));
-        //}
         else if(getRellenoActivated()  && tipoRelleno==TipoRelleno.LISO && colorRelleno==null){
-            notifyFaltaColorRelleno(new LienzoEvent(this, null, null, null));
+            notifyFaltaColorRelleno(new LienzoEvent(this, null, null, null, null, null, 
+            0, 0f, null, null, null, null, null, false));
         }
         else if(getRellenoActivated()  && 
                 (tipoRelleno==TipoRelleno.DEGRADADO_DIAGONAL || 
                 tipoRelleno==TipoRelleno.DEGRADADO_HORIZONTAL ||
                 tipoRelleno == TipoRelleno.DEGRADADO_VERTICAL) && 
                 (colorDeg1==null || colorDeg2 == null) ){
-            notifyFaltaColorDegradado(new LienzoEvent(this, null, null, null));
+            notifyFaltaColorDegradado(new LienzoEvent(this, null, null, null, null, null, 
+            0, 0f, null, null, null, null, null, false));
         }
         else{
             switch(formaActiva){
@@ -266,11 +267,6 @@ public class Lienzo extends javax.swing.JPanel {
         }
         return null;
     }
-    /**
-     * 
-     * @return 
-     */
-    public List <Figura> getListaFiguras(){return vFiguras;}
     /**
      * 
      */
@@ -436,9 +432,23 @@ public class Lienzo extends javax.swing.JPanel {
         }
     }
     
-    public void setLienzoActivado(){
-        this.notifyLienzoSeleccionado(new LienzoEvent(this,null,colorTrazo,null));
+    private void notifyFiguraActivada(LienzoEvent evt){
+        if(!lienzoEventListeners.isEmpty()){
+            for(LienzoListener listener : lienzoEventListeners){
+                listener.figuraSeleccionada(evt);
+            }
+        }
     }
+    
+    public void setLienzoActivado(){
+        this.notifyLienzoSeleccionado(new LienzoEvent(this, fActiva, pA, vFiguras,
+        colorTrazo, stroke, grosor, transparencia, colorRelleno, tipoRelleno, 
+        colorDeg1, colorDeg2, formaActiva, alisadoActivated));
+    }
+    
+    public void setFiguraActivada(){
+    }
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -489,13 +499,17 @@ public class Lienzo extends javax.swing.JPanel {
         pI = evt.getPoint();
         Figura f = createFigura(pI, pF);
         if(f!=null){
-            vFiguras.add(f);
-            notifyShapeAddedEvent(new LienzoEvent(this, f, colorTrazo, null));
+            addFigura(f);
+            notifyShapeAddedEvent(new LienzoEvent(this, fActiva, pA, vFiguras,
+        colorTrazo, stroke, grosor, transparencia, colorRelleno, tipoRelleno, 
+        colorDeg1, colorDeg2, formaActiva, alisadoActivated));
         }
         //si hacemos otras cosas, se desactiva la bounding box
         boundingBox = null;
         figuraSeleccionada = null;
-        notifyLienzoSeleccionado(new LienzoEvent(this, null, null, null));
+        notifyLienzoSeleccionado(new LienzoEvent(this, fActiva, pA, vFiguras,
+        colorTrazo, stroke, grosor, transparencia, colorRelleno, tipoRelleno, 
+        colorDeg1, colorDeg2, formaActiva, alisadoActivated));
     }//GEN-LAST:event_formMousePressed
     /**
      * 
@@ -512,7 +526,9 @@ public class Lienzo extends javax.swing.JPanel {
         pF = evt.getPoint();
         updateShape();
         pA = evt.getPoint();
-        notifyMouseMoved(new LienzoEvent(this, null, null, pA));
+        notifyMouseMoved(new LienzoEvent(this, fActiva, pA, vFiguras,
+        colorTrazo, stroke, grosor, transparencia, colorRelleno, tipoRelleno, 
+        colorDeg1, colorDeg2, formaActiva, alisadoActivated));
         this.repaint();
     }//GEN-LAST:event_formMouseDragged
     /**
@@ -521,7 +537,9 @@ public class Lienzo extends javax.swing.JPanel {
      */
     private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
         pA = evt.getPoint();
-        notifyMouseMoved(new LienzoEvent(this, null, null, pA));
+        notifyMouseMoved(new LienzoEvent(this, fActiva, pA, vFiguras,
+        colorTrazo, stroke, grosor, transparencia, colorRelleno, tipoRelleno, 
+        colorDeg1, colorDeg2, formaActiva, alisadoActivated));
     }//GEN-LAST:event_formMouseMoved
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
