@@ -1,6 +1,10 @@
 package paint;
 
+import com.sun.jna.Native;
+import com.sun.jna.NativeLibrary;
+import uk.co.caprica.vlcj.binding.LibVlc;
 import uk.co.caprica.vlcj.discovery.NativeDiscovery;
+import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 
 /**
  * Main.
@@ -36,17 +40,17 @@ public class Paint {
             java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
-        
+        //NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "/Applications/VLC.app/Contents/MacOS/lib");
+        //Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
         //boolean ok = new NativeDiscovery().discover();
+
         //if(ok) System.out.println("VLC cargada");
         //else System.out.println("Error en VLC");
+
         
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                //boolean ok = new NativeDiscovery().discover();
-                //System.out.println("Acceso a las bibliotecas de VLC: " + ok);
                 new VentanaPrincipal().setVisible(true);
             }
         });

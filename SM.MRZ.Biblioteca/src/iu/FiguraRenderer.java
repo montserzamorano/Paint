@@ -27,7 +27,7 @@ public class FiguraRenderer extends JLabel implements ListCellRenderer<Figura>{
     @Override
     public Component getListCellRendererComponent(JList<? extends Figura> list, Figura value, int index, boolean isSelected, boolean cellHasFocus) {
         //texto de la celda
-        setText(value.getNombre());
+        setText(value.toString());
         Color background;
         Color foreground;
         

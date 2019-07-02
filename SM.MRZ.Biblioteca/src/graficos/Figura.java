@@ -16,7 +16,6 @@ import java.awt.geom.Point2D;
  */
 
 public abstract class Figura {
-    private String nombre = "";
     private Color trazo = null;
     private TipoLinea stroke;
     private boolean alisado;
@@ -41,14 +40,6 @@ public abstract class Figura {
         puntoOrigen = pO;
         puntoFinal = pF;
         this.grosor = grosor;
-        nombre = "Figura";
-    }
-    /**
-     * 
-     * @return 
-     */
-    public String getNombre(){
-        return nombre;
     }
     /**
      * 

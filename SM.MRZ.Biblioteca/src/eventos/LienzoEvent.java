@@ -56,6 +56,7 @@ public class LienzoEvent extends EventObject{
         this.colorDeg2 = colorDeg2;
         this.formaActiva = formaActiva;
         this.alisado = alisado;
+        this.vFiguras = vFiguras;
     }
     /**
      * 

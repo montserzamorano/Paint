@@ -13,7 +13,7 @@ import java.awt.image.BufferedImage;
 public class VentanaMultimediaCamara extends VentanaMultimedia {
     private Webcam camara = null;
     /**
-     * Creates new form VentanaInternaCamara
+     * Crea nueva forma VentanaInternaCamara
      */
     private VentanaMultimediaCamara() {
         //initComponents();
@@ -26,19 +26,27 @@ public class VentanaMultimediaCamara extends VentanaMultimedia {
             }
         }
     }
-    
+    /**
+     * Devuelve una instancia de VentanaMultimediaCamara
+     * @return VentanaMultimediaCamara
+     */
     public static VentanaMultimediaCamara getInstance(){
         VentanaMultimediaCamara v = new VentanaMultimediaCamara();
         return (v.camara!=null?v:null);
     }
-    
+    /**
+     * Apaga la cámara
+     */
     public void close(){
         if(camara!=null){
             camara.close();
         }
         camara = null;
     }
-    
+    /**
+     * Permite hacer una captura de pantalla si la cámara está activa en ese momento.
+     * @return BufferedImage
+     */
     public BufferedImage getImage(){
         BufferedImage img = null;
         if(camara!=null){
@@ -72,6 +80,7 @@ public class VentanaMultimediaCamara extends VentanaMultimedia {
             public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
             }
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameActivated(evt);
             }
             public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -90,10 +99,17 @@ public class VentanaMultimediaCamara extends VentanaMultimedia {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Gestiona el cierre de la ventana
+     * @param evt InternalFrame event
+     */
     private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
         close();
     }//GEN-LAST:event_formInternalFrameClosing
+
+    private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formInternalFrameActivated
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

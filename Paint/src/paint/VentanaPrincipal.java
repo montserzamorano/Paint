@@ -30,6 +30,7 @@ import image.AverageOp;
 import image.PurpleOp;
 import iu.LienzoImagen;
 import iu.TipoLineaRenderer;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Transparency;
 import java.awt.color.ColorSpace;
@@ -67,7 +68,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     SMSoundRecorder recorder = null;
     SMClipPlayer player = null;
     private boolean grabando = false;
-    BufferedImage imgSource;
+    BufferedImage imgSourceTemp;
     BufferedImage imgdest;
     Point pointTemp = new Point(0,0);
     Figura fSeleccionada = null;
@@ -103,12 +104,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
    
     /**
-     * 
+     * Clase MiManejadorLienzo.
      */
     class MiManejadorLienzo extends LienzoAdapter{
         /**
-         * 
-         * @param evt 
+         * {@inheritDoc }
          */
         @Override
         public void shapeAdded(LienzoEvent evt){
@@ -116,8 +116,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             FigurasCB.addItem(evt.getFigura());
         }
         /**
-         * 
-         * @param evt 
+         * {@inheritDoc }
          */
         @Override
         public void mouseMoved(LienzoEvent evt){
@@ -126,8 +125,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             pixelLabel.setText("(" + x + "," + y + ")");
         }
         /**
-         * 
-         * @param evt 
+         * {@inheritDoc }
          */
         @Override
         public void faltaForma(LienzoEvent evt){
@@ -135,17 +133,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, mensaje, "¡Atención!", JOptionPane.ERROR_MESSAGE);
         }
         /**
-         * 
-         * @param evt 
+         * {@inheritDoc }
          */
         @Override
         public void faltaColorTrazo(LienzoEvent evt){
             String mensaje = "Debe seleccionar un color de trazo.";
             JOptionPane.showMessageDialog(null, mensaje, "¡Atención!", JOptionPane.ERROR_MESSAGE);
         }
-        /**
-         * 
-         * @param evt 
+         /**
+         * {@inheritDoc }
          */
         @Override
         public void faltaTipoLinea(LienzoEvent evt){
@@ -154,7 +150,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
         /**
          * 
-         * @param evt 
+         * @param evt LienzoEvent
          */
         @Override
         public void faltaTipoRelleno(LienzoEvent evt){
@@ -163,7 +159,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
         /**
          * 
-         * @param evt 
+         * @param evt LienzoEvent
          */
         @Override
         public void faltaColorRelleno(LienzoEvent evt){
@@ -172,7 +168,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
         /**
          * 
-         * @param evt 
+         * @param evt LienzoEvent
          */
         @Override
         public void faltaColorDegradado(LienzoEvent evt){
@@ -180,8 +176,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, mensaje, "¡Atención!", JOptionPane.ERROR_MESSAGE);
         }
         /**
-         * 
-         * @param evt 
+         * {@inheritDoc }
          */
         @Override
         public void lienzoSeleccionado(LienzoEvent evt){
@@ -245,11 +240,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     default:
                         break;
                 }
+                if(evt.getVFiguras()!=null){
+                    FigurasCB.removeAllItems();
+                    for(Figura f: evt.getVFiguras()){
+                        FigurasCB.addItem(f);
+                    }
+                    FigurasCB.setSelectedItem(null);
+                }
             }
         }
-        /**
-         * 
-         * @param evt 
+         /**
+         * {@inheritDoc }
          */
         @Override
         public void figuraSeleccionada(LienzoEvent evt){
@@ -1214,7 +1215,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         cb.setSelectedItem(TipoLinea.CONTINUA);
     }
     private void setOpcionesRelleno(TipoRelleno tipoRelleno){
-        if(null==tipoRelleno){//degradados
+        if(null==tipoRelleno){
             colorRellenoCB.setEnabled(false);
             degradado1CB.setEnabled(true);
             degradado2CB.setEnabled(true);
@@ -1380,6 +1381,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 }
                 if(videoFilter.accept(f)){
                     listaMediaCB.addItem(f);
+                    VentanaMultimediaVLCPlayer vi = new VentanaMultimediaVLCPlayer(f);
+                    this.escritorio.add(vi);
+                    vi.setTitle(f.getName());
+                    vi.setVisible(true);
                 }
             }catch(Exception ex){
                 System.err.println("Error al leer el archivo.");
@@ -1392,7 +1397,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      */
     private void acercaMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acercaMenuItemActionPerformed
         String mensaje = "Paint\n05/07/2019 1.1\nMontserrat Rodríguez Zamorano";
-        JOptionPane.showMessageDialog(null, mensaje, "Acerca de", JOptionPane.QUESTION_MESSAGE);
+        JOptionPane.showMessageDialog(null, mensaje, "Acerca de", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_acercaMenuItemActionPerformed
     /**
      * 
@@ -1736,10 +1741,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
         float nivelBrillo = (float) this.brilloSlider.getValue();
         if(vi != null){
-            if(imgSource != null){
+            if(imgSourceTemp != null){
                 try{
                     RescaleOp rop = new RescaleOp(1+(nivelBrillo/100), 0.0F, null);
-                    BufferedImage imgdest = rop.filter(imgSource, null);
+                    BufferedImage imgdest = rop.filter(imgSourceTemp, null);
                     vi.getLienzo().setImage(imgdest);
                     vi.getLienzo().repaint();
                 }catch(Exception e){
@@ -1755,10 +1760,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void brilloSliderFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_brilloSliderFocusGained
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
         if(vi!=null){
-            ColorModel cm = vi.getLienzo().getImage(true).getColorModel();
-            WritableRaster raster = vi.getLienzo().getImage(true).copyData(null);
-            boolean alfaPre = vi.getLienzo().getImage(true).isAlphaPremultiplied();
-            imgSource = new BufferedImage(cm, raster, alfaPre, null);
+            try{
+                ColorModel cm = vi.getLienzo().getImage(true).getColorModel();
+                WritableRaster raster = vi.getLienzo().getImage(true).copyData(null);
+                boolean alfaPre = vi.getLienzo().getImage(true).isAlphaPremultiplied();
+                imgSourceTemp = new BufferedImage(cm, raster, alfaPre, null);
+            }catch(Exception e){}
+       
         }
     }//GEN-LAST:event_brilloSliderFocusGained
     /**
@@ -1766,7 +1774,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      * @param evt 
      */
     private void brilloSliderFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_brilloSliderFocusLost
-        imgSource = imgdest;
+        imgSourceTemp = null;
         brilloSlider.setValue(0);
     }//GEN-LAST:event_brilloSliderFocusLost
     /**
@@ -1809,10 +1817,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
         float nivelTintado = (float) this.tintadoSlider.getValue();
         if(vi != null){
-            if(imgSource != null){
+            if(imgSourceTemp != null){
                 try{
                     TintOp tintado = new TintOp(vi.getLienzo().getColorTintado(), nivelTintado/100);
-                    imgdest = tintado.filter(imgSource, null);
+                    imgdest = tintado.filter(imgSourceTemp, null);
                     vi.getLienzo().setImage(imgdest);
                     vi.getLienzo().repaint();
                 }catch(Exception e){
@@ -1828,10 +1836,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void tintadoSliderFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tintadoSliderFocusGained
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
         if(vi!=null){
-            ColorModel cm = vi.getLienzo().getImage(true).getColorModel();
-            WritableRaster raster = vi.getLienzo().getImage(true).copyData(null);
-            boolean alfaPre = vi.getLienzo().getImage(true).isAlphaPremultiplied();
-            imgSource = new BufferedImage(cm, raster, alfaPre, null);
+            try{
+                ColorModel cm = vi.getLienzo().getImage(true).getColorModel();
+                WritableRaster raster = vi.getLienzo().getImage(true).copyData(null);
+                boolean alfaPre = vi.getLienzo().getImage(true).isAlphaPremultiplied();
+                imgSourceTemp = new BufferedImage(cm, raster, alfaPre, null);
+            }catch(Exception e){}
         }
     }//GEN-LAST:event_tintadoSliderFocusGained
     /**
@@ -1839,7 +1849,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      * @param evt 
      */
     private void tintadoSliderFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tintadoSliderFocusLost
-        imgSource = imgdest;
+        imgSourceTemp = null;
         tintadoSlider.setValue(0);
     }//GEN-LAST:event_tintadoSliderFocusLost
     /**
@@ -1850,10 +1860,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
         int umbral = (int) this.umbralizacionSlider.getValue();
         if(vi != null){
-            if(imgSource != null){
+            if(imgSourceTemp != null){
                 try{
                     UmbralizacionOp umbr = new UmbralizacionOp(umbral);
-                    imgdest = umbr.filter(imgSource, null);
+                    imgdest = umbr.filter(imgSourceTemp, null);
                     vi.getLienzo().setImage(imgdest);
                     vi.getLienzo().repaint();
                 }catch(Exception e){
@@ -1872,7 +1882,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             ColorModel cm = vi.getLienzo().getImage(true).getColorModel();
             WritableRaster raster = vi.getLienzo().getImage(true).copyData(null);
             boolean alfaPre = vi.getLienzo().getImage(true).isAlphaPremultiplied();
-            imgSource = new BufferedImage(cm, raster, alfaPre, null);
+            imgSourceTemp = new BufferedImage(cm, raster, alfaPre, null);
         }
     }//GEN-LAST:event_umbralizacionSliderFocusGained
     /**
@@ -1880,7 +1890,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      * @param evt 
      */
     private void umbralizacionSliderFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_umbralizacionSliderFocusLost
-        imgSource = imgdest;
+        imgSourceTemp = null;
         umbralizacionSlider.setValue(50);
     }//GEN-LAST:event_umbralizacionSliderFocusLost
     /**
@@ -1890,7 +1900,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void negativoBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_negativoBotonActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
         if(vi!=null){
-            imgSource = vi.getLienzo().getImage(true);
+            BufferedImage imgSource = vi.getLienzo().getImage(true);
             if(imgSource!=null){
                 try{
                     int type = LookupTableProducer.TYPE_NEGATIVE;
@@ -1912,7 +1922,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void relieveBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relieveBotonActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
         if(vi!=null){
-            imgSource = vi.getLienzo().getImage(true);
+            BufferedImage imgSource = vi.getLienzo().getImage(true);
             if(imgSource!=null){
                 try{
                     Kernel k = KernelProducer.createKernel(KernelProducer.TYPE_RELIEVE_3x3);
@@ -1933,7 +1943,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void emborronamientoBoton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emborronamientoBoton2ActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
         if(vi!=null){
-            imgSource = vi.getLienzo().getImage(true);
+            BufferedImage imgSource = vi.getLienzo().getImage(true);
             if(imgSource!=null){
                 try{
                     Kernel k = KernelProducer.createKernel(KernelProducer.TYPE_BINOMIAL_3x3);
@@ -1954,7 +1964,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void enfoqueBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enfoqueBotonActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
         if(vi!=null){
-            imgSource = vi.getLienzo().getImage(true);
+            BufferedImage imgSource = vi.getLienzo().getImage(true);
             if(imgSource!=null){
                 try{
                     Kernel k = KernelProducer.createKernel(KernelProducer.TYPE_ENFOQUE_3x3);
@@ -1975,7 +1985,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void contrasteBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contrasteBotonActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
         if(vi!=null){
-            imgSource = vi.getLienzo().getImage(true);
+            BufferedImage imgSource = vi.getLienzo().getImage(true);
             if(imgSource != null){
                 try{
                     int type = LookupTableProducer.TYPE_SFUNCION;
@@ -1997,7 +2007,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void iluminarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iluminarBotonActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
         if(vi!=null){
-            imgSource = vi.getLienzo().getImage(true);
+            BufferedImage imgSource = vi.getLienzo().getImage(true);
             if(imgSource!=null){
                 try{
                     int type = LookupTableProducer.TYPE_LOGARITHM;
@@ -2019,7 +2029,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void oscurecerBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oscurecerBotonActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
         if(vi!=null){
-            imgSource = vi.getLienzo().getImage(true);
+            BufferedImage imgSource = vi.getLienzo().getImage(true);
             if(imgSource!=null){
                 try{
                     int type = LookupTableProducer.TYPE_POWER;
@@ -2041,7 +2051,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void sepiaBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sepiaBotonActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
         if(vi != null){
-            imgSource = vi.getLienzo().getImage(true);
+            BufferedImage imgSource = vi.getLienzo().getImage(true);
             if(imgSource != null){
                 SepiaOp sepia = new SepiaOp();
                 sepia.filter(imgSource, imgSource);
@@ -2056,7 +2066,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void duplicarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_duplicarBotonActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
         if(vi!=null){
-            imgSource = vi.getLienzo().getImage(true);
+            vi.getLienzo().setFiguraSeleccionada(null);
+            BufferedImage imgSource = vi.getLienzo().getImage(true);
             if(imgSource != null){
                 //añadir nueva ventana interna
                 int w = imgSource.getWidth();
@@ -2064,10 +2075,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 
                 VentanaMultimediaImagen newVi = new VentanaMultimediaImagen();
                 newVi.getLienzo().setDimension(new Dimension(w,h));
-                newVi.getLienzo().setImage(imgSource);
+                
+                ColorModel cm = imgSource.getColorModel();
+                WritableRaster outRaster = imgSource.copyData(null);
+                boolean alfaPre = imgSource.isAlphaPremultiplied();
+                newVi.getLienzo().setImage(new BufferedImage(cm, outRaster, alfaPre, null));
+                
                 newVi.setTitle(vi.getTitle()+" copia");
                 escritorio.add(newVi);
                 newVi.setVisible(true);
+                //Añadimos el manejador
+                MiManejadorLienzo manejador = new MiManejadorLienzo();
+                newVi.getLienzo().addLienzoListener(manejador);
             }
         }
     }//GEN-LAST:event_duplicarBotonActionPerformed
@@ -2078,7 +2097,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void rot90BotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rot90BotonActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
         if(vi != null){
-            imgSource = vi.getLienzo().getImage(true);
+            BufferedImage imgSource = vi.getLienzo().getImage(true);
             if(imgSource != null){
                 try{
                     double r = Math.toRadians(90);
@@ -2107,7 +2126,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void rot180BotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rot180BotonActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
         if(vi != null){
-            imgSource = vi.getLienzo().getImage(true);
+            BufferedImage imgSource = vi.getLienzo().getImage(true);
             if(imgSource != null){
                 try{
                     double r = Math.toRadians(180);
@@ -2136,7 +2155,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void zoomInBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zoomInBotonActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
         if(vi != null){
-            imgSource = vi.getLienzo().getImage(true);
+            BufferedImage imgSource = vi.getLienzo().getImage(true);
             if(imgSource != null){
                 try{
                     AffineTransform at = AffineTransform.getScaleInstance(1.25, 1.25);
@@ -2159,7 +2178,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void disminuirBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disminuirBotonActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
         if(vi != null){
-            imgSource = vi.getLienzo().getImage(true);
+            BufferedImage imgSource = vi.getLienzo().getImage(true);
             if(imgSource != null){
                 try{
                     AffineTransform at = AffineTransform.getScaleInstance(0.75, 0.75);
@@ -2182,7 +2201,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void ecualizacionBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ecualizacionBotonActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
         if(vi != null){
-           imgSource = vi.getLienzo().getImage(true);
+           BufferedImage imgSource = vi.getLienzo().getImage(true);
            if(imgSource != null){
                try{
                    EqualizationOp ecualizacion = new EqualizationOp();
@@ -2202,7 +2221,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void bandasBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bandasBotonActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
         if(vi != null){
-            imgSource = vi.getLienzo().getImage(true);
+            BufferedImage imgSource = vi.getLienzo().getImage(true);
             if(imgSource != null){
                 //Creamos el modelo de color de la nueva image basado
                 //en un espacio de color GRAY
@@ -2240,7 +2259,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void espacioColorCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_espacioColorCBActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
         if(vi!=null){
-            imgSource = vi.getLienzo().getImage(true);
+            BufferedImage imgSource = vi.getLienzo().getImage(true);
             if(imgSource != null){
                 String itemSelec = (String) espacioColorCB.getSelectedItem();
                 ColorSpace cs = null;
@@ -2279,7 +2298,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void disenioPropioBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disenioPropioBotonActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
         if(vi != null){
-            imgSource = vi.getLienzo().getImage(true);
+            BufferedImage imgSource = vi.getLienzo().getImage(true);
             if(imgSource != null){
                 PurpleOp dp = new PurpleOp();
                 dp.filter(imgSource, imgSource);
@@ -2294,7 +2313,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void disenioPropio2BotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disenioPropio2BotonActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
         if(vi != null){
-            imgSource = vi.getLienzo().getImage(true);
+            BufferedImage imgSource = vi.getLienzo().getImage(true);
             if(imgSource != null){
                 AverageOp dp = new AverageOp();
                 dp.filter(imgSource, imgSource);
@@ -2332,7 +2351,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void cosinusoideBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cosinusoideBotonActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
         if(vi!=null){
-            imgSource = vi.getLienzo().getImage(true);
+            BufferedImage imgSource = vi.getLienzo().getImage(true);
             if(imgSource!=null){
                 try{
                     LookupTable lt = coseno(180);
@@ -2353,7 +2372,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void rot270BotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rot270BotonActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
         if(vi != null){
-            imgSource = vi.getLienzo().getImage(true);
+            BufferedImage imgSource = vi.getLienzo().getImage(true);
             if(imgSource != null){
                 try{
                     double r = Math.toRadians(270);
@@ -2393,18 +2412,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void giroLibreSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_giroLibreSliderStateChanged
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
         if(vi != null){
-            if(imgSource != null){
+            if(imgSourceTemp != null){
                 try{
                     double r = Math.toRadians(giroLibreSlider.getValue());
                     //se rota en el punto medio de la imagen
-                    int temp0 = imgSource.getWidth()/2;
-                    int temp1 = imgSource.getHeight()/2;
+                    int temp0 = imgSourceTemp.getWidth()/2;
+                    int temp1 = imgSourceTemp.getHeight()/2;
                     Point p = new Point(temp0, temp1);
                     AffineTransform ar = AffineTransform.getRotateInstance(r, p.x,p.y);
                     
                     AffineTransformOp atop;
                     atop = new AffineTransformOp(ar, AffineTransformOp.TYPE_BILINEAR);
-                    imgdest = atop.filter(imgSource, null);
+                    imgdest = atop.filter(imgSourceTemp, null);
                     
                     vi.getLienzo().setImage(imgdest);
                     vi.getLienzo().repaint();
@@ -2424,7 +2443,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             ColorModel cm = vi.getLienzo().getImage(true).getColorModel();
             WritableRaster raster = vi.getLienzo().getImage(true).copyData(null);
             boolean alfaPre = vi.getLienzo().getImage(true).isAlphaPremultiplied();
-            imgSource = new BufferedImage(cm, raster, alfaPre, null);
+            imgSourceTemp = new BufferedImage(cm, raster, alfaPre, null);
         }
     }//GEN-LAST:event_giroLibreSliderFocusGained
     /**
@@ -2432,7 +2451,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      * @param evt 
      */
     private void giroLibreSliderFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_giroLibreSliderFocusLost
-        imgSource = imgdest;
+        imgSourceTemp = null;
         giroLibreSlider.setValue(0);
     }//GEN-LAST:event_giroLibreSliderFocusLost
 

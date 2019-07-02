@@ -42,6 +42,7 @@ public class Linea extends FiguraLineal{
      */
     @Override 
     public void paint(Graphics2D g){
+        super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
         //color
         g2d.setColor(getColor());

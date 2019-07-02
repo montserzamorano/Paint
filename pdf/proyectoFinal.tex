@@ -71,6 +71,9 @@
 \setcounter{page}{1}
 \pagestyle{plain}
 \section{Descripción del sistema}
+Para la evaluación de la asignatura de \textit{Sistemas multimedia} se quiere realizar una aplicación multimedia que permita gestionar gráficos, imágenes, sonido y vídeo. Se podrán crear, editar, procesar y visualizar contenido multimedia de distintos tipos.
+\vskip0.3cm
+Con este fin, se realiza una aplicación que se llamará \textit{Paint}.
 \section{Requisitos}
 \subsection{Requisitos funcionales}
 \subsubsection{Carácter general}
@@ -165,11 +168,24 @@
 \item{\textbf{[RFV-2]} Capturar una imagen desde la Webcam.}
 \end{itemize}
 \subsection{Requisitos no funcionales}
+\begin{itemize}
+\item{\textbf{[RNF-1]} Se mostrará en la barra de estado el pixel en el que está situado el ratón.}
+\item{\textbf{[RNF-2]} Se habilitarán en cada momento sólo los botones que pueden utilizarse. Por ejemplo, si se abre una ventana de vídeo se deshabilitarán aquellos correspondientes a las imágenes.}
+\item{\textbf{[RNF-3]} Los botones tendrán asociados un \textit{ToolTipText} para facilitar su uso.}
+\item{\textbf{[RNF-4]} Al seleccionar una figura se activarán sus propiedades en la barra de atributos.}
+\item{\textbf{[RNF-5]} Si hay una figura seleccionada, al pulsar el ratón sobre en otro punto, deberá deseleccionarse la figura.}
+\item{\textbf{[RNF-6]} El título de una nueva ventana abierta será el nombre del fichero si se trata de una imagen abierta o guardada.}
+\item{\textbf{[RNF-7]} El título de una nueva ventana abierta será \textit{Nueva} si se trata de una imagen creada por el usuario.}
+\item{\textbf{[RNF-8]} El título de una nueva ventana abierta será \textit{Captura} si se trata de una captura captada de un vídeo o de la WebCam.}
+\item{\textbf{[RNF-9]} La \textit{BoundingBox} será un rectángulo de color azul, con línea discontinua.}
+\item{\textbf{[RNF-10]} Indicar el espacio de color en el que se encuentra la imagen.}
+
+\end{itemize}
 \section{Análisis}
 \subsection{Eventos}
 \section{Diseño}
-
-\section{Codificación}
+Siguiendo la propuesta que se ha planteado en el análisis, se plantea la siguiente jerarquía de clases.
+\section{Implementación}
 \section{Validación software}
 %\section{Bonus}
 

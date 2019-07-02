@@ -294,6 +294,7 @@ public class Lienzo extends javax.swing.JPanel {
      */
     public void setFiguraSeleccionada(Figura f){
         figuraSeleccionada = f;
+        //setFiguraActivada();
         //setBoundingBox();
     }
     /**
@@ -432,7 +433,10 @@ public class Lienzo extends javax.swing.JPanel {
             }
         }
     }
-    
+    /**
+     * 
+     * @param evt 
+     */
     private void notifyFiguraActivada(LienzoEvent evt){
         if(!lienzoEventListeners.isEmpty()){
             for(LienzoListener listener : lienzoEventListeners){
@@ -440,14 +444,21 @@ public class Lienzo extends javax.swing.JPanel {
             }
         }
     }
-    
+    /**
+     * 
+     */
     public void setLienzoActivado(){
         this.notifyLienzoSeleccionado(new LienzoEvent(this, fActiva, pA, vFiguras,
         colorTrazo, stroke, grosor, transparencia, colorRelleno, tipoRelleno, 
         colorDeg1, colorDeg2, formaActiva, alisadoActivated));
     }
-    
+    /**
+     * 
+     */
     public void setFiguraActivada(){
+        this.notifyFiguraActivada(new LienzoEvent(this, fActiva, pA, vFiguras,
+        colorTrazo, stroke, grosor, transparencia, colorRelleno, tipoRelleno, 
+        colorDeg1, colorDeg2, formaActiva, alisadoActivated));
     }
     
     
@@ -497,6 +508,9 @@ public class Lienzo extends javax.swing.JPanel {
      * @param evt 
      */
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
+        //si hacemos otras cosas, se desactiva la bounding box
+        boundingBox = null;
+        figuraSeleccionada = null;
         pI = evt.getPoint();
         Figura f = createFigura(pI, pF);
         if(f!=null){
@@ -505,12 +519,6 @@ public class Lienzo extends javax.swing.JPanel {
         colorTrazo, stroke, grosor, transparencia, colorRelleno, tipoRelleno, 
         colorDeg1, colorDeg2, formaActiva, alisadoActivated));
         }
-        //si hacemos otras cosas, se desactiva la bounding box
-        boundingBox = null;
-        figuraSeleccionada = null;
-        notifyLienzoSeleccionado(new LienzoEvent(this, fActiva, pA, vFiguras,
-        colorTrazo, stroke, grosor, transparencia, colorRelleno, tipoRelleno, 
-        colorDeg1, colorDeg2, formaActiva, alisadoActivated));
     }//GEN-LAST:event_formMousePressed
     /**
      * 

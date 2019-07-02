@@ -65,11 +65,17 @@ public class VentanaMultimediaImagen extends VentanaMultimedia {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Gestiona el cierre de la ventana
+     * @param evt InternalFrameEvent
+     */
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
         lienzo.setLienzoActivado();
     }//GEN-LAST:event_formInternalFrameActivated
-
+    /**
+     * Gestiona la desactivación de la ventana
+     * @param evt InternalFrameEvent
+     */
     private void formInternalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameDeactivated
         lienzo.quitBoundingBox();
     }//GEN-LAST:event_formInternalFrameDeactivated
@@ -81,7 +87,7 @@ public class VentanaMultimediaImagen extends VentanaMultimedia {
     // End of variables declaration//GEN-END:variables
     /**
      * Devuelve la imagen contenida en la ventana.
-     * @return lienzo que contiene la imagen
+     * @return LienzoImagen
      */
     public LienzoImagen getLienzo() {
         return lienzo;
