@@ -1082,7 +1082,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/iconos/nuevos/mediabandas.png"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Filtro blanco y negro"/>
+            <Property name="toolTipText" type="java.lang.String" value="Filtro media bandas de colores"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
@@ -1147,7 +1147,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="relieveBotonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="emborronamientoBoton2">
+        <Component class="javax.swing.JButton" name="emborronamientoBoton">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/iconos/nuevos/emborronamiento.png"/>
@@ -1158,7 +1158,7 @@
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="emborronamientoBoton2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="emborronamientoBotonActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="enfoqueBoton">

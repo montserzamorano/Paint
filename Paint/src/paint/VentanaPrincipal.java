@@ -75,7 +75,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     
     FileNameExtensionFilter imageFilter, soundFilter, videoFilter;
     /**
-     * Creates new form VentanaPrincipal
+     * Crea la nueva forma VentanaPrincipal
      */
     public VentanaPrincipal() {
         initComponents();
@@ -148,27 +148,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             String mensaje = "Debe seleccionar un tipo de línea.";
             JOptionPane.showMessageDialog(null, mensaje, "¡Atención!", JOptionPane.ERROR_MESSAGE);
         }
-        /**
-         * 
-         * @param evt LienzoEvent
+         /**
+         * {@inheritDoc }
          */
         @Override
         public void faltaTipoRelleno(LienzoEvent evt){
             String mensaje = "Debe seleccionar un tipo de relleno.";
             JOptionPane.showMessageDialog(null, mensaje, "¡Atención!", JOptionPane.ERROR_MESSAGE);
         }
-        /**
-         * 
-         * @param evt LienzoEvent
+         /**
+         * {@inheritDoc }
          */
         @Override
         public void faltaColorRelleno(LienzoEvent evt){
             String mensaje = "Debe seleccionar un color de relleno.";
             JOptionPane.showMessageDialog(null, mensaje, "¡Atención!", JOptionPane.ERROR_MESSAGE);
         }
-        /**
-         * 
-         * @param evt LienzoEvent
+         /**
+         * {@inheritDoc }
          */
         @Override
         public void faltaColorDegradado(LienzoEvent evt){
@@ -337,7 +334,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         duplicarBoton = new javax.swing.JButton();
         negativoBoton = new javax.swing.JButton();
         relieveBoton = new javax.swing.JButton();
-        emborronamientoBoton2 = new javax.swing.JButton();
+        emborronamientoBoton = new javax.swing.JButton();
         enfoqueBoton = new javax.swing.JButton();
         jSeparator10 = new javax.swing.JToolBar.Separator();
         bandasBoton = new javax.swing.JButton();
@@ -795,7 +792,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         barraDerechaTB.add(disenioPropioBoton);
 
         disenioPropio2Boton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/mediabandas.png"))); // NOI18N
-        disenioPropio2Boton.setToolTipText("Filtro blanco y negro");
+        disenioPropio2Boton.setToolTipText("Filtro media bandas de colores");
         disenioPropio2Boton.setFocusable(false);
         disenioPropio2Boton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         disenioPropio2Boton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -834,13 +831,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         relieveBoton.addActionListener(formListener);
         barraDerechaTB.add(relieveBoton);
 
-        emborronamientoBoton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/emborronamiento.png"))); // NOI18N
-        emborronamientoBoton2.setToolTipText("Filtro emborronamiento");
-        emborronamientoBoton2.setFocusable(false);
-        emborronamientoBoton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        emborronamientoBoton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        emborronamientoBoton2.addActionListener(formListener);
-        barraDerechaTB.add(emborronamientoBoton2);
+        emborronamientoBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/emborronamiento.png"))); // NOI18N
+        emborronamientoBoton.setToolTipText("Filtro emborronamiento");
+        emborronamientoBoton.setFocusable(false);
+        emborronamientoBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        emborronamientoBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        emborronamientoBoton.addActionListener(formListener);
+        barraDerechaTB.add(emborronamientoBoton);
 
         enfoqueBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/enfoque.png"))); // NOI18N
         enfoqueBoton.setToolTipText("Filtro de enfoque");
@@ -1027,12 +1024,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             else if (evt.getSource() == stopSonidoBoton) {
                 VentanaPrincipal.this.stopSonidoBotonActionPerformed(evt);
             }
-            else if (evt.getSource() == webcamBoton) {
-                VentanaPrincipal.this.webcamBotonActionPerformed(evt);
-            }
-            else if (evt.getSource() == capturaBoton) {
-                VentanaPrincipal.this.capturaBotonActionPerformed(evt);
-            }
             else if (evt.getSource() == contrasteBoton) {
                 VentanaPrincipal.this.contrasteBotonActionPerformed(evt);
             }
@@ -1087,8 +1078,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             else if (evt.getSource() == relieveBoton) {
                 VentanaPrincipal.this.relieveBotonActionPerformed(evt);
             }
-            else if (evt.getSource() == emborronamientoBoton2) {
-                VentanaPrincipal.this.emborronamientoBoton2ActionPerformed(evt);
+            else if (evt.getSource() == emborronamientoBoton) {
+                VentanaPrincipal.this.emborronamientoBotonActionPerformed(evt);
             }
             else if (evt.getSource() == enfoqueBoton) {
                 VentanaPrincipal.this.enfoqueBotonActionPerformed(evt);
@@ -1098,6 +1089,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
             else if (evt.getSource() == espacioColorCB) {
                 VentanaPrincipal.this.espacioColorCBActionPerformed(evt);
+            }
+            else if (evt.getSource() == capturaBoton) {
+                VentanaPrincipal.this.capturaBotonActionPerformed(evt);
+            }
+            else if (evt.getSource() == webcamBoton) {
+                VentanaPrincipal.this.webcamBotonActionPerformed(evt);
             }
             else if (evt.getSource() == nuevoMenuItem) {
                 VentanaPrincipal.this.nuevoMenuItemActionPerformed(evt);
@@ -1177,8 +1174,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }// </editor-fold>//GEN-END:initComponents
     /**
-     * 
-     * @param cb 
+     * Inicializar un comboBox de colores
+     * @param cb ComboBox<Color> a inicializar
      */
     private void inicializarColores(javax.swing.JComboBox<Color> cb){
         cb.addItem(Color.BLACK);
@@ -1191,8 +1188,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         cb.setSelectedItem(null);
     }
     /**
-     * 
-     * @param cb 
+     * Inicializa un comboBox de tipos de relleno
+     * @param cb ComboBox<TipoRelleno> a inicializar
      */
     private void inicializarRelleno(javax.swing.JComboBox<TipoRelleno> cb){
         cb.addItem(TipoRelleno.LISO);
@@ -1204,8 +1201,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         cb.setSelectedItem(TipoRelleno.NINGUNO);
     }
     /**
-     * 
-     * @param cb 
+     * Inicializa un comboBox de tipos de línea
+     * @param cb ComboBox<TipoLinea> a inicializar
      */
     private void inicializarTipoLinea(javax.swing.JComboBox<TipoLinea> cb){
         tipoLineaCB.addItem(TipoLinea.CONTINUA);
@@ -1214,6 +1211,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         cb.setRenderer(new TipoLineaRenderer());
         cb.setSelectedItem(TipoLinea.CONTINUA);
     }
+    /**
+     * Función que activa/desactiva los botones relacionados con el relleno
+     * de una figura en función del tipo de relleno seleccionado
+     * @param tipoRelleno TipoRelleno activo
+     */
     private void setOpcionesRelleno(TipoRelleno tipoRelleno){
         if(null==tipoRelleno){
             colorRellenoCB.setEnabled(false);
@@ -1240,7 +1242,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }
     /**
-     * 
+     * Desactiva todos los botones relacionados con el relleno. Es útil para
+     * el caso de la línea.
      */
     private void disableRelleno(){
         colorRellenoCB.setEnabled(false);
@@ -1249,8 +1252,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         tipoRellenoCB.setEnabled(false);
     }
     /**
-     * 
-     * @param figuraSeleccionada 
+     * Actualiza los atributos en las barras de herramientas en función de 
+     * la figura seleccionada.
+     * @param figuraSeleccionada Figura cuyos atributos se quieren mostrar en
+     * la barra de herramientas
      */
     private void actualizarAtributosBarraFigura(Figura figuraSeleccionada){
         //comunes a figuras
@@ -1286,8 +1291,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }
     /**
-     * 
-     * @param evt 
+     * Crea una nueva imagen con un lienzo en blanco.
+     * @param evt ActionEvent
      */
     private void nuevoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoMenuItemActionPerformed
         VentanaMultimediaImagen vi = new VentanaMultimediaImagen();
@@ -1316,8 +1321,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_nuevoMenuItemActionPerformed
     /**
-     * 
-     * @param evt 
+     * Guarda la imagen que se encuentra en el lienzo activo.
+     * @param evt ActionEvent 
      */
     private void guardarMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarMenuItemActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
@@ -1332,7 +1337,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                         int posExtension = f.getName().indexOf(".")+1;
                         String extension = "";
                         if(posExtension==0){//si no se indica extensión
-                            extension = "jpg";
+                            extension = "jpg"; //extensión por defecto
                         }
                         else{
                             extension = f.getName().substring(posExtension);
@@ -1347,8 +1352,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_guardarMenuItemActionPerformed
     /**
-     * 
-     * @param evt 
+     * Abre un archivo multimedia (imagen/sonido/vídeo)
+     * @param evt ActionEvent
      */
     private void abrirMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirMenuItemActionPerformed
         JFileChooser dlg = new JFileChooser();
@@ -1392,16 +1397,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_abrirMenuItemActionPerformed
     /**
-     * 
-     * @param evt 
+     * Muestra una ventana con el nombre del programa, de la estudiante y
+     * la versión.
+     * @param evt ActionEvent
      */
     private void acercaMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acercaMenuItemActionPerformed
         String mensaje = "Paint\n05/07/2019 1.1\nMontserrat Rodríguez Zamorano";
         JOptionPane.showMessageDialog(null, mensaje, "Acerca de", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_acercaMenuItemActionPerformed
     /**
-     * 
-     * @param evt 
+     * Selecciona la línea como forma de dibujo en el lienzo activo.
+     * @param evt ActionEvent
      */
     private void lineaBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lineaBotonActionPerformed
         VentanaMultimediaImagen vi;
@@ -1412,8 +1418,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_lineaBotonActionPerformed
     /**
-     * 
-     * @param evt 
+     * Selecciona el rectángulo como forma de dibujo en el lienzo activo.
+     * @param evt ActionEvent
      */
     private void rectanguloBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rectanguloBotonActionPerformed
         VentanaMultimediaImagen vi;
@@ -1424,8 +1430,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_rectanguloBotonActionPerformed
     /**
-     * 
-     * @param evt 
+     * Selecciona la elipse como forma de dibujo en el lienzo activo.
+     * @param evt ActionEvent
      */
     private void elipseBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elipseBotonActionPerformed
         VentanaMultimediaImagen vi;
@@ -1436,8 +1442,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_elipseBotonActionPerformed
     /**
-     * 
-     * @param evt 
+     * Activa/Desactiva el alisado en el lienzo o en la figura seleccionada
+     * si hubiera alguna activa.
+     * @param evt ActionEvent 
      */
     private void alisarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alisarBotonActionPerformed
         VentanaMultimediaImagen vi;
@@ -1455,8 +1462,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_alisarBotonActionPerformed
     /**
-     * 
-     * @param evt 
+     * Comienza la grabación de sonido.
+     * @param evt ActionEvent
      */
     private void recordSonidoBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recordSonidoBotonActionPerformed
         try {
@@ -1472,8 +1479,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_recordSonidoBotonActionPerformed
     /**
-     * 
-     * @param evt 
+     * Comienza la reproducción de un sonido o un vídeo en la ventana multimedia
+     * activa.
+     * @param evt ActionEvent
      */
     private void reproducirSonidoBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reproducirSonidoBotonActionPerformed
         VentanaMultimedia vi = (VentanaMultimedia) escritorio.getSelectedFrame();
@@ -1484,8 +1492,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_reproducirSonidoBotonActionPerformed
     /**
-     * 
-     * @param evt 
+     * Detiene la grabación en marcha y la guarda.
+     * @param evt ActionEvent
      */
     private void stopRecordBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopRecordBotonActionPerformed
         recorder.stop();
@@ -1504,8 +1512,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_stopRecordBotonActionPerformed
     /**
-     * 
-     * @param evt 
+     * Establece el color de trazo de las figuras que se pintarán en el
+     * lienzo de la ventana activa o de la figura seleccionada, si la hubiera.
+     * @param evt ActionEvent 
      */
     private void colorTrazoCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorTrazoCBActionPerformed
         Color selectedColor = (Color) colorTrazoCB.getSelectedItem();
@@ -1522,8 +1531,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_colorTrazoCBActionPerformed
     /**
-     * 
-     * @param evt 
+     * Establece el color de relleno de las figuras que se pintarán en el
+     * lienzo de la ventana activa o de la figura seleccionada, si la hubiera.
+     * @param evt ActionEvent 
      */
     private void colorRellenoCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorRellenoCBActionPerformed
         VentanaMultimediaImagen vi;
@@ -1543,8 +1553,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_colorRellenoCBActionPerformed
     /**
-     * 
-     * @param evt 
+     * Establece el grado de transparencia de las figuras que se pintarán en el
+     * lienzo de la ventana activa o de la figura seleccionada, si la hubiera.
+     * @param evt ChangeEvent
      */
     private void transparenciaSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_transparenciaSliderStateChanged
         VentanaMultimediaImagen vi;
@@ -1562,8 +1573,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_transparenciaSliderStateChanged
     /**
-     * 
-     * @param evt 
+     * Establece el grosor del trazo de las figuras que se pintarán en el
+     * lienzo de la ventana activa o de la figura seleccionada, si la hubiera.
+     * @param evt ChangeEvent
      */
     private void grosorSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_grosorSpinnerStateChanged
         VentanaMultimediaImagen vi;
@@ -1581,8 +1593,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_grosorSpinnerStateChanged
     /**
-     * 
-     * @param evt 
+     * Pausa la grabación en marcha.
+     * @param evt ActionEvent
      */
     private void pausaGrabacionBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pausaGrabacionBotonActionPerformed
         //si está grabando, pausar
@@ -1596,8 +1608,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_pausaGrabacionBotonActionPerformed
     /**
-     * 
-     * @param evt 
+     * Detiene la reproducción del sonido o vídeo de la ventana multimedia
+     * activa.
+     * @param evt ActionEvent 
      */
     private void stopSonidoBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopSonidoBotonActionPerformed
         File f = (File) listaMediaCB.getSelectedItem();
@@ -1613,8 +1626,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_stopSonidoBotonActionPerformed
     /**
-     * 
-     * @param evt 
+     * Pausa la reproducción del sonido o vídeo de la ventana multimedia activa.
+     * @param evt ActionEvent 
      */
     private void pausaSonidoBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pausaSonidoBotonActionPerformed
         File f = (File) listaMediaCB.getSelectedItem();
@@ -1630,8 +1643,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_pausaSonidoBotonActionPerformed
     /**
-     * 
-     * @param evt 
+     * Establece el tipo de relleno de las figuras que se pintarán en el
+     * lienzo de la ventana activa o de la figura seleccionada, si la hubiera.
+     * @param evt ActionEvent 
      */
     private void tipoRellenoCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoRellenoCBActionPerformed
         VentanaMultimediaImagen vi;
@@ -1652,8 +1666,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tipoRellenoCBActionPerformed
     /**
-     * 
-     * @param evt 
+     * Establece el primer color de degradado de las figuras que se pintarán en el
+     * lienzo de la ventana activa o de la figura seleccionada, si la hubiera.
+     * @param evt ActionEvent 
      */
     private void degradado1CBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_degradado1CBActionPerformed
         VentanaMultimediaImagen vi;
@@ -1673,8 +1688,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_degradado1CBActionPerformed
     /**
-     * 
-     * @param evt 
+     * Establece el segundo color de degradado de las figuras que se pintarán en el
+     * lienzo de la ventana activa o de la figura seleccionada, si la hubiera.
+     * @param evt ActionEvent 
      */
     private void degradado2CBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_degradado2CBActionPerformed
         VentanaMultimediaImagen vi;
@@ -1694,8 +1710,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_degradado2CBActionPerformed
     /**
-     * 
-     * @param evt 
+     * Establece el tipo de línea de las figuras que se pintarán en el
+     * lienzo de la ventana activa o de la figura seleccionada, si la hubiera.
+     * @param evt ActionEvent 
      */
     private void tipoLineaCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoLineaCBActionPerformed
         VentanaMultimediaImagen vi;
@@ -1713,29 +1730,30 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tipoLineaCBActionPerformed
     /**
-     * 
-     * @param evt 
+     * Muestra/Oculta la barra de estado (barra inferior)
+     * @param evt ActionEvent
      */
     private void verBarraEstadoCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verBarraEstadoCBActionPerformed
          barraEstado.setVisible(!barraEstado.isVisible());
     }//GEN-LAST:event_verBarraEstadoCBActionPerformed
     /**
-     * 
-     * @param evt 
+     * Muestra/Oculta la barra de herramientas superior
+     * @param evt ActionEvent 
      */
     private void verBarraSupCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verBarraSupCBActionPerformed
         barraSuperiorTB.setVisible(!barraSuperiorTB.isVisible());
     }//GEN-LAST:event_verBarraSupCBActionPerformed
     /**
-     * 
-     * @param evt 
+     * Muestra/Oculta la barra de herramientas izquierda
+     * @param evt ActionEvent
      */
     private void verBarraIzqCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verBarraIzqCBActionPerformed
         barraizquierdaTB.setVisible(!barraizquierdaTB.isVisible());
     }//GEN-LAST:event_verBarraIzqCBActionPerformed
     /**
-     * 
-     * @param evt 
+     * Establece el nivel de brillo para la imagen de la ventana multimedia
+     * activa en ese momento.
+     * @param evt ChangeEvent
      */
     private void brilloSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_brilloSliderStateChanged
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
@@ -1754,8 +1772,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_brilloSliderStateChanged
     /**
-     * 
-     * @param evt 
+     * Focus gained del slider de brillo. Crea una copia de la imagen sobre la 
+     * que se aplicará el brillo para poder modificarlo sin que sea definitivo.
+     * @param evt ActionEvent
      */
     private void brilloSliderFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_brilloSliderFocusGained
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
@@ -1770,16 +1789,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_brilloSliderFocusGained
     /**
-     * 
-     * @param evt 
+     * Focus lost del slider de brillo. Devuelve el slider del brillo al
+     * valor 0. El brillo aplicado no podrá modificarse.
+     * @param evt ActionEvent
      */
     private void brilloSliderFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_brilloSliderFocusLost
         imgSourceTemp = null;
         brilloSlider.setValue(0);
     }//GEN-LAST:event_brilloSliderFocusLost
     /**
-     * 
-     * @param evt 
+     * Activa/Desactiva el tintado de la imagen de la ventana multimedia activa
+     * en ese momento.
+     * @param evt ActionEvent
      */
     private void tintarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tintarBotonActionPerformed
         VentanaMultimediaImagen vi;
@@ -1798,8 +1819,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tintarBotonActionPerformed
     /**
-     * 
-     * @param evt 
+     * Establece el color de tintado para la imagen de la ventana multimedia
+     * activa en ese momento.
+     * @param evt ActionEvent
      */
     private void colorTintadoCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorTintadoCBActionPerformed
         VentanaMultimediaImagen vi;
@@ -1810,8 +1832,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_colorTintadoCBActionPerformed
     /**
-     * 
-     * @param evt 
+     * Establece el nivel de tintado para la imagen de la ventana multimedia
+     * activa en ese momento.
+     * @param evt ChangeEvent
      */
     private void tintadoSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tintadoSliderStateChanged
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
@@ -1830,8 +1853,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tintadoSliderStateChanged
     /**
-     * 
-     * @param evt 
+     * Focus gained del slider del tintado. Crea una copia de la imagen sobre
+     * la que se aplicará el tintado sin que éste sea definitivo para poder
+     * modificarlo.
+     * @param evt ActionEvent
      */
     private void tintadoSliderFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tintadoSliderFocusGained
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
@@ -1845,16 +1870,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tintadoSliderFocusGained
     /**
-     * 
-     * @param evt 
+     * Focus lost del slider del tintado. Devuelve el slider al valor 0. El tintado
+     * será definitivo.
+     * @param evt FocusEvent
      */
     private void tintadoSliderFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tintadoSliderFocusLost
         imgSourceTemp = null;
         tintadoSlider.setValue(0);
     }//GEN-LAST:event_tintadoSliderFocusLost
     /**
-     * 
-     * @param evt 
+     * Indica el nivel de umbralizado a aplicar en la imagen que se encuentra
+     * en la ventana activa en ese momento.
+     * @param evt ChangeEvent
      */
     private void umbralizacionSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_umbralizacionSliderStateChanged
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
@@ -1873,8 +1900,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_umbralizacionSliderStateChanged
     /**
-     * 
-     * @param evt 
+     * Focus gained del slider de umbralización. Crea una copia de la imagen 
+     * sobre la que se aplicará la umbralización sin que éste sea definitiva
+     * para poder modificarla.
+     * @param evt FocusEvent
      */
     private void umbralizacionSliderFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_umbralizacionSliderFocusGained
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
@@ -1886,16 +1915,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_umbralizacionSliderFocusGained
     /**
-     * 
-     * @param evt 
+     * Focus lost del slider de umbralización. Devuelve el slider de umbralización
+     * al valor por defecto. La umbralización será definitiva.
+     * @param evt FocusEvent
      */
     private void umbralizacionSliderFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_umbralizacionSliderFocusLost
         imgSourceTemp = null;
         umbralizacionSlider.setValue(50);
     }//GEN-LAST:event_umbralizacionSliderFocusLost
     /**
-     * 
-     * @param evt 
+     * Invierte los colores de la imagen que se encuentra en la ventana
+     * activa.
+     * @param evt ActionEvent
      */
     private void negativoBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_negativoBotonActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
@@ -1916,8 +1947,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_negativoBotonActionPerformed
     /**
-     * 
-     * @param evt 
+     * Aplica filtro de relieve a la imagen que se encuentra en la ventana
+     * activa.    
+     * @param evt ActionEvent 
      */
     private void relieveBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relieveBotonActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
@@ -1937,10 +1969,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_relieveBotonActionPerformed
     /**
-     * 
-     * @param evt 
+     * Aplica filtro de emborronamiento a la imagen que se encuentra en la ventana
+     * activa.
+     * @param evt ActionEvent
      */
-    private void emborronamientoBoton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emborronamientoBoton2ActionPerformed
+    private void emborronamientoBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emborronamientoBotonActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
         if(vi!=null){
             BufferedImage imgSource = vi.getLienzo().getImage(true);
@@ -1956,10 +1989,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 }
             }
         }
-    }//GEN-LAST:event_emborronamientoBoton2ActionPerformed
+    }//GEN-LAST:event_emborronamientoBotonActionPerformed
     /**
-     * 
-     * @param evt 
+     * Aplica filtro de enfoque a la imagen que se encuentra en la ventana
+     * activa.
+     * @param evt ActionEvent
      */
     private void enfoqueBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enfoqueBotonActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
@@ -1979,8 +2013,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_enfoqueBotonActionPerformed
     /**
-     * 
-     * @param evt 
+     * Aplica contraste a la imagen que se encuentra en la ventana activa.
+     * @param evt ActionEvent
      */
     private void contrasteBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contrasteBotonActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
@@ -2001,8 +2035,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_contrasteBotonActionPerformed
     /**
-     * 
-     * @param evt 
+     * Ilumina la imagen que se encuentra en la ventana activa.
+     * @param evt ActionEvent
      */
     private void iluminarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iluminarBotonActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
@@ -2023,8 +2057,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_iluminarBotonActionPerformed
     /**
-     * 
-     * @param evt 
+     * Oscurece la imagen que se encuentra en la ventana activa.
+     * @param evt ActionEvent
      */
     private void oscurecerBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oscurecerBotonActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
@@ -2045,8 +2079,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_oscurecerBotonActionPerformed
     /**
-     * 
-     * @param evt 
+     * Aplica filtro sepia a la imagen que se encuentra en la ventana activa.
+     * @param evt ActionEvent
      */
     private void sepiaBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sepiaBotonActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
@@ -2060,8 +2094,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_sepiaBotonActionPerformed
     /**
-     * 
-     * @param evt 
+     * Duplica la imagen que se encuentra en la ventana activa.
+     * @param evt ActionEvent
      */
     private void duplicarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_duplicarBotonActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
@@ -2091,8 +2125,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_duplicarBotonActionPerformed
     /**
-     * 
-     * @param evt 
+     * Aplica rotación 90º a la imagen en la ventana activa.
+     * @param evt ActionEvent
      */
     private void rot90BotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rot90BotonActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
@@ -2120,8 +2154,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_rot90BotonActionPerformed
     /**
-     * 
-     * @param evt 
+     * Aplica rotación 180º a la imagen en la ventana activa.
+     * @param evt ActionEvent
      */
     private void rot180BotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rot180BotonActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
@@ -2149,8 +2183,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_rot180BotonActionPerformed
     /**
-     * 
-     * @param evt 
+     * Aplica aumento a la imagen en la ventana en la ventana activa.
+     * @param evt ActionEvent
      */
     private void zoomInBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zoomInBotonActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
@@ -2172,8 +2206,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_zoomInBotonActionPerformed
     /**
-     * 
-     * @param evt 
+     * Aleja la imagen en la ventana activa
+     * @param evt ActionEvent
      */
     private void disminuirBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disminuirBotonActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
@@ -2195,8 +2229,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_disminuirBotonActionPerformed
     /**
-     * 
-     * @param evt 
+     * Aplica ecualización a la imagen en la ventna activa.
+     * @param evt ActionEvent
      */
     private void ecualizacionBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ecualizacionBotonActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
@@ -2215,8 +2249,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ecualizacionBotonActionPerformed
     /**
-     * 
-     * @param evt 
+     * Muestra las bandas de colores de la imagen en la ventana activa
+     * en ventanas independientes.
+     * @param evt ActionEvent
      */
     private void bandasBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bandasBotonActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
@@ -2253,8 +2288,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_bandasBotonActionPerformed
     /**
-     * 
-     * @param evt 
+     * Cambia el espacio de color de la imagen en la ventana activa.
+     * @param evt ActionEvent
      */
     private void espacioColorCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_espacioColorCBActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
@@ -2272,28 +2307,25 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 else if("GREY".equals(itemSelec)){
                     cs = ColorSpace.getInstance(ColorSpace.CS_GRAY);
                 }
-                //comprobamos si el espacio de partida es RGB
-                if(imgSource.getColorModel().getColorSpace().isCS_sRGB()){
-                    ColorConvertOp cop = new ColorConvertOp(cs, null);
-                    BufferedImage imgOut = cop.filter(imgSource, null);
+                ColorConvertOp cop = new ColorConvertOp(cs, null);
+                BufferedImage imgOut = cop.filter(imgSource, null);
                     
-                    //añadir nueva ventana interna
-                    VentanaMultimediaImagen newVi = new VentanaMultimediaImagen();
-                    escritorio.add(newVi);
-                    newVi.setVisible(true);
-                    newVi.getLienzo().setImage(imgOut);
-                    newVi.setTitle("["+itemSelec+"]");
-                    //guardar dimension
-                    int w = imgOut.getWidth();
-                    int h = imgOut.getHeight();
-                    newVi.getLienzo().setDimension(new Dimension(w,h));
-                }
+                //añadir nueva ventana interna
+                VentanaMultimediaImagen newVi = new VentanaMultimediaImagen();
+                escritorio.add(newVi);
+                newVi.setVisible(true);
+                newVi.getLienzo().setImage(imgOut);
+                newVi.setTitle("["+itemSelec+"]");
+                //guardar dimension
+                int w = imgOut.getWidth();
+                int h = imgOut.getHeight();
+                newVi.getLienzo().setDimension(new Dimension(w,h));
             }
         }
     }//GEN-LAST:event_espacioColorCBActionPerformed
     /**
-     * 
-     * @param evt 
+     * Aplica filtro violeta a la imagen de la ventana activa.
+     * @param evt ActionEvent
      */
     private void disenioPropioBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disenioPropioBotonActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
@@ -2307,8 +2339,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_disenioPropioBotonActionPerformed
     /**
-     * 
-     * @param evt 
+     * Aplica a la imagen de la ventana activa un filtro de media de las 
+     * bandas de colores.
+     * @param evt ActionEvent
      */
     private void disenioPropio2BotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disenioPropio2BotonActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
@@ -2322,8 +2355,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_disenioPropio2BotonActionPerformed
     /**
-     * 
-     * @param evt 
+     * Muestra/Oculta la barra de herramientas derecha
+     * @param evt ActionEvent
      */
     private void verBarraDerechaCHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verBarraDerechaCHActionPerformed
         barraDerechaTB.setVisible(!barraDerechaTB.isVisible());
@@ -2345,8 +2378,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         return lt;
     }
     /**
-     * 
-     * @param evt 
+     * Aplica transformación cosinusoide a la imagen en la ventana activa.
+     * @param evt ActionEvent
      */
     private void cosinusoideBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cosinusoideBotonActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
@@ -2366,8 +2399,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cosinusoideBotonActionPerformed
     /**
-     * 
-     * @param evt 
+     * Rotación de 270º de la imagen en la ventana activa.
+     * @param evt ActionEvent
      */
     private void rot270BotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rot270BotonActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
@@ -2395,8 +2428,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_rot270BotonActionPerformed
     /**
-     * 
-     * @param evt 
+     * Selecciona una imagen que hay pintada en la imagen de la ventana activa.
+     * @param evt ActionEvent
      */
     private void FigurasCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FigurasCBActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
@@ -2406,8 +2439,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         this.repaint();
     }//GEN-LAST:event_FigurasCBActionPerformed
     /**
-     * 
-     * @param evt 
+     * Establece el grado de rotación de la imagen que se encuentra en  la ventana
+     * activa.
+     * @param evt ChangeEvent
      */
     private void giroLibreSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_giroLibreSliderStateChanged
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
@@ -2434,8 +2468,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_giroLibreSliderStateChanged
     /**
-     * 
-     * @param evt 
+     * Focus gained del slider de giro. Crea una imagen sobre la que aplicar
+     * el giro sin que éste sea definitivo.
+     * @param evt FocusEvent
      */
     private void giroLibreSliderFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_giroLibreSliderFocusGained
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
@@ -2447,8 +2482,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_giroLibreSliderFocusGained
     /**
-     * 
-     * @param evt 
+     * Focus lost del slider de giro. El giro sobre la imagen es definitivo.
+     * Devuelve el slider al valor original.
+     * @param evt FocusEvent
      */
     private void giroLibreSliderFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_giroLibreSliderFocusLost
         imgSourceTemp = null;
@@ -2456,8 +2492,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_giroLibreSliderFocusLost
 
    /**
-     * 
-     * @param evt 
+     * Mueve la posición X de la esquina superior izquierda del marco
+     * que engloba la figura seleccionada.
+     * @param evt ActionEvent
      */
     private void xPositionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xPositionActionPerformed
         pointTemp.x = new Integer(xPosition.getText());
@@ -2468,8 +2505,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_xPositionActionPerformed
     /**
-     * 
-     * @param evt 
+     * Mueve la posición Y de la esquina superior izquierda del marco
+     * que engloba la figura seleccionada.
+     * @param evt ActionEvent
      */
     private void yPositionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yPositionActionPerformed
         pointTemp.y = new Integer(yPosition.getText());
@@ -2480,8 +2518,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_yPositionActionPerformed
     /**
-     * 
-     * @param evt 
+     * Selecciona el rectángulo con esquinas redondeadas como forma 
+     * de dibujo en el lienzo activo.
+     * @param evt ActionEvent
      */
     private void rectanguloRedBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rectanguloRedBotonActionPerformed
         VentanaMultimediaImagen vi;
@@ -2492,8 +2531,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_rectanguloRedBotonActionPerformed
     /**
-     * 
-     * @param evt 
+     * Activa un archivo de sonido o vídeo que se encuentre en la lista desplegable.
+     * @param evt ActionEvent
      */
     private void listaMediaCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaMediaCBActionPerformed
         File selectedFile = (File)listaMediaCB.getSelectedItem();
@@ -2502,7 +2541,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         vi.setTitle(selectedFile.getName());
         vi.setVisible(true);
     }//GEN-LAST:event_listaMediaCBActionPerformed
-
+    /**
+     * Activa la WebCam
+     * @param evt ActionEvent
+     */
     private void webcamBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_webcamBotonActionPerformed
         VentanaMultimediaCamara ventanaCamara = VentanaMultimediaCamara.getInstance();
         if(ventanaCamara!=null){
@@ -2510,7 +2552,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
           ventanaCamara.setVisible(true);
         }
     }//GEN-LAST:event_webcamBotonActionPerformed
-
+    /**
+     * Hace una captura de pantalla.
+     * @param evt ActionEvent
+     */
     private void capturaBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_capturaBotonActionPerformed
         VentanaMultimedia viCamara = (VentanaMultimedia)escritorio.getSelectedFrame();
         try{
@@ -2529,15 +2574,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             vi.setVisible(true);
         }catch(Exception e){}
     }//GEN-LAST:event_capturaBotonActionPerformed
-
+    /**
+     * Crea una nueva imagen con un lienzo en blanco.
+     * @param evt ActionEvent
+     */
     private void nuevoMBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoMBActionPerformed
         nuevoMenuItemActionPerformed(evt);
     }//GEN-LAST:event_nuevoMBActionPerformed
-
+    /**
+     * Abre un archivo multimedia (imagen/sonido/vídeo).
+     * @param evt ActionEvent
+     */
     private void abrirMBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirMBActionPerformed
         abrirMenuItemActionPerformed(evt);
     }//GEN-LAST:event_abrirMBActionPerformed
-
+    /**
+     * Guarda la imagen que se encuentra en el lienzo activo.
+     * @param evt ActionEvent
+     */
     private void guardarMBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarMBActionPerformed
         guardarMenuItemActionPerformed(evt);
     }//GEN-LAST:event_guardarMBActionPerformed
@@ -2571,7 +2625,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton duplicarBoton;
     private javax.swing.JButton ecualizacionBoton;
     private javax.swing.JToggleButton elipseBoton;
-    private javax.swing.JButton emborronamientoBoton2;
+    private javax.swing.JButton emborronamientoBoton;
     private javax.swing.JButton enfoqueBoton;
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JComboBox<String> espacioColorCB;

@@ -7,7 +7,7 @@ import uk.co.caprica.vlcj.discovery.NativeDiscovery;
 import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 
 /**
- * Main.
+ * Main del programa.
  * @author Montserrat Rodríguez Zamorano
  * @version 1.1
  */
