@@ -12,7 +12,10 @@ import java.awt.geom.Rectangle2D;
  * @version 1.1
  */
 public class BoundingBox extends Rectangulo{
-    
+    /**
+     * Constructor de clase
+     * @param frame marco que contiene la figura que se quiere englobar
+     */
     public BoundingBox(Rectangle2D frame) {
         super(new Point.Double(frame.getMinX(), frame.getMinY()), 
               new Point.Double(frame.getMaxX(), frame.getMaxY()),

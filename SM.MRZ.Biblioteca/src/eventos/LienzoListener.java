@@ -3,7 +3,8 @@ package eventos;
 import java.util.EventListener;
 
 /**
- * Interfaz LienzoListener. Hereda de EventListener.
+ * Interfaz LienzoListener. Hereda de EventListener. Permite la gestión
+ * de eventos del lienzo.
  * @author Montserrat Rodríguez Zamorano
  * @version 1.1
  */

@@ -23,14 +23,14 @@ public abstract class Figura {
     private float transparencia = 1.0f;
     private int grosor = 1;
     /**
-     * 
-     * @param pO
-     * @param pF
-     * @param trazo
-     * @param stroke
-     * @param grosor
-     * @param transparencia
-     * @param alisado 
+     * Constructor de clase. Permite crear una figura.
+     * @param pO Point2D punto de inicio
+     * @param pF Point2D punto final
+     * @param trazo Color color de trazo
+     * @param stroke TipoLinea tipo de línea
+     * @param grosor int grosor de la línea
+     * @param transparencia float nivel de transparencia
+     * @param alisado boolean activado/desactivado del alisado
      */
     public Figura(Point2D pO, Point2D pF, Color trazo, TipoLinea stroke, int grosor, float transparencia, boolean alisado){
         this.trazo = trazo;
@@ -42,103 +42,103 @@ public abstract class Figura {
         this.grosor = grosor;
     }
     /**
-     * 
-     * @return 
+     * Getter. Devuelve el punto de origen de la figura.
+     * @return Point2D puntoOrigen
      */
     public Point2D getPO(){return puntoOrigen;}
     /**
-     * 
-     * @return 
+     * Getter. Devuelve el punto final de la figura.
+     * @return Point2D puntoFinal
      */
     public Point2D getPF(){return puntoFinal;}
     /**
-     * 
-     * @param p 
+     * Setter. Establece el punto de origen de la figura.
+     * @param p Point2D nuevo punto de origen
      */
     public void setPO(Point2D p){puntoOrigen = p;}
     /**
-     * 
-     * @param p 
+     * Setter. Establece el punto final de la figura.
+     * @param p Point2D nuevo punto final
      */
     public void setPF(Point2D p){puntoFinal=p;}
     /**
-     * 
-     * @return 
+     * Getter. Devuelve el grosor del trazo de la figura.
+     * @return int grosor
      */
     public int getGrosor(){return grosor;}
     /**
-     * 
-     * @param grosor 
+     * Setter. Establece el grosor del trazo de la figura.
+     * @param grosor int nuevo grosor de la figura
      */
     public void setGrosor(int grosor){this.grosor = grosor;}
     
     /**
-    * Setter.
-    * @param trazo color de la línea
+    * Setter. Establece el color del trazo de la figura.
+    * @param trazo Color color de la línea
     */
     public void setColor(Color trazo){
         this.trazo = trazo;
     }
     /**
-    * Setter.
-    * @param stroke trazo de la línea
+    * Setter. Establece el tipo del línea de la figura.
+    * @param stroke TipoLinea trazo de la línea
     */
     public void setStroke(TipoLinea stroke){
         this.stroke = stroke;
     }
     /**
-    * Getter.
-    * @return color de la línea
+    * Getter. Devuelve el color de la línea de la figura.
+    * @return Color color de la línea
      */
     public Color getColor(){
         return trazo;
     }
     /**
-    * Getter.
-    * @return trazo de la línea
+    * Getter. Devuelve el tipo de línea de la figura
+    * @return TipoLinea tipo de trazo de la línea
      */
     public TipoLinea getStroke(){
         return stroke;
     }
     
     /**
-     * Setter.
-     * @param alisado establece si los bordes se alisan o no
+     * Setter. Activa/Desactiva el alisado de bordes
+     * @param alisado boolean true para alisado, false en caso contrario
      */
     public void setAlisado(boolean alisado){
         this.alisado = alisado;
     }
     
     /**
-     * Getter.
-     * @return alisado indica si los bordes se alisan o no
+     * Getter. Devuelve si el alisado de bordes está activado o no.
+     * @return alisado boolean true si alisado activado, false en caso contrario
      */
     public boolean getAlisado(){
         return alisado;
     }
     
     /**
-    * Setter.
-    * @param transparencia color de relleno de la figura
+    * Setter. Establece el grado de transparencia de la figura.
+    * @param transparencia float nuevo grado de transparencia
     */
     public void setTransparencia(float transparencia){
         this.transparencia=transparencia;
     }
     /**
-    * Getter.
-    * @return transparencia grado de transparencia del relleno
+    * Getter. Devuelve el nivel de transparencia de la figura.
+    * @return transparencia float grado de transparencia
     */
     public float getTransparencia(){return transparencia;}
     
     /**
      * Cambia la posición de una figura. Método abstracto. 
-     * @param p 
+     * @param p Point2D nuevo punto de origen
      */
     abstract public void setLocation(Point2D p);
     /**
      * Actualiza una figura. Método abstracto.
-     * @param puntoOrigen punto de origen en la figura
-     * @param puntoFinal punto final de la figura
+     * @param puntoOrigen Point2D punto de origen en la figura
+     * @param puntoFinal Point2D punto final de la figura
      */
     abstract public void updateShape(Point2D puntoOrigen, Point2D puntoFinal);
     /**

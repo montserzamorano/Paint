@@ -16,17 +16,17 @@ public class Elipse extends FiguraRellenable{
     
     /**
      * Constructor de clase. Permite crear una elipse.
-     * @param pO punto de origen
-     * @param pF punto final
-     * @param trazo color de trazo
-     * @param stroke tipo de línea
-     * @param grosor grosor de la línea
-     * @param relleno color de relleno
-     * @param tr tipo de relleno
-     * @param deg1 primer color de degradado
-     * @param deg2 segundo color de degradado
-     * @param transparencia nivel de transparencia
-     * @param alisado activar alisado de la imagen (true/false)
+     * @param pO Point2D punto de origen
+     * @param pF Point2D punto final
+     * @param trazo Color color de trazo
+     * @param stroke TipoLinea tipo de línea
+     * @param grosor int grosor de la línea
+     * @param relleno Color color de relleno
+     * @param tr TipoRelleno tipo de relleno
+     * @param deg1 Color primer color de degradado
+     * @param deg2 Color segundo color de degradado
+     * @param transparencia float nivel de transparencia
+     * @param alisado boolean activar alisado de la imagen (true/false)
      */
     public Elipse(Point2D pO, Point2D pF, Color trazo, TipoLinea stroke, int grosor,
             Color relleno, TipoRelleno tr, Color deg1, Color deg2, 
