@@ -272,7 +272,9 @@ public class Lienzo extends javax.swing.JPanel {
      * 
      */
     private void updateShape(){
-        fActiva.updateShape(pI, pF);
+        try{
+            fActiva.updateShape(pI, pF);
+        }catch(Exception e){}
     }
     
     /**

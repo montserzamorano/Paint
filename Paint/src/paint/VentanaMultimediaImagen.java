@@ -14,6 +14,7 @@ public class VentanaMultimediaImagen extends VentanaMultimedia {
      */
     public VentanaMultimediaImagen() {
         initComponents();
+        lienzo.setLienzoActivado();
     }
 
     /**

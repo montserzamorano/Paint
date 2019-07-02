@@ -30,7 +30,6 @@ import image.AverageOp;
 import image.PurpleOp;
 import iu.LienzoImagen;
 import iu.TipoLineaRenderer;
-import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Transparency;
 import java.awt.color.ColorSpace;
@@ -47,7 +46,6 @@ import java.awt.image.LookupOp;
 import java.awt.image.LookupTable;
 import java.awt.image.RescaleOp;
 import java.awt.image.WritableRaster;
-import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import sm.image.EqualizationOp;
@@ -1371,7 +1369,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     VentanaMultimediaImagen vi = new VentanaMultimediaImagen();
                     vi.getLienzo().setImage(img);
                     this.escritorio.add(vi);
-                    vi.setTitle(f.getName());
+                    //al nombre le añadimos el espacio de color
+                    String espacioColor = "";
+                    if(img.getColorModel().getColorSpace().isCS_sRGB()){
+                        espacioColor = "[RGB]";
+                    }
+                    vi.setTitle(f.getName()+" " + espacioColor);
                     vi.setVisible(true);
                     int w = img.getWidth();
                     int h = img.getHeight();
@@ -1484,11 +1487,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      * @param evt ActionEvent
      */
     private void reproducirSonidoBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reproducirSonidoBotonActionPerformed
-        VentanaMultimedia vi = (VentanaMultimedia) escritorio.getSelectedFrame();
-        if(vi!=null){
-            try{
-               ((VentanaMultimediaVLCPlayer)vi).play();
-            }catch(Exception e){}
+        File f = (File)listaMediaCB.getSelectedItem();
+        try{
+            if(f!=null && soundFilter.accept(f)){
+                player = new SMClipPlayer(f);
+                if(player!=null){
+                    player.play();
+                }
+            }
+        }catch(Exception e){
         }
     }//GEN-LAST:event_reproducirSonidoBotonActionPerformed
     /**
@@ -1505,9 +1512,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 File f = dlg.getSelectedFile();
                 Files.copy(temp.toPath(), f.toPath());
                 listaMediaCB.addItem(f);
-                temp = null;
             }catch(Exception e){
-                System.err.println("Error al guardar la grabación");
+                System.err.println("Error al guardar la grabación.");
+                System.err.println(e.getLocalizedMessage());
             }
         }
     }//GEN-LAST:event_stopRecordBotonActionPerformed
@@ -1762,7 +1769,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             if(imgSourceTemp != null){
                 try{
                     RescaleOp rop = new RescaleOp(1+(nivelBrillo/100), 0.0F, null);
-                    BufferedImage imgdest = rop.filter(imgSourceTemp, null);
+                    imgdest = rop.filter(imgSourceTemp, null);
                     vi.getLienzo().setImage(imgdest);
                     vi.getLienzo().repaint();
                 }catch(Exception e){
@@ -1866,7 +1873,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 WritableRaster raster = vi.getLienzo().getImage(true).copyData(null);
                 boolean alfaPre = vi.getLienzo().getImage(true).isAlphaPremultiplied();
                 imgSourceTemp = new BufferedImage(cm, raster, alfaPre, null);
-            }catch(Exception e){}
+            }catch(Exception e){
+                System.err.println(e.getLocalizedMessage());
+            }
         }
     }//GEN-LAST:event_tintadoSliderFocusGained
     /**
@@ -2298,14 +2307,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             if(imgSource != null){
                 String itemSelec = (String) espacioColorCB.getSelectedItem();
                 ColorSpace cs = null;
-                if("RGB".equals(itemSelec)){
-                    cs = ColorSpace.getInstance(ColorSpace.CS_LINEAR_RGB);
-                }
-                else if("YCC".equals(itemSelec)){
-                    cs = ColorSpace.getInstance(ColorSpace.CS_PYCC);
-                }
-                else if("GREY".equals(itemSelec)){
-                    cs = ColorSpace.getInstance(ColorSpace.CS_GRAY);
+                if(null != itemSelec)switch (itemSelec) {
+                    case "RGB":
+                        cs = ColorSpace.getInstance(ColorSpace.CS_LINEAR_RGB);
+                        break;
+                    case "YCC":
+                        cs = ColorSpace.getInstance(ColorSpace.CS_PYCC);
+                        break;
+                    case "GREY":
+                        cs = ColorSpace.getInstance(ColorSpace.CS_GRAY);
+                        break;
+                    default:
+                        break;
                 }
                 ColorConvertOp cop = new ColorConvertOp(cs, null);
                 BufferedImage imgOut = cop.filter(imgSource, null);
@@ -2536,10 +2549,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      */
     private void listaMediaCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaMediaCBActionPerformed
         File selectedFile = (File)listaMediaCB.getSelectedItem();
-        VentanaMultimediaVLCPlayer vi = VentanaMultimediaVLCPlayer.getInstance(selectedFile);
-        this.escritorio.add(vi);
-        vi.setTitle(selectedFile.getName());
-        vi.setVisible(true);
+        //VentanaMultimediaVLCPlayer vi = VentanaMultimediaVLCPlayer.getInstance(selectedFile);
+        //this.escritorio.add(vi);
+        //vi.setTitle(selectedFile.getName());
+        //vi.setVisible(true);
     }//GEN-LAST:event_listaMediaCBActionPerformed
     /**
      * Activa la WebCam
