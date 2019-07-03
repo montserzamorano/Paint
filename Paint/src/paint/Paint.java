@@ -40,7 +40,7 @@ public class Paint {
             java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "/Applications/VLC.app/Contents/MacOS/lib");
+        //NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "/Aplicaciones/VLC.app/Contents/MacOS/lib");
         //Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
         //boolean ok = new NativeDiscovery().discover();
 

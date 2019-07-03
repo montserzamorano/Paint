@@ -296,8 +296,6 @@ public class Lienzo extends javax.swing.JPanel {
      */
     public void setFiguraSeleccionada(Figura f){
         figuraSeleccionada = f;
-        //setFiguraActivada();
-        //setBoundingBox();
     }
     /**
      * 
@@ -437,28 +435,9 @@ public class Lienzo extends javax.swing.JPanel {
     }
     /**
      * 
-     * @param evt 
-     */
-    private void notifyFiguraActivada(LienzoEvent evt){
-        if(!lienzoEventListeners.isEmpty()){
-            for(LienzoListener listener : lienzoEventListeners){
-                listener.figuraSeleccionada(evt);
-            }
-        }
-    }
-    /**
-     * 
      */
     public void setLienzoActivado(){
         this.notifyLienzoSeleccionado(new LienzoEvent(this, fActiva, pA, vFiguras,
-        colorTrazo, stroke, grosor, transparencia, colorRelleno, tipoRelleno, 
-        colorDeg1, colorDeg2, formaActiva, alisadoActivated));
-    }
-    /**
-     * 
-     */
-    public void setFiguraActivada(){
-        this.notifyFiguraActivada(new LienzoEvent(this, fActiva, pA, vFiguras,
         colorTrazo, stroke, grosor, transparencia, colorRelleno, tipoRelleno, 
         colorDeg1, colorDeg2, formaActiva, alisadoActivated));
     }

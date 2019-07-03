@@ -13,8 +13,9 @@ import java.awt.geom.Rectangle2D;
  */
 public class BoundingBox extends Rectangulo{
     /**
-     * Constructor de clase
-     * @param frame marco que contiene la figura que se quiere englobar
+     * Constructor de clase. Construye la bounding box a partir del
+     * marco que contiene la figura que se quiere englobar.
+     * @param frame Rectangle2D marco que contiene la figura
      */
     public BoundingBox(Rectangle2D frame) {
         super(new Point.Double(frame.getMinX(), frame.getMinY()), 

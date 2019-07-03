@@ -244,12 +244,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 }
             }
         }
-         /**
-         * {@inheritDoc }
-         */
-        @Override
-        public void figuraSeleccionada(LienzoEvent evt){
-        }
     }
 
     /**
@@ -974,12 +968,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             else if (evt.getSource() == FigurasCB) {
                 VentanaPrincipal.this.FigurasCBActionPerformed(evt);
             }
-            else if (evt.getSource() == xPosition) {
-                VentanaPrincipal.this.xPositionActionPerformed(evt);
-            }
-            else if (evt.getSource() == yPosition) {
-                VentanaPrincipal.this.yPositionActionPerformed(evt);
-            }
             else if (evt.getSource() == colorTrazoCB) {
                 VentanaPrincipal.this.colorTrazoCBActionPerformed(evt);
             }
@@ -1117,6 +1105,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
             else if (evt.getSource() == acercaMenuItem) {
                 VentanaPrincipal.this.acercaMenuItemActionPerformed(evt);
+            }
+            else if (evt.getSource() == yPosition) {
+                VentanaPrincipal.this.yPositionActionPerformed(evt);
+            }
+            else if (evt.getSource() == xPosition) {
+                VentanaPrincipal.this.xPositionActionPerformed(evt);
             }
         }
 
@@ -1274,8 +1268,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             tipoLineaCB.setSelectedItem(figuraSeleccionada.getStroke());
             grosorSpinner.setValue(figuraSeleccionada.getGrosor());
             alisarBoton.setSelected(figuraSeleccionada.getAlisado());
-            transparenciaSlider.setValue((int) (figuraSeleccionada.getTransparencia()*100)); 
-
+            transparenciaSlider.setValue((int) (figuraSeleccionada.getTransparencia()*100));
+            xPosition.setText(String.valueOf((int)figuraSeleccionada.getPO().getX()));
+            yPosition.setText(String.valueOf((int)figuraSeleccionada.getPO().getY()));
             try{
                 colorRellenoCB.setSelectedItem(((FiguraRellenable)figuraSeleccionada).getColorRelleno());
                 degradado1CB.setSelectedItem(((FiguraRellenable)figuraSeleccionada).getDegradado1());
@@ -1287,6 +1282,23 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
             this.repaint();
         }
+    }
+    /**
+     * Desactiva todos los botones relativos al procesamiento de imágenes
+     */
+    private void disablePI(){
+        brilloSlider.setEnabled(false);
+        contrasteBoton.setEnabled(false);
+        iluminarBoton.setEnabled(false);
+        oscurecerBoton.setEnabled(false);
+        sepiaBoton.setEnabled(false);
+        tintarBoton.setEnabled(false);
+        colorTintadoCB.setEnabled(false);
+        tintadoSlider.setEnabled(false);
+        ecualizacionBoton.setEnabled(false);
+        umbralizacionSlider.setEnabled(false);
+        zoomInBoton.setEnabled(false);
+        disminuirBoton.setEnabled(false);
     }
     /**
      * Crea una nueva imagen con un lienzo en blanco.
@@ -1384,6 +1396,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     else if(img.getColorModel().getColorSpace().equals(ColorSpace.CS_GRAY)){
                         espacioColor = "[GRAY]";
                     }
+                    vi.setName(f.getName());
                     vi.setTitle(f.getName()+" " + espacioColor);
                     int w = img.getWidth();
                     int h = img.getHeight();
@@ -1429,7 +1442,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
         if(vi!=null){
             vi.getLienzo().setForma(Forma.LINEA);
-            tipoRellenoCB.setEnabled(false);
+            disableRelleno();
         }
     }//GEN-LAST:event_lineaBotonActionPerformed
     /**
@@ -1507,8 +1520,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     player.play();
                 }
             }
-        }catch(Exception e){
-        }
+        }catch(Exception e){}
     }//GEN-LAST:event_reproducirSonidoBotonActionPerformed
     /**
      * Detiene la grabación en marcha y la guarda.
@@ -2136,7 +2148,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 boolean alfaPre = imgSource.isAlphaPremultiplied();
                 newVi.getLienzo().setImage(new BufferedImage(cm, outRaster, alfaPre, null));
                 
-                newVi.setTitle(vi.getTitle()+" copia");
+                //al nombre le añadimos el espacio de color
+                String espacioColor = "";
+                if(imgSource.getColorModel().getColorSpace().isCS_sRGB()){
+                    espacioColor = "[RGB]";
+                }
+                else if(imgSource.getColorModel().getColorSpace().equals(ColorSpace.CS_PYCC)){
+                    espacioColor = "[YCC]";
+                }
+                else if(imgSource.getColorModel().getColorSpace().equals(ColorSpace.CS_GRAY)){
+                    espacioColor = "[GRAY]";
+                }
+                
+                newVi.setTitle(vi.getName()+" copia " + espacioColor);
                 escritorio.add(newVi);
                 newVi.setVisible(true);
                 //Añadimos el manejador
@@ -2233,7 +2257,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void disminuirBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disminuirBotonActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
         if(vi != null){
-            BufferedImage imgSource = vi.getLienzo().getImage(true);
+            BufferedImage imgSource = vi.getLienzo().getImage(false);
             if(imgSource != null){
                 try{
                     AffineTransform at = AffineTransform.getScaleInstance(0.75, 0.75);
@@ -2299,7 +2323,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     escritorio.add(newVi);
                     newVi.setVisible(true);
                     newVi.getLienzo().setImage(imgBanda);
-                    newVi.setTitle("banda" + (iBanda+1));
+                    newVi.setTitle(vi.getName() + " Banda" + (iBanda+1));
                     //guardar dimension
                     int w = imgBanda.getWidth();
                     int h = imgBanda.getHeight();
@@ -2340,7 +2364,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 escritorio.add(newVi);
                 newVi.setVisible(true);
                 newVi.getLienzo().setImage(imgOut);
-                newVi.setTitle("["+itemSelec+"]");
+                newVi.setTitle(vi.getName()+" ["+itemSelec+"]");
                 //guardar dimension
                 int w = imgOut.getWidth();
                 int h = imgOut.getHeight();
@@ -2521,27 +2545,35 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      * que engloba la figura seleccionada.
      * @param evt ActionEvent
      */
-    private void xPositionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xPositionActionPerformed
-        pointTemp.x = new Integer(xPosition.getText());
+    private void xPositionActionPerformed(java.awt.event.ActionEvent evt) {                                          
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
         if(vi.getLienzo().getFiguraSeleccionada()!=null){
-            vi.getLienzo().getFiguraSeleccionada().setLocation(pointTemp);
-            this.repaint();
+            try{
+                pointTemp.x = new Integer(xPosition.getText());
+                vi.getLienzo().getFiguraSeleccionada().setLocation(pointTemp);
+                this.repaint();
+            }catch(Exception e){
+                System.out.println("Formato no válido. Se requiere entero");
+            }
         }
-    }//GEN-LAST:event_xPositionActionPerformed
+    }                                         
     /**
      * Mueve la posición Y de la esquina superior izquierda del marco
      * que engloba la figura seleccionada.
      * @param evt ActionEvent
      */
-    private void yPositionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yPositionActionPerformed
-        pointTemp.y = new Integer(yPosition.getText());
+    private void yPositionActionPerformed(java.awt.event.ActionEvent evt) {                                          
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
         if(vi.getLienzo().getFiguraSeleccionada()!=null){
-            vi.getLienzo().getFiguraSeleccionada().setLocation(pointTemp);
-            this.repaint();
+            try{
+                pointTemp.y = new Integer(yPosition.getText());
+                vi.getLienzo().getFiguraSeleccionada().setLocation(pointTemp);
+                this.repaint();
+            }catch(Exception e){
+                System.out.println("Formato no válido. Se requiere entero");
+            }
         }
-    }//GEN-LAST:event_yPositionActionPerformed
+    }                                         
     /**
      * Selecciona el rectángulo con esquinas redondeadas como forma 
      * de dibujo en el lienzo activo.
@@ -2620,6 +2652,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void guardarMBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarMBActionPerformed
         guardarMenuItemActionPerformed(evt);
     }//GEN-LAST:event_guardarMBActionPerformed
+
+//GEN-FIRST:event_yPositionActionPerformed
+ 
+//GEN-LAST:event_yPositionActionPerformed
+
+//GEN-FIRST:event_xPositionActionPerformed
+ 
+//GEN-LAST:event_xPositionActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

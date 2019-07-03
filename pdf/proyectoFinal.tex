@@ -73,6 +73,8 @@
 \section{Descripción del sistema}
 Para la evaluación de la asignatura de \textit{Sistemas multimedia} se quiere realizar una aplicación multimedia que permita gestionar gráficos, imágenes, sonido y vídeo. Se podrán crear, editar, procesar y visualizar contenido multimedia de distintos tipos.
 \vskip0.3cm
+Esta aplicación tendrá una ventana principal con diferentes barras de herramientas y botones que permitirán realizar las distintas operaciones sobre el contenido multimedia. Se intentará que la interfaz sea lo más intuitiva posible y facilitar así el uso de la aplicación al usuario final.
+\vskip0.3cm
 Con este fin, se realiza una aplicación que se llamará \textit{Paint}.
 \section{Requisitos}
 \subsection{Requisitos funcionales}
@@ -196,13 +198,26 @@ Esta solución completa los requisitos del módulo de figuras. Para el caso del 
 \vskip0.3cm
 En cuanto al manejo de eventos, se usará en muchas ocasiones las funciones que ofrece Java para la gestión de eventos (por ejemplo, para el uso de botones). Sin embargo, para la comunicación entre el lienzo y la ventana principal será necesario crear una clase manejadora para la gestión de eventos relacionados con el lienzo. La existencia de esta clase permitirá también informar de la falta de atributos necesarios para el dibujo de las figuras y poder lanzar mensajes de error desde la ventana principal (por ejemplo: no se ha seleccionado una forma de dibujo). 
 \section{Diseño}
-Siguiendo la propuesta que se ha planteado en el análisis, se plantea la siguiente jerarquía de clases.
+Siguiendo la propuesta que se ha planteado en el análisis, se plantea las siguientes jerarquías de clases.
+\subsection{Figura}
+\subsection{Ventana multimedia}
+\subsection{Eventos}
+\subsection{Clases propias para procesamiento de imágenes}
 \section{Implementación}
-\section{Validación software}
+\section{Validación}
+En este apartado se comprobará que el programa implementado en base a la solución propuesta cumple con los requisitos enumerados en el primer apartado.
 \subsection{Gráficos}
 \subsection{Procesamiento de imágenes}
 \subsubsection{Duplicar}
 Se comprobará si la duplicación de la imagen se ha realizado correctamente, de forma que si se modifica una, los cambios no se aplican en la otra.
+\vskip0.3cm
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=0.5\textwidth]{imagenes/duplicar1.png}
+  \includegraphics[width=0.5\textwidth]{imagenes/duplicar2.jpg}
+ \caption{Duplicar imagen}
+ \label{diseño}
+ \end{figure}
 \subsubsection{Modificar brillo}
 \vskip0.3cm
 \begin{figure}[H]
@@ -340,7 +355,7 @@ Para comprobar que la conversión se ha realizado correctamente, se extraen las 
  \centering
   \includegraphics[width=0.3\textwidth]{imagenes/Fry.jpg}
   \includegraphics[width=0.3\textwidth]{imagenes/fryCos.jpg}
- \caption{Aplicación filtro violeta}
+ \caption{Operación cosinusoide}
  \label{diseño}
  \end{figure}
 \subsubsection{Operación de diseño propio: filtro violeta}
@@ -363,6 +378,23 @@ Para comprobar que la conversión se ha realizado correctamente, se extraen las 
  \end{figure}
 \subsection{Sonido}
 \subsection{Vídeo}
+A continuación se muestran las funcionalidades del vídeo y la cámara.
+\subsubsection{WebCam}
+En primer lugar, comprobamos que puede abrirse correctamente la cámara. Una vez hecho esto, se comprobará si se realizan las capturas de pantalla correctamente. Si no hay ventana de cámara abierta, no se podrá sacar ninguna captura de pantalla.
+\vskip0.3cm
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=0.8\textwidth]{video/webcam.jpg}
+ \caption{Webcam abierta}
+ \label{diseño}
+ \end{figure}
+ \vskip0.3cm
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=0.8\textwidth]{video/captura.jpg}
+ \caption{Captura de pantalla}
+ \label{diseño}
+ \end{figure}
 %\section{Bonus}
 
 %\begin{lstlisting}[language=python, caption=Código gradiente descendente, label=lst:graddesc]

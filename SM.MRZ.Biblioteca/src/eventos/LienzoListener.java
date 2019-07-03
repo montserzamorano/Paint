@@ -59,9 +59,4 @@ public interface LienzoListener extends EventListener{
      * @param evt LienzoEvent
      */    
     public void lienzoSeleccionado(LienzoEvent evt);
-    /**
-     * Gestiona la selección de una figura en el lienzo
-     * @param evt LienzoEvent
-     */    
-    public void figuraSeleccionada(LienzoEvent evt);
 }

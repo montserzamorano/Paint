@@ -92,7 +92,6 @@ public class LienzoImagen extends Lienzo {
     public BufferedImage getImage(boolean drawVector){
         if(drawVector){
             //codigo para guardar también las formas
-            System.out.println(img.getType());
             BufferedImage imgDest = new BufferedImage(img.getWidth(), img.getHeight(), 5);
             this.paint(imgDest.createGraphics());
             img = imgDest;
