@@ -86,13 +86,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         inicializarRelleno(tipoRellenoCB);
         inicializarTipoLinea(tipoLineaCB);
         //relleno, desactivar botones
-        setOpcionesRelleno(TipoRelleno.NINGUNO);
+        //setOpcionesRelleno(TipoRelleno.NINGUNO);
  
         //sliders desactivados
-        tintadoSlider.setEnabled(false);
+        //tintadoSlider.setEnabled(false);
         //botones de sonido
-        stopRecordBoton.setEnabled(false);
-        pausaGrabacionBoton.setEnabled(false);
+        //stopRecordBoton.setEnabled(false);
+        disablePI();
         
         //filtros
         imageFilter = new FileNameExtensionFilter("Archivos de imagen", ImageIO.getReaderFormatNames());
@@ -176,6 +176,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         @Override
         public void lienzoSeleccionado(LienzoEvent evt){
             VentanaMultimediaImagen vi;
+            enablePI();
             vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
             if(vi != null){
                 //color trazo
@@ -203,6 +204,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 if(evt.getStroke()!=null){
                     tipoLineaCB.setSelectedItem(evt.getStroke());
                 }
+                xPosition.setText("");
+                yPosition.setText("");
                 tipoRellenoCB.setSelectedItem(evt.getTipoRelleno());
                 setOpcionesRelleno(evt.getTipoRelleno());
                 //grosor
@@ -243,6 +246,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     FigurasCB.setSelectedItem(null);
                 }
             }
+        }
+        @Override
+        public void lienzoCerrado(LienzoEvent evt) {
+            disablePI();
         }
     }
 
@@ -289,7 +296,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         tipoLineaCB = new javax.swing.JComboBox<>();
         jSeparator3 = new javax.swing.JToolBar.Separator();
         recordSonidoBoton = new javax.swing.JToggleButton();
-        pausaGrabacionBoton = new javax.swing.JToggleButton();
         stopRecordBoton = new javax.swing.JToggleButton();
         listaMediaCB = new javax.swing.JComboBox<>();
         reproducirSonidoBoton = new javax.swing.JToggleButton();
@@ -537,15 +543,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         recordSonidoBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         recordSonidoBoton.addActionListener(formListener);
         barraSuperiorTB.add(recordSonidoBoton);
-
-        sonidoBG.add(pausaGrabacionBoton);
-        pausaGrabacionBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/pausemic.png"))); // NOI18N
-        pausaGrabacionBoton.setToolTipText("Pausar grabación");
-        pausaGrabacionBoton.setFocusable(false);
-        pausaGrabacionBoton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        pausaGrabacionBoton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        pausaGrabacionBoton.addActionListener(formListener);
-        barraSuperiorTB.add(pausaGrabacionBoton);
 
         sonidoBG.add(stopRecordBoton);
         stopRecordBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/stopmic.png"))); // NOI18N
@@ -968,6 +965,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             else if (evt.getSource() == FigurasCB) {
                 VentanaPrincipal.this.FigurasCBActionPerformed(evt);
             }
+            else if (evt.getSource() == xPosition) {
+                VentanaPrincipal.this.xPositionActionPerformed(evt);
+            }
+            else if (evt.getSource() == yPosition) {
+                VentanaPrincipal.this.yPositionActionPerformed(evt);
+            }
             else if (evt.getSource() == colorTrazoCB) {
                 VentanaPrincipal.this.colorTrazoCBActionPerformed(evt);
             }
@@ -991,9 +994,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
             else if (evt.getSource() == recordSonidoBoton) {
                 VentanaPrincipal.this.recordSonidoBotonActionPerformed(evt);
-            }
-            else if (evt.getSource() == pausaGrabacionBoton) {
-                VentanaPrincipal.this.pausaGrabacionBotonActionPerformed(evt);
             }
             else if (evt.getSource() == stopRecordBoton) {
                 VentanaPrincipal.this.stopRecordBotonActionPerformed(evt);
@@ -1105,12 +1105,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
             else if (evt.getSource() == acercaMenuItem) {
                 VentanaPrincipal.this.acercaMenuItemActionPerformed(evt);
-            }
-            else if (evt.getSource() == yPosition) {
-                VentanaPrincipal.this.yPositionActionPerformed(evt);
-            }
-            else if (evt.getSource() == xPosition) {
-                VentanaPrincipal.this.xPositionActionPerformed(evt);
             }
         }
 
@@ -1299,6 +1293,83 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         umbralizacionSlider.setEnabled(false);
         zoomInBoton.setEnabled(false);
         disminuirBoton.setEnabled(false);
+        rot90Boton.setEnabled(false);
+        rot180Boton.setEnabled(false);
+        rot270Boton.setEnabled(false);
+        giroLibreSlider.setEnabled(false);
+        disenioPropioBoton.setEnabled(false);
+        disenioPropio2Boton.setEnabled(false);
+        cosinusoideBoton.setEnabled(false);
+        duplicarBoton.setEnabled(false);
+        negativoBoton.setEnabled(false);
+        relieveBoton.setEnabled(false);
+        emborronamientoBoton.setEnabled(false);
+        enfoqueBoton.setEnabled(false);
+        bandasBoton.setEnabled(false);
+        espacioColorCB.setEnabled(false);
+        lineaBoton.setEnabled(false);
+        rectanguloBoton.setEnabled(false);
+        elipseBoton.setEnabled(false);
+        rectanguloRedBoton.setEnabled(false);
+        FigurasCB.setEnabled(false);
+        xPosition.setEnabled(false);
+        yPosition.setEnabled(false);
+        colorTrazoCB.setEnabled(false);
+        colorRellenoCB.setEnabled(false);
+        tipoRellenoCB.setEnabled(false);
+        degradado1CB.setEnabled(false);
+        degradado2CB.setEnabled(false);
+        transparenciaSlider.setEnabled(false);
+        alisarBoton.setEnabled(false);
+        grosorSpinner.setEnabled(false);
+        tipoLineaCB.setEnabled(false);
+    }
+    /**
+     * Activa todos los botones relativos al procesamiento de imágenes
+     */
+    private void enablePI(){
+        brilloSlider.setEnabled(true);
+        contrasteBoton.setEnabled(true);
+        iluminarBoton.setEnabled(true);
+        oscurecerBoton.setEnabled(true);
+        sepiaBoton.setEnabled(true);
+        tintarBoton.setEnabled(true);
+        colorTintadoCB.setEnabled(false);
+        tintadoSlider.setEnabled(false);
+        ecualizacionBoton.setEnabled(true);
+        umbralizacionSlider.setEnabled(true);
+        zoomInBoton.setEnabled(true);
+        disminuirBoton.setEnabled(true);
+        rot90Boton.setEnabled(true);
+        rot180Boton.setEnabled(true);
+        rot270Boton.setEnabled(true);
+        giroLibreSlider.setEnabled(true);
+        disenioPropioBoton.setEnabled(true);
+        disenioPropio2Boton.setEnabled(true);
+        cosinusoideBoton.setEnabled(true);
+        duplicarBoton.setEnabled(true);
+        negativoBoton.setEnabled(true);
+        relieveBoton.setEnabled(true);
+        emborronamientoBoton.setEnabled(true);
+        enfoqueBoton.setEnabled(true);
+        bandasBoton.setEnabled(true);
+        espacioColorCB.setEnabled(true);
+        lineaBoton.setEnabled(true);
+        rectanguloBoton.setEnabled(true);
+        elipseBoton.setEnabled(true);
+        rectanguloRedBoton.setEnabled(true);
+        FigurasCB.setEnabled(true);
+        xPosition.setEnabled(true);
+        yPosition.setEnabled(true);
+        colorTrazoCB.setEnabled(true);
+        colorRellenoCB.setEnabled(true);
+        tipoRellenoCB.setEnabled(true);
+        degradado1CB.setEnabled(true);
+        degradado2CB.setEnabled(true);
+        transparenciaSlider.setEnabled(true);
+        alisarBoton.setEnabled(true);
+        grosorSpinner.setEnabled(true);
+        tipoLineaCB.setEnabled(true);
     }
     /**
      * Crea una nueva imagen con un lienzo en blanco.
@@ -1503,7 +1574,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         recorder = new SMSoundRecorder(temp);
         recorder.record();
         stopRecordBoton.setEnabled(true);
-        pausaGrabacionBoton.setEnabled(true);
         
     }//GEN-LAST:event_recordSonidoBotonActionPerformed
     /**
@@ -1623,22 +1693,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_grosorSpinnerStateChanged
-    /**
-     * Pausa la grabación en marcha.
-     * @param evt ActionEvent
-     */
-    private void pausaGrabacionBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pausaGrabacionBotonActionPerformed
-        //si está grabando, pausar
-        if(grabando){
-            recorder.stop();
-            grabando = false;
-        }//en otro caso renaudar la grabacion
-        else{
-            recorder.record();
-            grabando = true;
-        }
-    }//GEN-LAST:event_pausaGrabacionBotonActionPerformed
-    /**
+
+   /**
      * Detiene la reproducción del sonido o vídeo de la ventana multimedia
      * activa.
      * @param evt ActionEvent 
@@ -2159,13 +2215,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 else if(imgSource.getColorModel().getColorSpace().equals(ColorSpace.CS_GRAY)){
                     espacioColor = "[GRAY]";
                 }
-                
+                newVi.setName(vi.getName());
                 newVi.setTitle(vi.getName()+" copia " + espacioColor);
-                escritorio.add(newVi);
-                newVi.setVisible(true);
                 //Añadimos el manejador
                 MiManejadorLienzo manejador = new MiManejadorLienzo();
                 newVi.getLienzo().addLienzoListener(manejador);
+                
+                escritorio.add(newVi);
+                newVi.setVisible(true);
+                
             }
         }
     }//GEN-LAST:event_duplicarBotonActionPerformed
@@ -2607,6 +2665,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         if(ventanaCamara!=null){
           escritorio.add(ventanaCamara);
           ventanaCamara.setVisible(true);
+          disablePI();
         }
     }//GEN-LAST:event_webcamBotonActionPerformed
     /**
@@ -2727,7 +2786,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton nuevoMB;
     private javax.swing.JMenuItem nuevoMenuItem;
     private javax.swing.JButton oscurecerBoton;
-    private javax.swing.JToggleButton pausaGrabacionBoton;
     private javax.swing.JToggleButton pausaSonidoBoton;
     private javax.swing.JLabel pixelLabel;
     private javax.swing.JToggleButton recordSonidoBoton;

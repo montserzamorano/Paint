@@ -12,30 +12,32 @@
 \BOOKMARK [2][-]{subsection.4.1}{Figura}{section.4}% 12
 \BOOKMARK [2][-]{subsection.4.2}{Ventana multimedia}{section.4}% 13
 \BOOKMARK [2][-]{subsection.4.3}{Eventos}{section.4}% 14
-\BOOKMARK [2][-]{subsection.4.4}{Clases propias para procesamiento de im\341genes}{section.4}% 15
-\BOOKMARK [1][-]{section.5}{Implementaci\363n}{}% 16
-\BOOKMARK [1][-]{section.6}{Validaci\363n}{}% 17
-\BOOKMARK [2][-]{subsection.6.1}{Gr\341ficos}{section.6}% 18
-\BOOKMARK [2][-]{subsection.6.2}{Procesamiento de im\341genes}{section.6}% 19
-\BOOKMARK [3][-]{subsubsection.6.2.1}{Duplicar}{subsection.6.2}% 20
-\BOOKMARK [3][-]{subsubsection.6.2.2}{Modificar brillo}{subsection.6.2}% 21
-\BOOKMARK [3][-]{subsubsection.6.2.3}{Filtro de emborronamiento}{subsection.6.2}% 22
-\BOOKMARK [3][-]{subsubsection.6.2.4}{Filtro de enfoque}{subsection.6.2}% 23
-\BOOKMARK [3][-]{subsubsection.6.2.5}{Filtro de relieve}{subsection.6.2}% 24
-\BOOKMARK [3][-]{subsubsection.6.2.6}{Contraste normal}{subsection.6.2}% 25
-\BOOKMARK [3][-]{subsubsection.6.2.7}{Iluminado}{subsection.6.2}% 26
-\BOOKMARK [3][-]{subsubsection.6.2.8}{Oscurecido}{subsection.6.2}% 27
-\BOOKMARK [3][-]{subsubsection.6.2.9}{Invertir colores}{subsection.6.2}% 28
-\BOOKMARK [3][-]{subsubsection.6.2.10}{Conversi\363n a espacios RGB, YCC, GRAY}{subsection.6.2}% 29
-\BOOKMARK [3][-]{subsubsection.6.2.11}{Giro libre}{subsection.6.2}% 30
-\BOOKMARK [3][-]{subsubsection.6.2.12}{Escalado}{subsection.6.2}% 31
-\BOOKMARK [3][-]{subsubsection.6.2.13}{Tintado}{subsection.6.2}% 32
-\BOOKMARK [3][-]{subsubsection.6.2.14}{Ecualizaci\363n}{subsection.6.2}% 33
-\BOOKMARK [3][-]{subsubsection.6.2.15}{Filtro sepia}{subsection.6.2}% 34
-\BOOKMARK [3][-]{subsubsection.6.2.16}{Umbralizaci\363n}{subsection.6.2}% 35
-\BOOKMARK [3][-]{subsubsection.6.2.17}{Operador LookupOp basado en una funci\363n propia}{subsection.6.2}% 36
-\BOOKMARK [3][-]{subsubsection.6.2.18}{Operaci\363n de dise\361o propio: filtro violeta}{subsection.6.2}% 37
-\BOOKMARK [3][-]{subsubsection.6.2.19}{Operaci\363n de dise\361o propio: media de las bandas}{subsection.6.2}% 38
-\BOOKMARK [2][-]{subsection.6.3}{Sonido}{section.6}% 39
-\BOOKMARK [2][-]{subsection.6.4}{V\355deo}{section.6}% 40
-\BOOKMARK [3][-]{subsubsection.6.4.1}{WebCam}{subsection.6.4}% 41
+\BOOKMARK [2][-]{subsection.4.4}{Operaciones de dise\361o propio}{section.4}% 15
+\BOOKMARK [3][-]{subsubsection.4.4.1}{Componente a componente}{subsection.4.4}% 16
+\BOOKMARK [3][-]{subsubsection.4.4.2}{Pixel a pixel}{subsection.4.4}% 17
+\BOOKMARK [1][-]{section.5}{Implementaci\363n}{}% 18
+\BOOKMARK [1][-]{section.6}{Validaci\363n}{}% 19
+\BOOKMARK [2][-]{subsection.6.1}{Gr\341ficos}{section.6}% 20
+\BOOKMARK [2][-]{subsection.6.2}{Procesamiento de im\341genes}{section.6}% 21
+\BOOKMARK [3][-]{subsubsection.6.2.1}{Duplicar}{subsection.6.2}% 22
+\BOOKMARK [3][-]{subsubsection.6.2.2}{Modificar brillo}{subsection.6.2}% 23
+\BOOKMARK [3][-]{subsubsection.6.2.3}{Filtro de emborronamiento}{subsection.6.2}% 24
+\BOOKMARK [3][-]{subsubsection.6.2.4}{Filtro de enfoque}{subsection.6.2}% 25
+\BOOKMARK [3][-]{subsubsection.6.2.5}{Filtro de relieve}{subsection.6.2}% 26
+\BOOKMARK [3][-]{subsubsection.6.2.6}{Contraste normal}{subsection.6.2}% 27
+\BOOKMARK [3][-]{subsubsection.6.2.7}{Iluminado}{subsection.6.2}% 28
+\BOOKMARK [3][-]{subsubsection.6.2.8}{Oscurecido}{subsection.6.2}% 29
+\BOOKMARK [3][-]{subsubsection.6.2.9}{Invertir colores}{subsection.6.2}% 30
+\BOOKMARK [3][-]{subsubsection.6.2.10}{Conversi\363n a espacios RGB, YCC, GRAY}{subsection.6.2}% 31
+\BOOKMARK [3][-]{subsubsection.6.2.11}{Giro libre}{subsection.6.2}% 32
+\BOOKMARK [3][-]{subsubsection.6.2.12}{Escalado}{subsection.6.2}% 33
+\BOOKMARK [3][-]{subsubsection.6.2.13}{Tintado}{subsection.6.2}% 34
+\BOOKMARK [3][-]{subsubsection.6.2.14}{Ecualizaci\363n}{subsection.6.2}% 35
+\BOOKMARK [3][-]{subsubsection.6.2.15}{Filtro sepia}{subsection.6.2}% 36
+\BOOKMARK [3][-]{subsubsection.6.2.16}{Umbralizaci\363n}{subsection.6.2}% 37
+\BOOKMARK [3][-]{subsubsection.6.2.17}{Operador LookupOp basado en una funci\363n propia}{subsection.6.2}% 38
+\BOOKMARK [3][-]{subsubsection.6.2.18}{Operaci\363n de dise\361o propio: filtro violeta}{subsection.6.2}% 39
+\BOOKMARK [3][-]{subsubsection.6.2.19}{Operaci\363n de dise\361o propio: media de las bandas}{subsection.6.2}% 40
+\BOOKMARK [2][-]{subsection.6.3}{Sonido}{section.6}% 41
+\BOOKMARK [2][-]{subsection.6.4}{V\355deo}{section.6}% 42
+\BOOKMARK [3][-]{subsubsection.6.4.1}{WebCam}{subsection.6.4}% 43

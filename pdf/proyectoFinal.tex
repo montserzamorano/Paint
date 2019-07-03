@@ -202,7 +202,64 @@ Siguiendo la propuesta que se ha planteado en el análisis, se plantea las sigui
 \subsection{Figura}
 \subsection{Ventana multimedia}
 \subsection{Eventos}
-\subsection{Clases propias para procesamiento de imágenes}
+\subsection{Operaciones de diseño propio}
+\subsubsection{Componente a componente}
+La función componente a componente modificará cada una de las componentes (R, G, B) de forma separada.\vskip0.3cm
+En este caso se ha implementado un filtro violeta. Para aplicar un tono morado a la imagen, se tendrá en cuenta que la mezcla de rojo y azul es la que da lugar al morado. Por tanto, para obtener el efecto deseado se reducirá el valor de la componente verde y se aumentará el valor de la componente roja y azul.
+\begin{lstlisting}[language=Java, caption=Operación componente a componente, label=lst:graddesc]
+for(int x=0; x<src.getWidth(); x++){
+    for(int y=0; y<src.getHeight(); y++){
+        int destR, destG, destB;
+        int srcR, srcG, srcB;
+        Color colorSrc = new Color(src.getRGB(x, y));
+        Color colorDest;
+        //color del pixel
+        srcR = colorSrc.getRed();
+        srcG = colorSrc.getGreen();
+        srcB = colorSrc.getBlue();
+        //operacion componente a componente
+        destR = (int) Math.min(255,1.3*srcR);
+        destG = (int) Math.min(255,0.2*srcG);
+        destB = (int) Math.min(255,1.5*srcB);
+                
+        colorDest = new Color(destR, destG, destB);
+        dest.setRGB(x, y, colorDest.getRGB());
+     }
+}
+\end{lstlisting}
+El resultado de aplicar el filtro puede verse a continuación.
+\vskip0.3cm
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=0.3\textwidth]{imagenes/Fry.jpg}
+  \includegraphics[width=0.3\textwidth]{imagenes/fryVioleta.jpg}
+ \caption{Aplicación filtro violeta}
+ \label{diseño}
+ \end{figure}
+\subsubsection{Pixel a pixel}
+La función píxel a píxel modificará cada componente teniendo en cuenta los demás componentes.
+\begin{lstlisting}[language=Java, caption=Operación pixel a pixel, label=lst:graddesc]
+for(int x=0; x<src.getWidth(); x++){
+    for(int y=0; y<src.getHeight(); y++){
+        int destR, destG, destB;
+        int srcR, srcG, srcB;
+        Color colorSrc = new Color(src.getRGB(x, y));
+        Color colorDest;
+        //color del pixel
+        srcR = colorSrc.getRed();
+        srcG = colorSrc.getGreen();
+        srcB = colorSrc.getBlue();
+        //operacion pixel a pixel
+        destR = Math.min(255,(srcR+srcG+srcB)/3);
+        destG = Math.min(255,(srcR+srcG+srcB)/3);
+        destB = Math.min(255,(srcR+srcG+srcB)/3);;
+                
+        colorDest = new Color(destR, destG, destB);
+        dest.setRGB(x, y, colorDest.getRGB());
+    }
+}
+\end{lstlisting}
+
 \section{Implementación}
 \section{Validación}
 En este apartado se comprobará que el programa implementado en base a la solución propuesta cumple con los requisitos enumerados en el primer apartado.

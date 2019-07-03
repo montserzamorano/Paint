@@ -436,12 +436,27 @@ public class Lienzo extends javax.swing.JPanel {
     /**
      * 
      */
+    private void notifyLienzoCerrado(LienzoEvent evt){
+       if(!lienzoEventListeners.isEmpty()){
+            for(LienzoListener listener : lienzoEventListeners){
+                listener.lienzoCerrado(evt);
+            }
+        } 
+    }    
+    /**
+     * 
+     */
     public void setLienzoActivado(){
         this.notifyLienzoSeleccionado(new LienzoEvent(this, fActiva, pA, vFiguras,
         colorTrazo, stroke, grosor, transparencia, colorRelleno, tipoRelleno, 
         colorDeg1, colorDeg2, formaActiva, alisadoActivated));
     }
     
+    public void lienzoCerrado(){
+        this.notifyLienzoCerrado(new LienzoEvent(this, fActiva, pA, vFiguras,
+        colorTrazo, stroke, grosor, transparencia, colorRelleno, tipoRelleno, 
+        colorDeg1, colorDeg2, formaActiva, alisadoActivated));
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.

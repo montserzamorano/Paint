@@ -78,7 +78,8 @@ public class VentanaMultimediaImagen extends VentanaMultimedia {
      * @param evt InternalFrameEvent
      */
     private void formInternalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameDeactivated
-        lienzo.quitBoundingBox();
+        lienzo.quitBoundingBox(); 
+        lienzo.lienzoCerrado();
     }//GEN-LAST:event_formInternalFrameDeactivated
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

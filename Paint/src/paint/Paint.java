@@ -13,7 +13,7 @@ import uk.co.caprica.vlcj.runtime.RuntimeUtil;
  */
 
 public class Paint {
-
+    private static final String NATIVE_LIBRARY_SEARCH_PATH = "/Aplicaciones/VLC.app/Contents/MacOS/lib";
     /**
      * @param args the command line arguments
      */
@@ -46,6 +46,9 @@ public class Paint {
 
         //if(ok) System.out.println("VLC cargada");
         //else System.out.println("Error en VLC");
+       
+        //NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), NATIVE_LIBRARY_SEARCH_PATH);
+        //System.out.println(LibVlc.INSTANCE.libvlc_get_version());
 
         
         /* Create and display the form */
