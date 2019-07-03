@@ -78,7 +78,7 @@ Con este fin, se realiza una aplicación que se llamará \textit{Paint}.
 \subsection{Requisitos funcionales}
 \subsubsection{Carácter general}
 \begin{itemize}
-\item{\textbf{[RFCG-1]} Creación de una nueva imagen en una nueva ventana en un tamaño que elija el usuario.}
+\item{\textbf{[RFCG-1]} Creación de una nueva imagen en una nueva ventana.}
 \item{\textbf{[RFCG-2} Abrir un fichero de imagen.}
 \item{\textbf{[RFCG-3]} Abrir un fichero de sonido.}
 \item{\textbf{[RFCG-4]} Abrir un fichero de vídeo.}
@@ -94,6 +94,7 @@ Con este fin, se realiza una aplicación que se llamará \textit{Paint}.
 \item{Línea.}
 \item{Rectángulo.}
 \item{Elipse.}
+\item{Rectángulo con esquinas redondeadas.}
 \end{itemize}
 }
 \item{\textbf{[RFD-2]} Mantener todas las figuras que se vayan dibujando.}
@@ -151,8 +152,8 @@ Con este fin, se realiza una aplicación que se llamará \textit{Paint}.
 \item{\textbf{[RFPI-17]} Escoger nivel de umbralización.}
 \item{\textbf{[RFPI-18]} Aplicar filtro sepia a una imagen.}
 \item{\textbf{[RFPI-19]} Aplicar filtro violeta a una imagen.}
-\item{\textbf{[RFPI-20]} Aplicar filtro blanco y negro.}
-
+\item{\textbf{[RFPI-20]} Aplicar filtro de media entre las bandas de colores.}
+\item{\textbf{[RFPI-21]} Aplicar filtro cosinosuidal.}
 \end{itemize}
 \subsubsection{Sonido}
 \begin{itemize}
@@ -178,15 +179,190 @@ Con este fin, se realiza una aplicación que se llamará \textit{Paint}.
 \item{\textbf{[RNF-7]} El título de una nueva ventana abierta será \textit{Nueva} si se trata de una imagen creada por el usuario.}
 \item{\textbf{[RNF-8]} El título de una nueva ventana abierta será \textit{Captura} si se trata de una captura captada de un vídeo o de la WebCam.}
 \item{\textbf{[RNF-9]} La \textit{BoundingBox} será un rectángulo de color azul, con línea discontinua.}
-\item{\textbf{[RNF-10]} Indicar el espacio de color en el que se encuentra la imagen.}
+\item{\textbf{[RNF-10]} Cuando se cree una imagen se lanzará un diálogo que permita elegir las dimensiones de la imagen.}
 
 \end{itemize}
 \section{Análisis}
-\subsection{Eventos}
+
+Se analizará qué requisitos son cubiertos por las bibliotecas disponibles y para cuáles necesitamos desarrollar soluciones alternativas.
+\vskip0.3cm
+En primer lugar, se desarrollará una clase \textit{Lienzo} que constituirá el área de dibujo y que almacenará las figuras dibujadas en una misma ventana. La clase \textit{Lienzo} será la encargada de pintar las figuras.
+\vskip0.3cm
+La solución planteada durante el desarrollo de las prácticas no es muy flexible: todas las figuras de un mismo lienzo tienen los mismos atributos. Para cumplir \textbf{[RFD-1]}-\textbf{[RFD-5]} y \textbf{[RFD-9]}-\textbf{[RFD-12]} se desarrollará una clase propia \textit{Figura}, que almacenará cada uno de los atributos de la figura y permitirá que cada figura tenga los suyos propios. El uso de esta clase permitirá además modificar estos atributos \textbf{[RFD-7]}. Sin embargo, la línea, por ejemplo, no puede tener relleno, por lo que no tiene sentido guardar este atributo.
+\vskip0.3cm
+Para solucionarlo, se desarrollará una clase propia para cada una de las figuras que pueden dibujarse: Línea, rectángulo, elipse, rectángulo redondeado. El uso de estas clases permitirá mover las figuras dibujadas \textbf{[RFD-8]},implementando en cada caso la edición de la posición.
+\vskip0.3cm
+Esta solución completa los requisitos del módulo de figuras. Para el caso del procesamiento de imágenes, se tendrán que desarrollar clases propias para cumplir con \textbf{[RFPI-16]}-\textbf{[RFPI-20]}. El resto de los requisitos funcionales están cubiertos por las funciones ofrecidas por Java y las bibliotecas proporcionadas por el profesor. Para el caso de cosinosuidal \textbf{[RFPI-21]} se hará uso de la clase \textit{LookUpTable} con una operación propia (coseno).
+\vskip0.3cm
+En cuanto al manejo de eventos, se usará en muchas ocasiones las funciones que ofrece Java para la gestión de eventos (por ejemplo, para el uso de botones). Sin embargo, para la comunicación entre el lienzo y la ventana principal será necesario crear una clase manejadora para la gestión de eventos relacionados con el lienzo. La existencia de esta clase permitirá también informar de la falta de atributos necesarios para el dibujo de las figuras y poder lanzar mensajes de error desde la ventana principal (por ejemplo: no se ha seleccionado una forma de dibujo). 
 \section{Diseño}
 Siguiendo la propuesta que se ha planteado en el análisis, se plantea la siguiente jerarquía de clases.
 \section{Implementación}
 \section{Validación software}
+\subsection{Gráficos}
+\subsection{Procesamiento de imágenes}
+\subsubsection{Duplicar}
+Se comprobará si la duplicación de la imagen se ha realizado correctamente, de forma que si se modifica una, los cambios no se aplican en la otra.
+\subsubsection{Modificar brillo}
+\vskip0.3cm
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=0.3\textwidth]{imagenes/fryBrilo2.jpg}
+  \includegraphics[width=0.3\textwidth]{imagenes/Fry.jpg}
+  \includegraphics[width=0.3\textwidth]{imagenes/fryBrillo1.jpg}
+ \caption{Modificación del brillo}
+ \label{diseño}
+\end{figure}
+\subsubsection{Filtro de emborronamiento}
+Se ha aplicado varias veces el filtro para que sea visible.
+\vskip0.3cm
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=0.3\textwidth]{imagenes/Fry.jpg}
+  \includegraphics[width=0.3\textwidth]{imagenes/fryEmborronamiento.jpg}
+ \caption{Aplicación filtro emborronamiento}
+ \label{diseño}
+\end{figure}
+\subsubsection{Filtro de enfoque}
+\vskip0.3cm
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=0.3\textwidth]{imagenes/Fry.jpg}
+  \includegraphics[width=0.3\textwidth]{imagenes/fryEnfoque.jpg}
+ \caption{Aplicación filtro enfoque}
+ \label{diseño}
+\end{figure}
+\subsubsection{Filtro de relieve}
+\vskip0.3cm
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=0.3\textwidth]{imagenes/Fry.jpg}
+  \includegraphics[width=0.3\textwidth]{imagenes/fryRelieve.jpg}
+ \caption{Aplicación filtro relieve}
+ \label{diseño}
+\end{figure}
+\subsubsection{Contraste normal}
+\vskip0.3cm
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=0.3\textwidth]{imagenes/Fry.jpg}
+  \includegraphics[width=0.3\textwidth]{imagenes/fryContraste.jpg}
+ \caption{Aplicación contraste}
+ \label{diseño}
+\end{figure}
+\subsubsection{Iluminado}
+\vskip0.3cm
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=0.3\textwidth]{imagenes/Fry.jpg}
+  \includegraphics[width=0.3\textwidth]{imagenes/fryIluminado.jpg}
+ \caption{Aplicación iluminación}
+ \label{diseño}
+\end{figure}
+\subsubsection{Oscurecido}
+\vskip0.3cm
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=0.3\textwidth]{imagenes/Fry.jpg}
+  \includegraphics[width=0.3\textwidth]{imagenes/fryOscurecido.jpg}
+ \caption{Aplicación oscurecido}
+ \label{diseño}
+\end{figure}
+\subsubsection{Invertir colores}
+\vskip0.3cm
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=0.3\textwidth]{imagenes/Fry.jpg}
+  \includegraphics[width=0.3\textwidth]{imagenes/fryNegativo.jpg}
+ \caption{Aplicación filtro negativo}
+ \label{diseño}
+\end{figure}
+\subsubsection{Conversión a espacios RGB, YCC, GRAY}
+Para comprobar que la conversión se ha realizado correctamente, se extraen las bandas de colores y se comparan. En la imagen se pueden ver la tercera banda de una imagen en espacio de color RGB y YCC, respectivamente.
+\vskip0.3cm
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=0.3\textwidth]{imagenes/banda3RGB.jpg}
+  \includegraphics[width=0.3\textwidth]{imagenes/banda3YCC.jpg}
+ \caption{}
+ \label{diseño}
+\end{figure}
+\subsubsection{Giro libre}
+\vskip0.3cm
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=0.3\textwidth]{imagenes/Fry.jpg}
+  \includegraphics[width=0.3\textwidth]{imagenes/fryGiro.jpg}
+ \caption{Giro libre}
+ \label{diseño}
+\end{figure}
+\subsubsection{Escalado}
+\subsubsection{Tintado}
+\vskip0.3cm
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=0.3\textwidth]{imagenes/fryTinteRojo.jpg}
+  \includegraphics[width=0.3\textwidth]{imagenes/Fry.jpg}
+  \includegraphics[width=0.3\textwidth]{imagenes/fryTinteAmarillo.jpg}
+ \caption{Tintado de la imagen}
+ \label{diseño}
+\end{figure}
+\subsubsection{Ecualización}
+\vskip0.3cm
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=0.3\textwidth]{imagenes/Fry.jpg}
+  \includegraphics[width=0.3\textwidth]{imagenes/fryEcualizacion.jpg}
+ \caption{Aplicación ecualización}
+ \label{diseño}
+\end{figure}
+\subsubsection{Filtro sepia}
+\vskip0.3cm
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=0.3\textwidth]{imagenes/Fry.jpg}
+  \includegraphics[width=0.3\textwidth]{imagenes/frySepia.jpg}
+ \caption{Aplicación filtro sepia}
+ \label{diseño}
+\end{figure}
+\subsubsection{Umbralización}
+\vskip0.3cm
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=0.3\textwidth]{imagenes/Fry.jpg}
+  \includegraphics[width=0.3\textwidth]{imagenes/fryUmbralizado.jpg}
+ \caption{Umbralizar imagen}
+ \label{diseño}
+\end{figure}
+\subsubsection{Operador \textit{LookupOp} basado en una función propia}
+\vskip0.3cm
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=0.3\textwidth]{imagenes/Fry.jpg}
+  \includegraphics[width=0.3\textwidth]{imagenes/fryCos.jpg}
+ \caption{Aplicación filtro violeta}
+ \label{diseño}
+ \end{figure}
+\subsubsection{Operación de diseño propio: filtro violeta}
+\vskip0.3cm
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=0.3\textwidth]{imagenes/Fry.jpg}
+  \includegraphics[width=0.3\textwidth]{imagenes/fryVioleta.jpg}
+ \caption{Aplicación filtro violeta}
+ \label{diseño}
+ \end{figure}
+\subsubsection{Operación de diseño propio: media de las bandas}
+\vskip0.3cm
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=0.3\textwidth]{imagenes/Fry.jpg}
+  \includegraphics[width=0.3\textwidth]{imagenes/fryMediaBandas.jpg}
+ \caption{Aplicación filtro media de colores}
+ \label{diseño}
+ \end{figure}
+\subsection{Sonido}
+\subsection{Vídeo}
 %\section{Bonus}
 
 %\begin{lstlisting}[language=python, caption=Código gradiente descendente, label=lst:graddesc]

@@ -14,6 +14,7 @@ public class VentanaMultimediaImagen extends VentanaMultimedia {
      */
     public VentanaMultimediaImagen() {
         initComponents();
+        lienzo.setLienzoActivado();
     }
 
     /**
@@ -79,7 +80,6 @@ public class VentanaMultimediaImagen extends VentanaMultimedia {
     private void formInternalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameDeactivated
         lienzo.quitBoundingBox();
     }//GEN-LAST:event_formInternalFrameDeactivated
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
