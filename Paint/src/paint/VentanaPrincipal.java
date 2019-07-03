@@ -1294,9 +1294,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      */
     private void nuevoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoMenuItemActionPerformed
         VentanaMultimediaImagen vi = new VentanaMultimediaImagen();
-        escritorio.add(vi);
         String hS, wS = null;
-        BufferedImage img;
+
         hS = JOptionPane.showInputDialog(null, "Introduzca altura de la imagen", "300");
         if(hS!=null){
             wS = JOptionPane.showInputDialog(null, "Introduzca ancho de la imagen", "300");
@@ -1308,13 +1307,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             vi.getLienzo().setDimension(new Dimension(w,h));
             vi.getLienzo().setArea();
             vi.setTitle("Nueva");
-            vi.setVisible(true);
             
             //Añadimos el manejador
             MiManejadorLienzo manejador = new MiManejadorLienzo();
             vi.getLienzo().addLienzoListener(manejador);
+            
+            //se añade la ventana principal después para que se lanze el 
+            //evento lienzoSeleccionado
+            escritorio.add(vi);
+            vi.setVisible(true);
 
-            this.repaint();
+            this.repaint();            
         }
         
     }//GEN-LAST:event_nuevoMenuItemActionPerformed
@@ -1368,14 +1371,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     BufferedImage img = ImageIO.read(f);
                     VentanaMultimediaImagen vi = new VentanaMultimediaImagen();
                     vi.getLienzo().setImage(img);
-                    this.escritorio.add(vi);
+                    
                     //al nombre le añadimos el espacio de color
+                    //https://docs.oracle.com/javase/7/docs/api/java/awt/color/ColorSpace.html
                     String espacioColor = "";
                     if(img.getColorModel().getColorSpace().isCS_sRGB()){
                         espacioColor = "[RGB]";
                     }
+                    else if(img.getColorModel().getColorSpace().equals(ColorSpace.CS_PYCC)){
+                        espacioColor = "[YCC]";
+                    }
+                    else if(img.getColorModel().getColorSpace().equals(ColorSpace.CS_GRAY)){
+                        espacioColor = "[GRAY]";
+                    }
                     vi.setTitle(f.getName()+" " + espacioColor);
-                    vi.setVisible(true);
                     int w = img.getWidth();
                     int h = img.getHeight();
                     vi.getLienzo().setDimension(new Dimension(w,h));
@@ -1383,6 +1392,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     //Añadimos el manejador
                     MiManejadorLienzo manejador = new MiManejadorLienzo();
                     vi.getLienzo().addLienzoListener(manejador);
+                    
+                    this.escritorio.add(vi);
+                    vi.setVisible(true);
                 }
                 if(soundFilter.accept(f)){
                     listaMediaCB.addItem(f);

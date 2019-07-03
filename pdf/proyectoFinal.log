@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.10.14)  3 JUL 2019 00:51
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.10.14)  3 JUL 2019 11:14
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -632,6 +632,21 @@ LaTeX Warning: Unused global option(s):
 (./proyectoFinal.aux
 LaTeX Info: Redefining \. on input line 23.
 LaTeX Info: Redefining \% on input line 23.
+
+
+LaTeX Warning: Label `dise\IeC {\~n}o' multiply defined.
+
+
+LaTeX Warning: Label `dise\IeC {\~n}o' multiply defined.
+
+
+LaTeX Warning: Label `dise\IeC {\~n}o' multiply defined.
+
+
+LaTeX Warning: Label `dise\IeC {\~n}o' multiply defined.
+
+
+LaTeX Warning: Label `dise\IeC {\~n}o' multiply defined.
 
 
 LaTeX Warning: Label `dise\IeC {\~n}o' multiply defined.
@@ -1377,28 +1392,16 @@ Package babel Info: Redefining spanish shorthand "?
 File: imagenes/banda3RGB.jpg Graphic file (type jpg)
 
 <use imagenes/banda3RGB.jpg>
-Package pdftex.def Info: imagenes/banda3RGB.jpg used on input line 284.
+Package pdftex.def Info: imagenes/banda3RGB.jpg used on input line 285.
 (pdftex.def)             Requested size: 128.0387pt x 162.8688pt.
 
 <imagenes/banda3YCC.jpg, id=245, 501.875pt x 638.385pt>
 File: imagenes/banda3YCC.jpg Graphic file (type jpg)
 
 <use imagenes/banda3YCC.jpg>
-Package pdftex.def Info: imagenes/banda3YCC.jpg used on input line 285.
+Package pdftex.def Info: imagenes/banda3YCC.jpg used on input line 286.
 (pdftex.def)             Requested size: 128.0387pt x 162.8688pt.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 289.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 289.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 289.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 289.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 289.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 289.
-Package babel Info: Redefining spanish shorthand <<
 (babel)             in language  on input line 290.
 Package babel Info: Redefining spanish shorthand >>
 (babel)             in language  on input line 290.
@@ -1410,227 +1413,345 @@ Package babel Info: Redefining spanish shorthand "!
 (babel)             in language  on input line 290.
 Package babel Info: Redefining spanish shorthand "?
 (babel)             in language  on input line 290.
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 291.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 291.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 291.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 291.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 291.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 291.
+File: imagenes/Fry.jpg Graphic file (type jpg)
+ <use imagenes/Fry.jpg>
+Package pdftex.def Info: imagenes/Fry.jpg used on input line 294.
+(pdftex.def)             Requested size: 128.0387pt x 96.02922pt.
 
-<imagenes/fryTinteRojo.jpg, id=246, 642.4pt x 481.8pt>
+<imagenes/fryGiro.jpg, id=246, 637.38126pt x 456.70625pt>
+File: imagenes/fryGiro.jpg Graphic file (type jpg)
+
+<use imagenes/fryGiro.jpg>
+Package pdftex.def Info: imagenes/fryGiro.jpg used on input line 295.
+(pdftex.def)             Requested size: 128.0387pt x 91.7438pt.
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 299.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 299.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 299.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 299.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 299.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 299.
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 300.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 300.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 300.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 300.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 300.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 300.
+
+<imagenes/fryTinteRojo.jpg, id=247, 642.4pt x 481.8pt>
 File: imagenes/fryTinteRojo.jpg Graphic file (type jpg)
 
 <use imagenes/fryTinteRojo.jpg>
-Package pdftex.def Info: imagenes/fryTinteRojo.jpg used on input line 295.
+Package pdftex.def Info: imagenes/fryTinteRojo.jpg used on input line 304.
 (pdftex.def)             Requested size: 128.0387pt x 96.02747pt.
 File: imagenes/Fry.jpg Graphic file (type jpg)
  <use imagenes/Fry.jpg>
-Package pdftex.def Info: imagenes/Fry.jpg used on input line 296.
+Package pdftex.def Info: imagenes/Fry.jpg used on input line 305.
 (pdftex.def)             Requested size: 128.0387pt x 96.02922pt.
 
-<imagenes/fryTinteAmarillo.jpg, id=247, 642.4pt x 481.8pt>
+<imagenes/fryTinteAmarillo.jpg, id=248, 642.4pt x 481.8pt>
 File: imagenes/fryTinteAmarillo.jpg Graphic file (type jpg)
 
 <use imagenes/fryTinteAmarillo.jpg>
-Package pdftex.def Info: imagenes/fryTinteAmarillo.jpg used on input line 297.
+Package pdftex.def Info: imagenes/fryTinteAmarillo.jpg used on input line 306.
 (pdftex.def)             Requested size: 128.0387pt x 96.02747pt.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 301.
+(babel)             in language  on input line 310.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 301.
+(babel)             in language  on input line 310.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 301.
+(babel)             in language  on input line 310.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 301.
+(babel)             in language  on input line 310.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 301.
+(babel)             in language  on input line 310.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 301.
+(babel)             in language  on input line 310.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 302.
+(babel)             in language  on input line 310.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 302.
+(babel)             in language  on input line 310.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 302.
+(babel)             in language  on input line 310.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 302.
+(babel)             in language  on input line 310.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 302.
+(babel)             in language  on input line 310.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 302.
-File: imagenes/Fry.jpg Graphic file (type jpg)
- <use imagenes/Fry.jpg>
-Package pdftex.def Info: imagenes/Fry.jpg used on input line 306.
-(pdftex.def)             Requested size: 128.0387pt x 96.02922pt.
-
-<imagenes/frySepia.jpg, id=248, 642.4pt x 481.8pt>
-File: imagenes/frySepia.jpg Graphic file (type jpg)
- <use imagenes/frySepia.jpg>
-Package pdftex.def Info: imagenes/frySepia.jpg used on input line 307.
-(pdftex.def)             Requested size: 128.0387pt x 96.02747pt.
+(babel)             in language  on input line 310.
+ [7 <./imagenes/fryNegativo.jpg> <./imagenes/banda3RGB.jpg> <./imagenes/banda3Y
+CC.jpg> <./imagenes/fryGiro.jpg>]
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 311.
+(babel)             in language  on input line 310.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 311.
+(babel)             in language  on input line 310.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 311.
+(babel)             in language  on input line 310.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 311.
+(babel)             in language  on input line 310.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 311.
+(babel)             in language  on input line 310.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 311.
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 311.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 311.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 311.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 311.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 311.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 311.
-
-[7 <./imagenes/fryNegativo.jpg> <./imagenes/banda3RGB.jpg> <./imagenes/banda3YC
-C.jpg> <./imagenes/fryTinteRojo.jpg> <./imagenes/fryTinteAmarillo.jpg>]
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 311.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 311.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 311.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 311.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 311.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 311.
+(babel)             in language  on input line 310.
 File: imagenes/Fry.jpg Graphic file (type jpg)
 
 <use imagenes/Fry.jpg>
-Package pdftex.def Info: imagenes/Fry.jpg used on input line 315.
+Package pdftex.def Info: imagenes/Fry.jpg used on input line 314.
 (pdftex.def)             Requested size: 128.0387pt x 96.02922pt.
 
-<imagenes/fryUmbralizado.jpg, id=256, 642.4pt x 481.8pt>
+<imagenes/fryEcualizacion.jpg, id=256, 642.4pt x 481.8pt>
+File: imagenes/fryEcualizacion.jpg Graphic file (type jpg)
+
+<use imagenes/fryEcualizacion.jpg>
+Package pdftex.def Info: imagenes/fryEcualizacion.jpg used on input line 315.
+(pdftex.def)             Requested size: 128.0387pt x 96.02747pt.
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 319.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 319.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 319.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 319.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 319.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 319.
+File: imagenes/Fry.jpg Graphic file (type jpg)
+ <use imagenes/Fry.jpg>
+Package pdftex.def Info: imagenes/Fry.jpg used on input line 323.
+(pdftex.def)             Requested size: 128.0387pt x 96.02922pt.
+
+<imagenes/frySepia.jpg, id=257, 642.4pt x 481.8pt>
+File: imagenes/frySepia.jpg Graphic file (type jpg)
+ <use imagenes/frySepia.jpg>
+Package pdftex.def Info: imagenes/frySepia.jpg used on input line 324.
+(pdftex.def)             Requested size: 128.0387pt x 96.02747pt.
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 328.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 328.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 328.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 328.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 328.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 328.
+File: imagenes/Fry.jpg Graphic file (type jpg)
+
+<use imagenes/Fry.jpg>
+Package pdftex.def Info: imagenes/Fry.jpg used on input line 332.
+(pdftex.def)             Requested size: 128.0387pt x 96.02922pt.
+
+<imagenes/fryUmbralizado.jpg, id=258, 642.4pt x 481.8pt>
 File: imagenes/fryUmbralizado.jpg Graphic file (type jpg)
 
 <use imagenes/fryUmbralizado.jpg>
-Package pdftex.def Info: imagenes/fryUmbralizado.jpg used on input line 316.
+Package pdftex.def Info: imagenes/fryUmbralizado.jpg used on input line 333.
 (pdftex.def)             Requested size: 128.0387pt x 96.02747pt.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 320.
+(babel)             in language  on input line 337.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 320.
+(babel)             in language  on input line 337.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 320.
+(babel)             in language  on input line 337.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 320.
+(babel)             in language  on input line 337.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 320.
+(babel)             in language  on input line 337.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 320.
+(babel)             in language  on input line 337.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 321.
+(babel)             in language  on input line 337.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 321.
+(babel)             in language  on input line 337.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 321.
+(babel)             in language  on input line 337.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 321.
+(babel)             in language  on input line 337.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 321.
+(babel)             in language  on input line 337.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 321.
+(babel)             in language  on input line 337.
+ [8 <./imagenes/fryTinteRojo.jpg> <./imagenes/fryTinteAmarillo.jpg> <./imagenes
+/fryEcualizacion.jpg> <./imagenes/frySepia.jpg>]
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 322.
+(babel)             in language  on input line 337.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 322.
+(babel)             in language  on input line 337.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 322.
+(babel)             in language  on input line 337.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 322.
+(babel)             in language  on input line 337.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 322.
+(babel)             in language  on input line 337.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 322.
+(babel)             in language  on input line 337.
+File: imagenes/Fry.jpg Graphic file (type jpg)
+ <use imagenes/Fry.jpg>
+Package pdftex.def Info: imagenes/Fry.jpg used on input line 341.
+(pdftex.def)             Requested size: 128.0387pt x 96.02922pt.
+ <imagenes/fryCos.jpg, id=266, 642.4pt x 481.8pt>
+File: imagenes/fryCos.jpg Graphic file (type jpg)
+
+<use imagenes/fryCos.jpg>
+Package pdftex.def Info: imagenes/fryCos.jpg used on input line 342.
+(pdftex.def)             Requested size: 128.0387pt x 96.02747pt.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 323.
+(babel)             in language  on input line 346.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 323.
+(babel)             in language  on input line 346.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 323.
+(babel)             in language  on input line 346.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 323.
+(babel)             in language  on input line 346.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 323.
+(babel)             in language  on input line 346.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 323.
+(babel)             in language  on input line 346.
+File: imagenes/Fry.jpg Graphic file (type jpg)
+ <use imagenes/Fry.jpg>
+Package pdftex.def Info: imagenes/Fry.jpg used on input line 350.
+(pdftex.def)             Requested size: 128.0387pt x 96.02922pt.
+
+<imagenes/fryVioleta.jpg, id=267, 642.4pt x 481.8pt>
+File: imagenes/fryVioleta.jpg Graphic file (type jpg)
+
+<use imagenes/fryVioleta.jpg>
+Package pdftex.def Info: imagenes/fryVioleta.jpg used on input line 351.
+(pdftex.def)             Requested size: 128.0387pt x 96.02747pt.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 324.
+(babel)             in language  on input line 355.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 324.
+(babel)             in language  on input line 355.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 324.
+(babel)             in language  on input line 355.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 324.
+(babel)             in language  on input line 355.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 324.
+(babel)             in language  on input line 355.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 324.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 336.
+(babel)             in language  on input line 355.
+File: imagenes/Fry.jpg Graphic file (type jpg)
+ <use imagenes/Fry.jpg>
+Package pdftex.def Info: imagenes/Fry.jpg used on input line 359.
+(pdftex.def)             Requested size: 128.0387pt x 96.02922pt.
+
+<imagenes/fryMediaBandas.jpg, id=268, 642.4pt x 481.8pt>
+File: imagenes/fryMediaBandas.jpg Graphic file (type jpg)
+
+<use imagenes/fryMediaBandas.jpg>
+Package pdftex.def Info: imagenes/fryMediaBandas.jpg used on input line 360.
+(pdftex.def)             Requested size: 128.0387pt x 96.02747pt.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 336.
+(babel)             in language  on input line 364.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 336.
+(babel)             in language  on input line 364.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 336.
+(babel)             in language  on input line 364.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 336.
+(babel)             in language  on input line 364.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 336.
+(babel)             in language  on input line 364.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 336.
+(babel)             in language  on input line 364.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 336.
+(babel)             in language  on input line 364.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 336.
+(babel)             in language  on input line 364.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 336.
+(babel)             in language  on input line 364.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 336.
+(babel)             in language  on input line 364.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 336.
+(babel)             in language  on input line 364.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 336.
- [8 <./imagenes/frySepia.jpg> <./imagenes/fryUmbralizado.jpg>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 336.
- (./proyectoFinal.aux
+(babel)             in language  on input line 364.
+ [9 <./imagenes/fryUmbralizado.jpg> <./imagenes/fryCos.jpg> <./imagenes/fryViol
+eta.jpg>]
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 364.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 364.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 364.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 364.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 364.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 364.
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 365.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 365.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 365.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 365.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 365.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 365.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 377.
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 377.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 377.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 377.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 377.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 377.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 377.
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 377.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 377.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 377.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 377.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 377.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 377.
+ [10 <./imagenes/fryMediaBandas.jpg>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 377.
+(./proyectoFinal.aux
 LaTeX Info: Redefining \. on input line 23.
 LaTeX Info: Redefining \% on input line 23.
 )
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 336.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 336.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 377.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 377.
 Package rerunfilecheck Info: File `proyectoFinal.out' has not changed.
 (rerunfilecheck)             Checksum: 10705A6DC67334A85D0FF54A6E9AEEDA;2610.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 336.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 377.
  ) 
 Here is how much of TeX's memory you used:
- 9979 strings out of 493089
- 141250 string characters out of 6134841
- 250068 words of memory out of 5000000
- 13218 multiletter control sequences out of 15000+600000
+ 10011 strings out of 493089
+ 141943 string characters out of 6134841
+ 250087 words of memory out of 5000000
+ 13238 multiletter control sequences out of 15000+600000
  18206 words of font info for 51 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  34i,11n,43p,623b,417s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1645,10 +1766,10 @@ al/texlive/2015/texmf-dist/fonts/type1/public/cm-super/sfcc1000.pfb></usr/local
 exlive/2015/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/tex
 live/2015/texmf-dist/fonts/type1/public/cm-super/sfrm2074.pfb></usr/local/texli
 ve/2015/texmf-dist/fonts/type1/public/cm-super/sfti1000.pfb>
-Output written on proyectoFinal.pdf (10 pages, 583434 bytes).
+Output written on proyectoFinal.pdf (12 pages, 771483 bytes).
 PDF statistics:
- 314 PDF objects out of 1000 (max. 8388607)
- 273 compressed objects within 3 object streams
- 58 named destinations out of 1000 (max. 500000)
- 369 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 333 PDF objects out of 1000 (max. 8388607)
+ 285 compressed objects within 3 object streams
+ 65 named destinations out of 1000 (max. 500000)
+ 394 words of extra memory for PDF output out of 10000 (max. 10000000)
 
