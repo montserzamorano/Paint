@@ -7,6 +7,7 @@ package paint;
 
 import java.io.File;
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
+import uk.co.caprica.vlcj.player.MediaPlayerEventListener;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 
 /**
@@ -45,12 +46,17 @@ public class VentanaMultimediaVLCPlayer extends VentanaMultimedia {
     }
     public void stop(){
         if(vlcplayer!=null){
-            if(vlcplayer.isPlaying()){
-                vlcplayer.pause();
+            if(vlcplayer != null){
+                if(vlcplayer.isPlaying()){
+                    vlcplayer.pause();
+                }
+                else{vlcplayer.stop();}
             }
-            else{
-                vlcplayer.stop();
-            }
+        }
+    }
+    public void addMediaPlayerEventListener(MediaPlayerEventListener ml){
+        if(vlcplayer!=null){
+            vlcplayer.addMediaPlayerEventListener(ml);
         }
     }
 

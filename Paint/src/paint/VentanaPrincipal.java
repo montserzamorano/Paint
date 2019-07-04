@@ -55,6 +55,8 @@ import sm.image.LookupTableProducer;
 import sm.image.TintOp;
 import uk.co.caprica.vlcj.filter.AudioFileFilter;
 import uk.co.caprica.vlcj.filter.VideoFileFilter;
+import uk.co.caprica.vlcj.player.MediaPlayer;
+import uk.co.caprica.vlcj.player.MediaPlayerEventAdapter;
 
 /**
  *
@@ -91,8 +93,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
  
         //botones de sonido
         stopRecordBoton.setEnabled(false);
-        pausaSonidoBoton.setEnabled(false);
-        stopSonidoBoton.setEnabled(false);
+        //pausaSonidoBoton.setEnabled(false);
+        //stopSonidoBoton.setEnabled(false);
         //procesamiento de imagenes
         disablePI();
         
@@ -102,11 +104,35 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         videoFilter = new FileNameExtensionFilter("Archivos de video", VideoFileFilter.INSTANCE.getExtensions());
         
     }
-   
+    
+    private class VideoListener extends MediaPlayerEventAdapter{
+        public void opening(MediaPlayer mediaPlayer){
+            System.out.println("Opening MediaPlayerAdapter");
+            stopSonidoBoton.setEnabled(false);
+            pausaSonidoBoton.setEnabled(false);
+            reproducirSonidoBoton.setEnabled(true);
+        }
+        public void playing(MediaPlayer mediaPlayer){
+            stopSonidoBoton.setEnabled(false);
+            pausaSonidoBoton.setEnabled(true);
+            reproducirSonidoBoton.setEnabled(false);
+        }
+        public void paused(MediaPlayer mediaPlayer){
+            stopSonidoBoton.setEnabled(true);
+            pausaSonidoBoton.setEnabled(false);
+            reproducirSonidoBoton.setEnabled(true);
+        }
+        public void finished(MediaPlayer mediaPlayer){
+            reproducirSonidoBoton.setEnabled(true);
+            stopSonidoBoton.setEnabled(false);
+            pausaSonidoBoton.setEnabled(false);
+        }
+    }
+    
     /**
      * Clase MiManejadorLienzo.
      */
-    class MiManejadorLienzo extends LienzoAdapter{
+    private class MiManejadorLienzo extends LienzoAdapter{
         /**
          * {@inheritDoc }
          */
@@ -1502,6 +1528,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 if(videoFilter.accept(f)){
                     listaMediaCB.addItem(f);
                     VentanaMultimediaVLCPlayer vi = new VentanaMultimediaVLCPlayer(f);
+                    vi.addMediaPlayerEventListener(new VideoListener());
                     this.escritorio.add(vi);
                     vi.setTitle(f.getName());
                     vi.setVisible(true);
@@ -1599,21 +1626,33 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      * @param evt ActionEvent
      */
     private void reproducirSonidoBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reproducirSonidoBotonActionPerformed
-        File f = (File)listaMediaCB.getSelectedItem();
-        try{
-            if(f!=null && soundFilter.accept(f)){
-                player = new SMClipPlayer(f);
-                if(player!=null){
-                    player.play();
-                }
+        VentanaMultimedia vi = (VentanaMultimedia)escritorio.getSelectedFrame();
+        //si no hay ventana abierta, directamente probamos sonido
+        //si hay ventana abierta, hay que probar a reproducir el video
+        //ya que este va a tener "preferencia"
+        if(vi==null){
+          File f = (File)listaMediaCB.getSelectedItem();
+          if(f!=null && soundFilter.accept(f)){
+            player = new SMClipPlayer(f);
+            if(player!=null){
+                player.play();
             }
-            else if(f!=null && videoFilter.accept(f)){
-                VentanaMultimediaVLCPlayer vi = new VentanaMultimediaVLCPlayer(f);
-                escritorio.add(vi);
-                vi.setVisible(true);
-                vi.play();
+          }
+        }
+        else{
+            try{//si la ventana es de tipo video ira todo bien
+                ((VentanaMultimediaVLCPlayer) vi).play();
             }
-        }catch(Exception e){}
+            catch(Exception e){//si no, probamos a reproducir lo que haya en la lista de reproduccion
+                File f = (File)listaMediaCB.getSelectedItem();
+                if(f!=null && soundFilter.accept(f)){
+                    player = new SMClipPlayer(f);
+                    if(player!=null){
+                        player.play();
+                    }
+                } 
+            }
+        }
     }//GEN-LAST:event_reproducirSonidoBotonActionPerformed
     /**
      * Detiene la grabación en marcha y la guarda.
@@ -1725,15 +1764,28 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      * @param evt ActionEvent 
      */
     private void stopSonidoBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopSonidoBotonActionPerformed
-        File f = (File) listaMediaCB.getSelectedItem();
-        if(f!=null){
-            if(soundFilter.accept(f)){//si es sonido
-                if(player!=null){
-                    player.stop();
-                }
+        VentanaMultimedia vi = (VentanaMultimedia) escritorio.getSelectedFrame();
+        if(vi==null){
+          File f = (File)listaMediaCB.getSelectedItem();
+          if(f!=null && soundFilter.accept(f)){
+            if(player!=null){
+                player.stop();
+                player = null;
             }
-            else if (videoFilter.accept(f)){
-                System.out.println("ES VIDEO");
+          }
+        }
+        else{
+            try{//si la ventana es de tipo video ira todo bien
+                ((VentanaMultimediaVLCPlayer) vi).stop();
+            }
+            catch(Exception e){//si no, probamos a reproducir lo que haya en la lista de reproduccion
+                File f = (File)listaMediaCB.getSelectedItem();
+                if(f!=null && soundFilter.accept(f)){
+                    player = new SMClipPlayer(f);
+                    if(player!=null){
+                        player.stop();
+                    }
+                } 
             }
         }
     }//GEN-LAST:event_stopSonidoBotonActionPerformed
@@ -1742,15 +1794,26 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      * @param evt ActionEvent 
      */
     private void pausaSonidoBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pausaSonidoBotonActionPerformed
-        File f = (File) listaMediaCB.getSelectedItem();
-        if(f!=null){
-            if(soundFilter.accept(f)){//si es  sonido
-                if(player!=null){
-                    player.pause();
-                }
+        VentanaMultimedia vi = (VentanaMultimedia) escritorio.getSelectedFrame();
+        if(vi==null){
+          File f = (File)listaMediaCB.getSelectedItem();
+          if(f!=null && soundFilter.accept(f)){
+            if(player!=null){
+                player.pause();
             }
-            else if (videoFilter.accept(f)){
-                System.out.println("ES VIDEO");
+          }
+        }
+        else{
+            try{//si la ventana es de tipo video ira todo bien
+                ((VentanaMultimediaVLCPlayer) vi).stop();
+            }
+            catch(Exception e){//si no, probamos a reproducir lo que haya en la lista de reproduccion
+                File f = (File)listaMediaCB.getSelectedItem();
+                if(f!=null && soundFilter.accept(f)){
+                    if(player!=null){
+                        player.pause();
+                    }
+                } 
             }
         }
     }//GEN-LAST:event_pausaSonidoBotonActionPerformed
@@ -2676,10 +2739,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      */
     private void listaMediaCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaMediaCBActionPerformed
         File selectedFile = (File)listaMediaCB.getSelectedItem();
-        //VentanaMultimediaVLCPlayer vi = VentanaMultimediaVLCPlayer.getInstance(selectedFile);
-        //this.escritorio.add(vi);
-        //vi.setTitle(selectedFile.getName());
-        //vi.setVisible(true);
+        //si es un video, abrimos una ventana que contenga el video
+        if(videoFilter.accept(selectedFile)){
+            VentanaMultimediaVLCPlayer vi = VentanaMultimediaVLCPlayer.getInstance(selectedFile);
+            this.escritorio.add(vi);
+            vi.setTitle(selectedFile.getName());
+            vi.setVisible(true);
+        }
     }//GEN-LAST:event_listaMediaCBActionPerformed
     /**
      * Activa la WebCam

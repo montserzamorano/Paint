@@ -40,15 +40,10 @@ public class Paint {
             java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "/Aplicaciones/VLC.app/Contents/MacOS/lib");
-        //Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
-        //boolean ok = new NativeDiscovery().discover();
+        boolean ok = new NativeDiscovery().discover();
 
-        //if(ok) System.out.println("VLC cargada");
-        //else System.out.println("Error en VLC");
-       
-        //NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), NATIVE_LIBRARY_SEARCH_PATH);
-        //System.out.println(LibVlc.INSTANCE.libvlc_get_version());
+        if(ok) System.out.println("VLC cargada");
+        else System.out.println("Error en VLC");
 
         
         /* Create and display the form */
