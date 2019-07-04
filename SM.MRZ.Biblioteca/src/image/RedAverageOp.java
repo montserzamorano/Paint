@@ -2,14 +2,12 @@ package image;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import sm.image.BufferedImageOpAdapter;
-
 /**
- *
+ * 
  * @author Montserrat Rodríguez Zamorano
  * @version 1.1
  */
-
-public class PurpleOp extends BufferedImageOpAdapter{
+public class RedAverageOp extends BufferedImageOpAdapter{
     /**
      * {@inheritDoc }
      */
@@ -32,10 +30,10 @@ public class PurpleOp extends BufferedImageOpAdapter{
                 srcR = colorSrc.getRed();
                 srcG = colorSrc.getGreen();
                 srcB = colorSrc.getBlue();
-                //operacion componente a componente
-                destR = (int) Math.min(255,1.3*srcR);
-                destG = (int) Math.min(255,0.2*srcR);
-                destB = (int) Math.min(255,1.5*srcB);
+                //operacion pixel a pixel
+                destR = srcR;
+                destG = Math.min(255,(srcR+srcG+srcB)/3);
+                destB = Math.min(255,(srcR+srcG+srcB)/3);
                 
                 colorDest = new Color(destR, destG, destB);
                 dest.setRGB(x, y, colorDest.getRGB());

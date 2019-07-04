@@ -7,7 +7,7 @@ import sm.image.BufferedImageOpAdapter;
  * @author Montserrat Rodríguez Zamorano
  * @version 1.1
  */
-public class AverageOp extends BufferedImageOpAdapter{
+public class RedFilterOp extends BufferedImageOpAdapter{
     /**
      * {@inheritDoc }
      */
@@ -31,9 +31,9 @@ public class AverageOp extends BufferedImageOpAdapter{
                 srcG = colorSrc.getGreen();
                 srcB = colorSrc.getBlue();
                 //operacion pixel a pixel
-                destR = Math.min(255,(srcR+srcG+srcB)/2);
-                destG = Math.min(255,(srcR+srcG+srcB)/2);
-                destB = Math.min(255,(srcR+srcG+srcB)/2);
+                destR = srcR;
+                destG = (srcG+srcB)/2;
+                destB = (srcG+srcB)/2;
                 
                 colorDest = new Color(destR, destG, destB);
                 dest.setRGB(x, y, colorDest.getRGB());

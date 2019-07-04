@@ -34,6 +34,7 @@ public abstract class FiguraRellenable extends Figura{
     }
     
     public void setShape(Shape s){this.s = s;}
+    public Shape getShape(){return s;}
     
     public void setTipoRelleno(TipoRelleno tipoRelleno){
         this.tipoRelleno = tipoRelleno;

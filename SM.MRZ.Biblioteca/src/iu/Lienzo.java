@@ -72,7 +72,12 @@ public class Lienzo extends javax.swing.JPanel {
      * 
      * @param f 
      */ 
-    public void addFigura(Figura f){vFiguras.add(f);}
+    public void addFigura(Figura f){
+        vFiguras.add(f);
+        notifyShapeAddedEvent(new LienzoEvent(this, fActiva, pA, vFiguras,
+        colorTrazo, stroke, grosor, transparencia, colorRelleno, tipoRelleno, 
+        colorDeg1, colorDeg2, formaActiva, alisadoActivated));
+    }
     /**
      * 
      * @param g 
@@ -511,9 +516,6 @@ public class Lienzo extends javax.swing.JPanel {
         Figura f = createFigura(pI, pF);
         if(f!=null){
             addFigura(f);
-            notifyShapeAddedEvent(new LienzoEvent(this, fActiva, pA, vFiguras,
-        colorTrazo, stroke, grosor, transparencia, colorRelleno, tipoRelleno, 
-        colorDeg1, colorDeg2, formaActiva, alisadoActivated));
         }
     }//GEN-LAST:event_formMousePressed
     /**

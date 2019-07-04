@@ -26,8 +26,9 @@ import iu.RellenoRenderer;
 import graficos.TipoLinea;
 import image.SepiaOp;
 import image.UmbralizacionOp;
-import image.AverageOp;
+import image.RedAverageOp;
 import image.PurpleOp;
+import image.RedFilterOp;
 import iu.LienzoImagen;
 import iu.TipoLineaRenderer;
 import java.awt.Point;
@@ -88,10 +89,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         //relleno, desactivar botones
         //setOpcionesRelleno(TipoRelleno.NINGUNO);
  
-        //sliders desactivados
-        //tintadoSlider.setEnabled(false);
         //botones de sonido
-        //stopRecordBoton.setEnabled(false);
+        stopRecordBoton.setEnabled(false);
+        pausaSonidoBoton.setEnabled(false);
+        stopSonidoBoton.setEnabled(false);
+        //procesamiento de imagenes
         disablePI();
         
         //filtros
@@ -328,6 +330,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         barraDerechaTB = new javax.swing.JToolBar();
         disenioPropioBoton = new javax.swing.JButton();
         disenioPropio2Boton = new javax.swing.JButton();
+        disenioPropio3Boton = new javax.swing.JButton();
         cosinusoideBoton = new javax.swing.JButton();
         duplicarBoton = new javax.swing.JButton();
         negativoBoton = new javax.swing.JButton();
@@ -781,12 +784,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         barraDerechaTB.add(disenioPropioBoton);
 
         disenioPropio2Boton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/mediabandas.png"))); // NOI18N
-        disenioPropio2Boton.setToolTipText("Filtro media bandas de colores");
+        disenioPropio2Boton.setToolTipText("Filtro media rojo");
         disenioPropio2Boton.setFocusable(false);
         disenioPropio2Boton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         disenioPropio2Boton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         disenioPropio2Boton.addActionListener(formListener);
         barraDerechaTB.add(disenioPropio2Boton);
+
+        disenioPropio3Boton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/tintado.png"))); // NOI18N
+        disenioPropio3Boton.setToolTipText("Filtro rojizo");
+        disenioPropio3Boton.setFocusable(false);
+        disenioPropio3Boton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        disenioPropio3Boton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        disenioPropio3Boton.addActionListener(formListener);
+        barraDerechaTB.add(disenioPropio3Boton);
 
         cosinusoideBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevos/coseno.png"))); // NOI18N
         cosinusoideBoton.setToolTipText("Cosinusoide");
@@ -1106,6 +1117,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             else if (evt.getSource() == acercaMenuItem) {
                 VentanaPrincipal.this.acercaMenuItemActionPerformed(evt);
             }
+            else if (evt.getSource() == disenioPropio3Boton) {
+                VentanaPrincipal.this.disenioPropio3BotonActionPerformed(evt);
+            }
         }
 
         public void focusGained(java.awt.event.FocusEvent evt) {
@@ -1299,6 +1313,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         giroLibreSlider.setEnabled(false);
         disenioPropioBoton.setEnabled(false);
         disenioPropio2Boton.setEnabled(false);
+        disenioPropio3Boton.setEnabled(false);
         cosinusoideBoton.setEnabled(false);
         duplicarBoton.setEnabled(false);
         negativoBoton.setEnabled(false);
@@ -1346,6 +1361,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         giroLibreSlider.setEnabled(true);
         disenioPropioBoton.setEnabled(true);
         disenioPropio2Boton.setEnabled(true);
+        disenioPropio3Boton.setEnabled(true);
         cosinusoideBoton.setEnabled(true);
         duplicarBoton.setEnabled(true);
         negativoBoton.setEnabled(true);
@@ -1573,6 +1589,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         grabando = true;
         recorder = new SMSoundRecorder(temp);
         recorder.record();
+        recordSonidoBoton.setEnabled(false);
         stopRecordBoton.setEnabled(true);
         
     }//GEN-LAST:event_recordSonidoBotonActionPerformed
@@ -1590,6 +1607,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     player.play();
                 }
             }
+            else if(f!=null && videoFilter.accept(f)){
+                VentanaMultimediaVLCPlayer vi = new VentanaMultimediaVLCPlayer(f);
+                escritorio.add(vi);
+                vi.setVisible(true);
+                vi.play();
+            }
         }catch(Exception e){}
     }//GEN-LAST:event_reproducirSonidoBotonActionPerformed
     /**
@@ -1599,6 +1622,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void stopRecordBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopRecordBotonActionPerformed
         recorder.stop();
         grabando = false;
+        stopRecordBoton.setEnabled(false);
+        recordSonidoBoton.setEnabled(true);
         JFileChooser dlg = new JFileChooser();
         int resp = dlg.showSaveDialog(this);
         if(resp == JFileChooser.APPROVE_OPTION){
@@ -2455,7 +2480,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         if(vi != null){
             BufferedImage imgSource = vi.getLienzo().getImage(true);
             if(imgSource != null){
-                AverageOp dp = new AverageOp();
+                RedAverageOp dp = new RedAverageOp();
                 dp.filter(imgSource, imgSource);
                 vi.getLienzo().repaint();
             }
@@ -2720,6 +2745,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
  
 //GEN-LAST:event_xPositionActionPerformed
 
+    private void disenioPropio3BotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disenioPropio3BotonActionPerformed
+        VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
+        if(vi != null){
+            BufferedImage imgSource = vi.getLienzo().getImage(true);
+            if(imgSource != null){
+                RedFilterOp dp = new RedFilterOp();
+                dp.filter(imgSource, imgSource);
+                vi.getLienzo().repaint();
+            }
+        }
+    }//GEN-LAST:event_disenioPropio3BotonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<Figura> FigurasCB;
@@ -2744,6 +2781,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JComboBox<Color> degradado1CB;
     private javax.swing.JComboBox<Color> degradado2CB;
     private javax.swing.JButton disenioPropio2Boton;
+    private javax.swing.JButton disenioPropio3Boton;
     private javax.swing.JButton disenioPropioBoton;
     private javax.swing.JButton disminuirBoton;
     private javax.swing.JButton duplicarBoton;

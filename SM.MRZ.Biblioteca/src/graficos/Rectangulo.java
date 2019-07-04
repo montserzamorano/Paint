@@ -13,7 +13,7 @@ import java.awt.geom.Rectangle2D;
  */
 
 public class Rectangulo extends FiguraRellenable{
-    private Rectangle2D rectangulo;
+    //private Rectangle2D rectangulo;
     
     /**
     * Constructor
@@ -33,7 +33,7 @@ public class Rectangulo extends FiguraRellenable{
             Color relleno, TipoRelleno tr, Color deg1, Color deg2, 
             float transparencia, boolean alisado){
         super(pO, pF,trazo,stroke,grosor,relleno, tr, deg1, deg2, transparencia, alisado);
-        rectangulo = new Rectangle2D.Double(pO.getX(),pO.getY(),pF.getX()-pO.getX(),pF.getY()-pO.getY());
+        Rectangle2D rectangulo = new Rectangle2D.Double(pO.getX(),pO.getY(),pF.getX()-pO.getX(),pF.getY()-pO.getY());
         super.setShape(rectangulo);
     }
     /**
@@ -41,6 +41,7 @@ public class Rectangulo extends FiguraRellenable{
      */
     @Override
     public void updateShape(Point2D puntoOrigen, Point2D puntoFinal){
+        Rectangle2D rectangulo = ((Rectangle2D)super.getShape());
         rectangulo.setFrameFromDiagonal(puntoOrigen, puntoFinal);
         setPO(puntoOrigen);
         setPF(puntoFinal);
@@ -50,6 +51,7 @@ public class Rectangulo extends FiguraRellenable{
      */
     @Override
     public void setLocation(Point2D p) {
+        Rectangle2D rectangulo = ((Rectangle2D)super.getShape());
         double w = Math.abs(getPO().getX()-getPF().getX());
         double h = Math.abs(getPO().getY()-getPF().getY());
         rectangulo.setRect(p.getX(), p.getY(), w, h);
@@ -58,8 +60,30 @@ public class Rectangulo extends FiguraRellenable{
     }
     /**
      * 
-     * @return 
+     * {@inheritDoc}
      */
-    protected Rectangle2D getRectangulo(){return rectangulo;}
+    protected Rectangle2D getRectangulo(){return ((Rectangle2D)super.getShape());}
+    @Override
+    public String toString(){
+        String ts = "Rectangulo";
+        //añadir color
+        if(getColor()==Color.RED){ts+=" rojo";}
+        else if(getColor()==Color.BLUE){ts+=" azul";}
+        else if(getColor()==Color.GREEN){ts+=" verde";}
+        else if(getColor()==Color.YELLOW){ts+=" amarillo";}
+        else if(getColor()==Color.WHITE){ts+=" blanco";}
+        else if(getColor()==Color.BLACK){ts+=" negro";}
+        //linea discontinua
+        if(getStroke()==TipoLinea.CONTINUA){ts+=" continuo";}
+        else if(getStroke()==TipoLinea.DISCONTINUA){ts+=" discontinuo";}
+        else if(getStroke()==TipoLinea.PUNTEADA){ts+=" punteado";}
+        //relleno
+        if(getTipoRelleno()==TipoRelleno.LISO){ts+= " liso";}
+        else if(getTipoRelleno()==TipoRelleno.NINGUNO){ts+="";}
+        else{
+            ts+=" degradado";
+        }
+        return ts;
+    }
    
 }

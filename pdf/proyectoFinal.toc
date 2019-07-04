@@ -9,36 +9,41 @@
 \contentsline {subsubsection}{\numberline {2.1.5}V\IeC {\'\i }deo}{3}{subsubsection.2.1.5}
 \contentsline {subsection}{\numberline {2.2}Requisitos no funcionales}{3}{subsection.2.2}
 \contentsline {section}{\numberline {3}An\IeC {\'a}lisis}{4}{section.3}
-\contentsline {section}{\numberline {4}Dise\IeC {\~n}o}{4}{section.4}
-\contentsline {subsection}{\numberline {4.1}Figura}{4}{subsection.4.1}
-\contentsline {subsection}{\numberline {4.2}Ventana multimedia}{4}{subsection.4.2}
-\contentsline {subsection}{\numberline {4.3}Eventos}{4}{subsection.4.3}
-\contentsline {subsection}{\numberline {4.4}Operaciones de dise\IeC {\~n}o propio}{4}{subsection.4.4}
-\contentsline {subsubsection}{\numberline {4.4.1}Componente a componente}{4}{subsubsection.4.4.1}
-\contentsline {subsubsection}{\numberline {4.4.2}Pixel a pixel}{5}{subsubsection.4.4.2}
-\contentsline {section}{\numberline {5}Implementaci\IeC {\'o}n}{5}{section.5}
-\contentsline {section}{\numberline {6}Validaci\IeC {\'o}n}{5}{section.6}
-\contentsline {subsection}{\numberline {6.1}Gr\IeC {\'a}ficos}{5}{subsection.6.1}
-\contentsline {subsection}{\numberline {6.2}Procesamiento de im\IeC {\'a}genes}{5}{subsection.6.2}
-\contentsline {subsubsection}{\numberline {6.2.1}Duplicar}{5}{subsubsection.6.2.1}
-\contentsline {subsubsection}{\numberline {6.2.2}Modificar brillo}{6}{subsubsection.6.2.2}
-\contentsline {subsubsection}{\numberline {6.2.3}Filtro de emborronamiento}{6}{subsubsection.6.2.3}
-\contentsline {subsubsection}{\numberline {6.2.4}Filtro de enfoque}{7}{subsubsection.6.2.4}
-\contentsline {subsubsection}{\numberline {6.2.5}Filtro de relieve}{7}{subsubsection.6.2.5}
-\contentsline {subsubsection}{\numberline {6.2.6}Contraste normal}{7}{subsubsection.6.2.6}
-\contentsline {subsubsection}{\numberline {6.2.7}Iluminado}{8}{subsubsection.6.2.7}
-\contentsline {subsubsection}{\numberline {6.2.8}Oscurecido}{8}{subsubsection.6.2.8}
-\contentsline {subsubsection}{\numberline {6.2.9}Invertir colores}{8}{subsubsection.6.2.9}
-\contentsline {subsubsection}{\numberline {6.2.10}Conversi\IeC {\'o}n a espacios RGB, YCC, GRAY}{8}{subsubsection.6.2.10}
-\contentsline {subsubsection}{\numberline {6.2.11}Giro libre}{9}{subsubsection.6.2.11}
-\contentsline {subsubsection}{\numberline {6.2.12}Escalado}{9}{subsubsection.6.2.12}
-\contentsline {subsubsection}{\numberline {6.2.13}Tintado}{9}{subsubsection.6.2.13}
-\contentsline {subsubsection}{\numberline {6.2.14}Ecualizaci\IeC {\'o}n}{10}{subsubsection.6.2.14}
-\contentsline {subsubsection}{\numberline {6.2.15}Filtro sepia}{10}{subsubsection.6.2.15}
-\contentsline {subsubsection}{\numberline {6.2.16}Umbralizaci\IeC {\'o}n}{10}{subsubsection.6.2.16}
-\contentsline {subsubsection}{\numberline {6.2.17}Operador \textit {LookupOp} basado en una funci\IeC {\'o}n propia}{11}{subsubsection.6.2.17}
-\contentsline {subsubsection}{\numberline {6.2.18}Operaci\IeC {\'o}n de dise\IeC {\~n}o propio: filtro violeta}{11}{subsubsection.6.2.18}
-\contentsline {subsubsection}{\numberline {6.2.19}Operaci\IeC {\'o}n de dise\IeC {\~n}o propio: media de las bandas}{11}{subsubsection.6.2.19}
-\contentsline {subsection}{\numberline {6.3}Sonido}{11}{subsection.6.3}
-\contentsline {subsection}{\numberline {6.4}V\IeC {\'\i }deo}{11}{subsection.6.4}
-\contentsline {subsubsection}{\numberline {6.4.1}WebCam}{11}{subsubsection.6.4.1}
+\contentsline {section}{\numberline {4}Dise\IeC {\~n}o}{6}{section.4}
+\contentsline {subsection}{\numberline {4.1}VentanaPrincipal}{6}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Lienzo}{6}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Ventanas internas}{6}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.4}Figura}{6}{subsection.4.4}
+\contentsline {subsection}{\numberline {4.5}Gesti\IeC {\'o}n de eventos}{7}{subsection.4.5}
+\contentsline {subsection}{\numberline {4.6}Procesamiento de im\IeC {\'a}genes}{7}{subsection.4.6}
+\contentsline {subsubsection}{\numberline {4.6.1}Operador \textit {LookUpOp}}{7}{subsubsection.4.6.1}
+\contentsline {subsubsection}{\numberline {4.6.2}Componente a componente}{7}{subsubsection.4.6.2}
+\contentsline {subsubsection}{\numberline {4.6.3}Primera operaci\IeC {\'o}n p\IeC {\'\i }xel a p\IeC {\'\i }xel}{8}{subsubsection.4.6.3}
+\contentsline {subsection}{\numberline {4.7}Segunda operaci\IeC {\'o}n p\IeC {\'\i }xel a p\IeC {\'\i }xel}{10}{subsection.4.7}
+\contentsline {section}{\numberline {5}Implementaci\IeC {\'o}n}{12}{section.5}
+\contentsline {subsection}{\numberline {5.1}Ventana principal}{12}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}VentanaImagen}{12}{subsection.5.2}
+\contentsline {section}{\numberline {6}Validaci\IeC {\'o}n}{13}{section.6}
+\contentsline {subsection}{\numberline {6.1}Gr\IeC {\'a}ficos}{13}{subsection.6.1}
+\contentsline {subsection}{\numberline {6.2}Procesamiento de im\IeC {\'a}genes}{13}{subsection.6.2}
+\contentsline {subsubsection}{\numberline {6.2.1}Duplicar}{13}{subsubsection.6.2.1}
+\contentsline {subsubsection}{\numberline {6.2.2}Modificar brillo}{13}{subsubsection.6.2.2}
+\contentsline {subsubsection}{\numberline {6.2.3}Filtro de emborronamiento}{14}{subsubsection.6.2.3}
+\contentsline {subsubsection}{\numberline {6.2.4}Filtro de enfoque}{14}{subsubsection.6.2.4}
+\contentsline {subsubsection}{\numberline {6.2.5}Filtro de relieve}{14}{subsubsection.6.2.5}
+\contentsline {subsubsection}{\numberline {6.2.6}Contraste normal}{15}{subsubsection.6.2.6}
+\contentsline {subsubsection}{\numberline {6.2.7}Iluminado}{15}{subsubsection.6.2.7}
+\contentsline {subsubsection}{\numberline {6.2.8}Oscurecido}{15}{subsubsection.6.2.8}
+\contentsline {subsubsection}{\numberline {6.2.9}Invertir colores}{16}{subsubsection.6.2.9}
+\contentsline {subsubsection}{\numberline {6.2.10}Conversi\IeC {\'o}n a espacios RGB, YCC, GRAY}{16}{subsubsection.6.2.10}
+\contentsline {subsubsection}{\numberline {6.2.11}Giro libre}{16}{subsubsection.6.2.11}
+\contentsline {subsubsection}{\numberline {6.2.12}Escalado}{17}{subsubsection.6.2.12}
+\contentsline {subsubsection}{\numberline {6.2.13}Tintado}{17}{subsubsection.6.2.13}
+\contentsline {subsubsection}{\numberline {6.2.14}Ecualizaci\IeC {\'o}n}{17}{subsubsection.6.2.14}
+\contentsline {subsubsection}{\numberline {6.2.15}Filtro sepia}{17}{subsubsection.6.2.15}
+\contentsline {subsubsection}{\numberline {6.2.16}Umbralizaci\IeC {\'o}n}{18}{subsubsection.6.2.16}
+\contentsline {subsubsection}{\numberline {6.2.17}Operador \textit {LookupOp} basado en una funci\IeC {\'o}n propia}{18}{subsubsection.6.2.17}
+\contentsline {subsubsection}{\numberline {6.2.18}Operaci\IeC {\'o}n de dise\IeC {\~n}o propio: filtro violeta}{18}{subsubsection.6.2.18}
+\contentsline {subsection}{\numberline {6.3}Sonido}{18}{subsection.6.3}
+\contentsline {subsection}{\numberline {6.4}V\IeC {\'\i }deo}{18}{subsection.6.4}
+\contentsline {subsubsection}{\numberline {6.4.1}WebCam}{18}{subsubsection.6.4.1}

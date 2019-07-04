@@ -61,4 +61,23 @@ public class Linea extends FiguraLineal{
         setPO(p);
         setPF(newp2);
     }
+        /**
+     * {@inheritDoc }
+     */
+    @Override
+    public String toString(){
+        String ts = "Línea";
+        //añadir color
+        if(getColor()==Color.RED){ts+=" roja";}
+        else if(getColor()==Color.BLUE){ts+=" azul";}
+        else if(getColor()==Color.GREEN){ts+=" verde";}
+        else if(getColor()==Color.YELLOW){ts+=" amarilla";}
+        else if(getColor()==Color.WHITE){ts+=" blanca";}
+        else if(getColor()==Color.BLACK){ts+=" negra";}
+        //linea discontinua
+        if(getStroke()==TipoLinea.CONTINUA){ts+=" continua";}
+        else if(getStroke()==TipoLinea.DISCONTINUA){ts+=" discontinua";}
+        else if(getStroke()==TipoLinea.PUNTEADA){ts+=" punteada";}
+        return ts;
+    }
 }

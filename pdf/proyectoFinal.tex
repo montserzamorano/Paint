@@ -46,9 +46,9 @@
 
 \title{	
 \normalfont \normalsize 
-\textsc{{\bf Aprendizaje Automático (2018-2019)} \\ Grado en Ingeniería Informática \\ Universidad de Granada} \\ [25pt] % Your university, school and/or dbrewepartment name(s)
+\textsc{{\bf Sistemas multimedia (2018-2019)} \\ Grado en Ingeniería Informática \\ Universidad de Granada} \\ [25pt] % Your university, school and/or dbrewepartment name(s)
 \horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
-\huge Evaluación Sistemas Multimedia \\ % The assignment title
+\huge Domentación Paint. Práctica de Evaluación. \\ % The assignment title
 \horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
 }
 \author{Montserrat Rodríguez Zamorano} % Nombre y apellidos
@@ -71,7 +71,7 @@
 \setcounter{page}{1}
 \pagestyle{plain}
 \section{Descripción del sistema}
-Para la evaluación de la asignatura de \textit{Sistemas multimedia} se quiere realizar una aplicación multimedia que permita gestionar gráficos, imágenes, sonido y vídeo. Se podrán crear, editar, procesar y visualizar contenido multimedia de distintos tipos.
+Para la evaluación de la asignatura de \textit{Sistemas multimedia} se quiere realizar una aplicación multimedia que permita gestionar gráficos, imágenes, sonido y vídeo. Se podrá crear, editar, procesar y visualizar contenido multimedia de distintos tipos.
 \vskip0.3cm
 Esta aplicación tendrá una ventana principal con diferentes barras de herramientas y botones que permitirán realizar las distintas operaciones sobre el contenido multimedia. Se intentará que la interfaz sea lo más intuitiva posible y facilitar así el uso de la aplicación al usuario final.
 \vskip0.3cm
@@ -174,7 +174,7 @@ Con este fin, se realiza una aplicación que se llamará \textit{Paint}.
 \begin{itemize}
 \item{\textbf{[RNF-1]} Se mostrará en la barra de estado el pixel en el que está situado el ratón.}
 \item{\textbf{[RNF-2]} Se habilitarán en cada momento sólo los botones que pueden utilizarse. Por ejemplo, si se abre una ventana de vídeo se deshabilitarán aquellos correspondientes a las imágenes.}
-\item{\textbf{[RNF-3]} Los botones tendrán asociados un \textit{ToolTipText} para facilitar su uso.}
+\item{\textbf{[RNF-3]} Los botones tendrán asociados un \textit{ToolTipText} para facilitar el uso del programa.}
 \item{\textbf{[RNF-4]} Al seleccionar una figura se activarán sus propiedades en la barra de atributos.}
 \item{\textbf{[RNF-5]} Si hay una figura seleccionada, al pulsar el ratón sobre en otro punto, deberá deseleccionarse la figura.}
 \item{\textbf{[RNF-6]} El título de una nueva ventana abierta será el nombre del fichero si se trata de una imagen abierta o guardada.}
@@ -184,28 +184,75 @@ Con este fin, se realiza una aplicación que se llamará \textit{Paint}.
 \item{\textbf{[RNF-10]} Cuando se cree una imagen se lanzará un diálogo que permita elegir las dimensiones de la imagen.}
 
 \end{itemize}
-\section{Análisis}
 
-Se analizará qué requisitos son cubiertos por las bibliotecas disponibles y para cuáles necesitamos desarrollar soluciones alternativas.
+\clearpage
+
+\section{Análisis}
+Se hará un análisis del problema y de las posibles soluciones, intentando que sea lo más independiente posible del lenguaje de programación. En el apartado de \textit{Diseño} se especificarán detalles relacionados con la programación.
 \vskip0.3cm
-En primer lugar, se desarrollará una clase \textit{Lienzo} que constituirá el área de dibujo y que almacenará las figuras dibujadas en una misma ventana. La clase \textit{Lienzo} será la encargada de pintar las figuras.
+En primer lugar, se plantea cómo debería ser el área de dibujo, que almacenará los atributos con los que se pintará la siguiente figura. Con este fin se desarrollará una clase \textit{Lienzo}. Esta clase será la encargada de pintar las figuras. Cada figura dibujada en el área de dibujo tendrá los atributos activos en ese momento en el lienzo, si bien sus atributos podrán modificarse a posteriori.
 \vskip0.3cm
-La solución planteada durante el desarrollo de las prácticas no es muy flexible: todas las figuras de un mismo lienzo tienen los mismos atributos. Para cumplir \textbf{[RFD-1]}-\textbf{[RFD-5]} y \textbf{[RFD-9]}-\textbf{[RFD-12]} se desarrollará una clase propia \textit{Figura}, que almacenará cada uno de los atributos de la figura y permitirá que cada figura tenga los suyos propios. El uso de esta clase permitirá además modificar estos atributos \textbf{[RFD-7]}. Sin embargo, la línea, por ejemplo, no puede tener relleno, por lo que no tiene sentido guardar este atributo.
+La solución planteada durante el desarrollo de las prácticas no es muy flexible: la biblioteca \texttt{java.awt.Graphics} ofrece importantes limitaciones, ya que no permite que los objetos tengan propiedades de color, forma o grosor, entre otras. De esta forma, todas las figuras de un mismo lienzo se pintarán con los mismos atributos.
 \vskip0.3cm
-Para solucionarlo, se desarrollará una clase propia para cada una de las figuras que pueden dibujarse: Línea, rectángulo, elipse, rectángulo redondeado. El uso de estas clases permitirá mover las figuras dibujadas \textbf{[RFD-8]},implementando en cada caso la edición de la posición.
+Para que cada figura tenga sus propios atributos se desarrollará una clase propia \textit{Figura}, que almacenará cada uno de los atributos de la figura y permitirá que cada figura tenga los suyos propios: color, grosor, etc. Sin embargo, la línea, por ejemplo, no puede tener relleno, por lo que no tiene sentido guardar este atributo. Se desarrollará una clase propia para cada una de las figuras que pueden dibujarse: Línea, rectángulo, elipse, rectángulo redondeado.
 \vskip0.3cm
-Esta solución completa los requisitos del módulo de figuras. Para el caso del procesamiento de imágenes, se tendrán que desarrollar clases propias para cumplir con \textbf{[RFPI-16]}-\textbf{[RFPI-20]}. El resto de los requisitos funcionales están cubiertos por las funciones ofrecidas por Java y las bibliotecas proporcionadas por el profesor. Para el caso de cosinosuidal \textbf{[RFPI-21]} se hará uso de la clase \textit{LookUpTable} con una operación propia (coseno).
+Para intentar mejorar el diseño de esta clase, en lugar de que las formas hereden directamente de \textit{Figura}, se dividirán en dos grupos: figuras rellenables y figuras lineales. De esta forma, las operaciones comunes relativas al relleno podrán realizarse en el ámbito de la figura rellenable, y no tener que implementarlas en cada una de las clases derivadas. Con esta jerarquía de clases, evitamos que figuras lineales tengan atributos que no deben tener, como por ejemplo, tipo de relleno, así como evitamos que en figuras con propiedades similares (elipse y rectángulo, por ejemplo) se repitan funciones o atributos.
 \vskip0.3cm
-En cuanto al manejo de eventos, se usará en muchas ocasiones las funciones que ofrece Java para la gestión de eventos (por ejemplo, para el uso de botones). Sin embargo, para la comunicación entre el lienzo y la ventana principal será necesario crear una clase manejadora para la gestión de eventos relacionados con el lienzo. La existencia de esta clase permitirá también informar de la falta de atributos necesarios para el dibujo de las figuras y poder lanzar mensajes de error desde la ventana principal (por ejemplo: no se ha seleccionado una forma de dibujo). 
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=0.8\textwidth]{esquemaFormas.png}
+ \caption{Esquema del diseño de la clase \textit{Figura}}
+ \label{diseño}
+ \end{figure}
+\vskip0.3cm
+Uno de los métodos que tendrá que implementar en cada clase por separado será \textit{setLocation}. En principio se pretendía aprovechar el método que proporcionaba \texttt{Graphics}, pero se ha optado por implementarlo en cada clase de forma manual, ya que para \texttt{Rectangle2D} y \texttt{Ellipse2D} no está disponible el uso de esta función.
+\vskip0.3cm
+En cuanto al manejo de eventos, se usará en muchas ocasiones las funciones que ofrece Java para la gestión de eventos (por ejemplo, para el uso de botones en la ventana principal). Sin embargo, para la comunicación entre el lienzo y la ventana principal será necesario crear una clase manejadora para la gestión de eventos relacionados con el lienzo. La existencia de esta clase permitirá por ejemplo informar de la falta de atributos necesarios para el dibujo de las figuras y poder lanzar mensajes de error desde la ventana principal (por ejemplo: no se ha seleccionado una forma de dibujo) o informar a la ventana principal de la creación de una nueva figura, para que aparezca en una lista desplegable de figuras seleccionables. 
+%%%%%%%%%%%%%%%%%%% DISEÑO %%%%%%%%%%%%%%%%
+\clearpage
 \section{Diseño}
-Siguiendo la propuesta que se ha planteado en el análisis, se plantea las siguientes jerarquías de clases.
+Siguiendo la propuesta que se ha planteado en el análisis, se plantea las siguientes jerarquías de clases. Mientras la propuesta anterior intentaba ser independiente del lenguaje de programación, en este apartado se especifican aspectos concretos de la implementación en \textit{Java}.
+\vskip0.3cm
+Se hará una descripción general, pero para más detalles se pueden consultar los diagramas de clase.
+\subsection{VentanaPrincipal}
+La clase \texttt{VentanaPrincipal} implementará la visión principal del programa. Heredará de \texttt{JFrame} y contendrá múltiples elementos \texttt{Swing}:
+\begin{itemize}
+\item{\textbf{Barras de herramientas:} serán del tipo \texttt{JToolBar}, y se tratan de las barras superior, izquierda y derecha. Serán las que contendrán la mayoría de los demás elementos \texttt{Swing}.}
+\item{\textbf{Barra de estado:} se trata de un elemento \texttt{JPanel} que contendrá elementos del tipo \texttt{JLabel}. El texto de estas etiquetas indicarán, por ejemplo, que una figura ha sido añadida.}
+\item{\textbf{Listas desplegables:} se utilizarán \texttt{JComboBox}.}
+\item{\textbf{Botones \texttt{JToggleButton}:} pueden quedarse seleccionados, por lo que se utilizarán para las formas, o para los botones de sonido, pudiendo agruparse en distintos grupos \texttt{ButtonGroup}.}
+\item{\textbf{Botones \texttt{JButton}:} En el caso de por ejemplo, los filtros, no tiene demasiado interés que un botón quede seleccionado, por lo que para la mayoría de las operaciones de procesamiento de imágenes se utilizará este tipo de botones.}
+\item{\textbf{Escritorio:} se trata de un elemento del tipo \texttt{JDesktopPane}. Este escritorio será aquel que contendrá las ventanas multimedia de distintos tipos.}
+\end{itemize}
+
+\subsection{Lienzo}
+
+\subsection{Ventanas internas}
+Se definirá una clase \texttt{VentanaMultimedia} que heredará \texttt{JInternalFrame}. De esta clase derivarán diferentes ventanas en función del archivo multimedia que contengan.
+\begin{itemize}
+\item{\textbf{VentanaMultimediaImagen:} se encargará de almacenar el contenido multimedia de tipo imagen. Tendrá un objeto de clase \texttt{LienzoImagen}, que será un rectángulo en blanco en el caso de que sea creada por el usuario, y una imagen en el caso de que sea una imagen abierta. Contendrá también un elemento de tipo 	\texttt{JScrollPane} para el caso en que la ventana no pueda contener la imagen completa.}
+\item{\textbf{VentanaMultimediaCamara:} se encargará de almacenar las imágenes que pueden verse desde la WebCam así como las funciones encargadas de gestionar este contenido.}
+\item{\textbf{VentanaMultimediaVLCPlayer:} se encargará de almacenar vídeos así como las funciones encargadas de gestionar este contenido.}
+\end{itemize}
 \subsection{Figura}
-\subsection{Ventana multimedia}
-\subsection{Eventos}
-\subsection{Operaciones de diseño propio}
+Se definirá una clase abstracta \texttt{Figura}. Esta clase almacenará los atributos de la figura. Las clases \texttt{FiguraRellenable} y \texttt{FiguraLineal} heredarán de \texttt{Figura}. Aunque en este caso no hay más de una figura lineal, este esquema permite que en posteriores versiones se añadan curvas u otro tipo de figuras lineales. De \texttt{FiguraRellenable} heredarán \texttt{Rectangulo},\texttt{Elipse} y \texttt{RectanguloRedondeado}. De \texttt{FiguraLineal} heredará la clase \texttt{Linea}. Cada una de estas clases tendrá asociado un objeto \texttt{Shape}, además de los atributos de las clases de las que hereda.\vskip0.3cm
+Es esta jerarquía de clases la que permite que cada figura tenga sus propios atributos, así como la posibilidad de cambiarlos.
+\subsection{Gestión de eventos}
+Se hará uso de las funciones de gestión de eventos que ofrece \textit{Java}. Sin embargo, es necesario implementar las funciones para la gestión de eventos en el lienzo, de forma que podamos establecer una comunicación entre lienzo y ventana principal.
+\begin{itemize}
+\item{\textbf{LienzoEvent:}}
+\item{\textbf{LienzoListener:}}
+\item{\textbf{LienzoAdapter:}}
+\item{\textbf{MiManejadorLienzo:}}
+\end{itemize}
+\subsection{Procesamiento de imágenes}
+\subsubsection{Operador \textit{LookUpOp}}
+
 \subsubsection{Componente a componente}
 La función componente a componente modificará cada una de las componentes (R, G, B) de forma separada.\vskip0.3cm
 En este caso se ha implementado un filtro violeta. Para aplicar un tono morado a la imagen, se tendrá en cuenta que la mezcla de rojo y azul es la que da lugar al morado. Por tanto, para obtener el efecto deseado se reducirá el valor de la componente verde y se aumentará el valor de la componente roja y azul.
+\vskip0.3cm
+Además, como se ha aumentado el valor de las componentes de forma significativa, habrá un aumento de la luminosidad en estos colores y de la intensidad de la imagen en general.
 \begin{lstlisting}[language=Java, caption=Operación componente a componente, label=lst:graddesc]
 for(int x=0; x<src.getWidth(); x++){
     for(int y=0; y<src.getHeight(); y++){
@@ -227,17 +274,31 @@ for(int x=0; x<src.getWidth(); x++){
      }
 }
 \end{lstlisting}
-El resultado de aplicar el filtro puede verse a continuación.
+El resultado de aplicar el filtro puede verse a continuación. Como se puede ver, se obtiene el resultado deseado.
 \vskip0.3cm
 \begin{figure}[H]
  \centering
   \includegraphics[width=0.3\textwidth]{imagenes/Fry.jpg}
   \includegraphics[width=0.3\textwidth]{imagenes/fryVioleta.jpg}
- \caption{Aplicación filtro violeta}
+ \caption{Aplicación filtro violeta sobre \texttt{Fry.jpg}}
  \label{diseño}
  \end{figure}
-\subsubsection{Pixel a pixel}
-La función píxel a píxel modificará cada componente teniendo en cuenta los demás componentes.
+
+\vskip0.3cm
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=0.3\textwidth]{imagenes/pimientos.jpg}
+  \includegraphics[width=0.3\textwidth]{imagenes/pimientosVioleta.jpg}
+ \caption{Aplicación filtro violeta}
+ \label{diseño}
+ \end{figure} 
+ 
+\subsubsection{Primera operación píxel a píxel}
+La función píxel a píxel modificará cada componente teniendo en cuenta los demás componentes, de forma que el valor de cada componente podrá ser una combinación de las otras.
+\vskip0.3cm
+La operación implementada en este caso es una especie de "filtro rojizo", aunque no llega a serlo como tal. El valor del color rojo se conservará tal y como está, mientras que los valores verde y azul serán una media de los otros tres, por lo que aquellos píxeles en los que estos valores sean predominantes tendrán un color grisáceao.
+\vskip0.3cm
+Se espera que en la primera aplicación del filtro, la imagen tomará este color rojizo-anaranjado, pues habrá sido la única componente que habrá mantenido su valor. Sin embargo, al estar esta componente presente en la media que asigna los valores verde y azul, a través de las sucesivas aplicaciones del filtro estos dos valores convergerán al valor de la componente roja, convirtiéndose en un filtro blanco y negro.
 \begin{lstlisting}[language=Java, caption=Operación pixel a pixel, label=lst:graddesc]
 for(int x=0; x<src.getWidth(); x++){
     for(int y=0; y<src.getHeight(); y++){
@@ -250,17 +311,98 @@ for(int x=0; x<src.getWidth(); x++){
         srcG = colorSrc.getGreen();
         srcB = colorSrc.getBlue();
         //operacion pixel a pixel
-        destR = Math.min(255,(srcR+srcG+srcB)/3);
+        destR = srcR;
         destG = Math.min(255,(srcR+srcG+srcB)/3);
-        destB = Math.min(255,(srcR+srcG+srcB)/3);;
+        destB = Math.min(255,(srcR+srcG+srcB)/3);
                 
         colorDest = new Color(destR, destG, destB);
         dest.setRGB(x, y, colorDest.getRGB());
     }
 }
 \end{lstlisting}
+\vskip0.3cm
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=0.3\textwidth]{imagenes/Fry.jpg}
+  \includegraphics[width=0.3\textwidth]{imagenes/fryMedia1.jpg}
+  \vskip0.1cm
+  \includegraphics[width=0.3\textwidth]{imagenes/fryMedia2.jpg}
+  \includegraphics[width=0.3\textwidth]{imagenes/fryMedia3.jpg}
+ \caption{Aplicaciones sucesivas operación píxel a píxel (I)}
+ \label{diseño}
+ \end{figure} 
 
+\vskip0.3cm
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=0.3\textwidth]{imagenes/pimientos.jpg}
+  \includegraphics[width=0.3\textwidth]{imagenes/pimientosMedia1.jpg}
+  \vskip0.1cm
+  \includegraphics[width=0.3\textwidth]{imagenes/pimientosMedia2.jpg}
+  \includegraphics[width=0.3\textwidth]{imagenes/pimientosMedia3.jpg}
+ \caption{Aplicaciones sucesivas operación píxel a píxel (II)}
+ \label{diseño}
+ \end{figure} 
+
+\subsection{Segunda operación píxel a píxel}
+Esta función es una variante de la primera, en la que se pretende que el filtro anterior no sea a través de las aplicaciones un filtro blanco y negro, sino un filtro que potencie el color rojo. Para ello, simplemente se elimina la componente roja de la media, de forma que los valores azules y verde no convergerán al valor de la componente roja.
+\vskip0.3cm
+\begin{lstlisting}[language=Java, caption=Operación pixel a pixel, label=lst:graddesc]
+for(int x=0; x<src.getWidth(); x++){
+    for(int y=0; y<src.getHeight(); y++){
+        int destR, destG, destB;
+        int srcR, srcG, srcB;
+        Color colorSrc = new Color(src.getRGB(x, y));
+        Color colorDest;
+        //color del pixel
+        srcR = colorSrc.getRed();
+        srcG = colorSrc.getGreen();
+        srcB = colorSrc.getBlue();
+        //operacion pixel a pixel
+        destR = srcR;
+        destG = (srcG+srcB)/2;
+        destB = (srcG+srcB)/2;
+                
+        colorDest = new Color(destR, destG, destB);
+        dest.setRGB(x, y, colorDest.getRGB());
+    }
+}
+\end{lstlisting}
+A continuación pueden verse ejemplos de la aplicación de este filtro, que ofrece el resultado esperado.
+\vskip0.3cm
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=0.3\textwidth]{imagenes/Fry.jpg}
+  \includegraphics[width=0.3\textwidth]{imagenes/fryRojido.jpg}
+  \vskip0.3cm
+  \includegraphics[width=0.3\textwidth]{imagenes/pimientos.jpg}
+  \includegraphics[width=0.3\textwidth]{imagenes/pimientoRojizo.jpg}
+ \caption{Aplicación filtro rojizo}
+ \label{diseño}
+ \end{figure}
+%%%%%%%%%%%%%%%%%%%%% IMPLEMENTACION %%%%%%%%%%%%%%%%%%%
+\clearpage
 \section{Implementación}
+A continuación se muestra el resultado de la implementación de las clases diseñadas en el apartado anterior.
+\subsection{Ventana principal}
+\vskip0.3cm
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=0.8\textwidth]{graficos/ventanaPrincipal.png}
+ \caption{Vista \texttt{VentanaPrincipal}}
+ \label{diseño}
+ \end{figure}
+ 
+\subsection{VentanaImagen}
+\vskip0.3cm
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=0.7\textwidth]{graficos/ventanaImagen.jpg}
+ \caption{Vista \texttt{VentanaImagen}}
+ \label{diseño}
+ \end{figure}
+ %%%%%%%%%%%%%%%%% VALIDACION
+\clearpage
 \section{Validación}
 En este apartado se comprobará que el programa implementado en base a la solución propuesta cumple con los requisitos enumerados en el primer apartado.
 \subsection{Gráficos}
@@ -422,15 +564,6 @@ Para comprobar que la conversión se ha realizado correctamente, se extraen las 
   \includegraphics[width=0.3\textwidth]{imagenes/Fry.jpg}
   \includegraphics[width=0.3\textwidth]{imagenes/fryVioleta.jpg}
  \caption{Aplicación filtro violeta}
- \label{diseño}
- \end{figure}
-\subsubsection{Operación de diseño propio: media de las bandas}
-\vskip0.3cm
-\begin{figure}[H]
- \centering
-  \includegraphics[width=0.3\textwidth]{imagenes/Fry.jpg}
-  \includegraphics[width=0.3\textwidth]{imagenes/fryMediaBandas.jpg}
- \caption{Aplicación filtro media de colores}
  \label{diseño}
  \end{figure}
 \subsection{Sonido}
