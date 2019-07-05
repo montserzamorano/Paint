@@ -326,11 +326,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 playBoton.setEnabled(false);
                 pausaBoton.setEnabled(false);
                 stopBoton.setEnabled(true);
+                recordSonidoBoton.setEnabled(false);
             }
             if(event.getType() == LineEvent.Type.STOP){
                 playBoton.setEnabled(true);
                 pausaBoton.setEnabled(false);
                 stopBoton.setEnabled(false);
+                recordSonidoBoton.setEnabled(true);
             }
             if(event.getType() == LineEvent.Type.CLOSE){
                 playBoton.setEnabled(false);
