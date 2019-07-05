@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * Clase Lienzo. Representa el área de dibujo.
  * @author Montserrat Rodríguez Zamorano
  * @version 1.1
  */
@@ -69,8 +69,8 @@ public class Lienzo extends javax.swing.JPanel {
     }
     
     /**
-     * 
-     * @param f 
+     * Añade una figura al vector de figuras.
+     * @param f Figura figura a añadir
      */ 
     public void addFigura(Figura f){
         vFiguras.add(f);
@@ -79,8 +79,10 @@ public class Lienzo extends javax.swing.JPanel {
         colorDeg1, colorDeg2, formaActiva, alisadoActivated));
     }
     /**
-     * 
-     * @param g 
+     * Pinta las figuras almacenadas en el vector, así como la bounding box
+     * en el caso de que exista una figura seleccionada y delimita el área
+     * de dibujo.
+     * @param g Graphics objeto que permite dibujar
      */
     @Override
     public void paint(Graphics g){
@@ -98,83 +100,83 @@ public class Lienzo extends javax.swing.JPanel {
         }
     }
     /**
-     * 
-     * @return 
+     * Getter.
+     * @return List <Figura> lista de figuras almacenadas en el lienzo. 
      */
     public List <Figura> getvFiguras(){return vFiguras;}
     /**
-     * 
-     * @param dimension 
+     * Setter.
+     * @param dimension Dimension nueva dimensión del área de dibujo
      */
     public void setDimension(Dimension dimension){this.dimension = dimension;}
     /**
-     * 
-     * @return 
+     * Getter.
+     * @return Dimension dimensión de la zona de dibujo
      */
     public Dimension getDimension(){return dimension;}
     /**
-     * 
-     * @param color 
+     * Setter.
+     * @param color Color nuevo color activo para pintar en el lienzo
      */
     public void setColorTrazo(Color color){colorTrazo = color;}
     /**
-     * 
-     * @return 
+     * Getter.
+     * @return Color color de trazo activo en el lienzo para pintar
      */
     public Color getColorTrazo(){return colorTrazo;}
     /**
-     * 
-     * @return 
+     * Getter.
+     * @return Forma forma activa en el lienzo para pintar 
      */
     public Forma getForma(){return formaActiva;}
     /**
-     * 
+     * Setter.
      * @param forma 
      */
     public void setForma(Forma forma){formaActiva = forma;}
     /**
-     * 
-     * @return 
+     * Getter.
+     * @return Color color de relleno activado en el lienzo
      */
     public Color getColorRelleno(){return colorRelleno;}
     /**
-     * 
-     * @param color 
+     * Setter.
+     * @param color Color nuevo color de relleno
      */
     public void setColorRelleno(Color color){colorRelleno = color;}
     /**
-     * 
-     * @return 
+     * Getter.
+     * @return float grado de transparencia activado en el lienzo
      */
     public float getTransparencia(){return transparencia;}
     /**
-     * 
-     * @param transparencia 
+     * Setter.
+     * @param transparencia float nuevo grado de transparencia
      */
     public void setTransparencia(float transparencia){this.transparencia = transparencia;}
     /**
-     * 
-     * @return 
+     * Getter.
+     * @return boolean true/false si relleno activado/desactivado
      */
     public boolean getRellenoActivated(){return (tipoRelleno!=TipoRelleno.NINGUNO);}
     /**
-     * 
-     * @param color 
+     * Setter.
+     * @param color Color nuevo color de relleno
      */
     public void setRelleno(Color color){colorRelleno = color;}
     /**
-     * 
-     * @return 
+     * Getter.
+     * @return TipoLinea tipo de trazo activo
      */
     public TipoLinea getStroke(){return stroke;}
     /**
-     * 
-     * @param stroke 
+     * Setter.
+     * @param stroke TipoLinea nuevo tipo de trazo
      */
     public void setStroke(TipoLinea stroke){this.stroke = stroke;}
     /**
-     * 
-     * @return 
+     * Getter.
+     * @return boolean alisado activado o no 
      */
     public boolean getAlisadoActivated(){return alisadoActivated;}
     /**

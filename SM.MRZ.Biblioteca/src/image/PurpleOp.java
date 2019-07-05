@@ -35,7 +35,7 @@ public class PurpleOp extends BufferedImageOpAdapter{
                 srcB = colorSrc.getBlue();
                 //operacion componente a componente
                 destR = (int) Math.min(255,1.3*srcR);
-                destG = (int) Math.min(255,0.2*srcR);
+                destG = (int) Math.min(255,0.2*srcG);
                 destB = (int) Math.min(255,1.5*srcB);
                 
                 colorDest = new Color(destR, destG, destB);

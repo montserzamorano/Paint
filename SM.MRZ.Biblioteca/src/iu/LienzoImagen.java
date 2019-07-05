@@ -10,7 +10,8 @@ import java.awt.Stroke;
 import java.awt.image.BufferedImage;
 
 /**
- *
+ * Clase LienzoImagen. Hereda de Lienzo. Representa un lienzo con un
+ * área determinada para diujar.
  * @author Montserrat Rodríguez Zamorano
  * @version 1.1
  */
@@ -27,7 +28,8 @@ public class LienzoImagen extends Lienzo {
         initComponents();
     }
     /**
-     * 
+     * Determina un rectángulo de color blanco con línea negra como imagen
+     * del lienzo
      */
     public void setArea(){
         int w = getDimension().width;
@@ -49,32 +51,32 @@ public class LienzoImagen extends Lienzo {
         setImage(img);
     }
     /**
-     * 
-     * @param colorTintado 
+     * Setter.
+     * @param colorTintado Color color de tintado de la imagen
      */
     public void setColorTintado(Color colorTintado){
         this.colorTintado = colorTintado;
     }
     /**
-     * 
-     * @return 
+     * Getter.
+     * @return Color color de tintado 
      */
     public Color getColorTintado(){
         return colorTintado;
     }
     /**
-     * 
-     * @param tintado 
+     * Setter.
+     * @param tintado boolean true/false si activar/desactivar tintado 
      */
     public void setTintadoActivated(boolean tintado){tintadoActivated = tintado;}
     /**
-     * 
-     * @return 
+     * Getter.
+     * @return boolean true/false si el tintado está activado/desactivado
      */
     public boolean getTintadoActivated(){return tintadoActivated;}
     /**
-     * 
-     * @param img 
+     * Establece una imagen en el lienzo
+     * @param img BufferedImage imagen a asociar al lienzo
      */
     public void setImage(BufferedImage img){
         //deseleccionamos para que no se guarde la bounding box
@@ -85,9 +87,11 @@ public class LienzoImagen extends Lienzo {
         }
     }
     /**
-     * 
-     * @param drawVector
-     * @return 
+     * Devuelve una imagen.
+     * @param drawVector boolean devolverá la imagen 
+     * con el vector de figuras dibujadas sobre ella si true y sin el vector
+     * de figuras si false.
+     * @return BufferedImage img
      */
     public BufferedImage getImage(boolean drawVector){
         if(drawVector){

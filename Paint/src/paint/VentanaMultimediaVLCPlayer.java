@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package paint;
 
 import java.io.File;
@@ -11,8 +6,9 @@ import uk.co.caprica.vlcj.player.MediaPlayerEventListener;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 
 /**
- *
- * @author Minim
+ * Clase VentanaMultimediaVLCPlayer. Ventana multimedia que contiene vídeo.
+ * @author Montserrat Rodríguez Zamorano
+ * @version 1.1
  */
 public class VentanaMultimediaVLCPlayer extends VentanaMultimedia {
     private EmbeddedMediaPlayer vlcplayer = null;
@@ -28,11 +24,18 @@ public class VentanaMultimediaVLCPlayer extends VentanaMultimedia {
         getContentPane().add(aVisual, java.awt.BorderLayout.CENTER);
         vlcplayer = aVisual.getMediaPlayer();
     }
-    
+    /**
+     * Devuelve una instancia de VentanaMultimediaVLCPlayer
+     * @param f File archivo a abrir
+     * @return EmbeddeMediaPlayer vlcplayer
+     */
     public static VentanaMultimediaVLCPlayer getInstance(File f){
         VentanaMultimediaVLCPlayer v = new VentanaMultimediaVLCPlayer(f);
         return(v.vlcplayer!=null?v:null);
     }
+    /**
+     * Comienza la reproducción del vídeo.
+     */
     public void play(){
         if(vlcplayer!=null){
             if(vlcplayer.isPlayable()){
@@ -44,6 +47,9 @@ public class VentanaMultimediaVLCPlayer extends VentanaMultimedia {
             }
         }
     }
+    /**
+     * Detiene la reproducción del vídeo.
+     */
     public void stop(){
         if(vlcplayer!=null){
             if(vlcplayer != null){
@@ -54,6 +60,10 @@ public class VentanaMultimediaVLCPlayer extends VentanaMultimedia {
             }
         }
     }
+    /**
+     * Añade un manejador para poder gestionar eventos.
+     * @param ml MediaPlayerEventListener manejador
+     */
     public void addMediaPlayerEventListener(MediaPlayerEventListener ml){
         if(vlcplayer!=null){
             vlcplayer.addMediaPlayerEventListener(ml);
@@ -104,7 +114,10 @@ public class VentanaMultimediaVLCPlayer extends VentanaMultimedia {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Gestiona el cierre de la ventana.
+     * @param evt InternalFrameEvent
+     */
     private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
         stop();
     }//GEN-LAST:event_formInternalFrameClosing

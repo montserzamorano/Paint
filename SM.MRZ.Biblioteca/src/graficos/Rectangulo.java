@@ -12,9 +12,7 @@ import java.awt.geom.Rectangle2D;
  * @version 1.1
  */
 
-public class Rectangulo extends FiguraRellenable{
-    //private Rectangle2D rectangulo;
-    
+public class Rectangulo extends FiguraRellenable{    
     /**
     * Constructor
      * @param pO Point2D

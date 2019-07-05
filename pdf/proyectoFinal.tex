@@ -139,6 +139,7 @@ Con este fin, se realiza una aplicación que se llamará \textit{Paint}.
 \item{\textbf{[RFD-13]} Asociar un grado de transparencia a una figura.}
 \item{\textbf{[RFD-14]} Activar alisado de bordes de una figura.}
 \item{\textbf{[RFD-15]} Desactivar alisado de bordes de una figura.}
+\item{\textbf{[RFD-16]} Consultar los atributos de dibujo activo en un lienzo.}
 \end{itemize}
 \subsubsection{Procesamiento de imágenes}
 \begin{itemize}
@@ -161,7 +162,7 @@ Con este fin, se realiza una aplicación que se llamará \textit{Paint}.
 }
 \item{\textbf{[RFPI-12]} Girar una imagen a cualquier ángulo.}
 \item{\textbf{[RFPI-13]} Tintar una imagen.}
-\item{\textbf{[RFPI-14]} Escoger nivel de tintado de una imagen.}
+\item{\textbf{[RFPI-14]} Escoger nivel y color de tintado de una imagen.}
 \item{\textbf{[RFPI-15]} Ecualizar una imagen.}
 \item{\textbf{[RFPI-16]} Umbralizar una imagen en niveles de gris.}
 \item{\textbf{[RFPI-17]} Escoger nivel de umbralización.}
@@ -171,6 +172,7 @@ Con este fin, se realiza una aplicación que se llamará \textit{Paint}.
 \item{\textbf{[RFD-21]} Aplicar filtro media de bandas azul y verde (diseño propio).}
 \item{\textbf{[RFPI-22]} Aplicar filtro cosinosuidal.}
 \item{\textbf{[RFPI-23]} El procesamiento de imágenes no se aplicarán sobre las figuras dibujadas.}
+\item{\textbf{[RFPI-24]} Escalar una imagen.}
 \end{itemize}
 \subsubsection{Sonido}
 \begin{itemize}
@@ -190,7 +192,7 @@ Con este fin, se realiza una aplicación que se llamará \textit{Paint}.
 \subsection{Requisitos no funcionales}
 \begin{itemize}
 \item{\textbf{[RNF-1]} Se mostrará en la barra de estado el pixel en el que está situado el ratón.}
-\item{\textbf{[RNF-2]} Se habilitarán en cada momento sólo los botones que pueden utilizarse. Por ejemplo, si se abre una ventana de vídeo se deshabilitarán aquellos correspondientes a las imágenes.}
+\item{\textbf{[RNF-2]} Se habilitarán en cada momento sólo los botones que pueden utilizarse.}
 \item{\textbf{[RNF-3]} Los botones tendrán asociados un \textit{ToolTipText} para facilitar el uso del programa.}
 \item{\textbf{[RNF-4]} Al seleccionar una figura se activarán sus propiedades en la barra de atributos.}
 \item{\textbf{[RNF-5]} Si hay una figura seleccionada, al pulsar el ratón sobre en otro punto, deberá deseleccionarse la figura.}
@@ -237,21 +239,21 @@ Se intentará dar una descripción general, pero para más detalles es preferibl
 \subsection{VentanaPrincipal}
 La clase \texttt{VentanaPrincipal} implementará la visión principal del programa. Heredará de \texttt{JFrame} y contendrá múltiples elementos \texttt{Swing}:
 \begin{itemize}
-\item{\textbf{Barras de herramientas:} serán del tipo \texttt{JToolBar}, y se tratan de las barras superior, izquierda y derecha. Serán las que contendrán la mayoría de los demás elementos \texttt{Swing}.}
-\item{\textbf{Barra de estado:} se trata de un elemento \texttt{JPanel} que contendrá elementos del tipo \texttt{JLabel}. El texto de estas etiquetas indicarán, por ejemplo, que una figura ha sido añadida.}
+\item{\textbf{Barras de herramientas:} serán del tipo \texttt{JToolBar}, y se tratan de las barras superior, izquierda y derecha \textbf{[RFCG-6:7]}. Serán las que contendrán la mayoría de los demás elementos \texttt{Swing}.}
+\item{\textbf{Barra de estado:} se trata de un elemento \texttt{JPanel} que contendrá elementos del tipo \texttt{JLabel} \textbf{[RNF-1]}. El texto de estas etiquetas indicarán, por ejemplo, que una figura ha sido añadida.}
 \item{\textbf{Listas desplegables:} se utilizarán \texttt{JComboBox} para la selección de colores, tipo de relleno, tipo de línea y figuras.}
 \item{\textbf{Botones \texttt{JToggleButton}:} pueden quedarse seleccionados, por lo que se utilizarán para las formas agrupándose en un \texttt{ButtonGroup}.}
-\item{\textbf{Botones \texttt{JButton}:} En el caso de por ejemplo, los filtros, no tiene demasiado interés que un botón quede seleccionado, por lo que para la mayoría de las operaciones de procesamiento de imágenes se utilizará este tipo de botones.}
+\item{\textbf{Botones \texttt{JButton}:} En el caso de por ejemplo, los filtros, no tiene demasiado interés que un botón quede seleccionado, por lo que para la mayoría de las operaciones de procesamiento de imágenes se utilizará este tipo de botones \textbf{[RFCG-1:5]}.}
 \item{\textbf{Escritorio:} se trata de un elemento del tipo \texttt{JDesktopPane}. Este escritorio será aquel que contendrá las ventanas multimedia de distintos tipos.}
 \end{itemize}
 \subsection{Lienzo}
-La clase \texttt{Lienzo} heredará de \texttt{JPanel}. Esta clase tendrá asociados los atributos con los que se pintará la siguiente figura, así como un vector de las figuras dibujadas. El objeto de tipo \texttt{Lienzo} será también el que se encargue de pintar las figuras a través del método \texttt{paint}, así como de guardar la figura seleccionada y de pintar la bounding box.  
+La clase \texttt{Lienzo} heredará de \texttt{JPanel}. Esta clase tendrá asociados los atributos con los que se pintará la siguiente figura \textbf{[RFD-3:7,13:15]}, así como un vector de las figuras dibujadas \textbf{[RFD-2]}. El objeto de tipo \texttt{Lienzo} será también el que se encargue de pintar las figuras a través del método \texttt{paint}, así como de guardar la figura seleccionada y de pintar la bounding box.  
 \vskip0.3cm
 Es necesario distinguir entre lienzo e imagen, aunque muchas veces se utilice la palabra lienzo con el mismo significado. Se creará la clase \texttt{LienzoImagen}, que heredará de \texttt{Lienzo}. Esta clase permitirá definir un área de dibujo, la imagen, que podrá ser creada (un rectángulo blanco de unas dimensiones determinadas, simulando un lienzo real) o abierta. En el método \texttt{paint} se llamará a \texttt{clip}, de forma que no se mostrará aquello que se pinte fuera de las dimensiones que tenga la imagen.
 \vskip0.3cm
 \texttt{Lienzo} hará uso de las funciones de gestión de eventos que ofrece \textit{Java}.
 \begin{itemize}
-\item{\texttt{formMousePressed:} cuando se presione el ratón en el lienzo se creará (en el caso de que estén seleccionados los atributos necesarios) una figura. Creará y añadirá una figura a la lista de \texttt{Figura}.}
+\item{\texttt{formMousePressed:} cuando se presione el ratón en el lienzo se creará (en el caso de que estén seleccionados los atributos necesarios) una figura. Creará y añadirá una figura a la lista de \texttt{Figura} \textbf{[RFD-1]}.}
 \item{\texttt{formMouseDragged:} llamará a \texttt{updateShape} para actualizar la figura si seguimos arrastrando el ratón para aumentar el tamaño de la figura que se ha creado.}
 \item{\texttt{formMouseReleased:} finalizará la creación de una figura.}
 \item{\texttt{formMouseMoved:} servirá para mostrar en la barra de estado el pixel del lienzo en el que se encuentra el ratón. Para mostrarlo en la barra de estado será necesario lanzar un evento \texttt{LienzoEvent}.}
@@ -286,7 +288,7 @@ De \texttt{FiguraRellenable} heredarán \texttt{Rectangulo},\texttt{Elipse} y \t
 \item{Elipse: \texttt{Ellipse2D}.}
 \end{itemize}
 \vskip0.3cm
-Es esta jerarquía de clases la que permite que cada figura tenga sus propios atributos, así como la posibilidad de modificarlos, llamando a los \textit{setters} del objeto.\vskip0.3cm
+Es esta jerarquía de clases la que permite que cada figura tenga sus propios atributos, así como la posibilidad de modificarlos \textbf{[RFD-8:10]}, llamando a los \textit{setters} del objeto.\vskip0.3cm
 Esto permitirá consultar también los atributos de una figura, llamando a los distintos \textit{getters} para actualizar los atributos de la barra de figuras. Como \texttt{Figura} es una clase abstracta, debe tener como mínimo un método abstracto. Los métodos abstractos de la clase serán los siguientes:
 \begin{itemize}
 \item{\texttt{setLocation:} se encarga de cambiar la posición de una figura. En principio se pretendía aprovechar el método que proporcionaba \texttt{Graphics}, pero se ha optado por implementarlo en cada clase de forma manual, ya que para \texttt{Rectangle2D} y \texttt{Ellipse2D} no está disponible el uso de esta función.}
@@ -307,7 +309,7 @@ Se hará uso de las funciones de gestión de eventos que ofrece \textit{Java} pa
 \item{\textbf{LienzoEvent:} representa un evento lanzado por un objeto \texttt{Lienzo}. Heredará de la clase \texttt{EventObject} y tendrá asociados gran parte de los atributos de la clase \texttt{Lienzo}.}
 \item{\textbf{LienzoListener:} interfaz que hereda de \texttt{EventListener}. Definirá las distintas causas que generan el evento. Por ejemplo, el movimiento del ratón.}
 \item{\textbf{LienzoAdapter:} clase que implementa la interfaz \texttt{LienzoListener} y de la que heredará \texttt{MiManejadorLienzo}, de ahí el nombre de \textit{Adapter}.}
-\item{\textbf{MiManejadorLienzo:} hereda de \texttt{LienzoListener}. Será necesario asociar un manejador a cada uno de los lienzos. Esta clase estará implementada dentro de \texttt{VentanaPrincipal} y será la que modificará los elementos \texttt{Swing} cuando el lienzo lance un evento. Por ejemplo: si se añade una figura en el lienzo, la barra de estado de la ventana principal indicará que se ha añadido dicha figura.}
+\item{\textbf{MiManejadorLienzo:} hereda de \texttt{LienzoListener}. Será necesario asociar un manejador a cada uno de los lienzos. Esta clase estará implementada dentro de \texttt{VentanaPrincipal} y será la que modificará los elementos \texttt{Swing} cuando el lienzo lance un evento. Por ejemplo: si se añade una figura en el lienzo, la barra de estado de la ventana principal indicará que se ha añadido dicha figura \textbf{[RFD-11,12,16]}.}
 \end{itemize}
 
 \vskip0.3cm
@@ -321,21 +323,21 @@ Se hará uso de las funciones de gestión de eventos que ofrece \textit{Java} pa
 \subsection{Procesamiento de imágenes (I)}
 Este apartado expondrá algunos aspectos generales del procesamiento de imágenes.
 \vskip0.3cm
-Las imágenes serán del tipo \texttt{BufferedImage}, ofrecida por \texttt{Java} y se contará con la biblioteca \texttt{sm.image}, así como con las funcione ofrecidas por Java. En el lienzo existirá un método \texttt{getImage(boolean)}, que nos devolverá la imagen con las figuras que se han pintado sobre ella (si el parámetro es\texttt{true})o sólo la imagen en caso contrario. Como no es necesario que el procesamiento se aplique sobre las figuras dibujadas, en las funciones relacionadas con el procesamiento de imágenes el valor del parámetro será \texttt{false}.
+Las imágenes serán del tipo \texttt{BufferedImage}, ofrecida por \texttt{Java} y se contará con la biblioteca \texttt{sm.image}, así como con las funciones ofrecidas por Java. En el lienzo existirá un método \texttt{getImage(boolean)}, que nos devolverá la imagen con las figuras que se han pintado sobre ella (si el parámetro es \texttt{true}) o solo la imagen en caso contrario. Como no es necesario que el procesamiento se aplique sobre las figuras dibujadas, en las funciones relacionadas con el procesamiento de imágenes el valor del parámetro será \texttt{false} \textbf{[RFPI-23]}.
 \vskip0.3cm
-Para duplicar una imagen será necesario crear una nueva \texttt{BufferedImage}, de forma que no se trate de una referencia a la antigua imagen. Si no fuese una copia, los cambios de una se aplicarían en la otra, de forma que no se estaría duplicando la imagen, sino abriendo la misma en una ventana diferente.
+Para duplicar una imagen \textbf{[RFPI-1]} será necesario crear una nueva \texttt{BufferedImage}, de forma que no se trate de una referencia a la imagen original. Si no fuese una copia, los cambios de una se aplicarían en la otra, de forma que no se estaría duplicando la imagen, sino abriendo la misma en una ventana diferente.\vskip0.3cm
 De forma general, para crear una copia de una imagen se utilizarán los métodos \texttt{getColorModel}, \texttt{copyData} y \texttt{isAlphaPremultiplied} de la clase \texttt{BufferedImage}, y por tanto ofrecidas por \textit{Java}.
 \vskip0.3cm
-Para modificar el brillo se utilizará la operación \texttt{RescaleOp}, disponible en la biblioteca de \textit{Java}. Se hará una copia de la imagen en el lienzo activo, ya que el cambio no será definitivo hasta que se desactive el deslizador (\texttt{FocusLost}).
+Para modificar el brillo de la imagen \textbf{[RFPI-2]} se utilizará la operación \texttt{RescaleOp}, disponible en la biblioteca de \textit{Java}. Se hará una copia de la imagen en el lienzo activo, ya que el cambio no será definitivo hasta que se desactive el deslizador (\texttt{FocusLost}).
 \vskip0.3cm
-Para aplicar los filtros de emborronamiento, enfoque y relieve en primer lugar será necesario crear una máscara en función del filtro, haciendo uso de la clase \texttt{KernelProducer} disponible en la biblioteca \texttt{sm.image} y, una vez creada la máscara, haciendo uso de \texttt{ConvolveOp} (\textit{Java}). Se utilizarán máscaras predefinidas:
+Para aplicar los filtros de emborronamiento, enfoque y relieve \textbf{[RFPI-3,4,5]} en primer lugar será necesario crear una máscara en función del filtro, haciendo uso de la clase \texttt{KernelProducer} disponible en la biblioteca \texttt{sm.image} y, una vez creada la máscara, haciendo uso de \texttt{ConvolveOp} (\textit{Java}). Se utilizarán máscaras predefinidas:
 \begin{itemize}
 \item{\texttt{TYPE\_RELIEVE\_3x3} para el filtro de relieve.}
 \item{\texttt{TYPE\_BINOMIAL\_3x3} para el filtro de emborronamiento.}
 \item{\texttt{TYPE\_ENFOQUE\_3x3} para el filtro de enfoque.}
 \end{itemize}
 \vskip0.3cm
-Para las operaciones de contraste, iluminado, oscurecido y negativo, al tratarse de una transformación sobre los niveles de color, se hará uso de \texttt{LookUpOp} (\textit{Java}). Para ello, se creará un objeto \texttt{LookUpTable} haciendo uso de \texttt{LookUpTableProducer} (\texttt{sm.image})  con un tipo determinado en función de la operación de la que se trate:
+Para las operaciones de contraste, iluminado, oscurecido y negativo \textbf{[RFPI-6,7,8,10]}, al tratarse de una transformación sobre los niveles de color, se hará uso de \texttt{LookUpOp} (\textit{Java}). Para ello, se creará un objeto \texttt{LookUpTable} haciendo uso de \texttt{LookUpTableProducer} (\texttt{sm.image})  con un tipo determinado en función de la operación de la que se trate:
 \begin{itemize}
 \item{Contraste: \texttt{TYPE\_SFUNCION}.}
 \item{Iluminado:\texttt{TYPE\_LOGARITHM}.}
@@ -344,19 +346,21 @@ Para las operaciones de contraste, iluminado, oscurecido y negativo, al tratarse
 \end{itemize}
 Se utilizará este objeto \texttt{LookUpTable} para crear el objeto \texttt{LookUpOp}, y llamar al método \texttt{filter}. La imagen destino será la misma que la imagen fuente.  
 \vskip0.3cm
-Para la extracción de bandas, crearemos una imagen por cada una de las bandas de colores (roja, verde y azul), y las mostraremos en \texttt{VentanaMultimediaImagen} separadas en niveles de gris.
+Para la extracción de bandas \textbf{[RFPI-9]}, crearemos una imagen por cada una de las bandas de colores (roja, verde y azul), y las mostraremos en \texttt{VentanaMultimediaImagen} separadas en niveles de gris.
 \begin{itemize}
 \item{Se creará el modelo de color de la nueva imagen basada en niveles de gris haciendo uso de \texttt{CS\_GRAY}.}
 \item{Se creará el nuevo raster a partir del de la imagen original.}
 \item{Crear una nueva imagen haciendo uso del modelo de color y el raster de la banda correspondiente.}
 \end{itemize}
 \vskip0.3cm
-La conversión a otros espacios de color se hará haciendo uso de \texttt{ColorConvertOp} y usando instancias de \texttt{ColorSpace}: \texttt{CS\_LINEAR\_RGB} para el espacio de color RGB, \texttt{CS\_PYCC} para YCC y \texttt{CS\_GRAY} para GREY.
+La conversión a otros espacios de color \textbf{[RFPI-11]} se hará haciendo uso de \texttt{ColorConvertOp} y usando instancias de \texttt{ColorSpace}: \texttt{CS\_LINEAR\_RGB} para el espacio de color RGB, \texttt{CS\_PYCC} para YCC y \texttt{CS\_GRAY} para GREY.
 \vskip0.3cm
-Para el caso de el giro libre (en el que se incluye los casos particulares de $90º$, $180ª$, $270º$) y el escalado se utilizará la clase \texttt{AffineTransformOp} disponible en \textit{Java}. Para el giro se utilizará la función \texttt{getRotateInstance} y para el escalado \texttt{getScaleInstance}, usando los parámetros deseados (giro/escala).
+Para el caso de el giro libre (en el que se incluye los casos particulares de $90º$, $180ª$, $270º$) y el escalado se utilizará la clase \texttt{AffineTransformOp} disponible en \textit{Java} \textbf{[RFPI-12,24]} . Para el giro se utilizará la función \texttt{getRotateInstance} y para el escalado \texttt{getScaleInstance}, usando los parámetros deseados (giro/escala). El giro tendrá asociado un elemento \texttt{Slider} para ajustar el ángulo al que se desea girar la imagen.
 \vskip0.3cm
-Para el filtro sepia y para la umbralización ha sido necesario crear clases propias, \texttt{SepiaOp} y \texttt{UmbralizacionOp}. Como en el siguiente apartado se hace un análisis más detallado de las clases de creación propia, aquí tan sólo se detalla la formulación matemática asociada a estos operadores.\vskip0.3cm
-Se debe tener en cuenta que en la umbralización el valor \texttt{umbral} es la intensidad a partir de la cual el filtro realiza la transformación a color blanco. Por debajo de este umbral, la transformación será a color negro. 
+Para el filtro sepia y para la umbralización \textbf{[RFPI-18,16]} ha sido necesario crear clases propias, \texttt{SepiaOp} y \texttt{UmbralizacionOp}. Como en el siguiente apartado se hace un análisis más detallado de las clases de creación propia, aquí tan sólo se detalla la formulación matemática asociada a estos operadores.\vskip0.3cm
+Se debe tener en cuenta que en la umbralización el valor \texttt{umbral} es la intensidad a partir de la cual el filtro realiza la transformación a color blanco. Por debajo de este umbral, la transformación será a color negro.
+\vskip0.3cm
+El nivel de umbralización se podrá determinar gracias a un \texttt{Slider} \textbf{[RFPI-17]}. 
 \begin{lstlisting}[language=Java, caption=Filtro sepia, label=lst:graddesc]
 		for(int x=0; x<src.getWidth(); x++){
             for(int y=0; y<src.getHeight(); y++){
@@ -399,11 +403,11 @@ Se debe tener en cuenta que en la umbralización el valor \texttt{umbral} es la 
         }
 \end{lstlisting}
 \vskip0.3cm 
-Para el tintado, así como para el ecualizado, se utilizarán los operadores \texttt{TintOp} y \texttt{EqualizationOp}, proporcionados por \texttt{sm.image}. Simplemente será necesario crear los objetos y llamar al método \texttt{filter}. En el caso del tintado hay tres elementos a tener en cuenta:
+Para el tintado \textbf{[RFPI-13]}, así como para el ecualizado \textbf{[RFPI-15]}, se utilizarán los operadores \texttt{TintOp} y \texttt{EqualizationOp}, proporcionados por \texttt{sm.image}. Simplemente será necesario crear los objetos y llamar al método \texttt{filter}. En el caso del tintado hay tres elementos a tener en cuenta:
 \begin{itemize}
 \item{\texttt{JToggleButton} para activar/desactivar el tintado. Cuando se active el tintado, se habilitarán los siguientes dos elementos.}
 \item{\texttt{JComboBox} con objetos de tipo \texttt{Color}. Permitirá escoger el tipo de color con el que se quiere tintar la imagen.}
-\item{\texttt{Slider} para determinar el nivel de tintado.}
+\item{\texttt{Slider} para determinar el nivel de tintado\textbf{[RFPI-14]}.}
 \end{itemize}
 \subsection{Procesamiento de imágenes (II)}
 En este apartado nos centraremos en las operaciones de diseño propio. Las operaciones que heredan de \texttt{BufferedImageOp} implementan operaciones punto a punto sobre la imagen, distinguiendo entre:
@@ -419,7 +423,7 @@ En el caso de que se defina una transformación sobre los niveles de color hacie
 \vskip0.3cm
 De la misma forma que en el caso anterior, una vez creado el objeto \texttt{LookUpOp}, se utilizará el método \texttt{filter}, donde \texttt{src} y \texttt{dest} serán la misma imagen, para que el filtro se aplique sobre la misma imagen. 
 \subsubsection{Operador \textit{LookUpOp}}
-Se definirá la función $f(x) = 255|cos(0.006x)|$, donde $0.06$ será la velocidad angular. De esta forma, será posible predecir el comportamiento de la función, ya que el coseno es una función periódica. Como se puede ver en la gráfica a continuación, predecir el comportamiento de la función sin reducir la velocidad angular sería imposible a simple vista.
+Se definirá la función $f(x) = 255|cos(0.006x)|$, donde $0.06$ será la velocidad angular \textbf{[RFPI-22]}. De esta forma, será posible predecir el comportamiento de la función, ya que el coseno es una función periódica. Como se puede ver en la gráfica a continuación, predecir el comportamiento de la función sin reducir la velocidad angular sería imposible a simple vista.
 \vskip0.3cm
 \begin{figure}[H]
  \centering
@@ -447,7 +451,7 @@ Se escoge esa velocidad angular porque es lo suficientemente baja como para que 
  \end{figure}
 \subsubsection{Componente a componente}
 La función componente a componente modificará cada una de las componentes (R, G, B) de forma separada.\vskip0.3cm
-En este caso se ha implementado un filtro violeta. Para aplicar un tono morado a la imagen, se tendrá en cuenta que la mezcla de rojo y azul es la que da lugar al morado. Por tanto, para obtener el efecto deseado se reducirá el valor de la componente verde y se aumentará el valor de la componente roja y azul.
+En este caso se ha implementado un filtro violeta. Para aplicar un tono morado a la imagen, se tendrá en cuenta que la mezcla de rojo y azul es la que da lugar al morado. Por tanto, para obtener el efecto deseado se reducirá el valor de la componente verde y se aumentará el valor de la componente roja y azul \textbf{[RFPI-19]}.
 \vskip0.3cm
 Además, como se ha aumentado el valor de las componentes de forma significativa, habrá un aumento de la luminosidad en estos colores y de la intensidad de la imagen en general.
 \vskip0.3cm
@@ -494,7 +498,7 @@ El resultado de aplicar el filtro puede verse a continuación. Como se puede ver
 \subsubsection{Primera operación píxel a píxel}
 La función píxel a píxel modificará cada componente teniendo en cuenta los demás componentes, de forma que el valor de cada componente podrá ser una combinación de las otras.
 \vskip0.3cm
-La operación implementada en este caso es una especie de "filtro rojizo", aunque no llega a serlo como tal. El valor del color rojo se conservará tal y como está, mientras que los valores verde y azul serán una media de los otros tres, por lo que aquellos píxeles en los que estos valores sean predominantes tendrán un color grisáceao.
+La operación implementada en este caso es una especie de "filtro rojizo", aunque no llega a serlo como tal. El valor del color rojo se conservará tal y como está, mientras que los valores verde y azul serán una media de los otros tres, por lo que aquellos píxeles en los que estos valores sean predominantes tendrán un color grisáceao \textbf{[RFPI-21]}.
 \vskip0.3cm
 Se espera que en la primera aplicación del filtro, la imagen tomará este color rojizo-anaranjado, pues habrá sido la única componente que habrá mantenido su valor. Sin embargo, al estar esta componente presente en la media que asigna los valores verde y azul, a través de las sucesivas aplicaciones del filtro estos dos valores convergerán al valor de la componente roja, convirtiéndose en un filtro blanco y negro.
 \begin{lstlisting}[language=Java, caption=Operación pixel a pixel, label=lst:graddesc]
@@ -543,7 +547,7 @@ for(int x=0; x<src.getWidth(); x++){
  \end{figure} 
 
 \subsubsection{Segunda operación píxel a píxel}
-Esta función es una variante de la primera, en la que se pretende que el filtro anterior no sea a través de las aplicaciones un filtro blanco y negro, sino un filtro que potencie el color rojo. Para ello, simplemente se elimina la componente roja de la media, de forma que los valores azules y verde no convergerán al valor de la componente roja.
+Esta función es una variante de la primera, en la que se pretende que el filtro anterior no sea a través de las aplicaciones un filtro blanco y negro, sino un filtro que potencie el color rojo. Para ello, simplemente se elimina la componente roja de la media, de forma que los valores azules y verde no convergerán al valor de la componente roja \textbf{[RFPI-20]}.
 \vskip0.3cm
 \begin{lstlisting}[language=Java, caption=Operación pixel a pixel, label=lst:graddesc]
 for(int x=0; x<src.getWidth(); x++){
@@ -582,12 +586,14 @@ A continuación pueden verse ejemplos de la aplicación de este filtro, que ofre
 \subsection{Sonido}
 Se hará uso del paquete \texttt{sm.sound}, que incluirá dos módulos:
 \begin{itemize}
-\item{\texttt{SMPlayer:} se harán uso de las funciones \texttt{play()}, \texttt{stop()}.}
-\item{\texttt{SMRecorder:} se harán uso de las funciones \texttt{record()}, \texttt{stop()}.}
+\item{\texttt{SMPlayer:} se harán uso de las funciones \texttt{play()}, \texttt{stop()} \textbf{[RFS-1,4]}.}
+\item{\texttt{SMRecorder:} se harán uso de las funciones \texttt{record()}, \texttt{stop()} \textbf{[RFS-2,3]}.}
 \end{itemize}
-Cuando se inicialice un \texttt{player} o un \texttt{recorder} será necesario asociar un manejador que implementa \texttt{LineListener} haciendo uso de la función \texttt{addLineListener} que nos permita habilitar/deshabilitar los botones relacionados con el sonido en función de las acciones que realicemos. Por ejemplo, si se inicia la grabación, se debe deshabilitar el botón de inicio de grabación y habilitar el de detención.
-\subsection{Video} 
-Se hará uso de los métodos y las ventajas que ofrece la biblioteca \texttt{VLCj}, que permite acceder a formatos y códecs actualizados. Se asociará un manejador para poder gestionar los eventos relacionados con el vídeo. La clase manejadora de eventos implementará \texttt{MediaPlayerEventAdapter} y, al igual que el manejador de sonido, habilitará/deshabilitará los botones relacionados con el vídeo. 
+Cuando se inicialice un \texttt{player} o un \texttt{recorder} será necesario asociar un manejador que implementa \texttt{LineListener} haciendo uso de la función \texttt{addLineListener} que nos permita habilitar/deshabilitar los botones relacionados con el sonido en función de las acciones que realicemos. Por ejemplo, si se inicia la grabación, se debe deshabilitar el botón de inicio de grabación y habilitar el de detención \textbf{[RNF-2]}.
+\subsection{Vídeo}
+Para usar la Webcam se hará uso de la biblioteca \texttt{github.sarxos.webcam.Webcam}. Para abrir la Webcam se usará el método \texttt{getInstance()}, que creará una instancia de \texttt{Webcam} e inicializará la \texttt{VentanaMultimediaCamara} que contendrá las imágenes que se obtendrán desde la cámara \textbf{[RFV-1]}. Para hacer una captura de pantalla se utilizará el método \texttt{getImagen()}, que devolverá una objeto del tipo \texttt{BufferedImage} \textbf{[RFV-2]}.
+\vskip0.3cm
+Se hará uso de los métodos y las ventajas que ofrece la biblioteca \texttt{VLCj}, que permite acceder a formatos y códecs actualizados \textbf{[RFV-3,4]}. Se asociará un manejador para poder gestionar los eventos relacionados con el vídeo. La clase manejadora de eventos implementará \texttt{MediaPlayerEventAdapter} y, al igual que el manejador de sonido, habilitará/deshabilitará los botones relacionados con el vídeo \textbf{[RFV-2]}\textbf{[RNF-2]}. 
 %%%%%%%%%%%%%%%%%%%%% IMPLEMENTACION %%%%%%%%%%%%%%%%%%%
 \clearpage
 \section{Implementación}
@@ -690,6 +696,25 @@ El menú \textbf{Ayuda} contendrá la opción \textbf{Acerca de} que lanzará el
  \label{diseño}
  \end{figure}
 \subsection{Gráficos}
+\subsection{Barra de atributos}
+La barra de atributos servirá para seleccionar las características para pintar la próxima figura y para modificarlas. Sin embargo, facilitará su uso al usuario inhabilitando aquellos elementos que no pueden utilizarse con las opciones seleccionadas.
+\vskip0.3cm
+Por ejemplo, no tiene sentido que las opciones de relleno estén activadas cuando estamos dibujando una línea.
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=0.8\textwidth]{graficos/coherencia1.jpg}
+ \caption{Los elementos se activan/desactivan en función de las características de la figura que seleccionamos}
+ \label{diseño}
+ \end{figure}
+ También se lanzarán mensajes de error si intentamos dibujar una figura sin haber seleccionado todos sus argumentos: por ejemplo, si indicamos que la figura está rellena pero no seleccionamos un color de relleno.
+ \begin{figure}[H]
+ \centering
+  \includegraphics[width=0.8\textwidth]{graficos/coherencia2.jpg}
+ \caption{Mensajes de advertencia en el dibujado de las figuras}
+ \label{diseño}
+ \end{figure}
+En este aspecto hay un problema: se ha tenido ciertos problemas con las listas desplegables. En particular, no hay una opción de no línea o línea nula, por lo que aunque al crear o abrir una imagen aparezca seleccionada la opción de línea continua, es necesario seleccionarla para que realmente se inicialice el objeto.\vskip0.3cm
+ Algo parecido pasa con los colores: si se abre el ComboBox, aunque no se seleccione ningún color, si se vuelve a cerrar se seleccionará el color negro. Es necesario hacer clic sobre uno de los colores para que se pueda crear la figura.
 \subsubsection{Selección de una figura}
 Comprobamos que cuando se selecciona una figura, sus atributos se seleccionan automáticamente y correctamente en la barra de herramientas. Para seleccionar una figura, hay que seleccionar la ventana que contiene la imagen en la que está la figura deseada y buscarla en la lista desplegable de figuras.
 \vskip0.3cm
@@ -939,6 +964,7 @@ En primer lugar, comprobamos que puede abrirse correctamente la cámara. Una vez
 \begin{itemize}
 \item{El botón de reproducir no se desactiva aunque esté programado en los manejadores de audio y de vídeo.}
 \item{Mejorar las listas desplegables de relleno y tipo de línea añadiendo dibujos o iconos.}
+\item{Buscar una alternativa para el vídeo disponible para todos los sitemas operativos.}
 \end{itemize}
 
 %\begin{lstlisting}[language=python, caption=Código gradiente descendente, label=lst:graddesc]
@@ -950,7 +976,7 @@ En primer lugar, comprobamos que puede abrirse correctamente la cámara. Una vez
 \begin{thebibliography}{X}
 \bibitem{} Apuntes de la asignatura y guiones de prácticas.\\
 \url{https://decsai.ugr.es}
-\bibitem{} Documentación Java \\ \url{https://docs.oracle.com/javase/7/docs/api/java/awt/image/}
+\bibitem{} Documentación Java \\ \url{https://docs.oracle.com/javase/7/docs/api/java/awt/}
 \bibitem{} Tutoriales para el uso de vlcj \\ \url{http://capricasoftware.co.uk/projects/vlcj-4/tutorials}
 \end{thebibliography}
 \end{document}
