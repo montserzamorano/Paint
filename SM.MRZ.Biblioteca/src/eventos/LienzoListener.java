@@ -59,5 +59,9 @@ public interface LienzoListener extends EventListener{
      * @param evt LienzoEvent
      */    
     public void lienzoSeleccionado(LienzoEvent evt);
+    /**
+     * Gestiona el cierre de un lienzo
+     * @param evt LienzoEvent
+     */    
     public void lienzoCerrado(LienzoEvent evt);
 }

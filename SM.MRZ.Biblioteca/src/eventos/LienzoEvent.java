@@ -11,12 +11,11 @@ import java.util.EventObject;
 import java.util.List;
 
 /**
- *
+ * Clase LienzoEvent. Representa un evento lanzado por el lienzo.
  * @author Montserrat Rodríguez Zamorano
  * @version 1.1
  */
 
-//https://www.javaworld.com/article/2077333/mr-happy-object-teaches-custom-events.html
 
 public class LienzoEvent extends EventObject{
     private Figura figura;
@@ -39,7 +38,23 @@ public class LienzoEvent extends EventObject{
     private Forma formaActiva;
     //alisado
     private boolean alisado;
-    
+    /**
+     * Crea un evento LienzoEvent listener
+     * @param source Object
+     * @param figura Figura figura activa
+     * @param posicion Point2D posición
+     * @param vFiguras List<Figura> lista de figuras
+     * @param colorTrazo Color color de trazo
+     * @param stroke TipoLinea tipo de línea del trazo
+     * @param grosor int grosor de la línea
+     * @param transparencia float grado de transparencia
+     * @param colorRelleno Color color de relleno
+     * @param tipoRelleno TipoRelleno tipo de relleno
+     * @param colorDeg1 Color primer color de degradado
+     * @param colorDeg2 Color segundo color de degradado
+     * @param formaActiva Forma forma activa
+     * @param alisado boolean true/false activado activado
+     */
     public LienzoEvent(Object source, Figura figura, Point2D posicion, List <Figura> vFiguras,
         Color colorTrazo, TipoLinea stroke, int grosor, float transparencia, Color colorRelleno,
         TipoRelleno tipoRelleno, Color colorDeg1, Color colorDeg2, Forma formaActiva, boolean alisado) {
@@ -59,68 +74,68 @@ public class LienzoEvent extends EventObject{
         this.vFiguras = vFiguras;
     }
     /**
-     * 
-     * @return 
+     * Getter.
+     * @return Figura
      */
     public Figura getFigura(){return figura;}
     /**
-     * 
-     * @return 
+     * Getter.
+     * @return Color color de trazo
      */
     public Color getColorTrazo(){return colorTrazo;}
     /**
-     * 
-     * @return 
+     * Getter.
+     * @return Color color de relleno
      */
     public Color getColorRelleno(){return colorRelleno;}
     /**
-     * 
-     * @return 
+     * Getter.
+     * @return Point2D posicion
      */
     public Point2D getPosicion(){return posicion;}
     /**
-     * 
-     * @return 
+     * Getter.
+     * @return List<Figura> vector de figuras
      */
     public List<Figura> getVFiguras(){return vFiguras;}
     /**
-     * 
-     * @return 
+     * Getter.
+     * @return TipoLinea tipo de línea
      */
     public TipoLinea getStroke(){return stroke;}
     /**
-     * 
-     * @return 
+     * Getter.
+     * @return int grosor de la línea
      */
     public int getGrosor(){return grosor;}
     /**
-     * 
-     * @return 
+     * Getter.
+     * @return float grado de transparencia
      */
     public float getTransparencia(){return transparencia;}
     /**
-     * 
-     * @return 
+     * Getter.
+     * @return TipoRelleno tipo de relleno
      */
     public TipoRelleno getTipoRelleno(){return tipoRelleno;}
     /**
-     * 
-     * @return 
+     * Getter.
+     * @return Color primer color de degradado
      */
     public Color getColorDeg1(){return colorDeg1;}
     /**
-     * 
-     * @return 
+     * Getter.
+     * @return Color segundo color de degradado
      */
     public Color getColorDeg2(){return colorDeg2;}
     /**
-     * 
-     * @return 
+     * Getter.
+     * @return Forma forma
      */
     public Forma getForma(){return formaActiva;}
     /**
-     * 
-     * @return 
+     * Getter.
+     * @return boolean true/false alisado activado/desactivado 
      */
     public boolean getAlisado(){return alisado;}
 }

@@ -8,7 +8,8 @@ import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
 /**
- *
+ * Clase RellenoRenderer. Hereda de JLabel. Representa una celda que contiene
+ * un objeto TipoRelleno.
  * @author Montserrat Rodríguez Zamorano
  * @version 1.1
  */

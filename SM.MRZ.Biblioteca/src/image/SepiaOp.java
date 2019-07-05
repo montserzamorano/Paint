@@ -4,7 +4,8 @@ import java.awt.image.BufferedImage;
 import sm.image.BufferedImageOpAdapter;
 
 /**
- *
+ * Clase PurpleOp. Hereda de BufferedImageOpAdapter. Implementa una operación
+ * punto a punto sobre la imagen que da un color sepia a la imagen.
  * @author Montserrat Rodríguez Zamorano
  * @version 1.1
  */

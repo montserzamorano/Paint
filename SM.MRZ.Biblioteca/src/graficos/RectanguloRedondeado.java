@@ -6,28 +6,28 @@ import java.awt.geom.Point2D;
 import java.awt.geom.RoundRectangle2D;
 
 /**
- *
+ * Clase RectanguloRedondeado. Hereda de FiguraRellenable. Representa un
+ * rectángulo con las esquinas redondeadas.
  * @author Montserrat Rodríguez Zamorano
  * @version 1.1
  */
 
 public class RectanguloRedondeado extends FiguraRellenable{
-    //private RoundRectangle2D rectangulo;
     
     /**
     * Constructor
-     * @param pO
-     * @param pF
-    * @param trazo
-    * @param stroke
-     * @param grosor
-    * @param relleno
-     * @param tr
-     * @param deg1
-     * @param deg2
-     * @param transparencia
-     * @param alisado
-    */
+     * @param pO Point2D
+     * @param pF Point2D
+    * @param trazo Color
+    * @param stroke TipoLinea
+     * @param grosor int
+    * @param relleno Color
+     * @param tr TipoRelleno
+     * @param deg1 Color
+     * @param deg2 Color
+     * @param transparencia float
+     * @param alisado boolean true/false si alisado activado/desactivado
+     **/
     public RectanguloRedondeado(Point2D pO, Point2D pF, Color trazo, TipoLinea stroke, int grosor,  
             Color relleno, TipoRelleno tr, Color deg1, Color deg2, 
             float transparencia, boolean alisado){

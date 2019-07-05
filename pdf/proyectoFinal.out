@@ -14,46 +14,46 @@
 \BOOKMARK [2][-]{subsection.4.3}{Ventanas internas}{section.4}% 14
 \BOOKMARK [2][-]{subsection.4.4}{Figura}{section.4}% 15
 \BOOKMARK [2][-]{subsection.4.5}{Gesti\363n de eventos}{section.4}% 16
-\BOOKMARK [2][-]{subsection.4.6}{Procesamiento de im\341genes}{section.4}% 17
-\BOOKMARK [3][-]{subsubsection.4.6.1}{Operador LookUpOp}{subsection.4.6}% 18
-\BOOKMARK [3][-]{subsubsection.4.6.2}{Componente a componente}{subsection.4.6}% 19
-\BOOKMARK [3][-]{subsubsection.4.6.3}{Primera operaci\363n p\355xel a p\355xel}{subsection.4.6}% 20
-\BOOKMARK [2][-]{subsection.4.7}{Segunda operaci\363n p\355xel a p\355xel}{section.4}% 21
-\BOOKMARK [1][-]{section.5}{Implementaci\363n}{}% 22
-\BOOKMARK [2][-]{subsection.5.1}{Ventana principal}{section.5}% 23
-\BOOKMARK [2][-]{subsection.5.2}{VentanaMultimediaImagen}{section.5}% 24
-\BOOKMARK [2][-]{subsection.5.3}{VentanaMultimediaCamara}{section.5}% 25
-\BOOKMARK [2][-]{subsection.5.4}{VentanaMultimediaVLCPlayer}{section.5}% 26
-\BOOKMARK [1][-]{section.6}{Validaci\363n}{}% 27
-\BOOKMARK [2][-]{subsection.6.1}{Generales}{section.6}% 28
-\BOOKMARK [3][-]{subsubsection.6.1.1}{Crear una nueva imagen}{subsection.6.1}% 29
-\BOOKMARK [3][-]{subsubsection.6.1.2}{Abrir un nuevo archivo}{subsection.6.1}% 30
-\BOOKMARK [3][-]{subsubsection.6.1.3}{Guardar un archivo}{subsection.6.1}% 31
-\BOOKMARK [3][-]{subsubsection.6.1.4}{Ocultar barras de herramientas}{subsection.6.1}% 32
-\BOOKMARK [3][-]{subsubsection.6.1.5}{Acerca de}{subsection.6.1}% 33
-\BOOKMARK [2][-]{subsection.6.2}{Gr\341ficos}{section.6}% 34
-\BOOKMARK [3][-]{subsubsection.6.2.1}{Selecci\363n de una figura}{subsection.6.2}% 35
-\BOOKMARK [3][-]{subsubsection.6.2.2}{Editar los atributos de una figura}{subsection.6.2}% 36
-\BOOKMARK [2][-]{subsection.6.3}{Procesamiento de im\341genes}{section.6}% 37
-\BOOKMARK [3][-]{subsubsection.6.3.1}{Duplicar}{subsection.6.3}% 38
-\BOOKMARK [3][-]{subsubsection.6.3.2}{Modificar brillo}{subsection.6.3}% 39
-\BOOKMARK [3][-]{subsubsection.6.3.3}{Filtro de emborronamiento}{subsection.6.3}% 40
-\BOOKMARK [3][-]{subsubsection.6.3.4}{Filtro de enfoque}{subsection.6.3}% 41
-\BOOKMARK [3][-]{subsubsection.6.3.5}{Filtro de relieve}{subsection.6.3}% 42
-\BOOKMARK [3][-]{subsubsection.6.3.6}{Contraste normal}{subsection.6.3}% 43
-\BOOKMARK [3][-]{subsubsection.6.3.7}{Iluminado}{subsection.6.3}% 44
-\BOOKMARK [3][-]{subsubsection.6.3.8}{Oscurecido}{subsection.6.3}% 45
-\BOOKMARK [3][-]{subsubsection.6.3.9}{Invertir colores}{subsection.6.3}% 46
-\BOOKMARK [3][-]{subsubsection.6.3.10}{Conversi\363n a espacios RGB, YCC, GRAY}{subsection.6.3}% 47
-\BOOKMARK [3][-]{subsubsection.6.3.11}{Giro libre}{subsection.6.3}% 48
-\BOOKMARK [3][-]{subsubsection.6.3.12}{Escalado}{subsection.6.3}% 49
-\BOOKMARK [3][-]{subsubsection.6.3.13}{Tintado}{subsection.6.3}% 50
-\BOOKMARK [3][-]{subsubsection.6.3.14}{Ecualizaci\363n}{subsection.6.3}% 51
-\BOOKMARK [3][-]{subsubsection.6.3.15}{Filtro sepia}{subsection.6.3}% 52
-\BOOKMARK [3][-]{subsubsection.6.3.16}{Umbralizaci\363n}{subsection.6.3}% 53
-\BOOKMARK [3][-]{subsubsection.6.3.17}{Operador LookupOp basado en una funci\363n propia}{subsection.6.3}% 54
-\BOOKMARK [3][-]{subsubsection.6.3.18}{Operaci\363n de dise\361o propio: filtro violeta}{subsection.6.3}% 55
-\BOOKMARK [2][-]{subsection.6.4}{Sonido}{section.6}% 56
-\BOOKMARK [2][-]{subsection.6.5}{V\355deo}{section.6}% 57
-\BOOKMARK [3][-]{subsubsection.6.5.1}{WebCam}{subsection.6.5}% 58
-\BOOKMARK [3][-]{subsubsection.6.5.2}{Reproducci\363n de v\355deo}{subsection.6.5}% 59
+\BOOKMARK [2][-]{subsection.4.6}{Procesamiento de im\341genes \(I\)}{section.4}% 17
+\BOOKMARK [2][-]{subsection.4.7}{Procesamiento de im\341genes \(II\)}{section.4}% 18
+\BOOKMARK [3][-]{subsubsection.4.7.1}{Operador LookUpOp}{subsection.4.7}% 19
+\BOOKMARK [3][-]{subsubsection.4.7.2}{Componente a componente}{subsection.4.7}% 20
+\BOOKMARK [3][-]{subsubsection.4.7.3}{Primera operaci\363n p\355xel a p\355xel}{subsection.4.7}% 21
+\BOOKMARK [3][-]{subsubsection.4.7.4}{Segunda operaci\363n p\355xel a p\355xel}{subsection.4.7}% 22
+\BOOKMARK [1][-]{section.5}{Implementaci\363n}{}% 23
+\BOOKMARK [2][-]{subsection.5.1}{Ventana principal}{section.5}% 24
+\BOOKMARK [2][-]{subsection.5.2}{VentanaMultimediaImagen}{section.5}% 25
+\BOOKMARK [2][-]{subsection.5.3}{VentanaMultimediaCamara}{section.5}% 26
+\BOOKMARK [2][-]{subsection.5.4}{VentanaMultimediaVLCPlayer}{section.5}% 27
+\BOOKMARK [1][-]{section.6}{Validaci\363n}{}% 28
+\BOOKMARK [2][-]{subsection.6.1}{Generales}{section.6}% 29
+\BOOKMARK [3][-]{subsubsection.6.1.1}{Crear una nueva imagen}{subsection.6.1}% 30
+\BOOKMARK [3][-]{subsubsection.6.1.2}{Abrir un nuevo archivo}{subsection.6.1}% 31
+\BOOKMARK [3][-]{subsubsection.6.1.3}{Guardar un archivo}{subsection.6.1}% 32
+\BOOKMARK [3][-]{subsubsection.6.1.4}{Ocultar/mostrar barras de herramientas}{subsection.6.1}% 33
+\BOOKMARK [3][-]{subsubsection.6.1.5}{Acerca de}{subsection.6.1}% 34
+\BOOKMARK [2][-]{subsection.6.2}{Gr\341ficos}{section.6}% 35
+\BOOKMARK [3][-]{subsubsection.6.2.1}{Selecci\363n de una figura}{subsection.6.2}% 36
+\BOOKMARK [3][-]{subsubsection.6.2.2}{Editar los atributos de una figura}{subsection.6.2}% 37
+\BOOKMARK [2][-]{subsection.6.3}{Procesamiento de im\341genes}{section.6}% 38
+\BOOKMARK [3][-]{subsubsection.6.3.1}{Duplicar}{subsection.6.3}% 39
+\BOOKMARK [3][-]{subsubsection.6.3.2}{Modificar brillo}{subsection.6.3}% 40
+\BOOKMARK [3][-]{subsubsection.6.3.3}{Filtro de emborronamiento}{subsection.6.3}% 41
+\BOOKMARK [3][-]{subsubsection.6.3.4}{Filtro de enfoque}{subsection.6.3}% 42
+\BOOKMARK [3][-]{subsubsection.6.3.5}{Filtro de relieve}{subsection.6.3}% 43
+\BOOKMARK [3][-]{subsubsection.6.3.6}{Contraste normal}{subsection.6.3}% 44
+\BOOKMARK [3][-]{subsubsection.6.3.7}{Iluminado}{subsection.6.3}% 45
+\BOOKMARK [3][-]{subsubsection.6.3.8}{Oscurecido}{subsection.6.3}% 46
+\BOOKMARK [3][-]{subsubsection.6.3.9}{Invertir colores}{subsection.6.3}% 47
+\BOOKMARK [3][-]{subsubsection.6.3.10}{Conversi\363n a espacios RGB, YCC, GRAY}{subsection.6.3}% 48
+\BOOKMARK [3][-]{subsubsection.6.3.11}{Giro libre}{subsection.6.3}% 49
+\BOOKMARK [3][-]{subsubsection.6.3.12}{Escalado}{subsection.6.3}% 50
+\BOOKMARK [3][-]{subsubsection.6.3.13}{Tintado}{subsection.6.3}% 51
+\BOOKMARK [3][-]{subsubsection.6.3.14}{Ecualizaci\363n}{subsection.6.3}% 52
+\BOOKMARK [3][-]{subsubsection.6.3.15}{Filtro sepia}{subsection.6.3}% 53
+\BOOKMARK [3][-]{subsubsection.6.3.16}{Umbralizaci\363n}{subsection.6.3}% 54
+\BOOKMARK [3][-]{subsubsection.6.3.17}{Operador LookupOp basado en una funci\363n propia}{subsection.6.3}% 55
+\BOOKMARK [3][-]{subsubsection.6.3.18}{Operaci\363n de dise\361o propio: filtro violeta}{subsection.6.3}% 56
+\BOOKMARK [2][-]{subsection.6.4}{Sonido}{section.6}% 57
+\BOOKMARK [2][-]{subsection.6.5}{V\355deo}{section.6}% 58
+\BOOKMARK [3][-]{subsubsection.6.5.1}{WebCam}{subsection.6.5}% 59

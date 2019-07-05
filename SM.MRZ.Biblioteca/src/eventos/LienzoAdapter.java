@@ -1,7 +1,8 @@
 package eventos;
 
 /**
- *
+ * Clase LienzoAdapter. Implementa la interfaz LienzoListener. Adaptará
+ * la interfaz para la clase MiManejadorLienzo.
  * @author Montserrat Rodríguez Zamorano
  * @version 1.1
  */

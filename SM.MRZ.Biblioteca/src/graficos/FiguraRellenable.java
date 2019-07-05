@@ -11,7 +11,8 @@ import java.awt.Shape;
 import java.awt.geom.Point2D;
 
 /**
- *
+ * Clase FiguraRellenable. Hereda de Figura. Representa una figura que puede
+ * rellenarse.
  * @author Montserrat Rodríguez Zamorano
  * @version 1.1
  */
@@ -22,7 +23,20 @@ public abstract class FiguraRellenable extends Figura{
     private TipoRelleno tipoRelleno = null;
     private Color degradado1 = null;
     private Color degradado2 = null;
-    
+    /**
+     * Crea un objeto FiguraRellenable.
+     * @param puntoOrigen Point2D punto de origen
+     * @param puntoFinal Point2D punto final
+     * @param trazo Color color de trazo
+     * @param stroke TipoLinea tipo de trazo
+     * @param grosor int grosor de la línea
+     * @param colorRelleno Color color de relleno
+     * @param tr TipoRelleno tipo de relleno
+     * @param deg1 Color primer color de degradado
+     * @param deg2 Color segundo color de degradado
+     * @param transparencia float grado de transparencia
+     * @param alisado boolean true/false si alisado activado/desactivado
+     */
     public FiguraRellenable(Point2D puntoOrigen, Point2D puntoFinal,
             Color trazo, TipoLinea stroke, int grosor, Color colorRelleno, TipoRelleno tr, 
             Color deg1, Color deg2, float transparencia, boolean alisado){
@@ -32,23 +46,51 @@ public abstract class FiguraRellenable extends Figura{
         degradado1 = deg1;
         degradado2 = deg2;
     }
-    
+    /**
+     * Setter.
+     * @param s Shape nueva figura asociada a la figura rellenable 
+     */
     public void setShape(Shape s){this.s = s;}
+    /**
+     * Getter.
+     * @return Shape figura asociada a la figura rellenable. 
+     */
     public Shape getShape(){return s;}
-    
+    /**
+     * Setter.
+     * @param tipoRelleno TipoRelleno nuevo tipo de relleno asociado a la figura
+     */
     public void setTipoRelleno(TipoRelleno tipoRelleno){
         this.tipoRelleno = tipoRelleno;
     }
-    
+    /**
+     * Getter.
+     * @return TipoRelleno tipo de relleno asociado a la figura
+     */
     public TipoRelleno getTipoRelleno(){return tipoRelleno;}
-    
+    /**
+     * Setter.
+     * @param d Color nuevo primer color de degradado
+     */
     public void setDegradado1(Color d){
         degradado1 = d;
     }
+    /**
+     * Getter.
+     * @return Color primer color de degradado asociado a la figura
+     */
     public Color getDegradado1(){return degradado1;}
+    /**
+     * Setter.
+     * @param d Color segundo color de degradado
+     */
     public void setDegradado2(Color d){
         degradado2 = d;
     }
+    /**
+     * Getter.
+     * @return Color segundo color de degradado
+     */
     public Color getDegradado2(){return degradado2;}
     
     /**
@@ -61,6 +103,9 @@ public abstract class FiguraRellenable extends Figura{
     * @return color color de relleno de la figura
     */
     public Color getColorRelleno(){return colorRelleno;}
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void paint(Graphics2D g){
         super.paint(g);

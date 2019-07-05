@@ -48,6 +48,7 @@ import java.awt.image.LookupOp;
 import java.awt.image.LookupTable;
 import java.awt.image.RescaleOp;
 import java.awt.image.WritableRaster;
+import static java.lang.Math.toRadians;
 import javax.imageio.ImageIO;
 import javax.sound.sampled.LineEvent;
 import javax.sound.sampled.LineListener;
@@ -61,7 +62,9 @@ import uk.co.caprica.vlcj.filter.VideoFileFilter;
 import uk.co.caprica.vlcj.player.MediaPlayer;
 import uk.co.caprica.vlcj.player.MediaPlayerEventAdapter;
 /**
- *
+ * Clase ventana principal. Contiene la vista principal de la aplicación, con
+ * métodos para el procesamiento de imágenes, botones y la gestión de eventos
+ * relacionados con ellos.
  * @author Montserrat Rodríguez Zamorano
  * @version 1.1
  */
@@ -95,9 +98,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
  
         //botones de sonido
         stopRecordBoton.setEnabled(false);
-        //pausaBoton.setEnabled(false);
-        //stopBoton.setEnabled(false);
-        //playBoton.setEnabled(false);
+        pausaBoton.setEnabled(false);
+        stopBoton.setEnabled(false);
+        playBoton.setEnabled(false);
         //procesamiento de imagenes
         disablePI();
         
@@ -107,23 +110,43 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         videoFilter = new FileNameExtensionFilter("Archivos de video", VideoFileFilter.INSTANCE.getExtensions());
         
     }
-    
+    /**
+     * Clase VideoListener.
+     * Hereda de MediaPlayerEventAdapter. Permite manejar eventos generados
+     * por el reproductor VLC.
+     */
     private class VideoListener extends MediaPlayerEventAdapter{
+        /**
+         * {@inheritDoc }
+         */
+        @Override
         public void opening(MediaPlayer mediaPlayer){
             stopBoton.setEnabled(false);
             pausaBoton.setEnabled(false);
             reproducirBoton.setEnabled(true);
         }
+        /**
+         * {@inheritDoc }
+         */
+        @Override
         public void playing(MediaPlayer mediaPlayer){
             stopBoton.setEnabled(false);
             pausaBoton.setEnabled(true);
             reproducirBoton.setEnabled(false);
         }
+        /**
+         * {@inheritDoc }
+         */
+        @Override
         public void paused(MediaPlayer mediaPlayer){
             stopBoton.setEnabled(true);
             pausaBoton.setEnabled(false);
             reproducirBoton.setEnabled(true);
         }
+        /**
+         * {@inheritDoc }
+         */
+        @Override
         public void finished(MediaPlayer mediaPlayer){
             reproducirBoton.setEnabled(true);
             stopBoton.setEnabled(false);
@@ -133,6 +156,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     
     /**
      * Clase MiManejadorLienzo.
+     * Hereda de LienzoAdapter. Permite manejar eventos generados por el
+     * lienzo.
      */
     private class MiManejadorLienzo extends LienzoAdapter{
         /**
@@ -283,7 +308,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             disablePI();
         }
     }
-    
+    /**
+     * Clase ManejadorAudio. 
+     * Hereda de LineListener. Permite manejar eventos generados por el
+     * reproductor de audio.
+     */
     class ManejadorAudio implements LineListener{
 
         @Override
@@ -310,7 +339,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         }
     }
-    
+     /**
+     * Clase ManejadorGrabacion. 
+     * Hereda de LineListener. Permite manejar eventos generados por la
+     * grabadora.
+     */   
     class ManejadorGrabacion implements LineListener{
         @Override
         public void update(LineEvent event) {
@@ -1256,6 +1289,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         cb.addItem(Color.GREEN);
         cb.addItem(Color.WHITE);
         cb.addItem(Color.YELLOW);
+        cb.addItem(Color.CYAN);
+        cb.addItem(Color.ORANGE);
+        cb.addItem(Color.LIGHT_GRAY);
+        cb.addItem(Color.PINK);
         cb.setRenderer(new ColorRenderer());
         cb.setSelectedItem(null);
     }
@@ -1458,6 +1495,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         alisarBoton.setEnabled(true);
         grosorSpinner.setEnabled(true);
         tipoLineaCB.setEnabled(true);
+        playBoton.setEnabled(false);
+        pausaBoton.setEnabled(false);
+        stopBoton.setEnabled(false);
     }
     /**
      * Crea una nueva imagen con un lienzo en blanco.
@@ -1574,7 +1614,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     listaMediaCB.addItem(f);
                 }
                 if(videoFilter.accept(f)){
-                    listaMediaCB.addItem(f);
+                    //listaMediaCB.addItem(f);
                     VentanaMultimediaVLCPlayer vi = new VentanaMultimediaVLCPlayer(f);
                     vi.addMediaPlayerEventListener(new VideoListener());
                     this.escritorio.add(vi);
@@ -2406,6 +2446,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     
                     //añadir nueva ventana interna
                     VentanaMultimediaImagen newVi = new VentanaMultimediaImagen();
+                    //Añadimos el manejador
+                    MiManejadorLienzo manejador = new MiManejadorLienzo();
+                    newVi.getLienzo().addLienzoListener(manejador);
                     escritorio.add(newVi);
                     newVi.setVisible(true);
                     newVi.getLienzo().setImage(imgBanda);
@@ -2447,6 +2490,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     
                 //añadir nueva ventana interna
                 VentanaMultimediaImagen newVi = new VentanaMultimediaImagen();
+                //Añadimos el manejador
+                MiManejadorLienzo manejador = new MiManejadorLienzo();
+                newVi.getLienzo().addLienzoListener(manejador);
                 escritorio.add(newVi);
                 newVi.setVisible(true);
                 newVi.getLienzo().setImage(imgOut);
@@ -2475,7 +2521,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_disenioPropioBotonActionPerformed
     /**
      * Aplica a la imagen de la ventana activa un filtro de media de las 
-     * bandas de colores.
+     * bandas de colores azul y verde.
      * @param evt ActionEvent
      */
     private void disenioPropio2BotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disenioPropio2BotonActionPerformed
@@ -2507,7 +2553,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         //Codigo implemententado f(x) = |cos(wx)|
         byte f[] = new byte[256];
         for(int i=0; i<256; i++){
-            f[i] = (byte)Math.abs(K*Math.cos(w*i)); //coseno
+            f[i] = (byte)Math.abs(K*(Math.cos(w*i))); //coseno
         }
         ByteLookupTable lt = new ByteLookupTable(0,f);
         return lt;
@@ -2522,7 +2568,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             BufferedImage imgSource = vi.getLienzo().getImage(false);
             if(imgSource!=null){
                 try{
-                    LookupTable lt = coseno(180);
+                    LookupTable lt = coseno(0.005);
                     LookupOp lop = new LookupOp(lt, null);
                     //Imagen origen y destino iguales
                     lop.filter(imgSource, imgSource);
@@ -2717,7 +2763,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
             //nueva ventana con la imagen
             VentanaMultimediaImagen vi = new VentanaMultimediaImagen();
-            escritorio.add(vi);
             int h = img.getHeight();
             int w = img.getWidth();
 
@@ -2726,6 +2771,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             vi.getLienzo().setImage(img);
             vi.setTitle("Captura de pantalla");
             vi.setVisible(true);
+            //Añadimos el manejador
+            MiManejadorLienzo manejador = new MiManejadorLienzo();
+            vi.getLienzo().addLienzoListener(manejador);
+            escritorio.add(vi);
         }catch(Exception e){}
     }//GEN-LAST:event_capturaBotonActionPerformed
     /**
@@ -2757,7 +2806,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 //GEN-FIRST:event_xPositionActionPerformed
  
 //GEN-LAST:event_xPositionActionPerformed
-
+    /**
+     * Aplica a la imagen de la ventana activa un filtro potenciador del
+     * color rojo.
+     * @param evt ActionEvent
+     */
     private void disenioPropio3BotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disenioPropio3BotonActionPerformed
         VentanaMultimediaImagen vi = (VentanaMultimediaImagen) escritorio.getSelectedFrame();
         if(vi != null){
@@ -2832,7 +2885,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             ((VentanaMultimediaVLCPlayer) vi).stop();
         }
     }//GEN-LAST:event_stopBotonActionPerformed
-
+    /**
+     * Comienza la grabación de sonido.
+     * @param evt ActionEvent
+     */
     private void recordSonidoBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recordSonidoBotonActionPerformed
         try {
             temp = File.createTempFile("audioTemporal","wav");
@@ -2847,7 +2903,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         recordSonidoBoton.setEnabled(false);
         stopRecordBoton.setEnabled(true);
     }//GEN-LAST:event_recordSonidoBotonActionPerformed
-
+    /**
+     * Detiene la grabación de sonido.
+     * @param evt ActionEvent
+     */
     private void stopRecordBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopRecordBotonActionPerformed
         recorder.stop();
         grabando = false;

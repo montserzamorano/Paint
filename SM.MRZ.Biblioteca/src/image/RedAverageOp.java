@@ -3,7 +3,8 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import sm.image.BufferedImageOpAdapter;
 /**
- * 
+ * Clase RedAverageOp. Hereda de BufferedImageOpAdapter. Implementa una operación
+ * punto a punto sobre la imagen.
  * @author Montserrat Rodríguez Zamorano
  * @version 1.1
  */

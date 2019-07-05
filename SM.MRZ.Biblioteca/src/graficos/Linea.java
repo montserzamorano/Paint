@@ -8,6 +8,7 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 
 /**
+ * Clase Linea. Hereda de FiguraLineal. Representa una línea.
  * @author Montserrat Rodríguez Zamorano
  * @version 1.1
  */
@@ -15,14 +16,14 @@ import java.awt.geom.Point2D;
 public class Linea extends FiguraLineal{
     private Line2D linea;
     /**
-     * 
-     * @param puntoOrigen
-     * @param puntoFinal
-     * @param trazo
-     * @param stroke
-     * @param grosor
-     * @param transparencia
-     * @param alisado 
+     * Crea un objeto de tipo línea.
+     * @param puntoOrigen Point2D punto de origen
+     * @param puntoFinal Point2D punto final
+     * @param trazo Color color del trazo
+     * @param stroke TipoLinea tipo de línea de la figura
+     * @param grosor int grosor de la línea 
+     * @param transparencia float grado de trasparencia
+     * @param alisado boolean true/false si alisado activado/desactivado
      */
     public Linea(Point2D puntoOrigen, Point2D puntoFinal, Color trazo, TipoLinea stroke, int grosor, float transparencia, boolean alisado){
         super(puntoOrigen, puntoFinal, trazo,stroke, grosor, transparencia, alisado);

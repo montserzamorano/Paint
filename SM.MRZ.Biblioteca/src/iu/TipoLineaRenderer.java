@@ -8,7 +8,8 @@ import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
 /**
- *
+ * Clase TipoLineaRenderer. Hereda de JLabel. Representa una celda que contiene
+ * un objeto TipoLinea.
  * @author Montserrat Rodríguez Zamorano
  * @version 1.1
  */

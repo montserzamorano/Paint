@@ -99,7 +99,7 @@ Con este fin, se realiza una aplicación que se llamará \textit{Paint}.
 \item{Rectángulo con esquinas redondeadas.}
 \end{itemize}
 }
-\item{\textbf{[RFD-2]} Mantener todas las figuras que se vayan dibujando.}
+\item{\textbf{[RFD-2]} El lienzo mantendrá todas las figuras que se vayan dibujando.}
 \item{\textbf{[RFD-3]} Elegir el color de trazo de dibujo.
 \begin{itemize}
 \item{Rojo.}
@@ -109,8 +109,8 @@ Con este fin, se realiza una aplicación que se llamará \textit{Paint}.
 \item{Verde.}
 \end{itemize}
 }
-\item{\textbf{[RFD-4]} No rellenar la imagen.}
-\item{\textbf{[RFD-5]} Rellenar con color el dibujo.
+\item{\textbf{[RFD-4]} No rellenar la figura.}
+\item{\textbf{[RFD-5]} Rellenar con color la figura.
 \begin{itemize}
 \item{Rojo.}
 \item{Azul.}
@@ -119,13 +119,20 @@ Con este fin, se realiza una aplicación que se llamará \textit{Paint}.
 \item{Verde.}
 \end{itemize}
 }
-\item{\textbf{[RFD-6]} Seleccionar una figura dibujada.}
-\item{\textbf{[RFD-7]} Editar una figura dibujada.}
-\item{\textbf{[RFD-8]} Mover una figura dibujada.}
-\item{\textbf{[RFD-9]} Consultar los atributos de una figura dibujada.}
-\item{\textbf{[RFD-10]} Asociar un grado de transparencia a una figura.}
+\item{\textbf{[RFD-6]} Colorear con diferentes tipos de relleno la figura.}
+\begin{itemize}
+\item{Degradado horizontal.}
+\item{Degradado vertical.}
+\item{Degradado diagonal.}
+\item{\textbf{[RFD-7]} Seleccionar una figura dibujada.}
+\item{\textbf{[RFD-8]} Editar una figura dibujada.}
+\item{\textbf{[RFD-9]} Mover una figura dibujada.}
+\item{\textbf{[RFD-10]} Consultar la lista de figuras dibujadas.}
+\item{\textbf{[RFD-11]} Consultar los atributos de una figura dibujada.}
+\item{\textbf{[RFD-12]} Asociar un grado de transparencia a una figura.}
 \item{\textbf{[RFD-11]} Activar alisado de bordes de una figura.}
-\item{\textbf{[RFD-12]} Desactivar alisado de bordes de una figura.}
+\item{\textbf{[RFD-13]} Desactivar alisado de bordes de una figura.}
+\end{itemize}
 \end{itemize}
 \subsubsection{Procesamiento de imágenes}
 \begin{itemize}
@@ -154,8 +161,10 @@ Con este fin, se realiza una aplicación que se llamará \textit{Paint}.
 \item{\textbf{[RFPI-17]} Escoger nivel de umbralización.}
 \item{\textbf{[RFPI-18]} Aplicar filtro sepia a una imagen.}
 \item{\textbf{[RFPI-19]} Aplicar filtro violeta a una imagen.}
-\item{\textbf{[RFPI-20]} Aplicar filtro de media entre las bandas de colores.}
-\item{\textbf{[RFPI-21]} Aplicar filtro cosinosuidal.}
+\item{\textbf{[RFPI-20]} Aplicar filtro potenciador del color rojo (diseño propio).}
+\item{\textbf{[RFD-21]} Aplicar filtro media de bandas azul y verde (diseño propio).}
+\item{\textbf{[RFPI-22]} Aplicar filtro cosinosuidal.}
+\item{\textbf{[RFPI-23]} El procesamiento de imágenes no se aplicarán sobre las figuras dibujadas.}
 \end{itemize}
 \subsubsection{Sonido}
 \begin{itemize}
@@ -182,9 +191,10 @@ Con este fin, se realiza una aplicación que se llamará \textit{Paint}.
 \item{\textbf{[RNF-6]} El título de una nueva ventana abierta será el nombre del fichero si se trata de una imagen abierta o guardada.}
 \item{\textbf{[RNF-7]} El título de una nueva ventana abierta será \textit{Nueva} si se trata de una imagen creada por el usuario.}
 \item{\textbf{[RNF-8]} El título de una nueva ventana abierta será \textit{Captura} si se trata de una captura captada de un vídeo o de la WebCam.}
-\item{\textbf{[RNF-9]} La \textit{BoundingBox} será un rectángulo de color azul, con línea discontinua.}
+\item{\textbf{[RNF-9]} La \textit{BoundingBox} será un rectángulo de color azul con cierto grado de transparencia, con línea discontinua.}
 \item{\textbf{[RNF-10]} Cuando se cree una imagen se lanzará un diálogo que permita elegir las dimensiones de la imagen.}
-
+\item{\textbf{[RNF-11]} Se indicará entre corchetes en el título de la ventana el espacio de color en el que está la imagen.}
+\item{\textbf{[RNF-12]} Cuando se extraigan las bandas de una imagen se indicará en el título de la ventana la banda en la que se encuentra.}
 \end{itemize}
 
 \clearpage
@@ -234,6 +244,13 @@ La clase \texttt{Lienzo} heredará de \texttt{JPanel}. Esta clase tendrá asocia
 En el método \texttt{paint} se llamará a \texttt{clip}, de forma que no se mostrará aquello que se pinte fuera de las dimensiones que tenga la imagen.
 \vskip0.3cm
 El lienzo hará uso de las funciones de gestión de eventos que ofrece \textit{Java}.
+\vskip0.3cm
+\begin{figure}
+ \centering
+  \includegraphics[width=1\textwidth]{diagramas/lienzo.png}
+ \caption{Diagrama de clases \texttt{Lienzo}}
+ \label{diseño}
+ \end{figure}
 \subsection{Ventanas internas}
 Se definirá una clase \texttt{VentanaMultimedia} que heredará \texttt{JInternalFrame}. De esta clase derivarán diferentes ventanas en función del archivo multimedia que contengan.
 \begin{itemize}
@@ -244,6 +261,14 @@ Se definirá una clase \texttt{VentanaMultimedia} que heredará \texttt{JInterna
 \subsection{Figura}
 Se definirá una clase abstracta \texttt{Figura}. Esta clase almacenará los atributos de la figura. Las clases \texttt{FiguraRellenable} y \texttt{FiguraLineal} heredarán de \texttt{Figura}. Aunque en este caso no hay más de una figura lineal, este esquema permite que en posteriores versiones se añadan curvas u otro tipo de figuras lineales. De \texttt{FiguraRellenable} heredarán \texttt{Rectangulo},\texttt{Elipse} y \texttt{RectanguloRedondeado}. De \texttt{FiguraLineal} heredará la clase \texttt{Linea}. Cada una de estas clases tendrá asociado un objeto \texttt{Shape}, además de los atributos de las clases de las que hereda.\vskip0.3cm
 Es esta jerarquía de clases la que permite que cada figura tenga sus propios atributos, así como la posibilidad de cambiarlos.
+\vskip0.3cm
+\begin{figure}
+ \centering
+  \includegraphics[width=0.8\textwidth]{diagramas/figura.png}
+ \caption{Diagrama de clases \texttt{Figura}}
+ \label{diseño}
+ \end{figure}
+
 \subsection{Gestión de eventos}
 Se hará uso de las funciones de gestión de eventos que ofrece \textit{Java} para los botones, \texttt{ActionEvent}, \texttt{FocusGained}, \texttt{FocusLost},... Sin embargo, es necesario implementar las funciones para la gestión de eventos en el lienzo, de forma que podamos establecer una comunicación entre lienzo y ventana principal.
 \begin{itemize}
@@ -254,21 +279,76 @@ Se hará uso de las funciones de gestión de eventos que ofrece \textit{Java} pa
 \end{itemize}
 
 \vskip0.3cm
-\begin{figure}[H]
+\begin{figure}
  \centering
   \includegraphics[width=1.1\textwidth]{diagramas/LienzoEvent.png}
  \caption{Diagrama de clases \texttt{LienzoEvent}, \texttt{LienzoListener}, \texttt{LienzoAdapter} y \texttt{MiManejadorLienzo}}
  \label{diseño}
  \end{figure}
 
-\subsection{Procesamiento de imágenes}
+\subsection{Procesamiento de imágenes (I)}
+Este apartado expondrá algunos aspectos generales del procesamiento de imágenes.
+\vskip0.3cm
+Las imágenes serán del tipo \texttt{BufferedImage}, y se contará con la biblioteca \texttt{sm.image}, así como con las funcione ofrecidas por Java. En el lienzo existirá un método \texttt{getImage(boolean)}, que nos devolverá la imagen con las figuras que se han pintado sobre ella (si el parámetro es\texttt{true})o sólo la imagen en caso contrario. Como no es necesario que el procesamiento se aplique sobre las figuras dibujadas, en las funciones relacionadas con el procesamiento de imágenes el valor del parámetro será \texttt{false}.
+\vskip0.3cm
+Para duplicar una imagen será necesario crear una nueva \texttt{BufferedImage}, de forma que no se trate de una referencia a la antigua imagen. Si no fuese una copia, los cambios de una se aplicarían en la otra, de forma que no se estaría duplicando la imagen, sino abriendo la misma en una ventana diferente.
+De forma general, para crear una copia de una imagen se utilizarán los métodos \texttt{getColorModel}, \texttt{copyData} y \texttt{isAlphaPremultiplied} de la clase \texttt{BufferedImage}.
+\vskip0.3cm
+Para modificar el brillo se utilizará la operación \texttt{RescaleOp}. Se hará una copia de la imagen en el lienzo activo, ya que el cambio no será definitivo hasta que se desactive el deslizador (\texttt{FocusLost}).
+\vskip0.3cm
+Para aplicar los filtros de emborronamiento, enfoque y relieve en primer lugar será necesario crear una máscara en función del filtro, haciendo uso de la clase \texttt{KernelProducer} y, una vez creada la máscara, haciendo uso de \texttt{ConvolveOp}. Se hará uso de máscaras predefinidas:
+\begin{itemize}
+\item{\texttt{TYPE\_RELIEVE\_3x3} para el filtro de relieve.}
+\item{\texttt{TYPE\_BINOMIAL\_3x3} para el filtro de emborronamiento.}
+\item{\texttt{TYPE\_ENFOQUE\_3x3} para el filtro de enfoque.}
+\end{itemize}
+\subsection{Procesamiento de imágenes (II)}
+En este apartado nos centraremos en las operaciones de diseño propio. Las operaciones que heredan de \texttt{BufferedImageOp} implementan operaciones punto a punto sobre la imagen, distinguiendo entre:
+\begin{itemize}
+\item{Operaciones píxel a píxel: para asignar el valor de una de las componentes del píxel se necesitará conocer el valor de otras componentes.}
+\item{Operaciones componente a componente: no se necesitará conocer el valor de las otras componentes para asignar el valor de las componentes de un píxel.}
+\end{itemize}
+Para estas operaciones será necesario crear clases propias, en las que se sobrecargará el método \texttt{filter}. Este método tiene como parámetros \texttt{src}, \texttt{dest}, donde \texttt{src} es la imagen sobre la que se aplica el filtro y \texttt{det} la imagen en la que se guardará el resultado de aplicar el filtro.
+\vskip0.3cm
+Como queremos que el filtro se aplique sobre la misma imagen de origen, de forma que las operaciones se apliquen de forma concatenada, \texttt{src} y \texttt{dest} serán la misma imagen.
+\vskip0.3cm
+En el caso de que se defina una transformación sobre los niveles de color haciendo uso de \texttt{LookUpOp}, no será necesaria la creación de una clase propia, pero sí de una función que devuelva el objeto \texttt{LookUpTable} que defina la transformación deseada.
+\vskip0.3cm
+De la misma forma que en el caso anterior, una vez creado el objeto \texttt{LookUpOp}, se utilizará el método \texttt{filter}, donde \texttt{src} y \texttt{dest} serán la misma imagen, para que el filtro se aplique sobre la misma imagen. 
 \subsubsection{Operador \textit{LookUpOp}}
-
+Se definirá la función $f(x) = 255|cos(0.006x)|$, donde $0.06$ será la velocidad angular. De esta forma, será posible predecir el comportamiento de la función, ya que el coseno es una función periódica. Como se puede ver en la gráfica a continuación, predecir el comportamiento de la función sin reducir la velocidad angular sería imposible a simple vista.
+\vskip0.3cm
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=0.4\textwidth]{imagenes/graficaCoseno2.png}
+ \caption{Gráfica $f(x) = 255|cos(x)|$}
+ \label{diseño}
+ \end{figure}
+Se escoge esa velocidad angular porque es lo suficientemente baja como para que no se complete un ciclo. A continuación se pinta la gráfica de $f(x)$. Se puede observar que se parece mucho a la función utilizada para invertir colores pero con $f(x)$ más altos. Se pintan las gráficas juntas para poder compararlas.
+\vskip0.3cm
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=0.4\textwidth]{imagenes/graficaCoseno.png}
+  \includegraphics[width=0.4\textwidth]{imagenes/graficaNegativo.png}
+ \caption{Comparativa gráfica operación definida y gráfica negativo}
+ \label{diseño}
+ \end{figure}
+ Por tanto el resultado esperado será una imagen similar a la que se obtendría invirtiendo los colores, con una mayor iluminación. A continuación puede comprobarse que el resultado obtenido es el esperado.
+ \vskip0.3cm
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=0.3\textwidth]{imagenes/fry.jpg}
+  \includegraphics[width=0.3\textwidth]{imagenes/fryCos.jpg}
+  \includegraphics[width=0.3\textwidth]{imagenes/fryNegativo.jpg}
+ \caption{Comparativa aplicación filtro cosinusoide y filtro negativo}
+ \label{diseño}
+ \end{figure}
 \subsubsection{Componente a componente}
 La función componente a componente modificará cada una de las componentes (R, G, B) de forma separada.\vskip0.3cm
 En este caso se ha implementado un filtro violeta. Para aplicar un tono morado a la imagen, se tendrá en cuenta que la mezcla de rojo y azul es la que da lugar al morado. Por tanto, para obtener el efecto deseado se reducirá el valor de la componente verde y se aumentará el valor de la componente roja y azul.
 \vskip0.3cm
 Además, como se ha aumentado el valor de las componentes de forma significativa, habrá un aumento de la luminosidad en estos colores y de la intensidad de la imagen en general.
+\vskip0.3cm
 \begin{lstlisting}[language=Java, caption=Operación componente a componente, label=lst:graddesc]
 for(int x=0; x<src.getWidth(); x++){
     for(int y=0; y<src.getHeight(); y++){
@@ -360,7 +440,7 @@ for(int x=0; x<src.getWidth(); x++){
  \label{diseño}
  \end{figure} 
 
-\subsection{Segunda operación píxel a píxel}
+\subsubsection{Segunda operación píxel a píxel}
 Esta función es una variante de la primera, en la que se pretende que el filtro anterior no sea a través de las aplicaciones un filtro blanco y negro, sino un filtro que potencie el color rojo. Para ello, simplemente se elimina la componente roja de la media, de forma que los valores azules y verde no convergerán al valor de la componente roja.
 \vskip0.3cm
 \begin{lstlisting}[language=Java, caption=Operación pixel a pixel, label=lst:graddesc]
@@ -429,16 +509,56 @@ A continuación se muestra el resultado de la implementación de las clases dise
  \end{figure}
 
 \subsection{VentanaMultimediaVLCPlayer} 
- No se ha podido obtener la vista.
+ No se ha podido obtener la vista. He tenido problemas para cargar las librerías en mi ordenador con sistema operativo \textit{MacOS}, por lo que intenté probar el programa en un ordenador con un sistema operativo distinto. Se hizo la prueba en un ordenador \textit{Windows} y la reproducción funcionaba, aunque sólo el audio: la terminal mostraba un error relacionado con la tarjeta gráfica.
  %%%%%%%%%%%%%%%%% VALIDACION
 \clearpage
 \section{Validación}
 En este apartado se comprobará que el programa implementado en base a la solución propuesta cumple con los requisitos enumerados en el primer apartado.
 \subsection{Generales}
 \subsubsection{Crear una nueva imagen}
+A la hora de crear una nueva imagen, el usuario podrá escoger las dimensiones del área de dibujo a través de ventanas emergentes. Para crear un archivo se puede tanto pulsar el botón habilitado para ello como acceder desde el menú \textbf{Archivo}.
+\vskip0.3cm
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=0.4\textwidth]{generales/altura.png}
+ \caption{Diálogo para escoger las dimensiones de la nueva imagen}
+ \label{diseño}
+ \end{figure}
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=0.4\textwidth]{generales/nuevo.png}
+ \caption{Crear nuevo archivo}
+ \label{diseño}
+ \end{figure}
 \subsubsection{Abrir un nuevo archivo}
+Para abrir un archivo se puede tanto pulsar el botón habilitado para ello como acceder desde el menú \textbf{Archivo}. Si se abre un archivo de sonido, se añadirá a la lista desplegable de audios, mientras que si se abre una imagen o un vídeo, se abrirá una ventana multimedia que contendrá el archivo deseado.
+\vskip0.3cm
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=0.41\textwidth]{generales/abrirImagen1.png}
+  \includegraphics[width=0.3\textwidth]{generales/abrirImagen2.png}
+ \caption{Abrir una imagen}
+ \label{diseño}
+ \end{figure}
+ \vskip0.3cm
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=0.5\textwidth]{sonido/archivoAbierto.png}
+ \caption{Abrir archivo de sonido}
+ \label{diseño}
+ \end{figure}
 \subsubsection{Guardar un archivo}
-\subsubsection{Ocultar barras de herramientas}
+Para guardar un archivo se puede tanto pulsar el botón habilitado para ello como acceder desde el menú \textbf{Archivo}.
+\subsubsection{Ocultar/mostrar barras de herramientas}
+Será posible ocultar/mostrar las barras de herramientas y de estado haciendo haciendo uso de las checkboxs disponibles en el menú \textbf{Ver}.
+\vskip0.3cm
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=0.3\textwidth]{generales/ocultarBarras1.png}
+  \includegraphics[width=0.3\textwidth]{generales/ocultarBarras2.png}
+ \caption{Ocultar barras de herramientas}
+ \label{diseño}
+ \end{figure}
 \subsubsection{Acerca de}
 El menú \textbf{Ayuda} contendrá la opción \textbf{Acerca de} que lanzará el diálogo con la información del programa.
 \vskip0.3cm
@@ -585,6 +705,13 @@ Para comprobar que la conversión se ha realizado correctamente, se extraen las 
  \label{diseño}
 \end{figure}
 \subsubsection{Escalado}
+\vskip0.3cm
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=0.5\textwidth]{imagenes/escalado.png}
+ \caption{Escalado de la imagen}
+ \label{diseño}
+\end{figure}
 \subsubsection{Tintado}
 \vskip0.3cm
 \begin{figure}[H]
@@ -623,7 +750,6 @@ Para comprobar que la conversión se ha realizado correctamente, se extraen las 
  \label{diseño}
 \end{figure}
 \subsubsection{Operador \textit{LookupOp} basado en una función propia}
-\vskip0.3cm
 \begin{figure}[H]
  \centering
   \includegraphics[width=0.3\textwidth]{imagenes/Fry.jpg}
@@ -649,7 +775,7 @@ A continuación se muestran las funcionalidades del sonido. Como se puede compro
  \caption{Abrir archivo de sonido}
  \label{diseño}
  \end{figure}
-Como puede verse, si el archivo de audio no está reproduciéndose no podrán pulsarse los botones de pausa y de parada.
+Como puede verse, si el archivo de audio no está reproduciéndose no podrán pulsarse el botón de parada. El botón de pausa no estará disponible para el sonido.
 \subsection{Vídeo}
 A continuación se muestran las funcionalidades del vídeo y la cámara. Como se puede comprobar, cuando se activa la WebCam, no estarán activos los botones para el procesamiento de imágenes.
 \subsubsection{WebCam}
@@ -668,8 +794,6 @@ En primer lugar, comprobamos que puede abrirse correctamente la cámara. Una vez
  \caption{Captura de pantalla}
  \label{diseño}
  \end{figure}
-\subsubsection{Reproducción de vídeo}
-No se han podido adjuntar pantallazos de la reproducción de vídeo ya que no ha sido posible realizar dicha validación. He tenido problemas para cargar las librerías en mi ordenador con sistema operativo \textit{MacOS}, por lo que intenté probar el programa en un ordenador con un sistema operativo distinto. Se hizo la prueba en un ordenador \textit{Windows} y la reproducción funcionaba, aunque sólo el audio: la terminal mostraba un error relacionado con la tarjeta gráfica.
 %\section{Bonus}
 
 %\begin{lstlisting}[language=python, caption=Código gradiente descendente, label=lst:graddesc]
@@ -677,8 +801,8 @@ No se han podido adjuntar pantallazos de la reproducción de vídeo ya que no ha
 %\renewcommand{\labelenumi}{\alph{enumi})}
 
 %%BIBLIOGRAFIA%%
-%\clearpage
-%\begin{thebibliography}{X}
-
-%\end{thebibliography}
+\clearpage
+\begin{thebibliography}{X}
+\bibitem{} \url{https://docs.oracle.com/javase/7/docs/api/java/awt/image/}
+\end{thebibliography}
 \end{document}

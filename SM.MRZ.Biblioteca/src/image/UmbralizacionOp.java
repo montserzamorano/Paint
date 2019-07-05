@@ -4,7 +4,10 @@ import java.awt.image.BufferedImage;
 import sm.image.BufferedImageOpAdapter;
 
 /**
- *
+ * Clase PurpleOp. Hereda de BufferedImageOpAdapter. Implementa una operación
+ * punto a punto sobre la imagen que umbraliza la imagen: si la intensidad del
+ * color está por encima del umbral se convertirá en blanco en la imagen
+ * resultante y en negro en caso contrario.
  * @author Montserrat Rodríguez Zamorano
  * @version 1.1
  */
@@ -12,8 +15,8 @@ import sm.image.BufferedImageOpAdapter;
 public class UmbralizacionOp extends BufferedImageOpAdapter{
     private int umbral;
     /**
-     * 
-     * @param umbral 
+     * Crea un objeto UmbralizacionOp
+     * @param umbral int umbral para la umbralización
      */
     public UmbralizacionOp(int umbral){
         this.umbral = umbral;

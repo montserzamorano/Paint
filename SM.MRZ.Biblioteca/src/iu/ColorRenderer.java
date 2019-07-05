@@ -31,6 +31,10 @@ public class ColorRenderer extends JLabel implements ListCellRenderer<Color>{
         if(value == Color.BLACK){setText("Negro");}
         if(value == Color.WHITE){setText("Blanco");}
         if(value == Color.YELLOW){setText("Amarillo");}
+        if(value == Color.CYAN){setText("Cyan");}
+        if(value == Color.ORANGE){setText("Naranja");}
+        if(value == Color.PINK){setText("Rosa");}
+        if(value == Color.LIGHT_GRAY){setText("Gris");}
         Color background;
         Color foreground;
         
