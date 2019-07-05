@@ -1588,7 +1588,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     vi.getLienzo().setImage(img);
                     
                     //al nombre le añadimos el espacio de color
-                    //https://docs.oracle.com/javase/7/docs/api/java/awt/color/ColorSpace.html
                     String espacioColor = "";
                     if(img.getColorModel().getColorSpace().isCS_sRGB()){
                         espacioColor = "[RGB]";
@@ -1689,13 +1688,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             Lienzo l = vi.getLienzo();
             if(l.getFiguraSeleccionada()==null){
                 l.changeAlisadoActivated();
-                if(l.getAlisadoActivated()){eventoLabel.setText("Alisado activado");}
-                else{eventoLabel.setText("Alisado desactivado");}
             }
             else{
                 boolean alisado = !l.getFiguraSeleccionada().getAlisado();
                 l.getFiguraSeleccionada().setAlisado(alisado);
-                eventoLabel.setText("Figura modificada");
                 this.repaint();
    
             }
@@ -1714,12 +1710,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         if(vi != null){
            if(vi.getLienzo().getFiguraSeleccionada()==null){
                vi.getLienzo().setColorTrazo(selectedColor);
-               eventoLabel.setText("Color de trazo " + selectedColor + " seleccionado");
               
            }
            else{
                vi.getLienzo().getFiguraSeleccionada().setColor(selectedColor);
-               eventoLabel.setText("Figura modificada");
                this.repaint();
            }
         }
@@ -1738,12 +1732,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             Color selectedColor = (Color) colorRellenoCB.getSelectedItem();
             if(figuraSeleccionada==null){
                 vi.getLienzo().setColorRelleno(selectedColor);
-                eventoLabel.setText("Figura modificada");
             }
             else{
                 try{
                     ((FiguraRellenable)figuraSeleccionada).setColorRelleno(selectedColor);
-                    eventoLabel.setText("Color de relleno " + selectedColor + " seleccionado");
+                    this.repaint();
                 }catch(Exception e){}
             }
         }
@@ -1762,11 +1755,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             float transp = (float) (this.transparenciaSlider.getValue()*0.01);
             if(figuraSeleccionada==null){
                 lienzo.setTransparencia(transp);
-                eventoLabel.setText("Transparencia activada");
             }
             else{
                 figuraSeleccionada.setTransparencia(transp);
-                eventoLabel.setText("Figura modificada");
+                this.repaint();
             }
         }
     }//GEN-LAST:event_transparenciaSliderStateChanged
@@ -1783,11 +1775,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             Lienzo lienzo = vi.getLienzo();
             if(lienzo.getFiguraSeleccionada()==null){
                 vi.getLienzo().setGrosor(grosor);
-                eventoLabel.setText("Grosor activado " + grosor);
             }
             else{
                 lienzo.getFiguraSeleccionada().setGrosor(grosor);
-                eventoLabel.setText("Figura modificada");
                 this.repaint();
             }
         }
@@ -1809,12 +1799,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             setOpcionesRelleno(tipoRelleno);
             if(figuraSeleccionada==null){
                 vi.getLienzo().setTipoRelleno(tipoRelleno);
-                eventoLabel.setText("Relleno " + tipoRelleno + " activado");
             }
             else{//si hay una figura seleccionada
                 //no se comprueba si es figura rellenable porque inhabilitamos los CB cuando es figura lineal
                 ((FiguraRellenable)figuraSeleccionada).setTipoRelleno(tipoRelleno);
-                eventoLabel.setText("Figura modificada");
+                this.repaint();
             }
         }
     }//GEN-LAST:event_tipoRellenoCBActionPerformed
@@ -1832,12 +1821,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             Figura figuraSeleccionada = lienzo.getFiguraSeleccionada();
             if(figuraSeleccionada==null){
                 vi.getLienzo().setColorDeg1(selectedColor);
-                eventoLabel.setText("Color de degradado " + selectedColor + " activado");
             }
             else{//si hay una figura seleccionada
                 //no se comprueba si es figura rellenable porque inhabilitamos los CB cuando es figura lineal
                 ((FiguraRellenable)figuraSeleccionada).setDegradado1(selectedColor);
-                eventoLabel.setText("Figura modificada");
                 this.repaint();
             }
         }
@@ -1856,12 +1843,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             Figura figuraSeleccionada = lienzo.getFiguraSeleccionada();
             if(figuraSeleccionada==null){
                 vi.getLienzo().setColorDeg2(selectedColor);
-                eventoLabel.setText("Color de degradado " + selectedColor + " activado");
             }
             else{//si hay una figura seleccionada
                 //no se comprueba si es figura rellenable porque inhabilitamos los CB cuando es figura lineal
                 ((FiguraRellenable)figuraSeleccionada).setDegradado2(selectedColor);
-                 eventoLabel.setText("Figura modificada");
                 this.repaint();
             }
         }

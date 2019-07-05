@@ -14,7 +14,7 @@ import javax.swing.ListCellRenderer;
 
 public class ColorRenderer extends JLabel implements ListCellRenderer<Color>{
     /**
-     * 
+     * Crea un nuevo objeto ColorRenderer.
      */
     public ColorRenderer(){
         setOpaque(true);

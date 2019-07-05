@@ -43,7 +43,7 @@ public class LienzoEvent extends EventObject{
      * @param source Object
      * @param figura Figura figura activa
      * @param posicion Point2D posición
-     * @param vFiguras List<Figura> lista de figuras
+     * @param vFiguras List Figura lista de figuras
      * @param colorTrazo Color color de trazo
      * @param stroke TipoLinea tipo de línea del trazo
      * @param grosor int grosor de la línea
@@ -95,7 +95,7 @@ public class LienzoEvent extends EventObject{
     public Point2D getPosicion(){return posicion;}
     /**
      * Getter.
-     * @return List<Figura> vector de figuras
+     * @return List Figura vector de figuras
      */
     public List<Figura> getVFiguras(){return vFiguras;}
     /**

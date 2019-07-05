@@ -101,7 +101,7 @@ public class Lienzo extends javax.swing.JPanel {
     }
     /**
      * Getter.
-     * @return List <Figura> lista de figuras almacenadas en el lienzo. 
+     * @return List Figura lista de figuras almacenadas en el lienzo. 
      */
     public List <Figura> getvFiguras(){return vFiguras;}
     /**
@@ -131,7 +131,7 @@ public class Lienzo extends javax.swing.JPanel {
     public Forma getForma(){return formaActiva;}
     /**
      * Setter.
-     * @param forma 
+     * @param forma Forma nueva forma activa
      */
     public void setForma(Forma forma){formaActiva = forma;}
     /**
