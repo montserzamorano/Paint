@@ -517,6 +517,7 @@ public class Lienzo extends javax.swing.JPanel {
         if(f!=null){
             addFigura(f);
         }
+        setFiguraSeleccionada(null);
     }//GEN-LAST:event_formMousePressed
     /**
      * 

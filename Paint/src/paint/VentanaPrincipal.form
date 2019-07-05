@@ -145,7 +145,7 @@
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
   <SubComponents>
-    <Container class="javax.swing.JToolBar" name="barraSuperiorTB">
+    <Container class="javax.swing.JToolBar" name="playBoton">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="null"/>
@@ -562,15 +562,12 @@
         </Component>
         <Component class="javax.swing.JToolBar$Separator" name="jSeparator3">
         </Component>
-        <Component class="javax.swing.JToggleButton" name="recordSonidoBoton">
+        <Component class="javax.swing.JButton" name="recordSonidoBoton">
           <Properties>
-            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-              <ComponentRef name="sonidoBG"/>
-            </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/iconos/nuevos/mic.png"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Iniciar grabaci&#xf3;n"/>
+            <Property name="toolTipText" type="java.lang.String" value="Comenzar grabaci&#xf3;n"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
@@ -579,15 +576,12 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="recordSonidoBotonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JToggleButton" name="stopRecordBoton">
+        <Component class="javax.swing.JButton" name="stopRecordBoton">
           <Properties>
-            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-              <ComponentRef name="sonidoBG"/>
-            </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/iconos/nuevos/stopmic.png"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Finalizar grabaci&#xf3;n"/>
+            <Property name="toolTipText" type="java.lang.String" value="Detener grabaci&#xf3;n"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
@@ -616,11 +610,8 @@
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;File&gt;"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JToggleButton" name="reproducirSonidoBoton">
+        <Component class="javax.swing.JButton" name="reproducirBoton">
           <Properties>
-            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-              <ComponentRef name="sonidoBG"/>
-            </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/iconos/nuevos/play.png"/>
             </Property>
@@ -630,31 +621,25 @@
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="reproducirSonidoBotonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="reproducirBotonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JToggleButton" name="pausaSonidoBoton">
+        <Component class="javax.swing.JButton" name="pausaBoton">
           <Properties>
-            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-              <ComponentRef name="sonidoBG"/>
-            </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/iconos/nuevos/pause.png"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Pausa"/>
+            <Property name="toolTipText" type="java.lang.String" value="Pause"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pausaSonidoBotonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pausaBotonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JToggleButton" name="stopSonidoBoton">
+        <Component class="javax.swing.JButton" name="stopBoton">
           <Properties>
-            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-              <ComponentRef name="sonidoBG"/>
-            </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/iconos/nuevos/stop.png"/>
             </Property>
@@ -664,7 +649,7 @@
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="stopSonidoBotonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="stopBotonActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
@@ -995,7 +980,9 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="pixelLabel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="1525" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="152" max="-2" attributes="0"/>
+                  <Component id="colorPixelLabel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="1373" max="32767" attributes="0"/>
                   <Component id="eventoLabel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -1008,6 +995,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="eventoLabel" min="-2" max="-2" attributes="0"/>
                       <Component id="pixelLabel" min="-2" max="-2" attributes="0"/>
+                      <Component id="colorPixelLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -1018,6 +1006,8 @@
         <Component class="javax.swing.JLabel" name="pixelLabel">
         </Component>
         <Component class="javax.swing.JLabel" name="eventoLabel">
+        </Component>
+        <Component class="javax.swing.JLabel" name="colorPixelLabel">
         </Component>
       </SubComponents>
     </Container>

@@ -40,10 +40,10 @@ public class Paint {
             java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        boolean ok = new NativeDiscovery().discover();
+        //boolean ok = new NativeDiscovery().discover();
 
-        if(ok) System.out.println("VLC cargada");
-        else System.out.println("Error en VLC");
+        //if(ok) System.out.println("VLC cargada");
+        //else System.out.println("Error en VLC");
 
         
         /* Create and display the form */

@@ -161,14 +161,16 @@ Con este fin, se realiza una aplicación que se llamará \textit{Paint}.
 \begin{itemize}
 \item{\textbf{[RFS-1]} Reproducir audios.}
 \item{\textbf{[RFS-2]} Grabar sonidos.}
-\item{\textbf{[RFS-3]} Pausar la reproducción.}
-\item{\textbf{[RFS-4]} Parar la grabación.}
-\item{\textbf{[RFS-5]} Parar la reproducción.}
+\item{\textbf{[RFS-3]} Parar la grabación.}
+\item{\textbf{[RFS-4]} Parar la reproducción.}
 \end{itemize}
 \subsubsection{Vídeo}
 \begin{itemize}
 \item{\textbf{[RFV-1]} Mostrar la secuencia que capte la Webcam.}
 \item{\textbf{[RFV-2]} Capturar una imagen desde la Webcam.}
+\item{\textbf{[RFV-3]} Comenzar la reproducción de un vídeo.}
+\item{\textbf{[RFV-4]} Parar la reproducción de un vídeo.}
+\item{\textbf{[RFV-5]} Pausar la reproducción de un vídeo.}
 \end{itemize}
 \subsection{Requisitos no funcionales}
 \begin{itemize}
@@ -208,12 +210,14 @@ Para intentar mejorar el diseño de esta clase, en lugar de que las formas hered
 Uno de los métodos que tendrá que implementar en cada clase por separado será \textit{setLocation}. En principio se pretendía aprovechar el método que proporcionaba \texttt{Graphics}, pero se ha optado por implementarlo en cada clase de forma manual, ya que para \texttt{Rectangle2D} y \texttt{Ellipse2D} no está disponible el uso de esta función.
 \vskip0.3cm
 En cuanto al manejo de eventos, se usará en muchas ocasiones las funciones que ofrece Java para la gestión de eventos (por ejemplo, para el uso de botones en la ventana principal). Sin embargo, para la comunicación entre el lienzo y la ventana principal será necesario crear una clase manejadora para la gestión de eventos relacionados con el lienzo. La existencia de esta clase permitirá por ejemplo informar de la falta de atributos necesarios para el dibujo de las figuras y poder lanzar mensajes de error desde la ventana principal (por ejemplo: no se ha seleccionado una forma de dibujo) o informar a la ventana principal de la creación de una nueva figura, para que aparezca en una lista desplegable de figuras seleccionables. 
+\vskip0.3cm
+Para terminar, los requisitos de sonido y vídeo están cubiertos por las bibliotecas proporcionadas por el profesor, por lo que no se necesitará desarrollar ninguna clase adicional.
 %%%%%%%%%%%%%%%%%%% DISEÑO %%%%%%%%%%%%%%%%
 \clearpage
 \section{Diseño}
 Siguiendo la propuesta que se ha planteado en el análisis, se plantea las siguientes jerarquías de clases. Mientras la propuesta anterior intentaba ser independiente del lenguaje de programación, en este apartado se especifican aspectos concretos de la implementación en \textit{Java}.
 \vskip0.3cm
-Se hará una descripción general, pero para más detalles se pueden consultar los diagramas de clase.
+Se intentará dar una descripción general, pero para más detalles es preferible consultar los diagramas de clase.
 \subsection{VentanaPrincipal}
 La clase \texttt{VentanaPrincipal} implementará la visión principal del programa. Heredará de \texttt{JFrame} y contendrá múltiples elementos \texttt{Swing}:
 \begin{itemize}
@@ -224,9 +228,12 @@ La clase \texttt{VentanaPrincipal} implementará la visión principal del progra
 \item{\textbf{Botones \texttt{JButton}:} En el caso de por ejemplo, los filtros, no tiene demasiado interés que un botón quede seleccionado, por lo que para la mayoría de las operaciones de procesamiento de imágenes se utilizará este tipo de botones.}
 \item{\textbf{Escritorio:} se trata de un elemento del tipo \texttt{JDesktopPane}. Este escritorio será aquel que contendrá las ventanas multimedia de distintos tipos.}
 \end{itemize}
-
 \subsection{Lienzo}
-
+La clase \texttt{Lienzo} heredará de \texttt{JPanel}. Esta clase tendrá asociados los atributos con los que se pintará la siguiente figura, así como un vector de las figuras dibujadas. El lienzo será también el que se encargue de pintar las figuras a través del método \texttt{paint}, así como de guardar la figura seleccionada y de pintar la bounding box.  
+\vskip0.3cm
+En el método \texttt{paint} se llamará a \texttt{clip}, de forma que no se mostrará aquello que se pinte fuera de las dimensiones que tenga la imagen.
+\vskip0.3cm
+El lienzo hará uso de las funciones de gestión de eventos que ofrece \textit{Java}.
 \subsection{Ventanas internas}
 Se definirá una clase \texttt{VentanaMultimedia} que heredará \texttt{JInternalFrame}. De esta clase derivarán diferentes ventanas en función del archivo multimedia que contengan.
 \begin{itemize}
@@ -238,13 +245,22 @@ Se definirá una clase \texttt{VentanaMultimedia} que heredará \texttt{JInterna
 Se definirá una clase abstracta \texttt{Figura}. Esta clase almacenará los atributos de la figura. Las clases \texttt{FiguraRellenable} y \texttt{FiguraLineal} heredarán de \texttt{Figura}. Aunque en este caso no hay más de una figura lineal, este esquema permite que en posteriores versiones se añadan curvas u otro tipo de figuras lineales. De \texttt{FiguraRellenable} heredarán \texttt{Rectangulo},\texttt{Elipse} y \texttt{RectanguloRedondeado}. De \texttt{FiguraLineal} heredará la clase \texttt{Linea}. Cada una de estas clases tendrá asociado un objeto \texttt{Shape}, además de los atributos de las clases de las que hereda.\vskip0.3cm
 Es esta jerarquía de clases la que permite que cada figura tenga sus propios atributos, así como la posibilidad de cambiarlos.
 \subsection{Gestión de eventos}
-Se hará uso de las funciones de gestión de eventos que ofrece \textit{Java}. Sin embargo, es necesario implementar las funciones para la gestión de eventos en el lienzo, de forma que podamos establecer una comunicación entre lienzo y ventana principal.
+Se hará uso de las funciones de gestión de eventos que ofrece \textit{Java} para los botones, \texttt{ActionEvent}, \texttt{FocusGained}, \texttt{FocusLost},... Sin embargo, es necesario implementar las funciones para la gestión de eventos en el lienzo, de forma que podamos establecer una comunicación entre lienzo y ventana principal.
 \begin{itemize}
-\item{\textbf{LienzoEvent:}}
-\item{\textbf{LienzoListener:}}
-\item{\textbf{LienzoAdapter:}}
-\item{\textbf{MiManejadorLienzo:}}
+\item{\textbf{LienzoEvent:} representa un evento lanzado por un objeto \texttt{Lienzo}. Heredará de la clase \texttt{EventObject} y tendrá asociados gran parte de los atributos de la clase \texttt{Lienzo}.}
+\item{\textbf{LienzoListener:} interfaz que hereda de \texttt{EventListener}. Definirá las distintas causas que generan el evento. Por ejemplo, el movimiento del ratón.}
+\item{\textbf{LienzoAdapter:} clase que implementa la interfaz \texttt{LienzoListener} y de la que heredará \texttt{MiManejadorLienzo}, de ahí el nombre de \textit{Adapter}.}
+\item{\textbf{MiManejadorLienzo:} hereda de \texttt{LienzoListener}. Será necesario asociar un manejador a cada uno de los lienzos. Esta clase estará implementada dentro de \texttt{VentanaPrincipal} y será la que modificará los elementos \texttt{Swing} cuando el lienzo lance un evento. Por ejemplo: si se añade una figura en el lienzo, la barra de estado de la ventana principal indicará que se ha añadido dicha figura.}
 \end{itemize}
+
+\vskip0.3cm
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=1.1\textwidth]{diagramas/LienzoEvent.png}
+ \caption{Diagrama de clases \texttt{LienzoEvent}, \texttt{LienzoListener}, \texttt{LienzoAdapter} y \texttt{MiManejadorLienzo}}
+ \label{diseño}
+ \end{figure}
+
 \subsection{Procesamiento de imágenes}
 \subsubsection{Operador \textit{LookUpOp}}
 
@@ -393,20 +409,78 @@ A continuación se muestra el resultado de la implementación de las clases dise
  \label{diseño}
  \end{figure}
  
-\subsection{VentanaImagen}
+\subsection{VentanaMultimediaImagen}
 \vskip0.3cm
 \begin{figure}[H]
  \centering
   \includegraphics[width=0.7\textwidth]{graficos/ventanaImagen.jpg}
- \caption{Vista \texttt{VentanaImagen}}
+ \caption{Vista \texttt{VentanaMultimediaImagen}}
  \label{diseño}
  \end{figure}
+
+\subsection{VentanaMultimediaCamara}
+ 
+\vskip0.3cm
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=0.8\textwidth]{video/webcam.jpg}
+ \caption{Vista \texttt{VentanaMultimediaCamara}}
+ \label{diseño}
+ \end{figure}
+
+\subsection{VentanaMultimediaVLCPlayer} 
+ No se ha podido obtener la vista.
  %%%%%%%%%%%%%%%%% VALIDACION
 \clearpage
 \section{Validación}
 En este apartado se comprobará que el programa implementado en base a la solución propuesta cumple con los requisitos enumerados en el primer apartado.
+\subsection{Generales}
+\subsubsection{Crear una nueva imagen}
+\subsubsection{Abrir un nuevo archivo}
+\subsubsection{Guardar un archivo}
+\subsubsection{Ocultar barras de herramientas}
+\subsubsection{Acerca de}
+El menú \textbf{Ayuda} contendrá la opción \textbf{Acerca de} que lanzará el diálogo con la información del programa.
+\vskip0.3cm
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=0.3\textwidth]{generales/ayuda2.png}
+  \includegraphics[width=0.3\textwidth]{generales/ayuda1.png}
+ \caption{Diálogo con el nombre del programa, versión y autor}
+ \label{diseño}
+ \end{figure}
 \subsection{Gráficos}
+\subsubsection{Selección de una figura}
+Comprobamos que cuando se selecciona una figura, sus atributos se seleccionan automáticamente y correctamente en la barra de herramientas. Para seleccionar una figura, hay que seleccionar la ventana que contiene la imagen en la que está la figura deseada y buscarla en la lista desplegable de figuras.
+\vskip0.3cm
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=0.8\textwidth]{graficos/seleccionFigura.jpg}
+ \caption{Selección de una figura}
+ \label{diseño}
+ \end{figure}
+ \subsubsection{Editar los atributos de una figura}
+ Se comprueba que pueden modificarse las propiedades de una figura. Para hacerlo, solo hay que seleccionar la figura a modificar y seleccionar los atributos deseados.
+ \vskip0.3cm
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=0.4\textwidth]{graficos/cambioAtributos1.png}
+  \includegraphics[width=0.4\textwidth]{graficos/cambioAtributos2.png}
+ \caption{Cambio de atributos de una imagen}
+ \label{diseño}
+ \end{figure}
+\vskip0.3cm
+La posición es un atributo más de la figura. Como se puede ver, se puede seleccionar la figura y moverla. Para ello hay que introducir la posición en los campos de texto habilitados para ello (señalados en la imagen con el círculo amarillo).
+ \vskip0.3cm
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=0.4\textwidth]{graficos/mover1.png}
+  \includegraphics[width=0.4\textwidth]{graficos/mover2.jpg}
+ \caption{Mover figura}
+ \label{diseño}
+ \end{figure}
 \subsection{Procesamiento de imágenes}
+A continuación se probarán los diferentes filtros disponibles en la aplicación.
 \subsubsection{Duplicar}
 Se comprobará si la duplicación de la imagen se ha realizado correctamente, de forma que si se modifica una, los cambios no se aplican en la otra.
 \vskip0.3cm
@@ -567,8 +641,17 @@ Para comprobar que la conversión se ha realizado correctamente, se extraen las 
  \label{diseño}
  \end{figure}
 \subsection{Sonido}
+A continuación se muestran las funcionalidades del sonido. Como se puede comprobar, cuando se activa el sonido, no estarán activos los botones para el procesamiento de imágenes.
+\vskip0.3cm
+\begin{figure}[H]
+ \centering
+  \includegraphics[width=0.5\textwidth]{sonido/archivoAbierto.png}
+ \caption{Abrir archivo de sonido}
+ \label{diseño}
+ \end{figure}
+Como puede verse, si el archivo de audio no está reproduciéndose no podrán pulsarse los botones de pausa y de parada.
 \subsection{Vídeo}
-A continuación se muestran las funcionalidades del vídeo y la cámara.
+A continuación se muestran las funcionalidades del vídeo y la cámara. Como se puede comprobar, cuando se activa la WebCam, no estarán activos los botones para el procesamiento de imágenes.
 \subsubsection{WebCam}
 En primer lugar, comprobamos que puede abrirse correctamente la cámara. Una vez hecho esto, se comprobará si se realizan las capturas de pantalla correctamente. Si no hay ventana de cámara abierta, no se podrá sacar ninguna captura de pantalla.
 \vskip0.3cm
@@ -585,6 +668,8 @@ En primer lugar, comprobamos que puede abrirse correctamente la cámara. Una vez
  \caption{Captura de pantalla}
  \label{diseño}
  \end{figure}
+\subsubsection{Reproducción de vídeo}
+No se han podido adjuntar pantallazos de la reproducción de vídeo ya que no ha sido posible realizar dicha validación. He tenido problemas para cargar las librerías en mi ordenador con sistema operativo \textit{MacOS}, por lo que intenté probar el programa en un ordenador con un sistema operativo distinto. Se hizo la prueba en un ordenador \textit{Windows} y la reproducción funcionaba, aunque sólo el audio: la terminal mostraba un error relacionado con la tarjeta gráfica.
 %\section{Bonus}
 
 %\begin{lstlisting}[language=python, caption=Código gradiente descendente, label=lst:graddesc]
